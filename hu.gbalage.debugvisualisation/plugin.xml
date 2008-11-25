@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="hu.gbalage.debugvisualisation.layoutalgorithm" name="Debug visualisation Layout algorithm" schema="schema/hu.gbalage.debugvisualisation.layoutalgorithm.exsd"/>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.debug.ui"
+            class="hu.gbalage.debugvisualisation.DebugVisualisation"
+            icon="icons/sample.gif"
+            id="hu.gbalage.debugvisualisation.view1"
+            name="Debug Visualisation"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
