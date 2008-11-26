@@ -17,6 +17,9 @@
          </appinfo>
       </annotation>
       <complexType>
+         <sequence>
+            <element ref="layout_algorithm" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
@@ -46,7 +49,7 @@
 
    <element name="layout_algorithm">
       <complexType>
-         <attribute name="name" type="string">
+         <attribute name="name" type="string" use="required">
             <annotation>
                <documentation>
                   
@@ -61,6 +64,13 @@
                <appinfo>
                   <meta.attribute kind="java" basedOn=":hu.gbalage.debugvisualisation.layouts.ILayoutAlgorithmCreator"/>
                </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
             </annotation>
          </attribute>
       </complexType>

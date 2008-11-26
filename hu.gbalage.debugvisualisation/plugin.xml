@@ -13,5 +13,15 @@
             restorable="true">
       </view>
    </extension>
+   <extension
+         id="hu.gbalage.debugvisualisation.layouts.builtin"
+         name="Builtin Layouts"
+         point="hu.gbalage.debugvisualisation.layoutalgorithm">
+      <layout_algorithm
+            class="hu.gbalage.debugvisualisation.layouts.TreeLayoutCreator"
+            id="hu.gbalage.debugvisualisation.layout.treelayout"
+            name="Tree Layout">
+      </layout_algorithm>
+   </extension>
 
 </plugin>
