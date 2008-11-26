@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/DebugVisualisationFeature_0.1.0.jar" id="DebugVisualisationFeature" version="0.1.0"/>
+   <feature url="features/DebugVisualisationFeature_0.1.2.jar" id="DebugVisualisationFeature" version="0.1.2">
+      <category name="debug"/>
+   </feature>
+   <category-def name="debug" label="Debug"/>
 </site>
