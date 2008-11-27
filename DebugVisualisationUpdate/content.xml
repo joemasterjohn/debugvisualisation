@@ -3,9 +3,9 @@
 <repository name='file:/home/balage/workspaces/eclipse/DebugVisualisationUpdate/ - metadata' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1.0.0'>
   <properties size='2'>
     <property name='p2.compressed' value='false'/>
-    <property name='p2.timestamp' value='1227695924437'/>
+    <property name='p2.timestamp' value='1227800852617'/>
   </properties>
-  <units size='12'>
+  <units size='15'>
     <unit id='tooling.source.default' version='1.0.0' singleton='false'>
       <hostRequirements size='1'>
         <required namespace='org.eclipse.equinox.p2.eclipse.type' name='source' range='0.0.0' optional='true' multiple='true' greedy='false'/>
@@ -470,6 +470,109 @@
         </required>
       </requires>
       <touchpoint id='null' version='0.0.0'/>
+      <licenses size='1'>
+        <license url='http://www.example.com/license'>
+          [Enter License Description here.]
+        </license>
+      </licenses>
+      <copyright url='http://www.example.com/copyright'>
+        [Enter Copyright Description here.]
+      </copyright>
+    </unit>
+    <unit id='DebugVisualisationFeature.feature.group' version='0.3.0' singleton='false'>
+      <update id='DebugVisualisationFeature.feature.group' range='[0.0.0,0.3.0)' severity='0'/>
+      <properties size='4'>
+        <property name='org.eclipse.equinox.p2.name' value='Debug Visualisation'/>
+        <property name='org.eclipse.equinox.p2.description' value='[Enter Feature Description here.]'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://www.example.com/description'/>
+        <property name='org.eclipse.equinox.p2.type.group' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='DebugVisualisationFeature.feature.group' version='0.3.0'/>
+      </provides>
+      <requires size='11'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.debug.core' range='3.3.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.debug.ui' range='3.3.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.zest.core' range='1.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.boot' range='3.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.resources.source' range='3.3.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.runtime' range='3.3.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui' range='3.3.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.zest.layouts' range='1.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.osgi' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='hu.gbalage.debugvisualisation' range='[0.3.0,0.3.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='DebugVisualisationFeature.feature.jar' range='[0.3.0,0.3.0]'>
+          <filter>
+            (org.eclipse.update.install.features=true)
+          </filter>
+        </required>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <licenses size='1'>
+        <license url='http://www.example.com/license'>
+          [Enter License Description here.]
+        </license>
+      </licenses>
+      <copyright url='http://www.example.com/copyright'>
+        [Enter Copyright Description here.]
+      </copyright>
+    </unit>
+    <unit id='hu.gbalage.debugvisualisation' version='0.3.0'>
+      <update id='hu.gbalage.debugvisualisation' range='[0.0.0,0.3.0)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='Debug Visualisation Plug-in'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='hu.gbalage.debugvisualisation' version='0.3.0'/>
+        <provided namespace='osgi.bundle' name='hu.gbalage.debugvisualisation' version='0.3.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='6'>
+        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.debug.core' range='3.4.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.debug.ui' range='3.4.1'/>
+        <required namespace='osgi.bundle' name='org.eclipse.zest.core' range='1.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.zest.layouts' range='1.0.0'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='hu.gbalage.debugvisualisation' version='0.3.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-ManifestVersion: 2&#xA;Bundle-ActivationPolicy: lazy&#xA;Bundle-Name: Debug Visualisation Plug-in&#xA;Bundle-Version: 0.3.0&#xA;Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.debug.core;bundle-version=&quot;3.4.0&quot;,org.eclipse.debug.ui;bundle-version=&quot;3.4.1&quot;,org.eclipse.zest.core;bundle-version=&quot;1.0.0&quot;,org.eclipse.zest.layouts;bundle-version=&quot;1.0.0&quot;&#xA;Bundle-RequiredExecutionEnvironment: J2SE-1.5&#xA;Bundle-SymbolicName: hu.gbalage.debugvisualisation;singleton:=true&#xA;Manifest-Version: 1.0&#xA;Bundle-Activator: hu.gbalage.debugvisualisation.Activator&#xA;
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='DebugVisualisationFeature.feature.jar' version='0.3.0'>
+      <update id='DebugVisualisationFeature.feature.jar' range='[0.0.0,0.3.0)' severity='0'/>
+      <properties size='3'>
+        <property name='org.eclipse.equinox.p2.name' value='Debug Visualisation'/>
+        <property name='org.eclipse.equinox.p2.description' value='[Enter Feature Description here.]'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://www.example.com/description'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='DebugVisualisationFeature.feature.jar' version='0.3.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
+        <provided namespace='org.eclipse.update.feature' name='DebugVisualisationFeature' version='0.3.0'/>
+      </provides>
+      <filter>
+        (org.eclipse.update.install.features=true)
+      </filter>
+      <artifacts size='1'>
+        <artifact classifier='org.eclipse.update.feature' id='DebugVisualisationFeature' version='0.3.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
       <licenses size='1'>
         <license url='http://www.example.com/license'>
           [Enter License Description here.]
