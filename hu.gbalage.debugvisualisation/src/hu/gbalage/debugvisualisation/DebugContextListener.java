@@ -3,6 +3,8 @@
  */
 package hu.gbalage.debugvisualisation;
 
+import hu.gbalage.debugvisualisation.model.IStackFrameConsumer;
+
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IVariable;
@@ -17,10 +19,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
  */
 public class DebugContextListener implements IDebugContextListener {
 
-	VariableGraph graph;
+	IStackFrameConsumer consumer;
 	
-	public DebugContextListener(VariableGraph graph){
-		this.graph = graph;
+	public DebugContextListener(IStackFrameConsumer consumer){
+		this.consumer = consumer;
 	}
 	
 	/**
@@ -39,7 +41,7 @@ public class DebugContextListener implements IDebugContextListener {
 			Object data = ((StructuredSelection) context).getFirstElement();
 			if (data instanceof IStackFrame) {
 				System.out.println("Yaaaay! We got IStackFrame! :)");
-				graph.setStackFrame((IStackFrame)data);
+				consumer.setStackFrame((IStackFrame)data);
 				try {
 					IVariable[] variables = ((IStackFrame) data).getVariables();
 					for(IVariable var : variables){
@@ -50,7 +52,7 @@ public class DebugContextListener implements IDebugContextListener {
 					e.printStackTrace();
 				}
 			}else{
-				graph.setStackFrame(null);
+				consumer.setStackFrame(null);
 			}
 		}
 	}

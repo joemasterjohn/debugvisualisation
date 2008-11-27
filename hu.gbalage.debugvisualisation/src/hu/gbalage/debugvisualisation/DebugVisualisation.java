@@ -1,5 +1,8 @@
 package hu.gbalage.debugvisualisation;
 
+import hu.gbalage.debugvisualisation.model.Model;
+import hu.gbalage.debugvisualisation.view.ZestDebugTreePresentation;
+
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -9,7 +12,7 @@ import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 public class DebugVisualisation extends ViewPart {
 
-private VariableGraph g = null;
+private ZestDebugTreePresentation g = null;
 	
 	public DebugVisualisation(){
 		super();
@@ -22,23 +25,16 @@ private VariableGraph g = null;
 	public void createPartControl(Composite parent) {
 		
 		
-		g = new VariableGraph(parent,SWT.NONE); //new Graph(parent, SWT.NONE);
+		g = new ZestDebugTreePresentation(parent,SWT.NONE);
 
-		/*GraphNode n = new GraphNode(g, SWT.NONE, "Paper");
-		GraphNode n2 = new GraphNode(g, SWT.NONE, "Rock");
-		GraphNode n3 = new GraphNode(g, SWT.NONE, "Scissors");
-		GraphConnection g12 = new GraphConnection(g, SWT.NONE, n, n2);
-		g12.setText("felirat");
-		new GraphConnection(g, SWT.NONE, n2, n3);
-		new GraphConnection(g, SWT.NONE, n3, n);*/
-		
-		//g.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
 		g.setLayoutAlgorithm(new TreeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
 
+		Model model = new Model(g);
+		
 
 		DebugUITools.getDebugContextManager().
 			getContextService(getSite().getWorkbenchWindow()).
-				addDebugContextListener(new DebugContextListener(g));
+				addDebugContextListener(new DebugContextListener(model));
 	}
 
 	/**

@@ -30,4 +30,18 @@ public class ValueUtils {
 		}
 	}
 	
+	public static String getValueString(IValue value){
+		String typename;
+		try {
+			typename = value.getReferenceTypeName();
+		
+			int cut = Math.max(typename.lastIndexOf("."),typename.lastIndexOf("$"))+1;
+			if ((cut>0)&&(cut<typename.length())) typename = typename.substring(cut);
+			
+			return typename;
+		}catch(DebugException e){
+			return "Error!";
+		}
+	}
+	
 }
