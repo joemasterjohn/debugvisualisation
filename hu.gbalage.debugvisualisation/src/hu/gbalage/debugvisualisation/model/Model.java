@@ -1,6 +1,7 @@
 package hu.gbalage.debugvisualisation.model;
 
 import hu.gbalage.debugvisualisation.ValueUtils;
+import hu.gbalage.debugvisualisation.filters.FilterManager;
 import hu.gbalage.debugvisualisation.view.IDebugTreePresentation;
 
 import java.util.HashMap;
@@ -24,6 +25,8 @@ public class Model implements IStackFrameConsumer{
 	final Set<Node> valueNodes = new HashSet<Node>();
 	
 	final IDebugTreePresentation presentation;
+	
+	protected final FilterManager filtermanager = new FilterManager();
 	
 	public Model(IDebugTreePresentation presentation){
 		this.presentation = presentation;

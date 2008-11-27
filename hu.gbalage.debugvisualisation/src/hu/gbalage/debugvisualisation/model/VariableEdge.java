@@ -31,12 +31,9 @@ public class VariableEdge implements Edge {
 	 * @see hu.gbalage.debugvisualisation.model.Edge#dispose()
 	 */
 	public void dispose() {
+		model.removeEdge(this);
 		from.removeOut(this);
 		to.removeIn(this);
-		model.removeEdge(this);
-		
-		//if to has no more edges, it needs to be removed
-		if (to.isDisposable()) to.dispose();
 	}
 
 	/**

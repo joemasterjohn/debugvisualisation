@@ -4,6 +4,7 @@
 package hu.gbalage.debugvisualisation.model;
 
 import hu.gbalage.debugvisualisation.ValueUtils;
+import hu.gbalage.debugvisualisation.filters.IFilter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -81,10 +82,16 @@ public class ObjectNode extends AbstractNode {
 	/**
 	 * @see hu.gbalage.debugvisualisation.model.Node#setVariables(org.eclipse.debug.core.model.IVariable[])
 	 */
-	public void setVariables(IVariable[] vars) {
+	public void setVariables(IVariable[] variables) {
+		IVariable[] vars = variables;
 		try{
 			if (open){
-				//TODO: apply filter to this variable
+				//apply filter if exists
+				IFilter filter = null;
+				if (value != null){
+					filter = model.filtermanager.getFilterForType(getType());
+				}
+				if (filter!=null) vars = filter.apply(vars);
 				
 				Set<Edge> unEdges = new HashSet<Edge>();
 				unEdges.addAll(outs);
@@ -131,8 +138,16 @@ public class ObjectNode extends AbstractNode {
 	
 	@Override
 	public void dispose() {
-		model.disposeObjectNode(this);
+		closeChilds();
 		super.dispose();
+		model.disposeObjectNode(this);
+	}
+	
+	protected void closeChilds(){
+		for(Edge e : outs){
+			Node n = e.getTo();
+			if (n.isOpen()) n.toggleOpen();
+		}
 	}
 
 }

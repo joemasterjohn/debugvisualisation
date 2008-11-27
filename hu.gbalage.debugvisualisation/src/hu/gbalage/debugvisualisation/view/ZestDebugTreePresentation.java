@@ -11,6 +11,7 @@ import hu.gbalage.debugvisualisation.model.Edge;
 import hu.gbalage.debugvisualisation.model.Node;
 import hu.gbalage.debugvisualisation.model.NodeChangeListener;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -18,6 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.zest.core.widgets.Graph;
 import org.eclipse.zest.core.widgets.GraphConnection;
 import org.eclipse.zest.core.widgets.GraphNode;
+import org.eclipse.zest.core.widgets.ZestStyles;
 
 /**
  * @author Grill Balazs (balage.g@gmail.com)
@@ -58,7 +60,8 @@ public class ZestDebugTreePresentation extends Graph implements
 		
 		GraphConnection c = new GraphConnection(this,SWT.NONE,n1,n2);
 		edges.put(edge, c);
-
+		c.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
+		c.setLineColor(ColorConstants.black);
 	}
 
 	/**

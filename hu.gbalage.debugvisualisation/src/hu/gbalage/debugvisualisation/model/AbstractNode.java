@@ -94,6 +94,8 @@ public abstract class AbstractNode implements Node {
 	 */
 	public void removeIn(Edge edge) {
 		ins.remove(edge);
+		if (isDisposable()) dispose();
+		else notifychange();
 	}
 
 	/**
