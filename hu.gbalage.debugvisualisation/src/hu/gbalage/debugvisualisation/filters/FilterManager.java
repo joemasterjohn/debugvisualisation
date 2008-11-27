@@ -3,6 +3,8 @@
  */
 package hu.gbalage.debugvisualisation.filters;
 
+import hu.gbalage.debugvisualisation.filters.FilterRegistry.FilterEntry;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,8 +22,11 @@ public class FilterManager {
 	Map<String, IFilter> filters = new HashMap<String, IFilter>();
 	
 	public FilterManager(){
-		//TODO: retrieve extensions
-		filters.put("java.lang.Integer", new IntegerFilter());
+		FilterRegistry reg = new FilterRegistry();
+		for(FilterEntry entry : reg.getEntries())
+			filters.put(entry.getTypename(), entry.createFilter());
+		
+		//filters.put("java.lang.Integer", new IntegerFilter());
 	}
 	
 	public static IVariable getVar(IVariable[] vars, String name){
