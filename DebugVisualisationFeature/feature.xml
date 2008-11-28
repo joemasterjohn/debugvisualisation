@@ -2,7 +2,8 @@
 <feature
       id="DebugVisualisationFeature"
       label="Debug Visualisation"
-      version="0.3.3">
+      version="0.3.4"
+      plugin="hu.gbalage.debugvisualisation">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -32,7 +33,14 @@
          id="hu.gbalage.debugvisualisation"
          download-size="0"
          install-size="0"
-         version="0.3.3"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="hu.gbalage.debugvisualisation.filters"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
