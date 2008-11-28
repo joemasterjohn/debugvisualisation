@@ -2,7 +2,7 @@
 <feature
       id="DebugVisualisationFeature"
       label="Debug Visualisation"
-      version="0.3.0">
+      version="0.3.3">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -32,7 +32,7 @@
          id="hu.gbalage.debugvisualisation"
          download-size="0"
          install-size="0"
-         version="0.3.1"
+         version="0.3.3"
          unpack="false"/>
 
 </feature>
