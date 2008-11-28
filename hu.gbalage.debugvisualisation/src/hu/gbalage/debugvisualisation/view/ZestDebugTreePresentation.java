@@ -86,7 +86,7 @@ public class ZestDebugTreePresentation extends Graph implements
 		break;
 		case Root:
 			n.setBackgroundColor(LIGHT_YELLOW);
-			n.setImage(getSharedImage(ISharedImages.IMG_OBJS_INFO_TSK));
+			n.setImage(getSharedImage(SharedImages.IMG_OPEN_MARKER));
 		break;
 		case Primitive:
 			n.setBackgroundColor(ColorConstants.cyan);

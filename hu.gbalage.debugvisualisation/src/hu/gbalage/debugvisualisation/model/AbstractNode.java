@@ -32,6 +32,12 @@ public abstract class AbstractNode implements Node {
 	 */
 	protected boolean open = false;
 	
+	/**
+	 * Lookup the out edges for the given node.
+	 * @param node
+	 * @return the out edge, which ends at the given node, or null
+	 * if an appropriate edge cannot be found.
+	 */
 	protected Edge getOutEdgeForNode(Node node){
 		for (Edge e : outs){
 			if (e.getTo() == node) return e;
@@ -39,6 +45,11 @@ public abstract class AbstractNode implements Node {
 		return null;
 	}
 	
+	/**
+	 * Ask the in edges for a variable name. If multiple in edges
+	 * exists, than the first name is returned
+	 * @return an applicable variable name.
+	 */
 	protected String getVarName(){
 		if (ins.isEmpty()) return "noname";
 		return ins.iterator().next().getName();
@@ -66,6 +77,9 @@ public abstract class AbstractNode implements Node {
 		disposeOuts();
 	}
 
+	/**
+	 * Dispose all outgoing edges
+	 */
 	protected void disposeOuts(){
 		Set<Edge> outs2 = new HashSet<Edge>();
 		outs2.addAll(outs);
@@ -109,6 +123,9 @@ public abstract class AbstractNode implements Node {
 		listeners.add(listener);
 	}
 	
+	/**
+	 * Notify all listeners about the change in this node.
+	 */
 	protected void notifychange(){
 		for(NodeChangeListener listener : listeners)
 			listener.changed();
