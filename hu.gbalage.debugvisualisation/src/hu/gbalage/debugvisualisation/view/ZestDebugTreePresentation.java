@@ -15,7 +15,11 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE.SharedImages;
 import org.eclipse.zest.core.widgets.Graph;
 import org.eclipse.zest.core.widgets.GraphConnection;
 import org.eclipse.zest.core.widgets.GraphNode;
@@ -64,17 +68,44 @@ public class ZestDebugTreePresentation extends Graph implements
 		c.setLineColor(ColorConstants.black);
 	}
 
+	private Image getSharedImage(String imageid){
+		return PlatformUI.getWorkbench().getSharedImages().getImage(imageid);
+	}
+	
+	private void refreshNode(final Node node){
+		GraphNode n = nodes.get(node);
+		n.setText(node.getCaption());
+		switch(node.getState()){
+		case Open:
+			n.setBackgroundColor(DEFAULT_NODE_COLOR);
+			n.setImage(getSharedImage(SharedImages.IMG_OBJ_PROJECT));
+		break;
+		case Closed:
+			n.setBackgroundColor(LIGHT_BLUE_CYAN);
+			n.setImage(getSharedImage(SharedImages.IMG_OBJ_PROJECT_CLOSED));
+		break;
+		case Root:
+			n.setBackgroundColor(LIGHT_YELLOW);
+			n.setImage(getSharedImage(ISharedImages.IMG_OBJS_INFO_TSK));
+		break;
+		case Primitive:
+			n.setBackgroundColor(ColorConstants.cyan);
+			n.setImage(getSharedImage(ISharedImages.IMG_OBJ_ELEMENT));
+		break;
+		}
+	}
+	
 	/**
 	 * @see hu.gbalage.debugvisualisation.view.IDebugTreePresentation#addNode(hu.gbalage.debugvisualisation.model.Node)
 	 */
 	public void addNode(final Node node) {
 		final GraphNode n = new GraphNode(this,SWT.NONE);
-		n.setText(node.getCaption());
 		nodes.put(node, n);
 		n.setData(node);
+		refreshNode(node);
 		node.addNodeChangeListener(new NodeChangeListener(){
 			public void changed() {
-				n.setText(node.getCaption());	
+				refreshNode(node);	
 			}
 		});
 	}

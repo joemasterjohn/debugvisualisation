@@ -81,5 +81,9 @@ public class PrimitiveNode extends AbstractNode {
 		model.disposeValueNode(this);
 		super.dispose();
 	}
+
+	public NodeState getState() {
+		return NodeState.Primitive;
+	}
 	
 }

@@ -44,4 +44,6 @@ public interface Node {
 	public void setVariables(IVariable[] vars);
 	
 	public void addNodeChangeListener(NodeChangeListener listener);
+	
+	public NodeState getState();
 }

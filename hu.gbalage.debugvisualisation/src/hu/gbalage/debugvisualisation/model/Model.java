@@ -36,16 +36,19 @@ public class Model implements IStackFrameConsumer{
 	 * Modify model according to the new stack frame
 	 */
 	public void setStackFrame(IStackFrame stackframe){
-		if (rootNode == null) rootNode = new RootNode(this);
-		presentation.addNode(rootNode);
+		if (rootNode == null) {
+			rootNode = new RootNode(this);
+			presentation.addNode(rootNode);
+		}
 		
-		//TODO: skip to rootVariable
 		IVariable[] vars = new IVariable[0];
 		try {
 			 vars = stackframe.getVariables();
 		} catch (DebugException e) {
 			e.printStackTrace();
 		}
+		
+		//TODO: skip to rootVariable
 		
 		rootNode.setVariables(vars);
 		presentation.refresh();

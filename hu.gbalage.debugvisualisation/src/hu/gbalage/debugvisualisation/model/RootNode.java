@@ -56,5 +56,10 @@ public class RootNode extends ObjectNode {
 	public void toggleOpen() {
 		//root node must always be open
 	}
+	
+	@Override
+	public NodeState getState() {
+		return NodeState.Root;
+	}
 
 }

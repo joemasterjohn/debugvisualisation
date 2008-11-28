@@ -134,6 +134,7 @@ public class ObjectNode extends AbstractNode {
 				e.printStackTrace();
 			}
 		}
+		notifychange();
 	}
 	
 	@Override
@@ -148,6 +149,15 @@ public class ObjectNode extends AbstractNode {
 			Node n = e.getTo();
 			if (n.isOpen()) n.toggleOpen();
 		}
+	}
+
+	public NodeState getState() {
+		try {
+			if (value.getVariables().length == 0) return NodeState.Primitive;
+		} catch (DebugException e) {
+			e.printStackTrace();
+		}
+		return (open) ? NodeState.Open : NodeState.Closed;
 	}
 
 }
