@@ -19,14 +19,44 @@
          name="Builtin Layouts"
          point="hu.gbalage.debugvisualisation.layoutalgorithm">
       <layout_algorithm
-            class="hu.gbalage.debugvisualisation.layouts.TreeLayoutCreator"
+            class="hu.gbalage.debugvisualisation.extensions.layouts.TreeLayoutCreator"
             id="hu.gbalage.debugvisualisation.layout.treelayout"
             name="Tree Layout">
       </layout_algorithm>
       <layout_algorithm
-            class="hu.gbalage.debugvisualisation.layouts.SpringLayoutCreator"
+            class="hu.gbalage.debugvisualisation.extensions.layouts.SpringLayoutCreator"
             id="hu.gbalage.debugvisualisation.layout_algorithm1"
             name="Spring Layout">
+      </layout_algorithm>
+      <layout_algorithm
+            class="hu.gbalage.debugvisualisation.extensions.layouts.DirectedGraphLayoutCreator"
+            id="hu.gbalage.debugvisualisation.layout_algorithm2"
+            name="Directed Graph Layout">
+      </layout_algorithm>
+      <layout_algorithm
+            class="hu.gbalage.debugvisualisation.extensions.layouts.GridLayoutCreator"
+            id="hu.gbalage.debugvisualisation.layout_algorithm3"
+            name="Grid Layout">
+      </layout_algorithm>
+      <layout_algorithm
+            class="hu.gbalage.debugvisualisation.extensions.layouts.HorizontalLayoutCreator"
+            id="hu.gbalage.debugvisualisation.layout_algorithm4"
+            name="Horizontal Layout">
+      </layout_algorithm>
+      <layout_algorithm
+            class="hu.gbalage.debugvisualisation.extensions.layouts.HorizontalTreeLayoutCreator"
+            id="hu.gbalage.debugvisualisation.layout_algorithm5"
+            name="Horizontal Tree Layout">
+      </layout_algorithm>
+      <layout_algorithm
+            class="hu.gbalage.debugvisualisation.extensions.layouts.RadialLayoutCreator"
+            id="hu.gbalage.debugvisualisation.layout_algorithm6"
+            name="Radial Layout">
+      </layout_algorithm>
+      <layout_algorithm
+            class="hu.gbalage.debugvisualisation.extensions.layouts.VerticalLayoutCreator"
+            id="hu.gbalage.debugvisualisation.layout_algorithm7"
+            name="Vertical Layout">
       </layout_algorithm>
    </extension>
    <extension
@@ -34,13 +64,13 @@
          name="Basic filters"
          point="hu.gbalage.debugvisualisation.filters">
       <filter
-            filter="hu.gbalage.debugvisualisation.filters.IntegerFilter"
+            filter="hu.gbalage.debugvisualisation.extensions.filters.IntegerFilter"
             id="hu.gbalage.debugvisualisation.filters.IntegerFilter"
             name="IntegerFilter"
             use_on="java.lang.Integer">
       </filter>
       <filter
-            filter="hu.gbalage.debugvisualisation.filters.ArrayListFilter"
+            filter="hu.gbalage.debugvisualisation.extensions.filters.ArrayListFilter"
             id="hu.gbalage.debugvisualisation.arraylistfilter"
             name="ArrayListFilter"
             use_on="java.util.ArrayList&lt;E&gt;">

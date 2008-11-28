@@ -1,7 +1,9 @@
 /**
  * 
  */
-package hu.gbalage.debugvisualisation.layouts;
+package hu.gbalage.debugvisualisation.extensions.layouts;
+
+import hu.gbalage.debugvisualisation.layouts.ILayoutAlgorithmCreator;
 
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;

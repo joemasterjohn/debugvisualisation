@@ -1,7 +1,10 @@
 /**
  * 
  */
-package hu.gbalage.debugvisualisation.filters;
+package hu.gbalage.debugvisualisation.extensions.filters;
+
+import hu.gbalage.debugvisualisation.filters.FilterManager;
+import hu.gbalage.debugvisualisation.filters.IFilter;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IVariable;
