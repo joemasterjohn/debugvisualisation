@@ -51,15 +51,26 @@ public class LayoutManager {
 	/**
 	 * @return the ids of the available layout algorithms
 	 */
-	public Collection<String> getLayouts(){
-		return entries.keySet();
+	public String[] getLayouts(){
+		Collection<String> ids = entries.keySet();
+		String[] result = new String[ids.size()];
+		int i=0;
+		for(String a : ids){
+			result[i] = a;
+			i++;
+		}
+		return result;
 	}
 	
 	/**
 	 * @return the first given layout algorithm
 	 */
 	public LayoutAlgorithm getDefault(){
-		return getLayoutAlgorithm(reg.getEntries().iterator().next());
+		return getLayoutAlgorithm(getDefaultID());
+	}
+	
+	public String getDefaultID(){
+		return getLayouts()[0];
 	}
 	
 }

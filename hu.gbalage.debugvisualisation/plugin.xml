@@ -23,6 +23,11 @@
             id="hu.gbalage.debugvisualisation.layout.treelayout"
             name="Tree Layout">
       </layout_algorithm>
+      <layout_algorithm
+            class="hu.gbalage.debugvisualisation.layouts.SpringLayoutCreator"
+            id="hu.gbalage.debugvisualisation.layout_algorithm1"
+            name="Spring Layout">
+      </layout_algorithm>
    </extension>
    <extension
          id="hu.gbalage.debugvisualisation.simplefilters"
