@@ -9,6 +9,7 @@ import hu.gbalage.debugvisualisation.filters.IFilter;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
@@ -91,7 +92,12 @@ public class ObjectNode extends AbstractNode {
 				if (value != null){
 					filter = model.filtermanager.getFilterForType(getType());
 				}
-				if (filter!=null) vars = filter.apply(vars);
+				if (filter!=null)
+					try {
+						vars = filter.apply(vars);
+					} catch (CoreException e1) {
+						e1.printStackTrace();
+					}
 				
 				Set<Edge> unEdges = new HashSet<Edge>();
 				unEdges.addAll(outs);

@@ -21,6 +21,18 @@
             name="Float"
             use_on="java.lang.Float">
       </filter>
+      <filter
+            filter="hu.gbalage.debugvisualisation.filters.ArrayListFilter"
+            id="hu.gbalage.debugvisualisation.filters.filter4"
+            name="ArrayList Filter"
+            use_on="java.util.ArrayList&lt;E&gt;">
+      </filter>
+      <filter
+            filter="hu.gbalage.debugvisualisation.filters.PrimitiveTypeFilter"
+            id="hu.gbalage.debugvisualisation.filters.filter5"
+            name="Integer"
+            use_on="java.lang.Integer">
+      </filter>
    </extension>
 
 </plugin>

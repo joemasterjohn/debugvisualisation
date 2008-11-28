@@ -15,7 +15,7 @@ import org.eclipse.ui.part.ViewPart;
 
 public class DebugVisualisation extends ViewPart {
 
-private ZestDebugTreePresentation g = null;
+	private ZestDebugTreePresentation g = null;
 	
 	public DebugVisualisation(){
 		super();

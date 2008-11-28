@@ -3,6 +3,7 @@
  */
 package hu.gbalage.debugvisualisation.filters;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.model.IVariable;
 
 /**
@@ -20,6 +21,6 @@ public interface IFilter {
 	 * @param vars
 	 * @return
 	 */
-	public IVariable[] apply(IVariable[] vars);
+	public IVariable[] apply(IVariable[] vars) throws CoreException;
 	
 }

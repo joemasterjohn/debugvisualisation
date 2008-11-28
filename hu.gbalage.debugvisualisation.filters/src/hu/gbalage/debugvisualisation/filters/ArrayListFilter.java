@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hu.gbalage.debugvisualisation.extensions.filters;
+package hu.gbalage.debugvisualisation.filters;
 
 import hu.gbalage.debugvisualisation.filters.FilterManager;
 import hu.gbalage.debugvisualisation.filters.IFilter;

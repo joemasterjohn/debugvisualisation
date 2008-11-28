@@ -12,6 +12,7 @@ import hu.gbalage.debugvisualisation.model.Node;
 import hu.gbalage.debugvisualisation.model.NodeChangeListener;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -75,6 +76,7 @@ public class ZestDebugTreePresentation extends Graph implements
 	private void refreshNode(final Node node){
 		GraphNode n = nodes.get(node);
 		n.setText(node.getCaption());
+		n.setTooltip(new Label(node.getType()));
 		switch(node.getState()){
 		case Open:
 			n.setBackgroundColor(DEFAULT_NODE_COLOR);

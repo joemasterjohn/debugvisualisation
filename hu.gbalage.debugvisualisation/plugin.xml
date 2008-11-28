@@ -59,22 +59,5 @@
             name="Vertical Layout">
       </layout_algorithm>
    </extension>
-   <extension
-         id="hu.gbalage.debugvisualisation.simplefilters"
-         name="Basic filters"
-         point="hu.gbalage.debugvisualisation.filters">
-      <filter
-            filter="hu.gbalage.debugvisualisation.extensions.filters.IntegerFilter"
-            id="hu.gbalage.debugvisualisation.filters.IntegerFilter"
-            name="IntegerFilter"
-            use_on="java.lang.Integer">
-      </filter>
-      <filter
-            filter="hu.gbalage.debugvisualisation.extensions.filters.ArrayListFilter"
-            id="hu.gbalage.debugvisualisation.arraylistfilter"
-            name="ArrayListFilter"
-            use_on="java.util.ArrayList&lt;E&gt;">
-      </filter>
-   </extension>
 
 </plugin>
