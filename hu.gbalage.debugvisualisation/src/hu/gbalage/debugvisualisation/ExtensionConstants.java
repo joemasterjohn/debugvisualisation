@@ -17,6 +17,13 @@ public class ExtensionConstants {
 	 */
 	public static final String EP_LayoutAlgorithm = "hu.gbalage.debugvisualisation.layoutalgorithm";
 	
+	public static final String EPA_Layout_id = "id";
+	
+	public static final String EPA_Layout_name = "name";
+	
+	public static final String EPA_Layout_class = "class";
+	
+	
 	/**
 	 * Filters are used to restructure variable tree in order
 	 * to reduce complexity by hiding irrelevant information. 

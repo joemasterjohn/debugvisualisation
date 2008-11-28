@@ -1,5 +1,6 @@
 package hu.gbalage.debugvisualisation;
 
+import hu.gbalage.debugvisualisation.layouts.LayoutManager;
 import hu.gbalage.debugvisualisation.model.Model;
 import hu.gbalage.debugvisualisation.view.ZestDebugTreePresentation;
 
@@ -7,8 +8,6 @@ import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.zest.layouts.LayoutStyles;
-import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 public class DebugVisualisation extends ViewPart {
 
@@ -24,10 +23,11 @@ private ZestDebugTreePresentation g = null;
 	@Override
 	public void createPartControl(Composite parent) {
 		
+		LayoutManager man = new LayoutManager();
 		
 		g = new ZestDebugTreePresentation(parent,SWT.NONE);
 
-		g.setLayoutAlgorithm(new TreeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
+		g.setLayoutAlgorithm(man.getDefault(), true);
 
 		Model model = new Model(g);
 		
