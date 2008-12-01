@@ -58,6 +58,11 @@
             id="hu.gbalage.debugvisualisation.layout_algorithm7"
             name="Vertical Layout">
       </layout_algorithm>
+      <layout_algorithm
+            class="hu.gbalage.debugvisualisation.extensions.layouts.SimulatedCoolingCreator"
+            id="hu.gbalage.debugvisualisation.simulatedcooling"
+            name="Simulated Cooling Layout">
+      </layout_algorithm>
    </extension>
 
 </plugin>
