@@ -7,7 +7,7 @@
          point="org.eclipse.ui.views">
       <view
             category="org.eclipse.debug.ui"
-            class="hu.gbalage.debugvisualisation.DebugVisualisation"
+            class="hu.gbalage.debugvisualisation.view.DebugVisualisationView"
             icon="icons/sample.gif"
             id="hu.gbalage.debugvisualisation.view1"
             name="Debug Visualisation"

@@ -1,8 +1,9 @@
-package hu.gbalage.debugvisualisation;
+package hu.gbalage.debugvisualisation.view;
 
+import hu.gbalage.debugvisualisation.Activator;
+import hu.gbalage.debugvisualisation.DebugContextListener;
 import hu.gbalage.debugvisualisation.layouts.LayoutManager;
 import hu.gbalage.debugvisualisation.model.Model;
-import hu.gbalage.debugvisualisation.view.ZestDebugTreePresentation;
 
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.swt.SWT;
@@ -13,11 +14,11 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
-public class DebugVisualisation extends ViewPart {
+public class DebugVisualisationView extends ViewPart {
 
 	private ZestDebugTreePresentation g = null;
 	
-	public DebugVisualisation(){
+	public DebugVisualisationView(){
 		super();
 	}
 	
@@ -67,6 +68,9 @@ public class DebugVisualisation extends ViewPart {
 		DebugUITools.getDebugContextManager().
 			getContextService(getSite().getWorkbenchWindow()).
 				addDebugContextListener(new DebugContextListener(model));
+		
+		//set stackframe if debug is started before creating the view
+		model.setStackFrame(Activator.getStackFrame());
 	}
 
 	/**

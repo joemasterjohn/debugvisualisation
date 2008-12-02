@@ -67,6 +67,10 @@ public class Model implements IStackFrameConsumer{
 	 * Modify model according to the new stack frame
 	 */
 	public void setStackFrame(IStackFrame stackframe){
+		if (stackframe == null){
+			if (rootNode != null) rootNode.dispose();
+			return;
+		}
 		if (rootNode == null) {
 			rootNode = new RootNode(this);
 			presentation.addNode(rootNode);

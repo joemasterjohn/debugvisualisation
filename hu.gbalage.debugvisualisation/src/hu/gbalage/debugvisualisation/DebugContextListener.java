@@ -5,9 +5,7 @@ package hu.gbalage.debugvisualisation;
 
 import hu.gbalage.debugvisualisation.model.IStackFrameConsumer;
 
-import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
-import org.eclipse.debug.core.model.IVariable;
 import org.eclipse.debug.ui.contexts.DebugContextEvent;
 import org.eclipse.debug.ui.contexts.IDebugContextListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -40,9 +38,9 @@ public class DebugContextListener implements IDebugContextListener {
 		if (context instanceof StructuredSelection){
 			Object data = ((StructuredSelection) context).getFirstElement();
 			if (data instanceof IStackFrame) {
-				System.out.println("Yaaaay! We got IStackFrame! :)");
+				//System.out.println("Yaaaay! We got IStackFrame! :)");
 				consumer.setStackFrame((IStackFrame)data);
-				try {
+				/*try {
 					IVariable[] variables = ((IStackFrame) data).getVariables();
 					for(IVariable var : variables){
 						System.out.println(var.getName()+" : "+var.getValue().getReferenceTypeName()+" = "+var.getValue().getValueString() + " - "+var.getValue().getModelIdentifier() );
@@ -50,7 +48,7 @@ public class DebugContextListener implements IDebugContextListener {
 				} catch (DebugException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 			}else{
 				consumer.setStackFrame(null);
 			}

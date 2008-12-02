@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hu.gbalage.debugvisualisation;
+package hu.gbalage.debugvisualisation.view;
 
 import hu.gbalage.debugvisualisation.layouts.LayoutManager;
 
