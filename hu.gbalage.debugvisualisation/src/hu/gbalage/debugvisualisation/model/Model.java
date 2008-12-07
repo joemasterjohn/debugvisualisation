@@ -69,6 +69,7 @@ public class Model implements IStackFrameConsumer{
 	public void setStackFrame(IStackFrame stackframe){
 		if (stackframe == null){
 			if (rootNode != null) rootNode.dispose();
+			rootNode = null;
 			return;
 		}
 		if (rootNode == null) {
