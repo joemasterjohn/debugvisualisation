@@ -17,7 +17,7 @@ import org.eclipse.zest.core.widgets.Graph;
 public class LayoutAlgorithmRefresher extends Thread {
 
 	private final Graph g;
-	private final IContinuableLayoutAlgorithm a;
+	private IContinuableLayoutAlgorithm a;
 	private boolean end = false;
 	
 	/**
@@ -27,6 +27,7 @@ public class LayoutAlgorithmRefresher extends Thread {
 	public void end(){
 		end = true;
 		this.interrupt();
+		System.out.println("Thread interrupted.");
 	}
 	
 	public LayoutAlgorithmRefresher(Graph graph,IContinuableLayoutAlgorithm alg){
@@ -35,22 +36,34 @@ public class LayoutAlgorithmRefresher extends Thread {
 		a = alg;
 	}
 	
+	public void waitLayout(){
+		try {
+			do{
+				sleep(100);
+			}while(g.getLayoutAlgorithm().isRunning());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			return;
+		}
+	}
+	
 	@Override
 	public void run() {
 		super.run();
-		//System.out.println("thread start!");
+
+		System.out.println("thread start!");
 		do{
+			if (g.getLayoutAlgorithm() instanceof IContinuableLayoutAlgorithm)
+				a = (IContinuableLayoutAlgorithm)g.getLayoutAlgorithm();
 			if (end) return;
+			System.out.println("layout start");
 			g.applyLayout();
+			waitLayout();
+			waitLayout();
+			System.out.println("layout end");
 			if (end) return;
-			try {
-				sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-				return;
-			}
 		}while((!end)&&a.needsRecall());
-		//System.out.println("thread stop.");
+		System.out.println("thread stop.");
 	}
 	
 }

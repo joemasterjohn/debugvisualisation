@@ -8,6 +8,7 @@ import org.eclipse.zest.layouts.LayoutStyles;
 
 import hu.gbalage.debugvisualisation.layouts.ILayoutAlgorithmCreator;
 import hu.gbalage.debugvisualisation.simulatedcooling.Criteria;
+import hu.gbalage.debugvisualisation.simulatedcooling.EdgeIntersection;
 import hu.gbalage.debugvisualisation.simulatedcooling.EdgeLength;
 import hu.gbalage.debugvisualisation.simulatedcooling.InBounds;
 import hu.gbalage.debugvisualisation.simulatedcooling.PointDistribution;
@@ -27,6 +28,7 @@ public class SimulatedCoolingCreator implements ILayoutAlgorithmCreator {
 			new InBounds(),
 			new PointDistribution(1000),
 			new EdgeLength(0.001)
+			,new EdgeIntersection(100)
 		});
 	}
 

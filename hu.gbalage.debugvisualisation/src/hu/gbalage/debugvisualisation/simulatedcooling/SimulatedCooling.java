@@ -57,7 +57,11 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 		double result = 0;
 		
 		for(Criteria crit : crits){
-			result += crit.apply(convert(entitiesToLayout),convert(relationshipsToConsider), boundsX, boundsY, boundsWidth, boundsHeight);
+			try{
+				result += crit.apply(convert(entitiesToLayout),convert(relationshipsToConsider), boundsX, boundsY, boundsWidth, boundsHeight);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		
 		return result;
@@ -90,7 +94,7 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 		oldpos = null;
 	}
 	
-	private boolean f_needsRecall;
+	private volatile boolean f_needsRecall;
 	
 	public boolean needsRecall() {
 		return f_needsRecall;
@@ -104,7 +108,9 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 			InternalRelationship[] relationshipsToConsider, double boundsX,
 			double boundsY, double boundsWidth, double boundsHeight) {
 		
-		f_needsRecall = false;
+		fireProgressStarted(1);
+		
+		f_needsRecall = true;
 		double valuedelta = 0;
 		
 		//move outbounded nodes inbound
@@ -135,6 +141,8 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 			//recalculate value for new configuration
 			double newvalue = getCriteria(entitiesToLayout, relationshipsToConsider, boundsX, boundsY, boundsWidth, boundsHeight);
 			
+			//System.out.println(value+" -> "+newvalue);
+			
 			//the smaller the better.
 			if (newvalue<=value){
 				//reduce temperature
@@ -148,8 +156,10 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 			step++;
 		}
 		
-		if (valuedelta > 0) f_needsRecall = true;
+		System.out.println("valudelta: "+valuedelta);
+		if (valuedelta < 0.001) f_needsRecall = false;
 
+		fireProgressEnded(1);
 	}
 
 	/* (non-Javadoc)

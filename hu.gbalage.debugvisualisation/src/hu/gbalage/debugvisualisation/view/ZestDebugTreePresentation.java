@@ -138,7 +138,8 @@ public class ZestDebugTreePresentation extends Graph implements
 	 */
 	public synchronized void refresh() {
 		if (thread != null){
-			thread.end();
+			if (thread.isAlive())
+				thread.end();
 			thread = null;
 		}
 		
