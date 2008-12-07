@@ -22,10 +22,14 @@ public class InBounds implements Criteria {
 		double result = 0;
 		
 		for (LayoutEntity e : entities){
-			if (e.getXInLayout() < x) result += 1000000;
-			if (e.getXInLayout()+e.getWidthInLayout() > w) result += 1000000;
-			if (e.getYInLayout() < y) result += 1000000;
-			if (e.getYInLayout()+e.getHeightInLayout() > h) result += 1000000;
+			double xe = e.getXInLayout();
+			double ye = e.getYInLayout();
+			double we = e.getWidthInLayout();
+			double he = e.getHeightInLayout();
+			if (xe < x) result += 1000000+100*(x-xe);
+			if (xe+we > w) result += 1000000 + 100*(xe+we-w);
+			if (ye < y) result += 1000000 + 100*(y-ye);
+			if (ye+he > h) result += 1000000 + 100*(ye+he-h);
 		}
 		
 		return result;
