@@ -26,6 +26,7 @@ public class LayoutAlgorithmRefresher extends Thread {
 	 */
 	public void end(){
 		end = true;
+		this.interrupt();
 	}
 	
 	public LayoutAlgorithmRefresher(Graph graph,IContinuableLayoutAlgorithm alg){
@@ -39,7 +40,9 @@ public class LayoutAlgorithmRefresher extends Thread {
 		super.run();
 		//System.out.println("thread start!");
 		do{
+			if (end) return;
 			g.applyLayout();
+			if (end) return;
 			try {
 				sleep(100);
 			} catch (InterruptedException e) {

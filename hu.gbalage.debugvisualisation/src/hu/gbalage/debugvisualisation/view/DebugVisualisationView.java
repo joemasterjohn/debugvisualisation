@@ -51,7 +51,8 @@ public class DebugVisualisationView extends ViewPart {
 		new LayoutCombo(controlrow, SWT.READ_ONLY,man){
 			@Override
 			public void change(String layoutid) {
-				g.setLayoutAlgorithm(man.getLayoutAlgorithm(layoutid), true);	
+				g.setLayoutAlgorithm(man.getLayoutAlgorithm(layoutid), false);
+				g.refresh();
 			}
 		};
 		
@@ -60,7 +61,8 @@ public class DebugVisualisationView extends ViewPart {
 		g = new ZestDebugTreePresentation(parent,SWT.NONE);
 		g.setLayoutData(gdata);
 
-		g.setLayoutAlgorithm(man.getDefault(), true);
+		g.setLayoutAlgorithm(man.getDefault(), false);
+		g.refresh();
 
 		Model model = new Model(g);
 		

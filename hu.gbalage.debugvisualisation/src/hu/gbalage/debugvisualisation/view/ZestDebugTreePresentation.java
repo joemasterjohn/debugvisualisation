@@ -136,14 +136,9 @@ public class ZestDebugTreePresentation extends Graph implements
 	/**
 	 * @see hu.gbalage.debugvisualisation.view.IDebugTreePresentation#refresh()
 	 */
-	public void refresh() {
+	public synchronized void refresh() {
 		if (thread != null){
 			thread.end();
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 			thread = null;
 		}
 		
