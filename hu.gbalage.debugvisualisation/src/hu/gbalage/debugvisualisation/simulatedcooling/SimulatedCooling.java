@@ -3,6 +3,8 @@
  */
 package hu.gbalage.debugvisualisation.simulatedcooling;
 
+import hu.gbalage.debugvisualisation.layouts.IContinuableLayoutAlgorithm;
+
 import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
 import org.eclipse.zest.layouts.algorithms.AbstractLayoutAlgorithm;
@@ -14,11 +16,11 @@ import org.eclipse.zest.layouts.dataStructures.InternalRelationship;
  * @author Grill Balazs (balage.g@gmail.com)
  *
  */
-public class SimulatedCooling extends AbstractLayoutAlgorithm {
+public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContinuableLayoutAlgorithm{
 
 	private static final double coolingfactor = 0.95;
 	
-	private static final double begintemp = 1000; 
+	private static final double begintemp = 100; 
 	
 	/**
 	 * Map getLayoutEntity() for an array
@@ -88,6 +90,12 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm {
 		oldpos = null;
 	}
 	
+	private boolean f_needsRecall;
+	
+	public boolean needsRecall() {
+		return f_needsRecall;
+	}
+	
 	/**
 	 * @see org.eclipse.zest.layouts.algorithms.AbstractLayoutAlgorithm#applyLayoutInternal(org.eclipse.zest.layouts.dataStructures.InternalNode[], org.eclipse.zest.layouts.dataStructures.InternalRelationship[], double, double, double, double)
 	 */
@@ -95,6 +103,9 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm {
 	protected void applyLayoutInternal(InternalNode[] entitiesToLayout,
 			InternalRelationship[] relationshipsToConsider, double boundsX,
 			double boundsY, double boundsWidth, double boundsHeight) {
+		
+		f_needsRecall = false;
+		double valuedelta = 0;
 		
 		//move outbounded nodes inbound
 		for(LayoutEntity e : convert(entitiesToLayout)){
@@ -128,6 +139,7 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm {
 			if (newvalue<=value){
 				//reduce temperature
 				temp = temp*coolingfactor;
+				valuedelta += value-newvalue;
 			}else{
 				//undo the applied move.
 				undomove();
@@ -135,6 +147,8 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm {
 			
 			step++;
 		}
+		
+		if (valuedelta > 0) f_needsRecall = true;
 
 	}
 

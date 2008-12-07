@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import hu.gbalage.debugvisualisation.layouts.IContinuableLayoutAlgorithm;
 import hu.gbalage.debugvisualisation.model.Edge;
 import hu.gbalage.debugvisualisation.model.Node;
 import hu.gbalage.debugvisualisation.model.NodeChangeListener;
@@ -130,7 +131,26 @@ public class ZestDebugTreePresentation extends Graph implements
 		nodes.remove(node);
 	}
 	
+	private LayoutAlgorithmRefresher thread = null;
+	
+	/**
+	 * @see hu.gbalage.debugvisualisation.view.IDebugTreePresentation#refresh()
+	 */
 	public void refresh() {
+		if (thread != null){
+			thread.end();
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			thread = null;
+		}
+		
+		if (this.getLayoutAlgorithm() instanceof IContinuableLayoutAlgorithm){	
+			IContinuableLayoutAlgorithm alg = (IContinuableLayoutAlgorithm)this.getLayoutAlgorithm();
+			(thread = new LayoutAlgorithmRefresher(this,alg)).start();
+		}else
 		this.applyLayout();		
 	}
 
