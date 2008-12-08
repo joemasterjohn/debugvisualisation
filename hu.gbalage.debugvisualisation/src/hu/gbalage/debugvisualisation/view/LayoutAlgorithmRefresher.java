@@ -51,19 +51,19 @@ public class LayoutAlgorithmRefresher extends Thread {
 	public void run() {
 		super.run();
 
-		System.out.println("thread start!");
+		//System.out.println("thread start!");
 		do{
 			if (g.getLayoutAlgorithm() instanceof IContinuableLayoutAlgorithm)
 				a = (IContinuableLayoutAlgorithm)g.getLayoutAlgorithm();
 			if (end) return;
-			System.out.println("layout start");
+			//System.out.println("layout start");
 			g.applyLayout();
 			waitLayout();
 			waitLayout();
-			System.out.println("layout end");
+			//System.out.println("layout end");
 			if (end) return;
 		}while((!end)&&a.needsRecall());
-		System.out.println("thread stop.");
+		//System.out.println("thread stop.");
 	}
 	
 }

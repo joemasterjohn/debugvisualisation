@@ -18,9 +18,9 @@ import org.eclipse.zest.layouts.dataStructures.InternalRelationship;
  */
 public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContinuableLayoutAlgorithm{
 
-	private static final double coolingfactor = 0.95;
+	private static final double coolingfactor = 0.65;
 	
-	private static final double begintemp = 100; 
+	private static final double begintemp = 1000; 
 	
 	/**
 	 * Map getLayoutEntity() for an array
@@ -156,7 +156,7 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 			step++;
 		}
 		
-		System.out.println("valudelta: "+valuedelta);
+		//System.out.println("valudelta: "+valuedelta);
 		if (valuedelta < 0.001) f_needsRecall = false;
 
 		fireProgressEnded(1);
