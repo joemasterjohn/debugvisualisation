@@ -50,6 +50,16 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 		crits = criterias;
 	}
 
+	/**
+	 * Get criteria values for current graph configuration
+	 * @param entitiesToLayout
+	 * @param relationshipsToConsider
+	 * @param boundsX
+	 * @param boundsY
+	 * @param boundsWidth
+	 * @param boundsHeight
+	 * @return
+	 */
 	private double getCriteria(InternalNode[] entitiesToLayout,
 			InternalRelationship[] relationshipsToConsider, double boundsX,
 			double boundsY, double boundsWidth, double boundsHeight){
@@ -73,6 +83,11 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 	private LayoutEntity movedentity = null;
 	private double[] oldpos = null;
 	
+	/**
+	 * Apply a random move on the configuration, and save it in private
+	 * fields.
+	 * @param entity
+	 */
 	private void applyRandomMove(LayoutEntity entity){
 		movedentity = entity;
 		oldpos = new double[]{entity.getXInLayout(),entity.getYInLayout()};
@@ -86,6 +101,9 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 		entity.setLocationInLayout(newx, newy);
 	}
 	
+	/**
+	 * Undo last move (private fields can store only one move)
+	 */
 	private void undomove(){
 		if (movedentity != null)
 		movedentity.setLocationInLayout(oldpos[0], oldpos[1]);
