@@ -110,7 +110,7 @@ public class ObjectNode extends AbstractNode {
 					if (ValueUtils.getID(value) != -1){
 						//check if we already have this edge
 						Node other = model.getNodeForValue(value);
-						Edge e = getOutEdgeForNode(other);
+						Edge e = getOutEdgeForNode(other,var.getName());
 						if (e == null){
 							//new variable
 							e = model.getEdge(this, other,var.getName());

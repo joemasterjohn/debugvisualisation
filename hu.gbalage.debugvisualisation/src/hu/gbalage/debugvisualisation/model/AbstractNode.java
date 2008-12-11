@@ -38,9 +38,10 @@ public abstract class AbstractNode implements Node {
 	 * @return the out edge, which ends at the given node, or null
 	 * if an appropriate edge cannot be found.
 	 */
-	protected Edge getOutEdgeForNode(Node node){
+	protected Edge getOutEdgeForNode(Node node,String varname){
 		for (Edge e : outs){
-			if (e.getTo() == node) return e;
+			if ((e.getTo() == node)&&(e.getName().equals(varname))) 
+				return e;
 		}
 		return null;
 	}
