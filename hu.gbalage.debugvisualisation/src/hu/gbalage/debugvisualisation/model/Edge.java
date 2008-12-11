@@ -32,4 +32,19 @@ public interface Edge {
 	 */
 	public void dispose();
 	
+	/**
+	 * Set a listener to listen caption display changes.
+	 * @param listener
+	 */
+	public void setDisplayCaptionListener(EdgeCaptionListener listener);
+	
+	/**
+	 * Hides the caption of the edge
+	 */
+	public void showCaption();
+	
+	/**
+	 * Shows the caption of the edge
+	 */
+	public void hideCaption();
 }

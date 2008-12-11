@@ -33,6 +33,7 @@ public class ObjectNode extends AbstractNode {
 	 * @see hu.gbalage.debugvisualisation.model.Node#changeValue(org.eclipse.debug.core.model.IValue)
 	 */
 	public void changeValue(IValue value) {
+		if (this.value.equals(value)) return;
 		this.value = value;
 		if (open){
 			try {

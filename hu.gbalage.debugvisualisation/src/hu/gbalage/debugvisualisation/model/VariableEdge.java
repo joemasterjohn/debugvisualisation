@@ -17,6 +17,8 @@ public class VariableEdge implements Edge {
 	
 	protected final String name;
 	
+	protected EdgeCaptionListener listener = null;
+	
 	public VariableEdge(Model model,Node from, Node to,String name){
 		this.model = model;
 		this.from = from;
@@ -52,6 +54,20 @@ public class VariableEdge implements Edge {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setDisplayCaptionListener(EdgeCaptionListener listener) {
+		this.listener = listener;
+	}
+	
+	public void showCaption(){
+		if (listener != null) 
+			listener.displayCaption(true);
+	}
+	
+	public void hideCaption(){
+		if (listener != null) 
+			listener.displayCaption(false);
 	}
 
 }

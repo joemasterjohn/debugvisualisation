@@ -9,6 +9,7 @@ import java.util.Map;
 
 import hu.gbalage.debugvisualisation.layouts.IContinuableLayoutAlgorithm;
 import hu.gbalage.debugvisualisation.model.Edge;
+import hu.gbalage.debugvisualisation.model.EdgeCaptionListener;
 import hu.gbalage.debugvisualisation.model.Node;
 import hu.gbalage.debugvisualisation.model.NodeChangeListener;
 
@@ -61,16 +62,30 @@ public class ZestDebugTreePresentation extends Graph implements
 	/**
 	 * @see hu.gbalage.debugvisualisation.view.IDebugTreePresentation#addEdge(hu.gbalage.debugvisualisation.model.Edge, hu.gbalage.debugvisualisation.model.Node, hu.gbalage.debugvisualisation.model.Node)
 	 */
-	public void addEdge(Edge edge, Node from, Node to) {
+	public void addEdge(final Edge edge, Node from, Node to) {
 		GraphNode n1 = nodes.get(from);
 		GraphNode n2 = nodes.get(to);
 		
-		GraphConnection c = new GraphConnection(this,SWT.NONE,n1,n2);
+		final GraphConnection c = new GraphConnection(this,SWT.NONE,n1,n2);
+		
+		edge.setDisplayCaptionListener(new EdgeCaptionListener(){
+			public void displayCaption(boolean display) {
+				if (display) c.setText(edge.getName());
+				else c.setText("");
+			}
+		});
+		
 		edges.put(edge, c);
 		c.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
 		c.setLineColor(ColorConstants.black);
+		refreshNode(to);
 	}
 
+	/**
+	 * Load shared image from PlatformUI
+	 * @param imageid
+	 * @return
+	 */
 	private Image getSharedImage(String imageid){
 		return PlatformUI.getWorkbench().getSharedImages().getImage(imageid);
 	}

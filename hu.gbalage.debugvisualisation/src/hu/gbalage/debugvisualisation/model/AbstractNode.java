@@ -52,7 +52,13 @@ public abstract class AbstractNode implements Node {
 	 */
 	protected String getVarName(){
 		if (ins.isEmpty()) return "noname";
-		return ins.iterator().next().getName();
+		String name = "";
+		for (Edge e : ins){
+			name += ((name.equals("")) ? "" : ",") + e.getName();
+			if (ins.size() > 1) e.showCaption();
+			else e.hideCaption();
+		}
+		return name;
 	}
 	
 	/**
