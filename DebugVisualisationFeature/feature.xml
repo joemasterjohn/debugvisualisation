@@ -2,7 +2,7 @@
 <feature
       id="DebugVisualisationFeature"
       label="Debug Visualisation"
-      version="0.4.1"
+      version="0.5.0"
       plugin="hu.gbalage.debugvisualisation">
 
    <description url="http://code.google.com/p/debugvisualisation/">
