@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugException;
+import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 
 /**
@@ -23,8 +25,10 @@ public class FilterManager {
 	
 	public FilterManager(){
 		FilterRegistry reg = new FilterRegistry();
-		for(FilterEntry entry : reg.getEntries())
+		for(FilterEntry entry : reg.getEntries()){
+			//System.out.println("Filter: "+entry.getTypename());
 			filters.put(entry.getTypename(), entry.createFilter());
+		}
 		
 		//filters.put("java.lang.Integer", new IntegerFilter());
 	}
@@ -53,9 +57,34 @@ public class FilterManager {
 	}
 	
 	public IFilter getFilterForType(String typename){
-		if (filters.containsKey(typename))
+		if (filters.containsKey(typename)){
+			//System.out.println("filter found:"+typename);
 			return filters.get(typename);
+		}
 		return null;
+	}
+	
+	/**
+	 * Apply the registered filter (if there is one) to the 
+	 * subvariables of the given value.
+	 * @param value
+	 * @return
+	 * @throws DebugException
+	 */
+	public IVariable[] apply(IValue value, IVariable[] variables) throws DebugException{
+		IFilter filter = null;
+		IVariable[] vars = (variables == null) ? 
+				value.getVariables() : variables;
+		if (value != null){
+			filter = getFilterForType(value.getReferenceTypeName());
+		}
+		if (filter!=null)
+			try {
+				vars = filter.apply(vars);
+			} catch (CoreException e1) {
+				e1.printStackTrace();
+			}
+		return vars;
 	}
 	
 }

@@ -33,6 +33,12 @@
             name="Integer"
             use_on="java.lang.Integer">
       </filter>
+      <filter
+            filter="hu.gbalage.debugvisualisation.filters.LinkedListFilter"
+            id="hu.gbalage.debugvisualisation.filters.filter1"
+            name="LinkedList"
+            use_on="java.util.LinkedList&lt;E&gt;">
+      </filter>
    </extension>
 
 </plugin>

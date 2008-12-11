@@ -24,6 +24,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE.SharedImages;
 import org.eclipse.zest.core.widgets.Graph;
 import org.eclipse.zest.core.widgets.GraphConnection;
+import org.eclipse.zest.core.widgets.GraphItem;
 import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
@@ -118,6 +119,7 @@ public class ZestDebugTreePresentation extends Graph implements
 	 */
 	public void removeEdge(Edge edge) {
 		GraphConnection c = edges.get(edge);
+		this.setSelection(new GraphItem[0]);
 		c.dispose();
 		edges.remove(edge);
 	}
@@ -127,6 +129,7 @@ public class ZestDebugTreePresentation extends Graph implements
 	 */
 	public void removeNode(Node node) {
 		GraphNode n = nodes.get(node);
+		this.setSelection(new GraphItem[0]);
 		n.dispose();
 		nodes.remove(node);
 	}

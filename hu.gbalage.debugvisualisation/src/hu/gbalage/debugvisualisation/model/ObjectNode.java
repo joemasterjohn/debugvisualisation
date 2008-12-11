@@ -4,12 +4,9 @@
 package hu.gbalage.debugvisualisation.model;
 
 import hu.gbalage.debugvisualisation.ValueUtils;
-import hu.gbalage.debugvisualisation.filters.IFilter;
-
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
@@ -51,7 +48,23 @@ public class ObjectNode extends AbstractNode {
 	 * @see hu.gbalage.debugvisualisation.model.Node#getCaption()
 	 */
 	public String getCaption() {
-		return getVarName()+": "+ValueUtils.getValueString(value);
+		String result = getVarName()+": "+ValueUtils.getValueString(value);
+		if (open){
+			try {
+				IVariable[] vars = model.filtermanager.apply(value,null);
+				
+				for (IVariable v : vars){
+					int id = ValueUtils.getID(v.getValue());
+					if (id == -1){
+						result += "\n"+v.getName()+" = "+v.getValue().getValueString();
+					}
+				}
+			} catch (DebugException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -87,33 +100,25 @@ public class ObjectNode extends AbstractNode {
 		IVariable[] vars = variables;
 		try{
 			if (open){
-				//apply filter if exists
-				IFilter filter = null;
-				if (value != null){
-					filter = model.filtermanager.getFilterForType(getType());
-				}
-				if (filter!=null)
-					try {
-						vars = filter.apply(vars);
-					} catch (CoreException e1) {
-						e1.printStackTrace();
-					}
+				vars = model.filtermanager.apply(value, vars);
 				
 				Set<Edge> unEdges = new HashSet<Edge>();
 				unEdges.addAll(outs);
 				for (IVariable var : vars){
 					IValue value = var.getValue();
-					//check if we already have this edge
-					Node other = model.getNodeForValue(value);
-					Edge e = getOutEdgeForNode(other);
-					if (e == null){
-						//new variable
-						e = model.getEdge(this, other,var.getName());
-					}else{
-						//we already have this
-						//we still need this, so it is necessary
-						unEdges.remove(e);
-						e.getTo().changeValue(value);
+					if (ValueUtils.getID(value) != -1){
+						//check if we already have this edge
+						Node other = model.getNodeForValue(value);
+						Edge e = getOutEdgeForNode(other);
+						if (e == null){
+							//new variable
+							e = model.getEdge(this, other,var.getName());
+						}else{
+							//we already have this
+							//we still need this, so it is necessary
+							unEdges.remove(e);
+							e.getTo().changeValue(value);
+						}
 					}
 				}
 				//remove unnecessary edges
