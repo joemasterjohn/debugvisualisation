@@ -8,7 +8,7 @@
       <view
             category="org.eclipse.debug.ui"
             class="hu.gbalage.debugvisualisation.view.DebugVisualisationView"
-            icon="icons/sample.gif"
+            icon="icons/icon.png"
             id="hu.gbalage.debugvisualisation.view1"
             name="Debug Visualisation"
             restorable="true">
