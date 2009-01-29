@@ -2,7 +2,7 @@
 <feature
       id="DebugVisualisationFeature"
       label="Debug Visualisation"
-      version="0.5.0"
+      version="0.5.0.20090129"
       plugin="hu.gbalage.debugvisualisation">
 
    <description url="http://code.google.com/p/debugvisualisation/">
@@ -97,6 +97,10 @@ Everyone is permitted to copy and distribute copies of this Agreement, but in or
 
 This Agreement is governed by the laws of the State of New York and the intellectual property laws of the United States of America. No party to this Agreement will bring a legal action under this Agreement more than one year after the cause of action arose. Each party waives its rights to a jury trial in any resulting litigation.
    </license>
+
+   <url>
+      <update label="Cubus Sapiens Eclipse Update Site" url="http://eclipse.cubussapiens.hu"/>
+   </url>
 
    <requires>
       <import plugin="org.eclipse.debug.core" version="3.3.0" match="greaterOrEqual"/>
