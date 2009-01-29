@@ -6,5 +6,8 @@
    <feature url="features/DebugVisualisationFeature_0.5.0.jar" id="DebugVisualisationFeature" version="0.5.0">
       <category name="debug"/>
    </feature>
+   <feature url="features/DebugVisualisationFeature_0.5.0.20090129.jar" id="DebugVisualisationFeature" version="0.5.0.20090129">
+      <category name="debug"/>
+   </feature>
    <category-def name="debug" label="Debug"/>
 </site>
