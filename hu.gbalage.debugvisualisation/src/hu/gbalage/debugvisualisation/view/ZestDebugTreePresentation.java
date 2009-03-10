@@ -18,8 +18,12 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE.SharedImages;
@@ -40,21 +44,48 @@ public class ZestDebugTreePresentation extends Graph implements
 	
 	Map<Edge, GraphConnection> edges = new HashMap<Edge, GraphConnection>();
 	
+	Menu menu;
+	
+	/**
+	 * Toggle open/close state of the currently selected nodes
+	 * @param graph
+	 */
+	@SuppressWarnings("unchecked")
+	/* Graph.getSelection() returns List<GraphNode>
+	 */
+	private void selectionToggleOpen(Graph graph){
+		List<GraphNode> nodes = (graph).getSelection();
+		for(GraphNode n : nodes){
+			Node node = (Node)n.getData();
+			node.toggleOpen();
+		}
+		this.refresh();
+	}
+	
+	private void createMenu(){
+		menu = new Menu(this);
+		
+		MenuItem toggleOpen = new MenuItem(menu,SWT.PUSH);
+		toggleOpen.setText("Open/close nodes");
+		toggleOpen.addSelectionListener(new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				selectionToggleOpen(ZestDebugTreePresentation.this);
+			}
+		});
+		
+		this.setMenu(menu);
+	}
 	
 	public ZestDebugTreePresentation(Composite parent, int style) {
 		super(parent, style);
+		createMenu();
 		
 		this.addMouseListener(new MouseAdapter(){
-			@SuppressWarnings("unchecked")
+			
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
-				List<GraphNode> nodes = ((Graph) e.widget).getSelection();
-				for(GraphNode n : nodes){
-					Node node = (Node)n.getData();
-					node.toggleOpen();
-				}
-				ZestDebugTreePresentation.this.refresh();
-				//super.mouseDoubleClick(e);
+				selectionToggleOpen((Graph)e.widget);
 			}
 		});
 	}
