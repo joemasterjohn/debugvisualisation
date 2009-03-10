@@ -6,7 +6,10 @@ import hu.gbalage.debugvisualisation.layouts.LayoutManager;
 import hu.gbalage.debugvisualisation.model.Model;
 
 import org.eclipse.debug.ui.DebugUITools;
+import org.eclipse.debug.ui.contexts.IDebugContextListener;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -66,13 +69,22 @@ public class DebugVisualisationView extends ViewPart {
 
 		Model model = new Model(g);
 		
+		final IDebugContextListener listener = new DebugContextListener(model);
 
 		DebugUITools.getDebugContextManager().
 			getContextService(getSite().getWorkbenchWindow()).
-				addDebugContextListener(new DebugContextListener(model));
+				addDebugContextListener(listener);
 		
 		//set stackframe if debug is started before creating the view
 		model.setStackFrame(Activator.getStackFrame());
+		
+		g.addDisposeListener(new DisposeListener(){
+			public void widgetDisposed(DisposeEvent e) {
+				DebugUITools.getDebugContextManager().
+					getContextService(getSite().getWorkbenchWindow()).
+						removeDebugContextListener(listener);
+			}
+		});
 	}
 
 	/**
