@@ -3,7 +3,9 @@
  */
 package hu.gbalage.debugvisualisation.model;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -136,6 +138,14 @@ public abstract class AbstractNode implements Node {
 	protected void notifychange(){
 		for(NodeChangeListener listener : listeners)
 			listener.changed();
+	}
+	
+	public Map<String, Node> listChildNodes() {
+		HashMap<String, Node> childs = new HashMap<String, Node>();
+		for(Edge e : outs){
+			childs.put(e.getName(), e.getTo());
+		}
+		return childs;
 	}
 	
 }

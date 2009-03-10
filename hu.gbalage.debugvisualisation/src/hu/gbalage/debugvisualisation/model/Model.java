@@ -55,6 +55,11 @@ public class Model implements IStackFrameConsumer{
 	protected final FilterManager filtermanager = new FilterManager();
 	
 	/**
+	 * Store state of nodes
+	 */
+	final NodeStateStore stateStore = new NodeStateStore();
+	
+	/**
 	 * Constructor for the model. 
 	 * @param presentation The presentation is supposed to display
 	 * the graph.
@@ -67,15 +72,20 @@ public class Model implements IStackFrameConsumer{
 	 * Modify model according to the new stack frame
 	 */
 	public void setStackFrame(IStackFrame stackframe){
+		if (rootNode != null) stateStore.storeStates(this);
+		//System.out.println("step");
 		if (stackframe == null){
+			//System.out.println("clear");
 			if (rootNode != null) rootNode.dispose();
 			rootNode = null;
+			//stateStore.clearStates();
 			return;
 		}
 		if (rootNode == null) {
 			rootNode = new RootNode(this);
 			presentation.addNode(rootNode);
 		}
+		
 		
 		IVariable[] vars = new IVariable[0];
 		try {
@@ -87,6 +97,7 @@ public class Model implements IStackFrameConsumer{
 		//TODO: skip to rootVariable
 		
 		rootNode.setVariables(vars);
+		stateStore.restoreStates(this);
 		presentation.refresh();
 	}
 	

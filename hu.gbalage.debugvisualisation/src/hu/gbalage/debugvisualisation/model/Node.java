@@ -1,5 +1,6 @@
 package hu.gbalage.debugvisualisation.model;
 
+import java.util.Map;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 
@@ -118,4 +119,9 @@ public interface Node {
 	 * @see NodeState
 	 */
 	public NodeState getState();
+	
+	/**
+	 * @return the Map of edge names pointig to child nodes
+	 */
+	public Map<String, Node> listChildNodes();
 }
