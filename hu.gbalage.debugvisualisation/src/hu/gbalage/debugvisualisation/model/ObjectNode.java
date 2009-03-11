@@ -181,6 +181,9 @@ public class ObjectNode extends AbstractNode {
 	}
 	
 	protected void hide(){
+		//we cant hide the root node
+		if (model.rootNode.equals(this)) return;
+		
 		//close node if open
 		if (open) toggleOpen();
 		
