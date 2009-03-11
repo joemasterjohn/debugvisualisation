@@ -32,6 +32,11 @@ public enum NodeState {
 	 * This state indicates a node which is currently closed, but
 	 * can be opened by the user.
 	 */
-	Closed
+	Closed,
+	
+	/**
+	 * This state means that the node is hidden.
+	 */
+	Hide
 	
 }

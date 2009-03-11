@@ -23,6 +23,8 @@ public class ObjectNode extends AbstractNode {
 	
 	protected IValue value;
 	
+	protected boolean visible = true;
+	
 	public ObjectNode(Model model,int ID,IValue value){
 		this.ID = ID;
 		this.model = model;
@@ -172,4 +174,30 @@ public class ObjectNode extends AbstractNode {
 		return (open) ? NodeState.Open : NodeState.Closed;
 	}
 
+	public void toggleVisibility() {
+		if (visible) hide();
+		else show(); 
+	}
+	
+	protected void hide(){
+		//close node if open
+		if (open) toggleOpen();
+		
+		this.visible = false;
+		model.hideNode(this);
+	}
+	
+	protected void show(){
+		this.visible = true;
+		model.showNode(this);
+	}
+	
+	public boolean isVisible() {
+		return visible;
+	}
+	
+	public void showHiddenChildNodes() {
+		model.showHiddenChildsOfNode(this);	
+	}
+	
 }

@@ -46,18 +46,44 @@ public class ZestDebugTreePresentation extends Graph implements
 	
 	Menu menu;
 	
+	@SuppressWarnings("unchecked")
+	/* Graph.getSelection() returns List<GraphNode>
+	 */
+	private List<GraphNode> getSelectedNodes(Graph graph){
+		return (graph).getSelection();
+	}
+	
 	/**
 	 * Toggle open/close state of the currently selected nodes
 	 * @param graph
 	 */
-	@SuppressWarnings("unchecked")
-	/* Graph.getSelection() returns List<GraphNode>
-	 */
 	private void selectionToggleOpen(Graph graph){
-		List<GraphNode> nodes = (graph).getSelection();
+		List<GraphNode> nodes = getSelectedNodes(graph);
 		for(GraphNode n : nodes){
 			Node node = (Node)n.getData();
 			node.toggleOpen();
+		}
+		this.refresh();
+	}
+	
+	/**
+	 * Hide selected nodes
+	 * @param graph
+	 */
+	private void selectionHide(Graph graph){
+		List<GraphNode> nodes = getSelectedNodes(graph);
+		for(GraphNode n : nodes){
+			Node node = (Node)n.getData();
+			node.toggleVisibility();
+		}
+		this.refresh();
+	}
+	
+	private void selectionShowChilds(Graph graph){
+		List<GraphNode> nodes = getSelectedNodes(graph);
+		for(GraphNode n : nodes){
+			Node node = (Node)n.getData();
+			node.showHiddenChildNodes();
 		}
 		this.refresh();
 	}
@@ -71,6 +97,24 @@ public class ZestDebugTreePresentation extends Graph implements
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				selectionToggleOpen(ZestDebugTreePresentation.this);
+			}
+		});
+		
+		MenuItem hide = new MenuItem(menu,SWT.PUSH);
+		hide.setText("Hide nodes");
+		hide.addSelectionListener(new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				selectionHide(ZestDebugTreePresentation.this);
+			}
+		});
+		
+		MenuItem showchilds = new MenuItem(menu,SWT.PUSH);
+		showchilds.setText("Show hidden child nodes");
+		showchilds.addSelectionListener(new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				selectionShowChilds(ZestDebugTreePresentation.this);
 			}
 		});
 		

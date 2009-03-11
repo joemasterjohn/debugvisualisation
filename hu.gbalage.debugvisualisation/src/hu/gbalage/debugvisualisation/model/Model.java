@@ -153,7 +153,7 @@ public class Model implements IStackFrameConsumer{
 	 * @param node
 	 */
 	protected void disposeValueNode(Node node){
-		valueNodes.remove(valueNodes);
+		valueNodes.remove(node);
 		presentation.removeNode(node);
 	}
 	
@@ -172,6 +172,31 @@ public class Model implements IStackFrameConsumer{
 	 */
 	protected void removeEdge(Edge edge){
 		presentation.removeEdge(edge);
+	}
+	
+	/**
+	 * Remove a node from the presentation, but not from the model
+	 * @param node
+	 */
+	protected void hideNode(Node node){
+		for (Edge e : node.listInEdges()){
+			removeEdge(e);
+		}
+		presentation.removeNode(node);
+	}
+
+	protected void showNode(Node node){
+		presentation.addNode(node);
+		for (Edge e : node.listInEdges()){
+			presentation.addEdge(e, e.getFrom(), node);
+		}
+	}
+	
+	public void showHiddenChildsOfNode(Node node){
+		for(Node n : node.listChildNodes().values()){
+			if (!n.isVisible()) n.toggleVisibility();
+		}
+		presentation.refresh();
 	}
 	
 }

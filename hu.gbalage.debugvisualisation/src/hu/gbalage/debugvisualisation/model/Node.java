@@ -1,6 +1,8 @@
 package hu.gbalage.debugvisualisation.model;
 
 import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 
@@ -86,6 +88,17 @@ public interface Node {
 	public boolean isOpen();
 	
 	/**
+	 * @return true if this node is visible
+	 */
+	public boolean isVisible();
+	
+	/**
+	 * Hide this node if visible, and show if hidden. When a visible node
+	 * is closed, all of the child nodes are getting closed and hid. 
+	 */
+	public void toggleVisibility();
+	
+	/**
 	 * Open this node if it's closed, and close it if it's open.
 	 * When an open node is closed, all of the child nodes are
 	 * getting closed and hid. 
@@ -124,4 +137,14 @@ public interface Node {
 	 * @return the Map of edge names pointig to child nodes
 	 */
 	public Map<String, Node> listChildNodes();
+	
+	/**
+	 * @return a set of the "in"-edges
+	 */
+	public Set<Edge> listInEdges();
+	
+	/**
+	 * Show all hidden child nodes
+	 */
+	public void showHiddenChildNodes();
 }

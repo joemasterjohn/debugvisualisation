@@ -86,4 +86,17 @@ public class PrimitiveNode extends AbstractNode {
 		return NodeState.Primitive;
 	}
 	
+	public void toggleVisibility() {
+		//Currently, primitive nodes are not used.
+		//I delay the implementation of this feature
+	}
+	
+	public boolean isVisible() {
+		return true;
+	}
+
+	public void showHiddenChildNodes() {
+		//this kind of node can't has child nodes, thus we do nothing here.	
+	}
+	
 }

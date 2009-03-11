@@ -148,4 +148,8 @@ public abstract class AbstractNode implements Node {
 		return childs;
 	}
 	
+	public Set<Edge> listInEdges() {
+		return ins;
+	}
+	
 }
