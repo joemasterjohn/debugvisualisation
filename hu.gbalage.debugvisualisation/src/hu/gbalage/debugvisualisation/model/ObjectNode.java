@@ -171,6 +171,7 @@ public class ObjectNode extends AbstractNode {
 		} catch (DebugException e) {
 			e.printStackTrace();
 		}
+		if (!visible) return NodeState.Hidden;
 		return (open) ? NodeState.Open : NodeState.Closed;
 	}
 

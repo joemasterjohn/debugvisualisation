@@ -37,6 +37,6 @@ public enum NodeState {
 	/**
 	 * This state means that the node is hidden.
 	 */
-	Hide
+	Hidden
 	
 }

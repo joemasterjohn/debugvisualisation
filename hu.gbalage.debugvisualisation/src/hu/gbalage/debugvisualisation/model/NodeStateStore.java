@@ -47,6 +47,8 @@ public class NodeStateStore {
 		if ((current == NodeState.Closed)&&(stored == NodeState.Open)) node.toggleOpen();
 		if ((current == NodeState.Open)&&(stored == NodeState.Closed)) node.toggleOpen();
 
+		if (stored == NodeState.Hidden) node.toggleOpen();
+		
 	}
 	
 	private void restoreNodeState(Node node, String path){
