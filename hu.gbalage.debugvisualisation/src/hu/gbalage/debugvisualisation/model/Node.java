@@ -121,6 +121,11 @@ public interface Node {
 	public void setVariables(IVariable[] vars);
 	
 	/**
+	 * Call setVariables again on previously given variables
+	 */
+	public void refreshVariables();
+	
+	/**
 	 * Add a listener, which gets a notification if any change
 	 * happens on the node (value, state, open/close, etc..).
 	 * @param listener

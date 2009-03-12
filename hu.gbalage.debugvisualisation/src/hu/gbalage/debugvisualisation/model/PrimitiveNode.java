@@ -72,6 +72,10 @@ public class PrimitiveNode extends AbstractNode {
 		notifychange();
 	}
 
+	public void refreshVariables() {
+		//a primitive node can't have variables.	
+	}
+	
 	public void setVariables(IVariable[] vars) {
 		//a primitive node can't have variables.
 	}

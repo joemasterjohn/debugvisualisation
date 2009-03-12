@@ -96,11 +96,18 @@ public class ObjectNode extends AbstractNode {
 		return true;
 	}
 
+	public void refreshVariables() {
+		setVariables(cachedvars);
+	}
+	
+	private IVariable[] cachedvars = new IVariable[0];
+	
 	/**
 	 * @see hu.gbalage.debugvisualisation.model.Node#setVariables(org.eclipse.debug.core.model.IVariable[])
 	 */
 	public void setVariables(IVariable[] variables) {
 		IVariable[] vars = variables;
+		cachedvars = vars;
 		try{
 			if (open){
 				vars = model.filtermanager.apply(value, vars);

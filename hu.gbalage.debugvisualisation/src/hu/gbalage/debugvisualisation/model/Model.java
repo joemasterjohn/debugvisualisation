@@ -180,9 +180,9 @@ public class Model implements IStackFrameConsumer{
 	 */
 	protected void hideNode(Node node){
 		for (Edge e : node.listInEdges()){
-			removeEdge(e);
+			e.dispose();
 		}
-		presentation.removeNode(node);
+		presentation.refresh();
 	}
 
 	protected void showNode(Node node){
@@ -193,9 +193,10 @@ public class Model implements IStackFrameConsumer{
 	}
 	
 	public void showHiddenChildsOfNode(Node node){
-		for(Node n : node.listChildNodes().values()){
+		node.refreshVariables();
+		/*for(Node n : node.listChildNodes().values()){
 			if (!n.isVisible()) n.toggleVisibility();
-		}
+		}*/
 		presentation.refresh();
 	}
 	
