@@ -130,6 +130,7 @@ public class ObjectNode extends AbstractNode {
 							e.getTo().changeValue(value);
 						}
 						e.getTo().setPath(getPath()+"/"+var.getName());
+						model.stateStore.dropNodeState(e.getTo());
 					}
 				}
 				//remove unnecessary edges
