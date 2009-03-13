@@ -152,4 +152,16 @@ public interface Node {
 	 * Show all hidden child nodes
 	 */
 	public void showHiddenChildNodes();
+	
+	/**
+	 * Set the path of this node
+	 * @param path
+	 */
+	public void setPath(String path);
+	
+	/**
+	 * Get the path of this node
+	 * @return
+	 */
+	public String getPath();
 }

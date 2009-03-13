@@ -21,6 +21,16 @@ public class NodeStateStore {
 		states.clear();
 	}
 	
+	public void saveHiddenNode(Node node){
+		states.put(node.getPath(),NodeState.Hidden);
+	}
+	
+	public void dropNodeState(Node node){
+		if (states.containsKey(node.getPath())){
+			states.remove(node.getPath());
+		}
+	}
+	
 	/**
 	 * Temporary set for storing visited nodes, for eliminating problems
 	 * caused by directed circles in the graph
@@ -42,12 +52,15 @@ public class NodeStateStore {
 		
 		if (stored == current) return;
 		
+		if (stored == NodeState.Hidden){
+			node.toggleVisibility();
+			return;
+		}
+		
 		if ((current == NodeState.Root)||(current == NodeState.Primitive)) return;
 		
 		if ((current == NodeState.Closed)&&(stored == NodeState.Open)) node.toggleOpen();
 		if ((current == NodeState.Open)&&(stored == NodeState.Closed)) node.toggleOpen();
-
-		if (stored == NodeState.Hidden) node.toggleOpen();
 		
 	}
 	

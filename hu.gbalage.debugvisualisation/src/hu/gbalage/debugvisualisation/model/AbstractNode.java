@@ -152,4 +152,14 @@ public abstract class AbstractNode implements Node {
 		return ins;
 	}
 	
+	protected String path = null;
+	
+	public void setPath(String path) {
+		this.path = path;	
+	}
+	
+	public String getPath() {
+		return path;
+	}
+	
 }

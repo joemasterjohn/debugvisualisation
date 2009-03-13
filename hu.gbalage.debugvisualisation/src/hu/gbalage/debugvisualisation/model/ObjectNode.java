@@ -129,6 +129,7 @@ public class ObjectNode extends AbstractNode {
 							unEdges.remove(e);
 							e.getTo().changeValue(value);
 						}
+						e.getTo().setPath(getPath()+"/"+var.getName());
 					}
 				}
 				//remove unnecessary edges

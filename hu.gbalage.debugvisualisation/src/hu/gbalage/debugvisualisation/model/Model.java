@@ -96,6 +96,7 @@ public class Model implements IStackFrameConsumer{
 		
 		//TODO: skip to rootVariable
 		
+		rootNode.setPath("");
 		rootNode.setVariables(vars);
 		stateStore.restoreStates(this);
 		presentation.refresh();
@@ -179,6 +180,7 @@ public class Model implements IStackFrameConsumer{
 	 * @param node
 	 */
 	protected void hideNode(Node node){
+		stateStore.saveHiddenNode(node);
 		for (Edge e : node.listInEdges()){
 			e.dispose();
 		}
@@ -186,6 +188,7 @@ public class Model implements IStackFrameConsumer{
 	}
 
 	protected void showNode(Node node){
+		stateStore.dropNodeState(node);
 		presentation.addNode(node);
 		for (Edge e : node.listInEdges()){
 			presentation.addEdge(e, e.getFrom(), node);
