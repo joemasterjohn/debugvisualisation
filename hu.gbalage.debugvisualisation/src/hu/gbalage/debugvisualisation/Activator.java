@@ -4,6 +4,7 @@ import hu.gbalage.debugvisualisation.model.IStackFrameConsumer;
 
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.ui.DebugUITools;
+import org.eclipse.debug.ui.contexts.IDebugContextListener;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -20,6 +21,8 @@ public class Activator extends AbstractUIPlugin implements IStackFrameConsumer{
 	
 	private IStackFrame stackframe = null;
 	
+	private IDebugContextListener listener = null;
+	
 	/**
 	 * The constructor
 	 */
@@ -35,8 +38,10 @@ public class Activator extends AbstractUIPlugin implements IStackFrameConsumer{
 		super.start(context);
 		plugin = this;
 		
+		listener = new DebugContextListener(this);
+		
 		DebugUITools.getDebugContextManager().
-		addDebugContextListener(new DebugContextListener(this));
+		addDebugContextListener(listener);
 	}
 
 	/*
@@ -45,6 +50,11 @@ public class Activator extends AbstractUIPlugin implements IStackFrameConsumer{
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		if (listener != null){
+			DebugUITools.getDebugContextManager().
+			removeDebugContextListener(listener);
+		}
+		
 		plugin = null;
 		super.stop(context);
 	}
