@@ -10,6 +10,8 @@ import org.eclipse.debug.ui.contexts.IDebugContextListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -63,6 +65,19 @@ public class DebugVisualisationView extends ViewPart {
 		
 		g = new ZestDebugTreePresentation(parent,SWT.NONE);
 		g.setLayoutData(gdata);
+		g.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.keyCode == SWT.DEL || e.character == 8) {
+					//TODO remove selection
+					//g.selectionHide(g); -- this is not available
+				} else
+					super.keyPressed(e);
+
+			}
+
+		});
 
 		g.setLayoutAlgorithm(man.getDefault(), false);
 		g.refresh();
