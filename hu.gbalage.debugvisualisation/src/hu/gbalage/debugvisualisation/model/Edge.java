@@ -1,5 +1,7 @@
 package hu.gbalage.debugvisualisation.model;
 
+import org.eclipse.debug.core.model.IVariable;
+
 /**
  * This class defines a directed edge in the variable graph. An 
  * edge means that the value represented by the parent node (from) 
@@ -47,4 +49,10 @@ public interface Edge {
 	 * Shows the caption of the edge
 	 */
 	public void hideCaption();
+	
+	/**
+	 * Get the variable represented by this edge
+	 * @return
+	 */
+	public IVariable getVariable();
 }

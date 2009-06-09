@@ -1,5 +1,6 @@
 package hu.gbalage.debugvisualisation.model;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -164,4 +165,10 @@ public interface Node {
 	 * @return
 	 */
 	public String getPath();
+	
+	/**
+	 * Get the variables, which references to the value represented by this node
+	 * @return
+	 */
+	public Collection<IVariable> getReferences();
 }

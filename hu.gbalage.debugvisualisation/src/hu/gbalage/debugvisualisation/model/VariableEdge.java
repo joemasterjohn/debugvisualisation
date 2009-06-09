@@ -3,6 +3,8 @@
  */
 package hu.gbalage.debugvisualisation.model;
 
+import org.eclipse.debug.core.model.IVariable;
+
 /**
  * @author Grill Balazs (balage.g@gmail.com)
  *
@@ -17,13 +19,16 @@ public class VariableEdge implements Edge {
 	
 	protected final String name;
 	
+	protected final IVariable variable;
+	
 	protected EdgeCaptionListener listener = null;
 	
-	public VariableEdge(Model model,Node from, Node to,String name){
+	public VariableEdge(Model model,Node from, Node to,String name, IVariable var){
 		this.model = model;
 		this.from = from;
 		this.to = to;
 		this.name = name;
+		this.variable = var;
 		
 		from.addOut(this);
 		to.addIn(this);
@@ -70,4 +75,8 @@ public class VariableEdge implements Edge {
 			listener.displayCaption(false);
 	}
 
+	public IVariable getVariable() {
+		return variable;
+	}
+	
 }

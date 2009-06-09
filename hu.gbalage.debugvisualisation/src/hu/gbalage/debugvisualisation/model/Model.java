@@ -111,8 +111,8 @@ public class Model implements IStackFrameConsumer{
 	 * @note the created edge is given to the presentation 
 	 * automatically
 	 */
-	public Edge getEdge(Node from, Node to,String name){
-		Edge e = new VariableEdge(this,from,to,name);
+	public Edge getEdge(Node from, Node to,String name,IVariable v){
+		Edge e = new VariableEdge(this,from,to,name,v);
 		presentation.addEdge(e, from, to);
 		return e;
 	}

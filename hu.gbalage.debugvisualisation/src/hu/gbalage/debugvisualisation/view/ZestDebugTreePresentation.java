@@ -38,8 +38,8 @@ import org.eclipse.zest.core.widgets.ZestStyles;
  *
  */
 public class ZestDebugTreePresentation extends Graph implements
-		IDebugTreePresentation {
-
+		IDebugTreePresentation{
+	
 	Map<Node, GraphNode> nodes = new HashMap<Node, GraphNode>();
 	
 	Map<Edge, GraphConnection> edges = new HashMap<Edge, GraphConnection>();
@@ -49,7 +49,7 @@ public class ZestDebugTreePresentation extends Graph implements
 	@SuppressWarnings("unchecked")
 	/* Graph.getSelection() returns List<GraphNode>
 	 */
-	private List<GraphNode> getSelectedNodes(Graph graph){
+	public List<GraphNode> getSelectedNodes(Graph graph){
 		return (graph).getSelection();
 	}
 	
@@ -132,6 +132,7 @@ public class ZestDebugTreePresentation extends Graph implements
 				selectionToggleOpen((Graph)e.widget);
 			}
 		});
+
 	}
 
 	/**
@@ -153,6 +154,7 @@ public class ZestDebugTreePresentation extends Graph implements
 		edges.put(edge, c);
 		c.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
 		c.setLineColor(ColorConstants.black);
+		c.setData(edge);
 		refreshNode(to);
 	}
 

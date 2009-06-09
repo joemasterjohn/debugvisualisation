@@ -3,10 +3,15 @@
  */
 package hu.gbalage.debugvisualisation.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.eclipse.debug.core.model.IVariable;
 
 /**
  * @author Grill Balazs (balage.g@gmail.com)
@@ -160,6 +165,14 @@ public abstract class AbstractNode implements Node {
 	
 	public String getPath() {
 		return path;
+	}
+	
+	public Collection<IVariable> getReferences() {
+		List<IVariable> vs = new ArrayList<IVariable>();
+		for (Edge e : ins){
+			vs.add(e.getVariable());
+		}
+		return vs;
 	}
 	
 }
