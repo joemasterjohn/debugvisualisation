@@ -59,6 +59,10 @@ public class Model implements IStackFrameConsumer{
 	 */
 	final NodeStateStore stateStore = new NodeStateStore();
 	
+	public Node getRootNode(){
+		return rootNode;
+	}
+	
 	/**
 	 * Constructor for the model. 
 	 * @param presentation The presentation is supposed to display

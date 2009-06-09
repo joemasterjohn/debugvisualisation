@@ -11,15 +11,17 @@ import hu.gbalage.debugvisualisation.layouts.LayoutManager;
 import hu.gbalage.debugvisualisation.model.Model;
 import hu.gbalage.debugvisualisation.model.Node;
 
+import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IVariable;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.contexts.IDebugContextListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -178,17 +180,41 @@ public class DebugVisualisationView extends ViewPart implements ISelectionProvid
 	}
 
 	public void setSelection(ISelection selection) {
+		/*System.out.println("Selection: "+selection.getClass());
 		if (selection instanceof IStructuredSelection){
 			ArrayList<GraphItem> selected = new ArrayList<GraphItem>();
 			Object[] s = ((IStructuredSelection)selection).toArray();
 			System.out.println("Selected: ");
 			for(Object o : s) System.out.println(o.getClass());
+		}*/
+		if (selection instanceof ITreeSelection){
+			ArrayList<GraphItem> selected = new ArrayList<GraphItem>();
+			for(TreePath path : ((ITreeSelection)selection).getPaths()) try{
+				int l = path.getSegmentCount();
+				Node n = model.getRootNode();
+				for(int i = 0;i<l;i++) if (n != null){
+					IVariable v = (IVariable)path.getSegment(i);
+					n = n.listChildNodes().get(v.getName());
+					if (n != null){
+						if (!n.isVisible()) n.toggleVisibility();
+						if ((i<l-1)&&(!n.isOpen())) n.toggleOpen();
+					}else{
+						System.err.println("Variable "+v.getName()+" not found!");
+					}
+				}
+				if (n != null){
+					GraphNode gn = g.getNode(n);
+					if (gn != null) selected.add(gn);
+				}
+			}catch(DebugException e){
+				e.printStackTrace();
+			}
+			g.setSelection(selected.toArray(new GraphItem[0]));
 		}
 	}
 
 	public void selectionChanged(SelectionChangedEvent event) {
-		
-		
+		setSelection(event.getSelection());
 	}
 
 }

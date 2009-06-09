@@ -53,6 +53,11 @@ public class ZestDebugTreePresentation extends Graph implements
 		return (graph).getSelection();
 	}
 	
+	public GraphNode getNode(Node n){
+		if (!nodes.containsKey(n)) return null;
+		return nodes.get(n);
+	}
+	
 	/**
 	 * Toggle open/close state of the currently selected nodes
 	 * @param graph
