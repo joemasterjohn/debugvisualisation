@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.debug.ui"
+            class="hu.cubussapiens.debugvisualisation.views.DebugVisualisationView"
+            icon="icons/icon.png"
+            id="com.googlecode.debugvisualization.views.DebugVisualisationView"
+            name="Debug Visualisation View">
+      </view>
+   </extension>
+
+</plugin>
