@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="hu.cubussapiens.zestlayouts" name="Zest Graph Layouts" schema="schema/hu.cubussapiens.zestlayouts.exsd"/>
+   <extension
+         point="hu.cubussapiens.zestlayouts">
+      <layout
+            class="hu.cubussapiens.zestlayouts.creators.TreeLayoutCreator"
+            id="hu.cubussapiens.zestlayouts.treelayout"
+            name="Tree Layout">
+      </layout>
+      <layout
+            class="hu.cubussapiens.zestlayouts.creators.RadialLayoutCreator"
+            id="hu.cubussapiens.zestlayouts.radial"
+            name="Radial Layout">
+      </layout>
+      <layout
+            class="hu.cubussapiens.zestlayouts.creators.SpringLayoutCreator"
+            id="hu.cubussapiens.zestlayouts.spring"
+            name="Spring Layout">
+      </layout>
+   </extension>
+
+</plugin>

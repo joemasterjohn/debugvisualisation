@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Zestlayouts Plug-in
+Bundle-SymbolicName: hu.cubussapiens.zestlayouts;singleton:=true
+Bundle-Version: 0.1.0
+Bundle-Activator: hu.cubussapiens.zestlayouts.Activator
+Bundle-Vendor: cubussapiens.hu
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.zest.core;bundle-version="1.0.0",
+ org.eclipse.zest.layouts;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+Export-Package: hu.cubussapiens.zestlayouts,
+ hu.cubussapiens.zestlayouts.creators
