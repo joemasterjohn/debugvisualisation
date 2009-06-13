@@ -15,7 +15,7 @@ import org.eclipse.zest.layouts.algorithms.RadialLayoutAlgorithm;
  *
  */
 public class RadialLayoutCreator implements ILayoutAlgorithmCreator {
-
+	
 	/* (non-Javadoc)
 	 * @see hu.gbalage.debugvisualisation.layouts.ILayoutAlgorithmCreator#create()
 	 */

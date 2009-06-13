@@ -7,7 +7,7 @@
             category="org.eclipse.debug.ui"
             class="hu.cubussapiens.debugvisualisation.views.DebugVisualisationView"
             icon="icons/icon.png"
-            id="com.googlecode.debugvisualization.views.DebugVisualisationView"
+            id="hu.cubussapiens.debugvisualization.views.DebugVisualisationView"
             name="Debug Visualisation View">
       </view>
    </extension>

@@ -15,7 +15,7 @@ public class ExtensionConstants {
 	 * A layout algorithm extension defines a wrapper for a
 	 * LayoutAlgorithm for the Zest framework. 
 	 */
-	public static final String EP_LayoutAlgorithm = "hu.gbalage.zestlayouts";
+	public static final String EP_LayoutAlgorithm = "hu.cubussapiens.zestlayouts";
 	
 	public static final String EPA_Layout_name = "name";
 	
