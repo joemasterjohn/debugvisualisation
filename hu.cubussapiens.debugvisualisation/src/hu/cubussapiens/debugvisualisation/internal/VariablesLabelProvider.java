@@ -8,15 +8,20 @@ import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInputAware
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IVariable;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.zest.core.viewers.IConnectionStyleProvider;
+import org.eclipse.zest.core.viewers.IEntityStyleProvider;
+import org.eclipse.zest.core.widgets.ZestStyles;
 
 /**
  * @author balage
  *
  */
-public class VariablesLabelProvider implements ILabelProvider, IDebugContextInputAware {
+public class VariablesLabelProvider extends LabelProvider implements IDebugContextInputAware, IConnectionStyleProvider, IEntityStyleProvider {
 
 	IDebugContextInput input;
 	
@@ -27,6 +32,7 @@ public class VariablesLabelProvider implements ILabelProvider, IDebugContextInpu
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.ILabelProvider#getImage(java.lang.Object)
 	 */
+	@Override
 	public Image getImage(Object element) {
 		// TODO Auto-generated method stub
 		return null;
@@ -35,6 +41,7 @@ public class VariablesLabelProvider implements ILabelProvider, IDebugContextInpu
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
 	 */
+	@Override
 	public String getText(Object element) {
 		if (element instanceof Integer){
 			Integer node = (Integer)element;
@@ -51,37 +58,59 @@ public class VariablesLabelProvider implements ILabelProvider, IDebugContextInpu
 				for(String param : input.getParams(node))
 					name += "\n"+param;
 			}
+			return name;
 		}
-		return "";
+		return element.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#addListener(org.eclipse.jface.viewers.ILabelProviderListener)
-	 */
-	public void addListener(ILabelProviderListener listener) {
-		//no listeners
+	public Color getColor(Object rel) {
+		return ColorConstants.black;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#dispose()
-	 */
-	public void dispose() {
-		
+	public int getConnectionStyle(Object rel) {
+		return ZestStyles.CONNECTIONS_DIRECTED;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#isLabelProperty(java.lang.Object, java.lang.String)
-	 */
-	public boolean isLabelProperty(Object element, String property) {
-		//always update the viewer
-		return true;
+	public Color getHighlightColor(Object rel) {
+		return ColorConstants.darkGray;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
-	 */
-	public void removeListener(ILabelProviderListener listener) {
-		//no listeners
+	public int getLineWidth(Object rel) {
+		return 1;
+	}
+
+	public IFigure getTooltip(Object entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean fisheyeNode(Object entity) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Color getBackgroundColour(Object entity) {
+		return ColorConstants.button;
+	}
+
+	public Color getBorderColor(Object entity) {
+		return ColorConstants.darkGray;
+	}
+
+	public Color getBorderHighlightColor(Object entity) {
+		return ColorConstants.black;
+	}
+
+	public int getBorderWidth(Object entity) {
+		return 1;
+	}
+
+	public Color getForegroundColour(Object entity) {
+		return ColorConstants.black;
+	}
+
+	public Color getNodeHighlightColor(Object entity) {
+		return ColorConstants.buttonLightest;
 	}
 
 }

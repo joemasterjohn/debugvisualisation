@@ -15,6 +15,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.widgets.ZestStyles;
 
 
 
@@ -39,6 +40,7 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		viewer.setLayoutAlgorithm(layout.getDefault());
 		viewer.setLabelProvider(labelprovider);
 		viewer.setContentProvider(contentprovider);
+		viewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
 		
 		//getSite().setSelectionProvider(viewer);
 		
@@ -54,6 +56,7 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		IDebugContextInput input = inputfactory.getInput(stackframe);
 		labelprovider.setInput(input);
 		viewer.setInput(input);	
+		viewer.refresh();
 	}
 	
 	@Override

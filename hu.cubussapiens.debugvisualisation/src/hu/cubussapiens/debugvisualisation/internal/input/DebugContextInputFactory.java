@@ -31,6 +31,14 @@ public class DebugContextInputFactory{
 					e.printStackTrace();
 					return null;
 				}
+				else {
+					System.err.println("Recalling IDebugContextInupt");
+					try {
+						inputs.get(sf).refresh();
+					} catch (DebugException e) {
+						e.printStackTrace();
+					}
+				}
 			return inputs.get(sf);
 		}
 	}

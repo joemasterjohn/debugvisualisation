@@ -92,6 +92,7 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler{
 			if (id != -1){
 				if (!objects.containsKey(id)) objects.put(id, val);
 				addRef(id,v);
+				addRelation(parent, id, v);
 				children.add(parent, id);
 				if (val.hasVariables())
 					readVars(val.getVariables(), id);
@@ -104,9 +105,11 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler{
 	 * @throws DebugException 
 	 */
 	public void refresh() throws DebugException{
+		//System.out.println("Refreshing.."+stackframe.getVariables().length);
 		objects.clear();
 		references.clear();
 		children.clear();
+		relations.clear();
 		readVars(stackframe.getVariables(),root);
 		trigger().refreshed();
 	}

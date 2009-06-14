@@ -56,10 +56,12 @@ public class VariablesGraphContentProvider implements IGraphEntityRelationshipCo
 
 	public void openStateChanged(Integer node, boolean open) {
 		viewer.refresh();
+		viewer.applyLayout();
 	}
 
 	public void refreshed() {
 		viewer.refresh();
+		viewer.applyLayout();
 	}
 
 }
