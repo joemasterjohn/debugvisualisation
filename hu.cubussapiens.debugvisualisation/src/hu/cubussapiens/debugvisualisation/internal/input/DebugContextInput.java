@@ -111,8 +111,11 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler{
 		children.clear();
 		relations.clear();
 		readVars(stackframe.getVariables(),root);
+		onRefresh();
 		trigger().refreshed();
 	}
+	
+	protected abstract void onRefresh();
 	
 	public Set<IVariable> getReferencesForNode(Integer node) {
 		if (references.containsKey(node)) return references.get(node);

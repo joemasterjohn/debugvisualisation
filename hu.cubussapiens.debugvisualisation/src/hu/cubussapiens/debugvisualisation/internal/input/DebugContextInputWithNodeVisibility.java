@@ -42,7 +42,22 @@ public class DebugContextInputWithNodeVisibility extends
 		setVisibility(root, true);
 		openNode(root);
 	}
-
+	
+	@Override
+	protected void onRefresh() {
+		//setVisibility(root, true);
+		/*try{
+		openNode(root);
+		}catch(Exception e){
+			e.printStackTrace();
+		}*/
+		//if (visible.contains(root)) openNode(root);
+		if (open != null){
+			System.out.println("onRefresh.. "+open.size());
+			openNode(root);
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput#getVisibleNodes()
 	 */

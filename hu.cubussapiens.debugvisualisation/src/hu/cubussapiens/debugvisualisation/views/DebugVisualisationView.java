@@ -55,8 +55,11 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	public void setStackFrame(IStackFrame stackframe) {
 		IDebugContextInput input = inputfactory.getInput(stackframe);
 		labelprovider.setInput(input);
-		viewer.setInput(input);	
-		viewer.refresh();
+		//viewer.setInput(null);
+		//viewer.refresh();
+		viewer.setInput(input);
+		System.out.println("Refreshing.. "+input.getVisibleNodes().size());
+		//viewer.refresh();
 	}
 	
 	@Override
