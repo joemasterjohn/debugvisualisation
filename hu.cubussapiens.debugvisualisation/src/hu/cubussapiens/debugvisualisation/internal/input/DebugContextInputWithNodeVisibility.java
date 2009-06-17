@@ -26,6 +26,12 @@ public class DebugContextInputWithNodeVisibility extends
 	 */
 	protected final Set<Integer> open = new HashSet<Integer>();
 	
+	/**
+	 * Contains nodes that are hidden by the user and should not be shown again
+	 * (until the user says so)
+	 */
+	protected final Set<Integer> hidden = new HashSet<Integer>();
+	
 	protected void setVisibility(Integer node, boolean visibility){
 		if(visibility)
 			visible.add(node);
@@ -89,7 +95,9 @@ public class DebugContextInputWithNodeVisibility extends
 		open.add(node);
 		//show all child nodes
 		for(Integer child : getChilds(node)){
-			setVisibility(child, true);
+			//if not hidden
+			if (!hidden.contains(child))
+				setVisibility(child, true);
 		}
 	}
 
@@ -104,7 +112,20 @@ public class DebugContextInputWithNodeVisibility extends
 	
 	public void hideNode(Integer node) {
 		setVisibility(node, false);
+		hidden.add(node);
 		trigger().visibilityChanged(node, false);
+	}
+	
+	public void showHiddenChildNodes(Integer node) {
+		for(Integer child : getChilds(node)){
+			if (hidden.contains(child)) {
+				hidden.remove(child);
+				if(isOpen(node)){
+					setVisibility(child, true);
+				}
+			}
+		}
+		trigger().visibilityChanged(node, true);
 	}
 	
 }

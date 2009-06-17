@@ -106,6 +106,12 @@ public interface IDebugContextInput {
 	 */
 	public void hideNode(Integer node);
 	
+	/**
+	 * Set all previously hidden child nodes of the given node visible
+	 * @param node
+	 */
+	public void showHiddenChildNodes(Integer node);
+	
 	//------------------------------------------------------------------
 	//Other methods
 	//------------------------------------------------------------------
