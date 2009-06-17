@@ -7,7 +7,8 @@ import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * This criteria punishes a graph layout if the nodes are too close to each other. Every node
+ * pair is punished by a value of factor/d, where d is the distance between the nodes.
  *
  */
 public class PointDistribution implements Criteria {

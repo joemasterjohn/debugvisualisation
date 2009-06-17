@@ -7,9 +7,10 @@ import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
 
 /**
- * 
- * @author Grill Balazs (balage.g@gmail.com)
- *
+ * This criteria check every connection in the graph, and counts the intersections between 
+ * them. The value of this criteria will be the number of intersections * the given factor.
+ * This criteria is intended to punish intersections in graph, therefore the simulated cooling
+ * algorithm will try to avoid these.
  */
 public class EdgeIntersection implements Criteria {
 

@@ -25,11 +25,13 @@ public class SimulatedCoolingCreator implements ILayoutAlgorithmCreator {
 	 */
 	public LayoutAlgorithm create() {
 		return new SimulatedCooling(LayoutStyles.NO_LAYOUT_NODE_RESIZING,new Criteria[]{
-			new InBounds(),
-			new PointDistribution(1000),
-			new EdgeLength(0.001)
-			,new EdgeIntersection(100)
+			new InBounds(), //we want the nodes to be placed inside the graph bounds
+			new PointDistribution(1000), //we want the nodes to be far from each other
+			new EdgeLength(0.001) //we want the edges to be as short as possible
+			,new EdgeIntersection(100) //we don't want edges to intersect each other
 		});
+		//note: the values above are results of experiments, not calculations, 
+		//and can be refined as needed.
 	}
 
 }

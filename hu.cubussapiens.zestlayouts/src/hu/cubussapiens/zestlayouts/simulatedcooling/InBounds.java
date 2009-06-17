@@ -7,7 +7,8 @@ import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * This criteria punishes out-bounded nodes with a large value. A node is out-bound if
+ * its position is not in the bounds of the graph.
  *
  */
 public class InBounds implements Criteria {

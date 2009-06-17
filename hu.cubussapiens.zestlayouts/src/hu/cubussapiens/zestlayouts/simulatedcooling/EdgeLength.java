@@ -7,8 +7,8 @@ import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
- *
+ * This criteria punishes long edges by multiplying edge length by the given values.
+ * The value of punishment is linear to the edge length.
  */
 public class EdgeLength implements Criteria {
 
