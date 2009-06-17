@@ -88,4 +88,8 @@ public class LayoutManager {
 		return getLayouts()[0];
 	}
 	
+	public LayoutEntry getDefaultEntry(){
+		return entries.get(getDefaultID());
+	}
+	
 }
