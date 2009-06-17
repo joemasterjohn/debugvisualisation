@@ -124,7 +124,7 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		showChilds = new ShowHiddenChildNodesAction(viewer);
 		refresh = new RefreshLayoutAction(viewer);
 		
-		ActionButton ab = new ActionButton(controlbar,refresh, false, true);
+		ActionButton ab = new ActionButton(controlbar,refresh, true, false);
 		
 		MenuManager mm = new MenuManager();
 		viewer.getGraphControl().setMenu(mm.createContextMenu(viewer.getGraphControl()));

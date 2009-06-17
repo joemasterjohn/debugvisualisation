@@ -3,6 +3,7 @@
  */
 package hu.cubussapiens.debugvisualisation.internal;
 
+import hu.cubussapiens.debugvisualisation.BundleImages;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInputAware;
 
@@ -13,6 +14,8 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.zest.core.viewers.IConnectionStyleProvider;
 import org.eclipse.zest.core.viewers.IEntityStyleProvider;
 import org.eclipse.zest.core.widgets.ZestStyles;
@@ -30,12 +33,31 @@ public class VariablesLabelProvider extends LabelProvider implements IDebugConte
 		this.input = input;
 	}
 	
+	/**
+	 * Load shared image from PlatformUI
+	 * @param imageid
+	 * @return
+	 */
+	private Image getSharedImage(String imageid){
+		return PlatformUI.getWorkbench().getSharedImages().getImage(imageid);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.ILabelProvider#getImage(java.lang.Object)
 	 */
 	@Override
 	public Image getImage(Object element) {
-		// TODO Auto-generated method stub
+		if (element instanceof Integer){
+			Integer node = (Integer)element;
+			if (node == -1) return getSharedImage(ISharedImages.IMG_DEF_VIEW);
+			if (!input.canOpen(node)){
+				return getSharedImage(ISharedImages.IMG_OBJ_ELEMENT);
+			}
+			if (input.isOpen(node))
+				return BundleImages.getInstance().getImage(BundleImages.icon_folder_open);
+			else
+				return BundleImages.getInstance().getImage(BundleImages.icon_folder);
+		}
 		return null;
 	}
 
