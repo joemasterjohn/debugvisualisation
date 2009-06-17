@@ -18,8 +18,9 @@ import org.eclipse.zest.core.viewers.IEntityStyleProvider;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 /**
- * @author balage
- *
+ * Generates labels and images for nodes in a GraphViewer. This object also needs to be
+ * given the input of the viewer to work properly (this input has to be an 
+ * IDebugContextInput instance)
  */
 public class VariablesLabelProvider extends LabelProvider implements IDebugContextInputAware, IConnectionStyleProvider, IEntityStyleProvider {
 

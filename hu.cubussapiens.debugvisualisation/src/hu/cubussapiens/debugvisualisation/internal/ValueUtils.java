@@ -7,11 +7,17 @@ import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * Some general utils on IValue objects
  *
  */
 public class ValueUtils {
 
+	/**
+	 * Gets the unique ID for the value or -1, if the given value is primitive-typed and
+	 * there fore does not has such ID.
+	 * @param value
+	 * @return
+	 */
 	public static int getID(IValue value){
 		String s = "";
 		try {
@@ -30,6 +36,11 @@ public class ValueUtils {
 		}
 	}
 	
+	/**
+	 * Generates a string representation of the given value
+	 * @param value
+	 * @return
+	 */
 	public static String getValueString(IValue value){
 		String typename;
 		try {

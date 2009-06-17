@@ -10,8 +10,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
- *
+ * This object listens to changes in a debug context and extracts the IStackFrame object
+ * from the events to provide it to the given IStackFrameConsumer
  */
 public class DebugContextListener implements IDebugContextListener {
 

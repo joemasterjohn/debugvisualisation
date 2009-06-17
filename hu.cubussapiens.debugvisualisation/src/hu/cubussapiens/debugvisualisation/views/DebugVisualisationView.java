@@ -23,16 +23,34 @@ import org.eclipse.zest.core.widgets.ZestStyles;
 
 public class DebugVisualisationView extends ViewPart implements IStackFrameConsumer {
 
+	/**
+	 * The viewer
+	 */
 	GraphViewer viewer;
 	
+	/**
+	 * A layout manager which can provide layouts registered to the extension point
+	 */
 	LayoutManager layout = new LayoutManager();
 	
+	/**
+	 * A factory to generate inputs from IStackFrames
+	 */
 	DebugContextInputFactory inputfactory = new DebugContextInputFactory();
 	
+	/**
+	 * Listening to changes in debug context
+	 */
 	DebugContextListener listener = null;
 	
+	/**
+	 * Label provider
+	 */
 	VariablesLabelProvider labelprovider = new VariablesLabelProvider();
 	
+	/**
+	 * Content provider
+	 */
 	VariablesGraphContentProvider contentprovider = new VariablesGraphContentProvider();
 	
 	@Override

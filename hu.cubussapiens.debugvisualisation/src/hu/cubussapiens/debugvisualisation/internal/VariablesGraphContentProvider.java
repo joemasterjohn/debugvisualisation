@@ -15,7 +15,7 @@ import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.viewers.IGraphEntityRelationshipContentProvider;
 
 /**
- * @author balage
+ * Content provider for a GraphViewer. This object needs IDebugContextInput as input.
  *
  */
 public class VariablesGraphContentProvider implements IGraphEntityRelationshipContentProvider, IDCInputChangeListener {

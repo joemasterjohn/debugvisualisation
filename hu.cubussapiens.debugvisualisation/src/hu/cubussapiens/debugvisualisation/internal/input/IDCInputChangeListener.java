@@ -4,7 +4,7 @@
 package hu.cubussapiens.debugvisualisation.internal.input;
 
 /**
- * @author balage
+ * Listens changes on an IDebugContextInput
  *
  */
 public interface IDCInputChangeListener {

@@ -10,7 +10,16 @@ import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
 
 /**
- * @author balage
+ * When something happens in the debug context (start, step, stop, etc..), an event is 
+ * dispatched among its listeners which provides the currently selected IStackFrame. A
+ * next event can step into another stack frame (with a method call), which has to be 
+ * handled by another IDebugContextInput instance. Then after a method can return to a
+ * previous stack frame, for which the previously used IDebugContextInput instance is
+ * restored from a cache, which ensures that the same input object is used for the
+ * same stack frame.
+ * 
+ * This enables us to save states (open/closed, visibility, etc..) of nodes displayed
+ * for the user between stack changes. 
  *
  */
 public class DebugContextInputFactory{
