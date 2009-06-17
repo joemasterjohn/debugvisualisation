@@ -7,6 +7,7 @@ import hu.cubussapiens.debugvisualisation.internal.VariablesLabelProvider;
 import hu.cubussapiens.debugvisualisation.internal.input.DebugContextInputFactory;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
 import hu.cubussapiens.debugvisualisation.views.actions.HideAction;
+import hu.cubussapiens.debugvisualisation.views.actions.RefreshLayoutAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowHiddenChildNodesAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
 import hu.cubussapiens.debugvisualisation.views.layouts.LayoutAlgorithmContentProvider;
@@ -93,6 +94,11 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	 */
 	IAction showChilds;
 	
+	/**
+	 * Refresh layout
+	 */
+	IAction refresh;
+	
 	@Override
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new FormLayout());
@@ -116,6 +122,9 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		toggleOpen = new ToggleOpenAction(viewer);
 		hideNode = new HideAction(viewer);
 		showChilds = new ShowHiddenChildNodesAction(viewer);
+		refresh = new RefreshLayoutAction(viewer);
+		
+		ActionButton ab = new ActionButton(controlbar,refresh, false, true);
 		
 		MenuManager mm = new MenuManager();
 		viewer.getGraphControl().setMenu(mm.createContextMenu(viewer.getGraphControl()));
@@ -173,6 +182,12 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		data.left = new FormAttachment(0);
 		data.bottom = new FormAttachment(100);
 		layoutselector.getControl().setLayoutData(data);
+		
+		data = new FormData();
+		data.top = new FormAttachment(0);
+		data.left = new FormAttachment(layoutselector.getControl());
+		data.bottom = new FormAttachment(100);
+		ab.getControl().setLayoutData(data);
 	}
 
 	/**
