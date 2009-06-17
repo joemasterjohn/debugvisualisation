@@ -6,10 +6,12 @@ import hu.cubussapiens.debugvisualisation.internal.VariablesGraphContentProvider
 import hu.cubussapiens.debugvisualisation.internal.VariablesLabelProvider;
 import hu.cubussapiens.debugvisualisation.internal.input.DebugContextInputFactory;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
+import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
 import hu.cubussapiens.zestlayouts.LayoutManager;
 
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.ui.DebugUITools;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -42,6 +44,11 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		viewer.setContentProvider(contentprovider);
 		viewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
 		
+		MenuManager mm = new MenuManager();
+		viewer.getGraphControl().setMenu(mm.createContextMenu(viewer.getGraphControl()));
+		
+		mm.add(new ToggleOpenAction(viewer));
+		
 		//getSite().setSelectionProvider(viewer);
 		
 		//TODO: the previously started debug context could retrieved by this line:
@@ -52,6 +59,9 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		DebugUITools.getDebugContextManager().addDebugContextListener(listener);
 	}
 
+	/**
+	 * A new stack frame is given when the debug context is changed
+	 */
 	public void setStackFrame(IStackFrame stackframe) {
 		IDebugContextInput input = inputfactory.getInput(stackframe);
 		labelprovider.setInput(input);
