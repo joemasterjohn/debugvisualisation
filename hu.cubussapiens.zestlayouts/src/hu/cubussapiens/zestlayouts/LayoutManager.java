@@ -49,7 +49,7 @@ public class LayoutManager {
 	}
 	
 	/**
-	 * @return the ids of the available layout algorithms
+	 * @return the IDs of the available layout algorithms
 	 */
 	public String[] getLayouts(){
 		Collection<String> ids = entries.keySet();
@@ -57,6 +57,21 @@ public class LayoutManager {
 		int i=0;
 		for(String a : ids){
 			result[i] = a;
+			i++;
+		}
+		return result;
+	}
+	
+	/**
+	 * Return the registered layout entries
+	 * @return
+	 */
+	public LayoutEntry[] getEntries(){
+		Collection<String> ids = entries.keySet();
+		LayoutEntry[] result = new LayoutEntry[ids.size()];
+		int i=0;
+		for(String a : ids){
+			result[i] = entries.get(a);
 			i++;
 		}
 		return result;
