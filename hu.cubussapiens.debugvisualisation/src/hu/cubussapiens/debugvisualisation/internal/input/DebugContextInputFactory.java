@@ -28,20 +28,20 @@ public class DebugContextInputFactory{
 	
 	public IDebugContextInput getInput(IStackFrame sf){
 		if (sf == null){
-			System.err.println("Debug context is closed!");
+			//System.err.println("Debug context is closed!");
 			inputs.clear();
 			return null;
 		}else{
 			if (!inputs.containsKey(sf))
 				try {
-					System.err.println("Creating new IDebugContextInput");
+					//System.err.println("Creating new IDebugContextInput");
 					inputs.put(sf, new DebugContextInputWithNodeVisibility(sf));
 				} catch (DebugException e) {
 					e.printStackTrace();
 					return null;
 				}
 				else {
-					System.err.println("Recalling IDebugContextInupt");
+					//System.err.println("Recalling IDebugContextInupt");
 					try {
 						inputs.get(sf).refresh();
 					} catch (DebugException e) {

@@ -59,7 +59,7 @@ public class DebugContextInputWithNodeVisibility extends
 		}*/
 		//if (visible.contains(root)) openNode(root);
 		if (open != null){
-			System.out.println("onRefresh.. "+open.size());
+			//System.out.println("onRefresh.. "+open.size());
 			openNode(root);
 		}
 	}

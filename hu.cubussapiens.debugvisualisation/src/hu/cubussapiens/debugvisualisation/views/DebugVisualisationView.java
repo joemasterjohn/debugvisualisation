@@ -210,7 +210,7 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		//viewer.setInput(null);
 		//viewer.refresh();
 		viewer.setInput(input);
-		System.out.println("Refreshing.. "+input.getVisibleNodes().size());
+		//System.out.println("Refreshing.. "+input.getVisibleNodes().size());
 		//viewer.refresh();
 	}
 	
