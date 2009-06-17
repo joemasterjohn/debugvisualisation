@@ -63,5 +63,10 @@ public class VariablesGraphContentProvider implements IGraphEntityRelationshipCo
 		viewer.refresh();
 		viewer.applyLayout();
 	}
+	
+	public void visibilityChanged(Integer node, boolean visible) {
+		viewer.refresh();
+		viewer.applyLayout();	
+	}
 
 }

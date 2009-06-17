@@ -6,6 +6,7 @@ import hu.cubussapiens.debugvisualisation.internal.VariablesGraphContentProvider
 import hu.cubussapiens.debugvisualisation.internal.VariablesLabelProvider;
 import hu.cubussapiens.debugvisualisation.internal.input.DebugContextInputFactory;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
+import hu.cubussapiens.debugvisualisation.views.actions.HideAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
 import hu.cubussapiens.debugvisualisation.views.layouts.LayoutAlgorithmContentProvider;
 import hu.cubussapiens.debugvisualisation.views.layouts.LayoutAlgorithmLabelProvider;
@@ -81,6 +82,11 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	 */
 	IAction toggleOpen;
 	
+	/**
+	 * hide selected nodes
+	 */
+	IAction hideNode;
+	
 	@Override
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new FormLayout());
@@ -102,11 +108,13 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		
 		//create actions
 		toggleOpen = new ToggleOpenAction(viewer);
+		hideNode = new HideAction(viewer);
 		
 		MenuManager mm = new MenuManager();
 		viewer.getGraphControl().setMenu(mm.createContextMenu(viewer.getGraphControl()));
 		
 		mm.add(toggleOpen);
+		mm.add(hideNode);
 		
 		//double click on nodes
 		viewer.getGraphControl().addMouseListener(new MouseAdapter(){

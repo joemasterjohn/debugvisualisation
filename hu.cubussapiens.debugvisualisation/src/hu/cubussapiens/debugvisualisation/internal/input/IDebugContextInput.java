@@ -100,6 +100,12 @@ public interface IDebugContextInput {
 	 */
 	public String[] getParams(Integer node);
 	
+	/**
+	 * Hide a node from the graph
+	 * @param node
+	 */
+	public void hideNode(Integer node);
+	
 	//------------------------------------------------------------------
 	//Other methods
 	//------------------------------------------------------------------

@@ -9,18 +9,17 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
- * Action which opens or closes the selected nodes on a graph
  *
  */
-public class ToggleOpenAction extends GraphAction {
-	
+public class HideAction extends GraphAction {
+
 	/**
 	 * 
 	 */
-	public ToggleOpenAction(GraphViewer viewer) {
+	public HideAction(GraphViewer viewer) {
 		super(viewer);
-		setText("Open/Close");
-		setToolTipText("Opens or closes selected nodes");
+		setText("Hide");
+		setToolTipText("Hide selected nodes");
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class ToggleOpenAction extends GraphAction {
 		
 		for(Object i : sel.toArray()){
 			if (i instanceof Integer)
-				input.toggleOpen((Integer)i);
+				input.hideNode((Integer)i);
 		}
 	}
 

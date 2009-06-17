@@ -34,6 +34,10 @@ abstract class DebugContextInputListenerHandler implements IDebugContextInput {
 			for(IDCInputChangeListener l : listeners)
 				l.refreshed();
 		}
+		public void visibilityChanged(Integer node, boolean visible) {
+			for(IDCInputChangeListener l : listeners)
+				l.visibilityChanged(node, visible);
+		}
 	};
 
 	/**

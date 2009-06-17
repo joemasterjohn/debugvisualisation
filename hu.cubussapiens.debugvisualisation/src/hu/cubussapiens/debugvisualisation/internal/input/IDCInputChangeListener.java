@@ -17,6 +17,13 @@ public interface IDCInputChangeListener {
 	public void openStateChanged(Integer node, boolean open);
 	
 	/**
+	 * Indicates that a node is hidden or shown
+	 * @param node
+	 * @param visible
+	 */
+	public void visibilityChanged(Integer node, boolean visible);
+	
+	/**
 	 * Indicates that the input is refreshed. This means that the viewer
 	 * should rebuild the graph completely.
 	 */

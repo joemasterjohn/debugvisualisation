@@ -102,4 +102,9 @@ public class DebugContextInputWithNodeVisibility extends
 		open.remove(node);
 	}
 	
+	public void hideNode(Integer node) {
+		setVisibility(node, false);
+		trigger().visibilityChanged(node, false);
+	}
+	
 }
