@@ -9,6 +9,7 @@ import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
 import hu.cubussapiens.zestlayouts.LayoutManager;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.jface.action.MenuManager;
@@ -69,12 +70,18 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		
 		//getSite().setSelectionProvider(viewer);
 		
-		//TODO: the previously started debug context could retrieved by this line:
-		//IAdaptable dc = DebugUITools.getDebugContext();
-		//viewer.setInput(null);
-		
 		listener = new DebugContextListener(this);
 		DebugUITools.getDebugContextManager().addDebugContextListener(listener);
+		
+		//Check if there is an already started debug context
+		IAdaptable dc = DebugUITools.getDebugContext();
+		if (dc != null){
+			Object o = dc.getAdapter(IStackFrame.class);
+			if (o instanceof IStackFrame)
+				setStackFrame((IStackFrame)o);
+		}
+		
+		
 	}
 
 	/**
