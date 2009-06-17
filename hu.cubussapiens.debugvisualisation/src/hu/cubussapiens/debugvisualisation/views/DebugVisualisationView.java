@@ -7,17 +7,27 @@ import hu.cubussapiens.debugvisualisation.internal.VariablesLabelProvider;
 import hu.cubussapiens.debugvisualisation.internal.input.DebugContextInputFactory;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
+import hu.cubussapiens.debugvisualisation.views.layouts.LayoutAlgorithmContentProvider;
+import hu.cubussapiens.debugvisualisation.views.layouts.LayoutAlgorithmLabelProvider;
 import hu.cubussapiens.zestlayouts.LayoutManager;
+import hu.cubussapiens.zestlayouts.LayoutRegistry.LayoutEntry;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.eclipse.zest.core.viewers.GraphViewer;
@@ -57,6 +67,11 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	 */
 	VariablesGraphContentProvider contentprovider = new VariablesGraphContentProvider();
 	
+	/**
+	 * Combo viewer to select layouts
+	 */
+	ComboViewer layoutselector;
+	
 	//------------------------------------
 	//Actions
 	//------------------------------------
@@ -68,7 +83,15 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	
 	@Override
 	public void createPartControl(Composite parent) {
-		parent.setLayout(new FillLayout());
+		parent.setLayout(new FormLayout());
+		
+		Composite controlbar = new Composite(parent,SWT.NONE);
+		
+		layoutselector = new ComboViewer(controlbar);
+		layoutselector.setContentProvider(new LayoutAlgorithmContentProvider());
+		layoutselector.setLabelProvider(new LayoutAlgorithmLabelProvider());
+		layoutselector.setInput(layout);
+		layoutselector.setSelection(new StructuredSelection(layout.getDefaultEntry()));
 		
 		//create viewer
 		viewer = new GraphViewer(parent,SWT.NONE);
@@ -93,6 +116,15 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 			}
 		});
 		
+		//listener on layout selector
+		layoutselector.addSelectionChangedListener(new ISelectionChangedListener(){
+			public void selectionChanged(SelectionChangedEvent event) {
+				Object o = ((IStructuredSelection)layoutselector.getSelection()).getFirstElement();
+				if (o != null)
+					viewer.setLayoutAlgorithm(((LayoutEntry)o).getLayoutCreator().create(),true);
+			}
+		});
+		
 		//listener for debug context
 		listener = new DebugContextListener(this);
 		DebugUITools.getDebugContextManager().addDebugContextListener(listener);
@@ -105,7 +137,26 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 				setStackFrame((IStackFrame)o);
 		}
 		
+		FormData data = new FormData();
+		data.top = new FormAttachment(0);
+		data.left = new FormAttachment(0);
+		data.right = new FormAttachment(100);
+		controlbar.setLayoutData(data);
 		
+		data = new FormData();
+		data.top = new FormAttachment(controlbar);
+		data.left = new FormAttachment(0);
+		data.right = new FormAttachment(100);
+		data.bottom = new FormAttachment(100);
+		viewer.getGraphControl().setLayoutData(data);
+		
+		controlbar.setLayout(new FormLayout());
+		
+		data = new FormData();
+		data.top = new FormAttachment(0);
+		data.left = new FormAttachment(0);
+		data.bottom = new FormAttachment(100);
+		layoutselector.getControl().setLayoutData(data);
 	}
 
 	/**
