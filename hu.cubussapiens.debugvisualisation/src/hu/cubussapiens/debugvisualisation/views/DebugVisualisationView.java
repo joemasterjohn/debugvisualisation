@@ -26,6 +26,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.FormAttachment;
@@ -147,6 +149,15 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 				Object o = ((IStructuredSelection)layoutselector.getSelection()).getFirstElement();
 				if (o != null)
 					viewer.setLayoutAlgorithm(((LayoutEntry)o).getLayoutCreator().create(),true);
+			}
+		});
+		
+		viewer.getGraphControl().addKeyListener(new KeyAdapter(){
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.keyCode == SWT.DEL || e.character == 8) {
+					hideNode.run();
+				}
 			}
 		});
 		
