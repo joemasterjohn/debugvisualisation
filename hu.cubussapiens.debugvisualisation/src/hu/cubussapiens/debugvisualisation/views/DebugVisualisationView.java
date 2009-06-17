@@ -12,8 +12,11 @@ import hu.cubussapiens.zestlayouts.LayoutManager;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.ui.DebugUITools;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
@@ -54,22 +57,43 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	 */
 	VariablesGraphContentProvider contentprovider = new VariablesGraphContentProvider();
 	
+	//------------------------------------
+	//Actions
+	//------------------------------------
+	
+	/**
+	 * toggle open/closed state of selected nodes
+	 */
+	IAction toggleOpen;
+	
 	@Override
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new FillLayout());
+		
+		//create viewer
 		viewer = new GraphViewer(parent,SWT.NONE);
 		viewer.setLayoutAlgorithm(layout.getDefault());
 		viewer.setLabelProvider(labelprovider);
 		viewer.setContentProvider(contentprovider);
 		viewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
 		
+		//create actions
+		toggleOpen = new ToggleOpenAction(viewer);
+		
 		MenuManager mm = new MenuManager();
 		viewer.getGraphControl().setMenu(mm.createContextMenu(viewer.getGraphControl()));
 		
-		mm.add(new ToggleOpenAction(viewer));
+		mm.add(toggleOpen);
 		
-		//getSite().setSelectionProvider(viewer);
+		//double click on nodes
+		viewer.getGraphControl().addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				toggleOpen.run();
+			}
+		});
 		
+		//listener for debug context
 		listener = new DebugContextListener(this);
 		DebugUITools.getDebugContextManager().addDebugContextListener(listener);
 		
