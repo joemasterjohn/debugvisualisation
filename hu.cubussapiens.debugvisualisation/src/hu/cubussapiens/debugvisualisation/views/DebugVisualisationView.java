@@ -32,6 +32,9 @@ import org.eclipse.zest.core.widgets.ZestStyles;
 
 
 
+/**
+ * The main visualisation view element.
+ */
 public class DebugVisualisationView extends ViewPart implements IStackFrameConsumer {
 
 	/**

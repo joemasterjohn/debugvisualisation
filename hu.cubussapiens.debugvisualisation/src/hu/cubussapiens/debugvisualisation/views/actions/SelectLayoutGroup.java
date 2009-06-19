@@ -17,18 +17,29 @@ import org.eclipse.ui.actions.ActionGroup;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
- *
+ * A group of actions used for selecting layout. It can be used for both
+ * generating menu and toolbar elements.
  */
-public class SelectLayoutGroup extends ActionGroup{
+public class SelectLayoutGroup extends ActionGroup {
 
 	private SelectLayoutDropdown dropdown;
 	private List<Action> layouts;
 	private SelectLayoutAction selectedLayout;
-	
+
+	/**
+	 * Initializes the layout group.
+	 * @param manager
+	 *            the layout manager component that can be used for getting the
+	 *            list of available layouts
+	 * @param viewer
+	 *            the graph viewer component to call back when the layout is
+	 *            changed
+	 */
 	public SelectLayoutGroup(LayoutManager manager, GraphViewer viewer) {
 		layouts = new ArrayList<Action>();
 		for (LayoutEntry entry : manager.getEntries()) {
-			SelectLayoutAction layout = new SelectLayoutAction(entry, viewer, this);
+			SelectLayoutAction layout = new SelectLayoutAction(entry, viewer,
+					this);
 			if (entry.equals(manager.getDefaultEntry())) {
 				selectedLayout = layout;
 				layout.setChecked(true);
@@ -37,17 +48,30 @@ public class SelectLayoutGroup extends ActionGroup{
 			layouts.add(layout);
 		}
 	}
-	
+
+	/**
+	 * Sets the selected layout. The layout action is supposed to call back the
+	 * group.
+	 * @param layout
+	 *            the layout action to set as selected
+	 */
 	public void selectLayout(SelectLayoutAction layout) {
 		selectedLayout = layout;
 	}
-	
+
+	/**
+	 * Applies the selected layout the the graph viewer component
+	 */
 	public void applyLayout() {
 		selectedLayout.run();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.actions.ActionGroup#fillActionBars(org.eclipse.ui.IActionBars)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.actions.ActionGroup#fillActionBars(org.eclipse.ui.IActionBars
+	 * )
 	 */
 	@Override
 	public void fillActionBars(IActionBars actionBars) {
@@ -56,8 +80,12 @@ public class SelectLayoutGroup extends ActionGroup{
 		actionBars.getToolBarManager().add(dropdown);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.actions.ActionGroup#fillContextMenu(org.eclipse.jface.action.IMenuManager)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.actions.ActionGroup#fillContextMenu(org.eclipse.jface.
+	 * action.IMenuManager)
 	 */
 	@Override
 	public void fillContextMenu(IMenuManager menu) {
@@ -69,7 +97,9 @@ public class SelectLayoutGroup extends ActionGroup{
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.actions.ActionGroup#dispose()
 	 */
 	@Override
@@ -79,6 +109,5 @@ public class SelectLayoutGroup extends ActionGroup{
 		}
 		super.dispose();
 	}
-	
-	
+
 }

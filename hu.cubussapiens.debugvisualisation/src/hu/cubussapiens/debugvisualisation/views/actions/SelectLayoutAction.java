@@ -17,6 +17,12 @@ public class SelectLayoutAction extends Action {
 	private GraphViewer viewer;
 	private SelectLayoutGroup group;
 	
+	/**
+	 * Initializes a select layout action
+	 * @param layout the layout to set using this action
+	 * @param viewer the viewer to call when the action is executed
+	 * @param group the action group to notify of changes
+	 */
 	public SelectLayoutAction(LayoutEntry layout, GraphViewer viewer, SelectLayoutGroup group) {
 		super(layout.getName(),AS_RADIO_BUTTON);
 		this.layout = layout;
