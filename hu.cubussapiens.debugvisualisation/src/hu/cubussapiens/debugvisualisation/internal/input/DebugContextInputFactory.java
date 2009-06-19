@@ -3,6 +3,8 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.input;
 
+import hu.cubussapiens.debugvisualisation.Activator;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +28,15 @@ public class DebugContextInputFactory{
 	
 	private final Map<IStackFrame, IDebugContextInput> inputs = new HashMap<IStackFrame, IDebugContextInput>();
 	
+	/**
+	 * Call this method to get an IDebugContextInput from an IStackFrame. If the given "sf"
+	 * parameter is null, this method clears the cache, because a null stack frame means that
+	 * the debug context is closed.
+	 * @param sf
+	 * @return a cached or newly created IDebugContextInput, which will be an up-to-date 
+	 * representation of the given stack frame. This method returns null if the parameter 
+	 * is null.
+	 */
 	public IDebugContextInput getInput(IStackFrame sf){
 		if (sf == null){
 			//System.err.println("Debug context is closed!");
@@ -37,7 +48,7 @@ public class DebugContextInputFactory{
 					//System.err.println("Creating new IDebugContextInput");
 					inputs.put(sf, new DebugContextInputWithNodeVisibility(sf));
 				} catch (DebugException e) {
-					e.printStackTrace();
+					Activator.getDefault().logError(e, "Exception on creating a DebugContextInput");
 					return null;
 				}
 				else {
@@ -45,7 +56,7 @@ public class DebugContextInputFactory{
 					try {
 						inputs.get(sf).refresh();
 					} catch (DebugException e) {
-						e.printStackTrace();
+						Activator.getDefault().logError(e, "Exception on refreshing the DebugContextInput");
 					}
 				}
 			return inputs.get(sf);
