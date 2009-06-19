@@ -26,7 +26,7 @@ public interface Criteria {
 	 * @param y Y coordinate of the upper-left corner
 	 * @param w Width
 	 * @param h Height
-	 * @return
+	 * @return punishment of the current graph layout by this criteria
 	 */
 	public double apply(
 			LayoutEntity[] entities,LayoutRelationship[] relationships, 
