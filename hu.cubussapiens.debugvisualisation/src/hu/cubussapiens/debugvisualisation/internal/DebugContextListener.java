@@ -17,6 +17,11 @@ public class DebugContextListener implements IDebugContextListener {
 
 	IStackFrameConsumer consumer;
 	
+	/**
+	 * Creates a new DebugContextListener.
+	 * @param consumer an IStackFrameConsumer to which the extracted stack frame
+	 * objects will be given. 
+	 */
 	public DebugContextListener(IStackFrameConsumer consumer){
 		this.consumer = consumer;
 	}
