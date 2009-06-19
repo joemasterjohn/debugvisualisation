@@ -8,8 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A multimap is a map, which maps a Key to a set of values
+ * A MultiMap is a map, which maps a Key to a set of values
+ * 
+ * Note that this class is a subclass of HashMap<K, Set<V>>
  *
+ * @param <K> Type of key
+ * @param <V> Type of elements in the sets
  */
 public class MultiMap<K, V> extends HashMap<K, Set<V>> {
 
