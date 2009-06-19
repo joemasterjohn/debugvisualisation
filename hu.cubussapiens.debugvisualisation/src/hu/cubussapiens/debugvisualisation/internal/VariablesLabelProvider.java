@@ -54,9 +54,9 @@ public class VariablesLabelProvider extends LabelProvider implements IDebugConte
 				return getSharedImage(ISharedImages.IMG_OBJ_ELEMENT);
 			}
 			if (input.isOpen(node))
-				return BundleImages.getInstance().getImage(BundleImages.icon_folder_open);
+				return BundleImages.getInstance().getImage(BundleImages.icon_node_open);
 			else
-				return BundleImages.getInstance().getImage(BundleImages.icon_folder);
+				return BundleImages.getInstance().getImage(BundleImages.icon_node_closed);
 		}
 		return null;
 	}

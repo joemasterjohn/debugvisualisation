@@ -22,20 +22,15 @@ import org.osgi.framework.Bundle;
  * returns an ImageDescriptor usable with actions. Do NOT dispose images got by getImage(). 
  * Available image IDs are accepted via public static fields:
  * 
- * BundleImages.icon_refresh : refresh icon
- * BundleImages.icon_folder : closed folder icon
- * BundleImages.icon_folder_open : open folder icon
- * 
- * Icons are originated from the Tango Icon Gallery (http://tango.freedesktop.org/Tango_Icon_Gallery)
  * 
  */
 public class BundleImages{
 
-	public static final String icon_refresh = "/icons/view-refresh.png";
+	public static final String icon_refresh = "/icons/view-refresh.gif";
 	
-	public static final String icon_folder = "/icons/folder.png";
+	public static final String icon_node_open = "/icons/node-open.gif";
 	
-	public static final String icon_folder_open = "/icons/folder-open.png";
+	public static final String icon_node_closed = "/icons/node-closed.gif";
 	
 	private ImageRegistry registry = new ImageRegistry();
 	
