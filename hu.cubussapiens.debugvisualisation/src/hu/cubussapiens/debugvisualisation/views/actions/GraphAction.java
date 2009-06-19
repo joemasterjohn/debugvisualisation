@@ -28,7 +28,7 @@ public abstract class GraphAction extends Action {
 	
 	/**
 	 * Get the actual input of the action
-	 * @return
+	 * @return the actual input
 	 */
 	protected IDebugContextInput getInput(){
 		Object input = viewer.getInput();
@@ -38,7 +38,7 @@ public abstract class GraphAction extends Action {
 	
 	/**
 	 * Get the current selection of the viewer
-	 * @return
+	 * @return the current selection
 	 */
 	protected IStructuredSelection getSelection(){
 		return (IStructuredSelection)viewer.getSelection();
@@ -46,6 +46,7 @@ public abstract class GraphAction extends Action {
 	
 	/**
 	 * Creates an action for the given GraphViewer 
+	 * @param viewer 
 	 */
 	public GraphAction(GraphViewer viewer) {
 		this.viewer = viewer;

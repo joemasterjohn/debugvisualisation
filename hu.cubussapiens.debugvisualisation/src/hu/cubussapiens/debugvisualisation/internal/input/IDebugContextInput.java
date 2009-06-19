@@ -126,6 +126,7 @@ public interface IDebugContextInput {
 	
 	/**
 	 * Rebuild data. Need to be called when the underlying debug context is changed.
+	 * @throws DebugException 
 	 */
 	public void refresh() throws DebugException;
 	

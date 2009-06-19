@@ -14,7 +14,8 @@ import org.eclipse.zest.core.viewers.GraphViewer;
 public class ToggleOpenAction extends GraphSelectionAction {
 	
 	/**
-	 * 
+	 * Creates a ToggleOpenAction
+	 * @param viewer 
 	 */
 	public ToggleOpenAction(GraphViewer viewer) {
 		super(viewer);

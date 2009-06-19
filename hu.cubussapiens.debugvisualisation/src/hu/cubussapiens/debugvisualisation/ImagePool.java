@@ -27,12 +27,24 @@ import org.osgi.framework.Bundle;
  */
 public class ImagePool{
 
+	/**
+	 * Refresh icon
+	 */
 	public static final String icon_refresh = "/icons/view-refresh.gif";
 	
+	/**
+	 * Icon for an open node
+	 */
 	public static final String icon_node_open = "/icons/node-open.gif";
 	
+	/**
+	 * Icon for a closed node
+	 */
 	public static final String icon_node_closed = "/icons/node-closed.gif";
 	
+	/**
+	 * Icon for layout selection
+	 */
 	public static final String icon_select_layout = "/icons/layout.gif";
 	
 	private ImageRegistry registry = new ImageRegistry();
