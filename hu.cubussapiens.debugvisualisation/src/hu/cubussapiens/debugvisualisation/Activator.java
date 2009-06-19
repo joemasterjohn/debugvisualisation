@@ -27,7 +27,7 @@ public class Activator extends Plugin {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		new BundleImages(context.getBundle());
+		new ImagePool(context.getBundle());
 		plugin = this;
 	}
 
@@ -38,7 +38,7 @@ public class Activator extends Plugin {
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
-		BundleImages.getInstance().dispose();
+		ImagePool.getInstance().dispose();
 		super.stop(context);
 	}
 

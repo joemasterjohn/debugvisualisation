@@ -3,7 +3,7 @@
  */
 package hu.cubussapiens.debugvisualisation.views;
 
-import hu.cubussapiens.debugvisualisation.BundleImages;
+import hu.cubussapiens.debugvisualisation.ImagePool;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
@@ -39,7 +39,7 @@ public class ActionButton {
 		button = new Button(parent,SWT.PUSH);
 		this.action = action; 
 		if (icon) {
-			image = BundleImages.getInstance().getImage(action.getImageDescriptor());//action.getImageDescriptor().createImage();
+			image = ImagePool.getInstance().getImage(action.getImageDescriptor());//action.getImageDescriptor().createImage();
 			button.setImage(image);
 		}
 		if (text) {
