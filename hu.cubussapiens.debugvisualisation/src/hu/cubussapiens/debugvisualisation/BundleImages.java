@@ -49,7 +49,7 @@ public class BundleImages{
 	 * If you want to retrieve an image from the ImageDescriptor which is handled by 
 	 * BundleImages, use the getImage(ImageDescriptor) method of the BundleImages instance.
 	 * @param path
-	 * @return
+	 * @return ImageDescriptor for the asked image
 	 */
 	public ImageDescriptor getDescriptor(String path){
 		ImageDescriptor id = registry.getDescriptor(path);
@@ -65,7 +65,7 @@ public class BundleImages{
 	 * Get an image. This image is cached within this object. Never dispose images returned by
 	 * this method manually.
 	 * @param path
-	 * @return
+	 * @return the Image identified by the given path
 	 */
 	public Image getImage(String path){
 		return getImage(getDescriptor(path));
@@ -80,7 +80,7 @@ public class BundleImages{
 	 * this method.
 	 * 
 	 * @param descriptor
-	 * @return
+	 * @return Cached image identified by the given descriptor
 	 */
 	public Image getImage(ImageDescriptor descriptor){
 		String id = cache.get(descriptor);
@@ -98,7 +98,7 @@ public class BundleImages{
 	
 	/**
 	 * Get singleton instance of BundleImages
-	 * @return
+	 * @return instance of BundleImages
 	 */
 	public static BundleImages getInstance(){
 		return instance;

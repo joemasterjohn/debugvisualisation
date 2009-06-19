@@ -16,7 +16,7 @@ public class ValueUtils {
 	 * Gets the unique ID for the value or -1, if the given value is primitive-typed and
 	 * there fore does not has such ID.
 	 * @param value
-	 * @return
+	 * @return ID of the value, or -1 if the given value doesn't have such ID
 	 */
 	public static int getID(IValue value){
 		String s = "";
@@ -37,9 +37,9 @@ public class ValueUtils {
 	}
 	
 	/**
-	 * Generates a string representation of the given value
+	 * Generates a string representation of the type of the given value
 	 * @param value
-	 * @return
+	 * @return the value's type as a string
 	 */
 	public static String getValueString(IValue value){
 		String typename;

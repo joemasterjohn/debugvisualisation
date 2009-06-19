@@ -64,7 +64,7 @@ public class ActionButton {
 	
 	/**
 	 * Retrieve the underlying button for direct usage.
-	 * @return
+	 * @return the Button
 	 */
 	public Button getControl(){
 		return button;

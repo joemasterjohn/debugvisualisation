@@ -49,14 +49,14 @@ public interface IDebugContextInput {
 	
 	/**
 	 * List all node, which is currently visible
-	 * @return
+	 * @return list of nodes
 	 */
 	public Set<Integer> getVisibleNodes();
 	
 	/**
 	 * Return all variables, whose value is the object represented by the given node
 	 * @param node
-	 * @return
+	 * @return list of edges
 	 */
 	public Set<IVariable> getReferencesForNode(Integer node);
 	
@@ -65,14 +65,14 @@ public interface IDebugContextInput {
 	 * references of the node given by "to".
 	 * @param from
 	 * @param to
-	 * @return
+	 * @return list of edges
 	 */
 	public Set<IVariable> getRelations(Integer from, Integer to);
 	
 	/**
 	 * Return the value of the given node
 	 * @param node
-	 * @return
+	 * @return value binded for the given node
 	 */
 	public IValue getValue(Integer node);
 	
@@ -83,7 +83,7 @@ public interface IDebugContextInput {
 	/**
 	 * Checks whether the given node is currently open (child nodes are visible)
 	 * @param node
-	 * @return
+	 * @return true if the node is open, false otherwise
 	 */
 	public boolean isOpen(Integer node);
 	
@@ -97,14 +97,14 @@ public interface IDebugContextInput {
 	 * Checks whether the given node can be opened. This method returns true even the node 
 	 * is already opened.
 	 * @param node
-	 * @return
+	 * @return true if the open operation is applicable on the given node, false otherwise
 	 */
 	public boolean canOpen(Integer node);
 	
 	/**
 	 * Get constant parameters for the value represented by the given node
 	 * @param node
-	 * @return
+	 * @return array of parameters as strings
 	 */
 	public String[] getParams(Integer node);
 	
