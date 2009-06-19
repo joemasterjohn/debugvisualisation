@@ -6,6 +6,7 @@ package hu.cubussapiens.debugvisualisation.internal.input;
 import java.util.Set;
 
 import org.eclipse.debug.core.DebugException;
+import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 
 /**
@@ -67,6 +68,13 @@ public interface IDebugContextInput {
 	 * @return
 	 */
 	public Set<IVariable> getRelations(Integer from, Integer to);
+	
+	/**
+	 * Return the value of the given node
+	 * @param node
+	 * @return
+	 */
+	public IValue getValue(Integer node);
 	
 	//------------------------------------------------------------------
 	//Methods related to node state

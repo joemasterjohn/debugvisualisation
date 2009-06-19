@@ -74,9 +74,11 @@ public class VariablesLabelProvider extends LabelProvider implements IDebugConte
 				try {
 					name += v.getName()+" ";
 				} catch (DebugException e) {
-					e.printStackTrace();
+					e.printStackTrace(); //TODO: log error
 				}
 			}
+			String type = ValueUtils.getValueString(input.getValue(node));//input.getValue(node).getReferenceTypeName();
+			name += ": "+type;
 			if (input.isOpen(node)){
 				for(String param : input.getParams(node))
 					name += "\n"+param;

@@ -57,6 +57,11 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler{
 		return new HashSet<IVariable>();
 	}
 	
+	public IValue getValue(Integer node) {
+		if (objects.containsKey(node)) return objects.get(node);
+		return null;
+	}
+	
 	/**
 	 * ID of root node (local context)
 	 */
