@@ -18,7 +18,7 @@ import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 public class TreeLayoutCreator implements ILayoutAlgorithmCreator {
 
 	/**
-	 * @see hu.gbalage.debugvisualisation.layouts.ILayoutAlgorithmCreator#create()
+	 * @see hu.cubussapiens.zestlayouts.ILayoutAlgorithmCreator#create()
 	 */
 	public LayoutAlgorithm create() {
 		return new TreeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING);

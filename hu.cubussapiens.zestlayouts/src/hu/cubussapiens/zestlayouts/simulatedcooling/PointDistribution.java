@@ -19,8 +19,8 @@ public class PointDistribution implements Criteria {
 		this.factor = factor;
 	}
 	
-	/**
-	 * @see hu.gbalage.debugvisualisation.simulatedcooling.Criteria#apply(org.eclipse.zest.layouts.LayoutEntity[], org.eclipse.zest.layouts.LayoutRelationship[], double, double, double, double)
+	/* (non-Javadoc)
+	 * @see hu.cubussapiens.zestlayouts.simulatedcooling.Criteria#apply(org.eclipse.zest.layouts.LayoutEntity[], org.eclipse.zest.layouts.LayoutRelationship[], double, double, double, double)
 	 */
 	public double apply(LayoutEntity[] entities,
 			LayoutRelationship[] relationships, double x, double y, double w,
