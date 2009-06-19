@@ -8,7 +8,7 @@ import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
- *
+ * Shows all hidden child nodes of the selected nodes
  */
 public class ShowHiddenChildNodesAction extends GraphSelectionAction {
 

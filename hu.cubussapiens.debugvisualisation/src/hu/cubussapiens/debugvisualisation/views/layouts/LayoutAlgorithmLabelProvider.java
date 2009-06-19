@@ -8,7 +8,7 @@ import hu.cubussapiens.zestlayouts.LayoutRegistry.LayoutEntry;
 import org.eclipse.jface.viewers.LabelProvider;
 
 /**
- *
+ * LabelProvider for tha Layout Algorithm selector widget
  */
 public class LayoutAlgorithmLabelProvider extends LabelProvider {
 

@@ -10,7 +10,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
- *
+ * An action which can be executed on a GraphViewer, specially the GraphViewer of the
+ * DebugVisualisationView. This action assumes that the viewer got an IDebugContextInput
+ * as input (or null).
  */
 public abstract class GraphAction extends Action {
 
@@ -43,7 +45,7 @@ public abstract class GraphAction extends Action {
 	}
 	
 	/**
-	 * 
+	 * Creates an action for the given GraphViewer 
 	 */
 	public GraphAction(GraphViewer viewer) {
 		this.viewer = viewer;

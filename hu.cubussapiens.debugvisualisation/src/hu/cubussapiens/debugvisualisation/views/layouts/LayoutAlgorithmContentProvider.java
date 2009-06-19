@@ -9,7 +9,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
- * @author balage
+ * ContentProvider for the Layout Algorithm selector widget
  *
  */
 public class LayoutAlgorithmContentProvider implements IStructuredContentProvider {

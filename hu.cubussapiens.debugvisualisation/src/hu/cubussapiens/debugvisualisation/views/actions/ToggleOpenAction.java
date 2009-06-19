@@ -8,7 +8,7 @@ import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
- * Action which opens or closes the selected nodes on a graph
+ * Action which opens or closes the selected nodes on a graph.
  *
  */
 public class ToggleOpenAction extends GraphSelectionAction {

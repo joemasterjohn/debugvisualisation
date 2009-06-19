@@ -16,7 +16,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- *
+ * A simple button, which can be bound to an action. Caption and image are retrieved from the
+ * action.
  */
 public class ActionButton {
 
@@ -26,6 +27,14 @@ public class ActionButton {
 	
 	Image image = null;
 	
+	/**
+	 * Create an ActionButton. The button will get SWT.PUSH as style. The tool tip text 
+	 * of the action will always be given to the button.
+	 * @param parent composite, which will contain this button
+	 * @param action an action to bind
+	 * @param icon use icon of action as an image on the button
+	 * @param text use text of action as a text on the button
+	 */
 	public ActionButton(Composite parent, IAction action, boolean icon, boolean text) {
 		button = new Button(parent,SWT.PUSH);
 		this.action = action; 
@@ -53,6 +62,10 @@ public class ActionButton {
 		
 	}
 	
+	/**
+	 * Retrieve the underlying button for direct usage.
+	 * @return
+	 */
 	public Button getControl(){
 		return button;
 	}

@@ -8,7 +8,7 @@ import hu.cubussapiens.debugvisualisation.BundleImages;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
- *
+ * Reapplies the layout of the graph
  */
 public class RefreshLayoutAction extends GraphAction {
 

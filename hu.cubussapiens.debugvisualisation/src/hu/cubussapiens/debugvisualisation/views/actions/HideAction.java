@@ -8,7 +8,7 @@ import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
- *
+ * Hides all selected nodes. (calls input.hideNode() on all selected node)
  */
 public class HideAction extends GraphSelectionAction {
 
