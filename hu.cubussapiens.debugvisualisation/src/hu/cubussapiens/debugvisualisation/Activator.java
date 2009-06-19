@@ -1,6 +1,9 @@
 package hu.cubussapiens.debugvisualisation;
 
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -16,6 +19,8 @@ public class Activator extends Plugin {
 	// The shared instance
 	private static Activator plugin;
 	
+	private ILog log;
+	
 	/**
 	 * The constructor
 	 */
@@ -29,8 +34,10 @@ public class Activator extends Plugin {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		new ImagePool(context.getBundle());
+		Bundle bundle = context.getBundle();
+		new ImagePool(bundle);
 		plugin = this;
+		log = Platform.getLog(bundle);
 	}
 
 	/*
@@ -42,6 +49,7 @@ public class Activator extends Plugin {
 		plugin = null;
 		ImagePool.getInstance().dispose();
 		super.stop(context);
+		log = null;
 	}
 
 	/**
@@ -51,6 +59,14 @@ public class Activator extends Plugin {
 	 */
 	public static Activator getDefault() {
 		return plugin;
+	}
+	
+	/**
+	 * Returns the logger interface of the bundle
+	 * @return the logger interface
+	 */
+	public ILog getLogger() {
+		return log;
 	}
 
 }
