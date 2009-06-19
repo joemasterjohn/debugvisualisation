@@ -16,12 +16,16 @@ public interface Criteria {
 
 	/**
 	 * Apply the criteria with the given graph configuration.
-	 * @param entities
-	 * @param relationships
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param h
+	 * 
+	 * The graph bounds are given by four values: (x,y,w,h). This gives the position and
+	 * size of the place inside where the graph elements are visible.   
+	 * 
+	 * @param entities nodes in the graph
+	 * @param relationships edges in the graph
+	 * @param x X coordinate of the upper-left corner
+	 * @param y Y coordinate of the upper-left corner
+	 * @param w Width
+	 * @param h Height
 	 * @return
 	 */
 	public double apply(

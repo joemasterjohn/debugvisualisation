@@ -6,14 +6,14 @@ package hu.cubussapiens.zestlayouts;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * A wrapper interface which can create a LayoutAlgorithm and set the correct parameters.
  *
  */
 public interface ILayoutAlgorithmCreator {
 
 	/**
 	 * 
-	 * @return
+	 * @return a newly created LayoutAlgorithm
 	 */
 	public LayoutAlgorithm create();
 	

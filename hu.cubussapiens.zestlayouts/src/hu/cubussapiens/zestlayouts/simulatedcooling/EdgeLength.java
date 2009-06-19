@@ -14,6 +14,11 @@ public class EdgeLength implements Criteria {
 
 	private final double factor;
 	
+	/**
+	 * Creates a criteria which punishes long edges
+	 * @param factor a linear factor to determine punishment, which is factor*length, where
+	 * length is the length of the edge
+	 */
 	public EdgeLength(double factor){
 		this.factor = factor;
 	}

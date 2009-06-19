@@ -16,6 +16,10 @@ public class EdgeIntersection implements Criteria {
 
 	private final double factor;
 	
+	/**
+	 * Creates an criteria to punish edge intersection
+	 * @param factor punishment for one intersection
+	 */
 	public EdgeIntersection(double factor){
 		this.factor = factor;
 	}

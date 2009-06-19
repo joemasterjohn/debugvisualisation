@@ -15,6 +15,10 @@ public class PointDistribution implements Criteria {
 
 	private final double factor;
 	
+	/**
+	 * Creates a criteria which punishes nodes which are too close to each other.
+	 * @param factor a linear factor to determine punishment, which is factor/d, where d is the distance between the nodes.
+	 */
 	public PointDistribution(double factor){
 		this.factor = factor;
 	}

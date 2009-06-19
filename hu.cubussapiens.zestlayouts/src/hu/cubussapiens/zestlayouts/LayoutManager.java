@@ -12,7 +12,8 @@ import java.util.Map;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * This object manages the registered layout algorithms. When this object is created, it
+ * loads all available layout algorithms using a LayoutRegistry.
  *
  */
 public class LayoutManager {
@@ -21,6 +22,9 @@ public class LayoutManager {
 	
 	protected Map<String, LayoutEntry> entries = new HashMap<String, LayoutEntry>();
 	
+	/**
+	 * Create a LayoutManager and load all available layout algorithms using a LayoutRegistry.
+	 */
 	public LayoutManager(){
 		reg = new LayoutRegistry();
 		for(LayoutEntry entry : reg.getEntries()){
@@ -28,10 +32,20 @@ public class LayoutManager {
 		}
 	}
 	
+	/**
+	 * Extract a LayoutAlgorithm from the given entry
+	 * @param entry
+	 * @return a newly created LayoutAlgorithm
+	 */
 	public LayoutAlgorithm getLayoutAlgorithm(LayoutEntry entry){
 		return entry.getLayoutCreator().create();
 	}
 	
+	/**
+	 * Create a layout algorithm by its ID
+	 * @param id
+	 * @return a newly created LayoutAlgorithm
+	 */
 	public LayoutAlgorithm getLayoutAlgorithm(String id){
 		if (entries.containsKey(id)){
 			return getLayoutAlgorithm(entries.get(id));
@@ -40,6 +54,11 @@ public class LayoutManager {
 		}
 	}
 	
+	/**
+	 * Get a display name of the layout algorithm identified by the given ID
+	 * @param id
+	 * @return name of the layout algorithm
+	 */
 	public String getLayoutName(String id){
 		if (entries.containsKey(id)){
 			return entries.get(id).getName();
@@ -84,10 +103,16 @@ public class LayoutManager {
 		return getLayoutAlgorithm(getDefaultID());
 	}
 	
+	/**
+	 * @return the ID of the first given layout algorithm
+	 */
 	public String getDefaultID(){
 		return getLayouts()[0];
 	}
 	
+	/**
+	 * @return the first registered layout algorithm entry
+	 */
 	public LayoutEntry getDefaultEntry(){
 		return entries.get(getDefaultID());
 	}

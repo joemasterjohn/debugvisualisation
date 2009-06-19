@@ -18,6 +18,10 @@ import org.eclipse.core.runtime.Platform;
  */
 public class LayoutRegistry {
 
+	/**
+	 * An entry describes a registered layout algorithm
+	 *
+	 */
 	public static class LayoutEntry{
 		
 		protected final IConfigurationElement element;
@@ -32,14 +36,23 @@ public class LayoutRegistry {
 			this.name = element.getAttribute(ExtensionConstants.EPA_Layout_name);
 		}
 		
+		/**
+		 * @return display name of the algorithm
+		 */
 		public String getName(){
 			return name;
 		}
 		
+		/**
+		 * @return ID of the algorithm
+		 */
 		public String getID(){
 			return id;
 		}
 		
+		/**
+		 * @return Creator of the registered layout algorithm
+		 */
 		public ILayoutAlgorithmCreator getLayoutCreator(){
 			try {
 				return (ILayoutAlgorithmCreator)element.createExecutableExtension(ExtensionConstants.EPA_Layout_class);
@@ -63,6 +76,9 @@ public class LayoutRegistry {
 		}
 	}	  
 	
+	/**
+	 * @return all registered entries
+	 */
 	public Set<LayoutEntry> getEntries() {
 		return entries;
 	}
