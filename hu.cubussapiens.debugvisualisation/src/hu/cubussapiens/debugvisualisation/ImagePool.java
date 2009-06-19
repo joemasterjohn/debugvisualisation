@@ -33,6 +33,8 @@ public class ImagePool{
 	
 	public static final String icon_node_closed = "/icons/node-closed.gif";
 	
+	public static final String icon_select_layout = "/icons/layout.gif";
+	
 	private ImageRegistry registry = new ImageRegistry();
 	
 	private Map<ImageDescriptor, String> cache = new HashMap<ImageDescriptor, String>();
