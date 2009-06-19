@@ -13,9 +13,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.runtime.ILog;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IValue;
@@ -136,9 +133,7 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler{
 			try {
 				return objects.get(node).hasVariables();
 			} catch (DebugException e) {
-				ILog logger = Activator.getDefault().getLogger();
-				IStatus status = new Status(IStatus.ERROR,Activator.PLUGIN_ID,-1,"Internal error in Debug Visualisation", e);
-				logger.log(status);
+				Activator.getDefault().logError(e, "Internal error in Debug Visualisation");
 			}
 		}
 		return false;
@@ -156,9 +151,7 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler{
 				}
 				return params.toArray(new String[0]);
 			} catch (DebugException e) {
-				ILog logger = Activator.getDefault().getLogger();
-				IStatus status = new Status(IStatus.ERROR,Activator.PLUGIN_ID,-1,"Internal error in Debug Visualisation", e);
-				logger.log(status);
+				Activator.getDefault().logError(e, "Internal error in Debug Visualisation");
 			}
 		}
 		return null;

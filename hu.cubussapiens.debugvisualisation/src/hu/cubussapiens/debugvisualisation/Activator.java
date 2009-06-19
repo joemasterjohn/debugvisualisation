@@ -1,8 +1,10 @@
 package hu.cubussapiens.debugvisualisation;
 
 import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.Status;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -67,6 +69,26 @@ public class Activator extends Plugin {
 	 */
 	public ILog getLogger() {
 		return log;
+	}
+	
+	/**
+	 * Logs an error message together with the an exception
+	 * @param e an Exception to log
+	 * @param message the log message
+	 */
+	public void logError(Throwable e, String message) {
+		logError(e, message, -1);
+	}
+	
+	/**
+	 * Logs an error message with an error code and an exception
+	 * @param e an Exception to log
+	 * @param message the log message
+	 * @param errorCode an error code
+	 */
+	public void logError(Throwable e, String message, int errorCode) {
+		Status status = new Status(IStatus.ERROR, PLUGIN_ID, errorCode, message, e);
+		log.log(status);
 	}
 
 }

@@ -8,9 +8,6 @@ import hu.cubussapiens.debugvisualisation.ImagePool;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInputAware;
 
-import org.eclipse.core.runtime.ILog;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IVariable;
 import org.eclipse.draw2d.ColorConstants;
@@ -68,9 +65,7 @@ public class VariablesLabelProvider extends LabelProvider implements IDebugConte
 				try {
 					name += v.getName()+" ";
 				} catch (DebugException e) {
-					ILog logger = Activator.getDefault().getLogger();
-					IStatus status = new Status(IStatus.ERROR,Activator.PLUGIN_ID,-1,"Internal error in Debug Visualisation", e);
-					logger.log(status);
+					Activator.getDefault().logError(e, "Internal error in Debug Visualisation");
 				}
 			}
 			String type = ValueUtils.getValueString(input.getValue(node));//input.getValue(node).getReferenceTypeName();
