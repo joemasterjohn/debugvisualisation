@@ -10,7 +10,7 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * Creator for HorizontalTreeLayoutAlgorithm
  *
  */
 public class HorizontalTreeLayoutCreator implements ILayoutAlgorithmCreator {

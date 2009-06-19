@@ -11,7 +11,7 @@ import org.eclipse.zest.layouts.algorithms.HorizontalLayoutAlgorithm;
 
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * Creator for HorizontalLayoutAlgorithm
  *
  */
 public class HorizontalLayoutCreator implements ILayoutAlgorithmCreator {

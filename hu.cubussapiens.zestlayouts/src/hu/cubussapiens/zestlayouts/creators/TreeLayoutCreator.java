@@ -12,7 +12,7 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * A layout algorithm to position nodes as a tree
  *
  */
 public class TreeLayoutCreator implements ILayoutAlgorithmCreator {

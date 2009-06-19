@@ -13,7 +13,7 @@ import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * Creator for layout algorithm, which simulates springs at the edges
  *
  */
 public class SpringLayoutCreator implements ILayoutAlgorithmCreator {

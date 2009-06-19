@@ -12,7 +12,7 @@ import org.eclipse.zest.layouts.algorithms.VerticalLayoutAlgorithm;
 
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * Creator for VerticalLayoutAlgorithm
  *
  */
 public class VerticalLayoutCreator implements ILayoutAlgorithmCreator {

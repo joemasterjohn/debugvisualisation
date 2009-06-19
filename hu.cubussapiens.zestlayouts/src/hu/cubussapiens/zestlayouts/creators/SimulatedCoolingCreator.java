@@ -15,7 +15,7 @@ import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * Creator for SimulatedCooling algorithm. Criteria parameters are set by experiments.
  *
  */
 public class SimulatedCoolingCreator implements ILayoutAlgorithmCreator {

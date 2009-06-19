@@ -12,7 +12,8 @@ import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.HorizontalShift;
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * Creator for DirectedGraphLayout. The LayoutAlgorithm created by this object is a composite
+ * algorithm consisting a DirectedGraphLayoutAlgorithm and a HorizontalShift.
  *
  */
 public class DirectedGraphLayoutCreator implements ILayoutAlgorithmCreator {

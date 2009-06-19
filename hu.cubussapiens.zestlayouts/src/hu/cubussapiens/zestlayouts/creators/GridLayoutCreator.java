@@ -11,7 +11,7 @@ import org.eclipse.zest.layouts.algorithms.GridLayoutAlgorithm;
 
 
 /**
- * @author Grill Balazs (balage.g@gmail.com)
+ * Creator for GridLayoutAlgorithm
  *
  */
 public class GridLayoutCreator implements ILayoutAlgorithmCreator {
