@@ -27,6 +27,9 @@ public class EdgeIntersection implements Criteria {
 	/**
 	 * decides whether the two given segments intersects each other.
 	 * From: http://thirdpartyninjas.com/blog/2008/10/07/line-segment-intersection/
+	 * 
+	 * Segments given by: (x1,y1)->(x2,y2) and (x3,y3)->(x4,y4)
+	 * 
 	 * @param x1
 	 * @param y1
 	 * @param x2
@@ -35,7 +38,7 @@ public class EdgeIntersection implements Criteria {
 	 * @param y3
 	 * @param x4
 	 * @param y4
-	 * @return
+	 * @return true if the two segments are intersects. False otherwise
 	 */
 	public boolean intersect(double x1,double y1,double x2,double y2,
 			double x3,double y3,double x4,double y4){

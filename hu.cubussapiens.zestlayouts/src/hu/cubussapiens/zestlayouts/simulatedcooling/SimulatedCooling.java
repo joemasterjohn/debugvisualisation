@@ -45,6 +45,11 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 	
 	private Criteria[] crits;
 	
+	/**
+	 * Creates a simulated cooling algorithm.
+	 * @param styles
+	 * @param criterias
+	 */
 	public SimulatedCooling(int styles, Criteria[] criterias) {
 		super(styles);
 		crits = criterias;

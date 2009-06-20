@@ -17,10 +17,19 @@ public class ExtensionConstants {
 	 */
 	public static final String EP_LayoutAlgorithm = "hu.cubussapiens.zestlayouts";
 	
+	/**
+	 * Display name of a layout
+	 */
 	public static final String EPA_Layout_name = "name";
 	
+	/**
+	 * Unique ID for a layout
+	 */
 	public static final String EPA_Layout_id = "id";
 	
+	/**
+	 * Creator class of the layout algorithm
+	 */
 	public static final String EPA_Layout_class = "class";
 	
 }

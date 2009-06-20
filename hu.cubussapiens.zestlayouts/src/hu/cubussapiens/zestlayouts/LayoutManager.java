@@ -83,7 +83,7 @@ public class LayoutManager {
 	
 	/**
 	 * Return the registered layout entries
-	 * @return
+	 * @return All registered entries
 	 */
 	public LayoutEntry[] getEntries(){
 		Collection<String> ids = entries.keySet();
