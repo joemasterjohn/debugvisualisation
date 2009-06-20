@@ -96,12 +96,13 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler{
 			IValue val = v.getValue();
 			int id = ValueUtils.getID(val);
 			if (id != -1){
-				if (!objects.containsKey(id)) objects.put(id, val);
-				addRef(id,v);
-				addRelation(parent, id, v);
-				children.add(parent, id);
-				if (val.hasVariables())
-					readVars(val.getVariables(), id);
+				if (!objects.containsKey(id)){ objects.put(id, val);
+					addRef(id,v);
+					addRelation(parent, id, v);
+					children.add(parent, id);
+					if (val.hasVariables())
+						readVars(val.getVariables(), id);
+				}
 			}
 		}
 	}
