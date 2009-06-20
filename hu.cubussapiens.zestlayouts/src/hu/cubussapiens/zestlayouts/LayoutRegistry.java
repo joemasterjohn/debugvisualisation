@@ -30,6 +30,10 @@ public class LayoutRegistry {
 		
 		protected final String id;
 		
+		/**
+		 * Load data for a layout algorithm entry from a platform configuration element
+		 * @param element
+		 */
 		public LayoutEntry(IConfigurationElement element){
 			this.element = element;
 			this.id = element.getAttribute(ExtensionConstants.EPA_Layout_id);
@@ -66,6 +70,9 @@ public class LayoutRegistry {
 	
 	protected Set<LayoutEntry> entries = new HashSet<LayoutEntry>();
 	
+	/**
+	 * Create a layout registry, and load all registered entries
+	 */
 	public LayoutRegistry(){
 		IExtensionRegistry registry = Platform.getExtensionRegistry();  
 		IExtensionPoint point = registry.getExtensionPoint(ExtensionConstants.EP_LayoutAlgorithm);  
