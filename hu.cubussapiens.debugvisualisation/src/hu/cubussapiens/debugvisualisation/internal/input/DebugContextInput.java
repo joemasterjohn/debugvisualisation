@@ -89,7 +89,23 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler{
 		refresh();
 	}
 	
+	private void clearChildren(Integer node){
+		if (children.containsKey(node))
+			children.get(node).clear();
+	}
 	
+	/**
+	 * Reload variables of the given node. This method assumes that the given node
+	 * is already loaded.
+	 * @param node
+	 * @throws DebugException 
+	 */
+	protected void refreshNode(Integer node) throws DebugException{
+		if (!objects.containsKey(node)) return;
+		IValue v = objects.get(node);
+		clearChildren(node);
+		if (v.hasVariables()) readVars(v.getVariables(),node); 
+	}
 	
 	private void readVars(IVariable[] vars, Integer parent) throws DebugException{
 		for(IVariable v : vars){
@@ -100,7 +116,7 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler{
 					addRef(id,v);
 					addRelation(parent, id, v);
 					children.add(parent, id);
-					if (val.hasVariables())
+					if (val.hasVariables() && isOpen(id))
 						readVars(val.getVariables(), id);
 				}
 			}

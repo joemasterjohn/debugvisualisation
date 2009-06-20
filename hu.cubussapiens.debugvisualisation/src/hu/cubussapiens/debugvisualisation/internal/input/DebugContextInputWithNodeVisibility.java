@@ -3,6 +3,8 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.input;
 
+import hu.cubussapiens.debugvisualisation.Activator;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,6 +77,8 @@ public class DebugContextInputWithNodeVisibility extends
 	 * @see hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput#isOpen(java.lang.Integer)
 	 */
 	public boolean isOpen(Integer node) {
+		if (node == -1) return true;
+		if (open == null) return false;
 		return open.contains(node);
 	}
 
@@ -93,6 +97,12 @@ public class DebugContextInputWithNodeVisibility extends
 	private void openNode(Integer node){
 		//open closed node
 		open.add(node);
+		//reload child variables
+		try {
+			refreshNode(node);
+		} catch (DebugException e) {
+			Activator.getDefault().logError(e, "Can't refresh node "+node);
+		}
 		//show all child nodes
 		for(Integer child : getChilds(node)){
 			//if not hidden
