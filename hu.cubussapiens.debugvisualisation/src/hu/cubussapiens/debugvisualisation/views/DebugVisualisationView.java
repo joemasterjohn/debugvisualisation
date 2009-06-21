@@ -12,7 +12,6 @@ import hu.cubussapiens.debugvisualisation.views.actions.SelectLayoutGroup;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowHiddenChildNodesAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
 import hu.cubussapiens.zestlayouts.LayoutManager;
-
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.ui.DebugUITools;
@@ -30,8 +29,6 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
-
-
 /**
  * The main visualisation view element.
  */
@@ -41,96 +38,106 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	 * The viewer
 	 */
 	GraphViewer viewer;
-	
+
 	/**
-	 * A layout manager which can provide layouts registered to the extension point
+	 * A layout manager which can provide layouts registered to the extension
+	 * point
 	 */
 	LayoutManager layout = new LayoutManager();
-	
+
 	/**
 	 * A factory to generate inputs from IStackFrames
 	 */
 	DebugContextInputFactory inputfactory = new DebugContextInputFactory();
-	
+
 	/**
 	 * Listening to changes in debug context
 	 */
 	DebugContextListener listener = null;
-	
+
 	/**
 	 * Label provider
 	 */
 	VariablesLabelProvider labelprovider = new VariablesLabelProvider();
-	
+
 	/**
 	 * Content provider
 	 */
 	VariablesGraphContentProvider contentprovider = new VariablesGraphContentProvider();
-	
+
 	//------------------------------------
 	//Actions
 	//------------------------------------
-	
+
 	/**
-	 * toggle open/closed state of selected nodes
+	 * Toggle open/closed state of selected nodes
 	 */
 	IAction toggleOpen;
-	
+
 	/**
-	 * hide selected nodes
+	 * Hide selected nodes
 	 */
 	IAction hideNode;
-	
+
 	/**
 	 * Show all hidden child nodes of the selected nodes
 	 */
 	IAction showChilds;
-	
+
 	/**
 	 * Refresh layout
 	 */
 	IAction refresh;
-	
+
+	/**
+	 * The action group
+	 */
 	SelectLayoutGroup group;
-	
+
 	@Override
 	public void createPartControl(Composite parent) {
-		
+
 		//create viewer
-		viewer = new GraphViewer(parent,SWT.NONE);
+		viewer = new GraphViewer(parent, SWT.NONE);
 		viewer.setLayoutAlgorithm(layout.getDefault());
 		viewer.setLabelProvider(labelprovider);
 		viewer.setContentProvider(contentprovider);
 		viewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
-		
+
 		initializeActions();
 		createToolbar();
 		createMenu();
-		
+
 		//double click on nodes
-		viewer.getGraphControl().addMouseListener(new MouseAdapter(){
+		viewer.getGraphControl().addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
 				toggleOpen.run();
+
 			}
+
 		});
-		
-		viewer.getGraphControl().addKeyListener(new KeyAdapter(){
+
+		viewer.getGraphControl().addKeyListener(new KeyAdapter() {
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.keyCode == SWT.DEL || e.character == 8) {
 					hideNode.run();
 				}
+
 			}
+
 		});
-		
+
 		//listener for debug context
 		listener = new DebugContextListener(this);
 		DebugUITools.getDebugContextManager().addDebugContextListener(listener);
-		
+
 		//Check if there is an already started debug context
 		IAdaptable dc = DebugUITools.getDebugContext();
-		if (dc != null){
+		if (dc != null) {
 			Object o = dc.getAdapter(IStackFrame.class);
 			if (o instanceof IStackFrame)
 				setStackFrame((IStackFrame)o);
@@ -143,11 +150,11 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	private void createMenu() {
 		MenuManager mm = new MenuManager();
 		viewer.getGraphControl().setMenu(mm.createContextMenu(viewer.getGraphControl()));
-		
+
 		mm.add(toggleOpen);
 		mm.add(hideNode);
 		mm.add(showChilds);
-		
+
 		IMenuManager imm = getViewSite().getActionBars().getMenuManager();
 		imm.add(refresh);
 		group.fillContextMenu(imm);
@@ -181,18 +188,18 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		labelprovider.setInput(input);
 		viewer.setInput(input);
 	}
-	
+
 	@Override
 	public void setFocus() {
 		viewer.getControl().setFocus();
-		
+
 	}
-	
+
 	@Override
 	public void dispose() {
 		super.dispose();
 		if (listener != null)
 			DebugUITools.getDebugContextManager().removeDebugContextListener(listener);
 	}
-	
+
 }

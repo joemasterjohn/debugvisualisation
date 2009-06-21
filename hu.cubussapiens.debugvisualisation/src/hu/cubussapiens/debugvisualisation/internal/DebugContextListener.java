@@ -1,6 +1,3 @@
-/**
- * 
- */
 package hu.cubussapiens.debugvisualisation.internal;
 
 import org.eclipse.debug.core.model.IStackFrame;
@@ -10,26 +7,27 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 /**
- * This object listens to changes in a debug context and extracts the IStackFrame object
- * from the events to provide it to the given IStackFrameConsumer
+ * This object listens to changes in a debug context and extracts the
+ * IStackFrame object from the events to provide it to the given
+ * IStackFrameConsumer
  */
 public class DebugContextListener implements IDebugContextListener {
 
 	IStackFrameConsumer consumer;
-	
+
 	/**
 	 * Creates a new DebugContextListener.
+	 * 
 	 * @param consumer an IStackFrameConsumer to which the extracted stack frame
-	 * objects will be given. 
+	 * objects will be given.
 	 */
-	public DebugContextListener(IStackFrameConsumer consumer){
+	public DebugContextListener(IStackFrameConsumer consumer) {
 		this.consumer = consumer;
 	}
-	
+
 	/**
-	 * @see org.eclipse.debug.ui.contexts.IDebugContextListener#debugContextChanged(org.eclipse.debug.ui.contexts.DebugContextEvent)
+	 * {@inheritDoc}
 	 */
-	//@Override
 	public void debugContextChanged(DebugContextEvent event) {
 		if ((event.getFlags() & DebugContextEvent.ACTIVATED) > 0) {
 			contextActivated(event.getContext());
@@ -38,8 +36,8 @@ public class DebugContextListener implements IDebugContextListener {
 	}
 
 	private void contextActivated(ISelection context) {
-		if (context instanceof StructuredSelection){
-			Object data = ((StructuredSelection) context).getFirstElement();
+		if (context instanceof StructuredSelection) {
+			Object data = ((StructuredSelection)context).getFirstElement();
 			if (data instanceof IStackFrame) {
 				//System.out.println("Yaaaay! We got IStackFrame! :)");
 				consumer.setStackFrame((IStackFrame)data);
@@ -52,7 +50,7 @@ public class DebugContextListener implements IDebugContextListener {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}*/
-			}else{
+			} else {
 				consumer.setStackFrame(null);
 			}
 		}

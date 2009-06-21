@@ -1,24 +1,19 @@
-/**
- * 
- */
 package hu.cubussapiens.zestlayouts.simulatedcooling;
 
 import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
 
 /**
- * A criteria generates a double value from a graph configuration.
- * The lower the value, the better the graph by this criteria.
- * @author Grill Balazs (balage.g@gmail.com)
- *
+ * A criteria generates a double value from a graph configuration. The lower the
+ * value, the better the graph by this criteria.
  */
 public interface Criteria {
 
 	/**
 	 * Apply the criteria with the given graph configuration.
 	 * 
-	 * The graph bounds are given by four values: (x,y,w,h). This gives the position and
-	 * size of the place inside where the graph elements are visible.   
+	 * The graph bounds are given by four values: (x,y,w,h). This gives the
+	 * position and size of the place inside where the graph elements are visible.
 	 * 
 	 * @param entities nodes in the graph
 	 * @param relationships edges in the graph
@@ -29,7 +24,7 @@ public interface Criteria {
 	 * @return punishment of the current graph layout by this criteria
 	 */
 	public double apply(
-			LayoutEntity[] entities,LayoutRelationship[] relationships, 
+			LayoutEntity[] entities, LayoutRelationship[] relationships,
 			double x, double y, double w, double h);
-	
+
 }

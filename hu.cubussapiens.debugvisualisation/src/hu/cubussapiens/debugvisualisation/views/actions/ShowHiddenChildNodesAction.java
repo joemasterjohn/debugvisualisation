@@ -1,10 +1,6 @@
-/**
- * 
- */
 package hu.cubussapiens.debugvisualisation.views.actions;
 
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
-
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
@@ -21,8 +17,8 @@ public class ShowHiddenChildNodesAction extends GraphSelectionAction {
 		setToolTipText("Show all hidden child nodes of selected nodes");
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.views.actions.GraphSelectionAction#run(java.lang.Integer, hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	protected void run(Integer node, IDebugContextInput input) {

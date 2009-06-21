@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Debugvisualization Plug-in
+Bundle-Name: Debug Visualisation Plug-in
 Bundle-SymbolicName: hu.cubussapiens.debugvisualisation;singleton:=true
 Bundle-Version: 0.6.0.20090620
 Bundle-Activator: hu.cubussapiens.debugvisualisation.Activator

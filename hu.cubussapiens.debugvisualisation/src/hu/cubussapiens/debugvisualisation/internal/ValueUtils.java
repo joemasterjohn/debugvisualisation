@@ -1,6 +1,3 @@
-/**
- * 
- */
 package hu.cubussapiens.debugvisualisation.internal;
 
 import org.eclipse.debug.core.DebugException;
@@ -8,51 +5,56 @@ import org.eclipse.debug.core.model.IValue;
 
 /**
  * Some general utils on IValue objects
- *
+ * 
  */
 public class ValueUtils {
 
 	/**
-	 * Gets the unique ID for the value or -1, if the given value is primitive-typed and
-	 * there fore does not has such ID.
+	 * Gets the unique ID for the value or -1, if the given value is
+	 * primitive-typed and there fore does not has such ID.
+	 * 
 	 * @param value
 	 * @return ID of the value, or -1 if the given value doesn't have such ID
 	 */
-	public static int getID(IValue value){
+	public static int getID(IValue value) {
 		String s = "";
 		try {
 			s = value.getValueString().trim();
 		} catch (DebugException e) {
 			return -1;
 		}
-		if (!s.startsWith("(id=")) return -1;
+		if (!s.startsWith("(id="))
+			return -1;
 		s = s.substring(4);
-		if (!s.endsWith(")")) return -1;
-		s = s.substring(0,s.length()-1);
-		try{
+		if (!s.endsWith(")"))
+			return -1;
+		s = s.substring(0, s.length() - 1);
+		try {
 			return Integer.parseInt(s);
-		}catch(NumberFormatException e){
+		} catch (NumberFormatException e) {
 			return -1;
 		}
 	}
-	
+
 	/**
 	 * Generates a string representation of the type of the given value
+	 * 
 	 * @param value
 	 * @return the value's type as a string
 	 */
-	public static String getValueString(IValue value){
+	public static String getValueString(IValue value) {
 		String typename;
 		try {
 			typename = value.getReferenceTypeName();
-		
-			int cut = Math.max(typename.lastIndexOf("."),typename.lastIndexOf("$"))+1;
-			if ((cut>0)&&(cut<typename.length())) typename = typename.substring(cut);
-			
+
+			int cut = Math.max(typename.lastIndexOf("."), typename.lastIndexOf("$")) + 1;
+			if ((cut > 0) && (cut < typename.length()))
+				typename = typename.substring(cut);
+
 			return typename;
-		}catch(DebugException e){
+		} catch (DebugException e) {
 			return "Error!";
 		}
 	}
-	
+
 }

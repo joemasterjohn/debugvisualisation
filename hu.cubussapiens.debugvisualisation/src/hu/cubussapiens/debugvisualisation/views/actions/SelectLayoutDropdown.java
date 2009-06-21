@@ -1,12 +1,7 @@
-/**
- * 
- */
 package hu.cubussapiens.debugvisualisation.views.actions;
 
 import hu.cubussapiens.debugvisualisation.ImagePool;
-
 import java.util.List;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IMenuCreator;
@@ -19,11 +14,13 @@ import org.eclipse.swt.widgets.Menu;
 public class SelectLayoutDropdown extends Action implements IMenuCreator {
 
 	private Menu fMenu;
+
 	private List<Action> layouts;
 
 	/**
 	 * Initializes a layout dropdown action component with a list of layout
 	 * actions
+	 * 
 	 * @param layouts the list of layout action
 	 */
 	public SelectLayoutDropdown(List<Action> layouts) {
@@ -34,22 +31,13 @@ public class SelectLayoutDropdown extends Action implements IMenuCreator {
 		setMenuCreator(this);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.action.IMenuCreator#dispose()
+	/**
+	 * {@inheritDoc}
 	 */
 	public void dispose() {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.jface.action.IMenuCreator#getMenu(org.eclipse.swt.widgets
-	 * .Control)
-	 */
 	public Menu getMenu(Control parent) {
 		if (fMenu != null) {
 			fMenu.dispose();
@@ -67,13 +55,6 @@ public class SelectLayoutDropdown extends Action implements IMenuCreator {
 		item.fill(parent, -1);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.jface.action.IMenuCreator#getMenu(org.eclipse.swt.widgets
-	 * .Menu)
-	 */
 	public Menu getMenu(Menu parent) {
 		return null;
 	}

@@ -1,13 +1,9 @@
-/**
- * 
- */
 package hu.cubussapiens.debugvisualisation.internal;
 
 import hu.cubussapiens.debugvisualisation.Activator;
 import hu.cubussapiens.debugvisualisation.ImagePool;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInputAware;
-
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IVariable;
 import org.eclipse.draw2d.ColorConstants;
@@ -21,27 +17,28 @@ import org.eclipse.zest.core.viewers.IEntityStyleProvider;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 /**
- * Generates labels and images for nodes in a GraphViewer. This object also needs to be
- * given the input of the viewer to work properly (this input has to be an 
- * IDebugContextInput instance)
+ * Generates labels and images for nodes in a GraphViewer. This object also
+ * needs to be given the input of the viewer to work properly (this input has to
+ * be an IDebugContextInput instance)
  */
 public class VariablesLabelProvider extends LabelProvider implements IDebugContextInputAware, IConnectionStyleProvider, IEntityStyleProvider {
 
 	IDebugContextInput input;
-	
+
 	public void setInput(IDebugContextInput input) {
 		this.input = input;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.ILabelProvider#getImage(java.lang.Object)
+
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Image getImage(Object element) {
-		if (element instanceof Integer){
+		if (element instanceof Integer) {
 			Integer node = (Integer)element;
-			if (node == -1) return ImagePool.image(ISharedImages.IMG_DEF_VIEW);
-			if (!input.canOpen(node)){
+			if (node == -1)
+				return ImagePool.image(ISharedImages.IMG_DEF_VIEW);
+			if (!input.canOpen(node)) {
 				return ImagePool.image(ISharedImages.IMG_OBJ_ELEMENT);
 			}
 			if (input.isOpen(node))
@@ -52,27 +49,28 @@ public class VariablesLabelProvider extends LabelProvider implements IDebugConte
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getText(Object element) {
-		if (element instanceof Integer){
+		if (element instanceof Integer) {
 			Integer node = (Integer)element;
-			if (node == -1) return "Local context";
+			if (node == -1)
+				return "Local context";
 			String name = "";
-			for(IVariable v : input.getReferencesForNode(node)){
+			for (IVariable v : input.getReferencesForNode(node)) {
 				try {
-					name += v.getName()+" ";
+					name += v.getName() + " ";
 				} catch (DebugException e) {
 					Activator.getDefault().logError(e, "Internal error in Debug Visualisation");
 				}
 			}
 			String type = ValueUtils.getValueString(input.getValue(node));//input.getValue(node).getReferenceTypeName();
-			name += ": "+type;
-			if (input.isOpen(node)){
-				for(String param : input.getParams(node))
-					name += "\n"+param;
+			name += ": " + type;
+			if (input.isOpen(node)) {
+				for (String param : input.getParams(node))
+					name += "\n" + param;
 			}
 			return name;
 		}

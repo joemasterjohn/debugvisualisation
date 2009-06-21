@@ -1,10 +1,6 @@
-/**
- * 
- */
 package hu.cubussapiens.debugvisualisation.views.actions;
 
 import hu.cubussapiens.debugvisualisation.ImagePool;
-
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
@@ -26,5 +22,5 @@ public class RefreshLayoutAction extends GraphAction {
 	public void run() {
 		getViewer().applyLayout();
 	}
-	
+
 }

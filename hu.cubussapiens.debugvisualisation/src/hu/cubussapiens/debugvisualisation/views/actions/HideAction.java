@@ -1,10 +1,6 @@
-/**
- * 
- */
 package hu.cubussapiens.debugvisualisation.views.actions;
 
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
-
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
@@ -14,7 +10,8 @@ public class HideAction extends GraphSelectionAction {
 
 	/**
 	 * Creates an action, which can hide all selected nodes on a graph
-	 * @param viewer 
+	 * 
+	 * @param viewer
 	 */
 	public HideAction(GraphViewer viewer) {
 		super(viewer);
