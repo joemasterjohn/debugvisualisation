@@ -21,7 +21,8 @@ public class SelectLayoutDropdown extends Action implements IMenuCreator {
 	 * Initializes a layout dropdown action component with a list of layout
 	 * actions
 	 * 
-	 * @param layouts the list of layout action
+	 * @param layouts
+	 *            the list of layout action
 	 */
 	public SelectLayoutDropdown(List<Action> layouts) {
 		this.layouts = layouts;

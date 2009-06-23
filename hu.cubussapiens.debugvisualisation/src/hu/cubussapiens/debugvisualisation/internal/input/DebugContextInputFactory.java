@@ -23,34 +23,36 @@ public class DebugContextInputFactory {
 
 	/**
 	 * Call this method to get an IDebugContextInput from an IStackFrame. If the
-	 * given "sf" parameter is null, this method clears the cache, because a null
-	 * stack frame means that the debug context is closed.
+	 * given "sf" parameter is null, this method clears the cache, because a
+	 * null stack frame means that the debug context is closed.
 	 * 
 	 * @param sf
 	 * @return a cached or newly created IDebugContextInput, which will be an
-	 * up-to-date representation of the given stack frame. This method returns
-	 * null if the parameter is null.
+	 *         up-to-date representation of the given stack frame. This method
+	 *         returns null if the parameter is null.
 	 */
 	public IDebugContextInput getInput(IStackFrame sf) {
 		if (sf == null) {
-			//System.err.println("Debug context is closed!");
+			// System.err.println("Debug context is closed!");
 			inputs.clear();
 			return null;
 		} else {
 			if (!inputs.containsKey(sf))
 				try {
-					//System.err.println("Creating new IDebugContextInput");
+					// System.err.println("Creating new IDebugContextInput");
 					inputs.put(sf, new DebugContextInputWithNodeVisibility(sf));
 				} catch (DebugException e) {
-					Activator.getDefault().logError(e, "Exception on creating a DebugContextInput");
+					Activator.getDefault().logError(e,
+							"Exception on creating a DebugContextInput");
 					return null;
 				}
 			else {
-				//System.err.println("Recalling IDebugContextInupt");
+				// System.err.println("Recalling IDebugContextInupt");
 				try {
 					inputs.get(sf).refresh();
 				} catch (DebugException e) {
-					Activator.getDefault().logError(e, "Exception on refreshing the DebugContextInput");
+					Activator.getDefault().logError(e,
+							"Exception on refreshing the DebugContextInput");
 				}
 			}
 			return inputs.get(sf);

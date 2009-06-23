@@ -11,7 +11,8 @@ import org.eclipse.zest.layouts.dataStructures.InternalRelationship;
  * Layout graph using simulated cooling algorithm
  * 
  */
-public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContinuableLayoutAlgorithm {
+public class SimulatedCooling extends AbstractLayoutAlgorithm implements
+		IContinuableLayoutAlgorithm {
 
 	private static final double coolingfactor = 0.65;
 
@@ -73,7 +74,9 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 
 		for (Criteria crit : crits) {
 			try {
-				result += crit.apply(convert(entitiesToLayout), convert(relationshipsToConsider), boundsX, boundsY, boundsWidth, boundsHeight);
+				result += crit.apply(convert(entitiesToLayout),
+						convert(relationshipsToConsider), boundsX, boundsY,
+						boundsWidth, boundsHeight);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -125,8 +128,8 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 
 	/**
 	 * @see org.eclipse.zest.layouts.algorithms.AbstractLayoutAlgorithm#applyLayoutInternal(org.eclipse.zest.layouts.dataStructures.InternalNode[],
-	 * org.eclipse.zest.layouts.dataStructures.InternalRelationship[], double,
-	 * double, double, double)
+	 *      org.eclipse.zest.layouts.dataStructures.InternalRelationship[],
+	 *      double, double, double, double)
 	 */
 	@Override
 	protected void applyLayoutInternal(InternalNode[] entitiesToLayout,
@@ -138,13 +141,14 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 		f_needsRecall = true;
 		double valuedelta = 0;
 
-		//move outbounded nodes inbound
+		// move outbounded nodes inbound
 		for (LayoutEntity e : convert(entitiesToLayout)) {
-			if ((e.getXInLayout() < boundsX) ||
-					(e.getXInLayout() + e.getWidthInLayout() > boundsWidth) ||
-					(e.getYInLayout() < boundsY) ||
-					(e.getYInLayout() + e.getHeightInLayout() > boundsHeight)) {
-				e.setLocationInLayout((boundsX + boundsWidth) / 2, (boundsY + boundsHeight) / 2);
+			if ((e.getXInLayout() < boundsX)
+					|| (e.getXInLayout() + e.getWidthInLayout() > boundsWidth)
+					|| (e.getYInLayout() < boundsY)
+					|| (e.getYInLayout() + e.getHeightInLayout() > boundsHeight)) {
+				e.setLocationInLayout((boundsX + boundsWidth) / 2,
+						(boundsY + boundsHeight) / 2);
 			}
 		}
 
@@ -154,34 +158,39 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements IContin
 
 		while (temp > 1) {
 
-			//get criteria value for current configuration:
-			double value = getCriteria(entitiesToLayout, relationshipsToConsider, boundsX, boundsY, boundsWidth, boundsHeight);
+			// get criteria value for current configuration:
+			double value = getCriteria(entitiesToLayout,
+					relationshipsToConsider, boundsX, boundsY, boundsWidth,
+					boundsHeight);
 
-			//select a node
-			LayoutEntity entity = entitiesToLayout[step % entitiesToLayout.length].getLayoutEntity();
+			// select a node
+			LayoutEntity entity = entitiesToLayout[step
+					% entitiesToLayout.length].getLayoutEntity();
 
-			//random move for entity
+			// random move for entity
 			applyRandomMove(entity);
 
-			//recalculate value for new configuration
-			double newvalue = getCriteria(entitiesToLayout, relationshipsToConsider, boundsX, boundsY, boundsWidth, boundsHeight);
+			// recalculate value for new configuration
+			double newvalue = getCriteria(entitiesToLayout,
+					relationshipsToConsider, boundsX, boundsY, boundsWidth,
+					boundsHeight);
 
-			//System.out.println(value+" -> "+newvalue);
+			// System.out.println(value+" -> "+newvalue);
 
-			//the smaller the better.
+			// the smaller the better.
 			if (newvalue <= value) {
-				//reduce temperature
+				// reduce temperature
 				temp = temp * coolingfactor;
 				valuedelta += value - newvalue;
 			} else {
-				//undo the applied move.
+				// undo the applied move.
 				undomove();
 			}
 
 			step++;
 		}
 
-		//System.out.println("valudelta: "+valuedelta);
+		// System.out.println("valudelta: "+valuedelta);
 		if (valuedelta < 0.001)
 			f_needsRecall = false;
 

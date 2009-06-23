@@ -18,8 +18,9 @@ public class DebugContextListener implements IDebugContextListener {
 	/**
 	 * Creates a new DebugContextListener.
 	 * 
-	 * @param consumer an IStackFrameConsumer to which the extracted stack frame
-	 * objects will be given.
+	 * @param consumer
+	 *            an IStackFrameConsumer to which the extracted stack frame
+	 *            objects will be given.
 	 */
 	public DebugContextListener(IStackFrameConsumer consumer) {
 		this.consumer = consumer;
@@ -37,19 +38,20 @@ public class DebugContextListener implements IDebugContextListener {
 
 	private void contextActivated(ISelection context) {
 		if (context instanceof StructuredSelection) {
-			Object data = ((StructuredSelection)context).getFirstElement();
+			Object data = ((StructuredSelection) context).getFirstElement();
 			if (data instanceof IStackFrame) {
-				//System.out.println("Yaaaay! We got IStackFrame! :)");
-				consumer.setStackFrame((IStackFrame)data);
-				/*try {
-					IVariable[] variables = ((IStackFrame) data).getVariables();
-					for(IVariable var : variables){
-						System.out.println(var.getName()+" : "+var.getValue().getReferenceTypeName()+" = "+var.getValue().getValueString() + " - "+var.getValue().getModelIdentifier() );
-					}
-				} catch (DebugException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
+				// System.out.println("Yaaaay! We got IStackFrame! :)");
+				consumer.setStackFrame((IStackFrame) data);
+				/*
+				 * try { IVariable[] variables = ((IStackFrame)
+				 * data).getVariables(); for(IVariable var : variables){
+				 * System.out
+				 * .println(var.getName()+" : "+var.getValue().getReferenceTypeName
+				 * ()+" = "+var.getValue().getValueString() +
+				 * " - "+var.getValue().getModelIdentifier() ); } } catch
+				 * (DebugException e) { // TODO Auto-generated catch block
+				 * e.printStackTrace(); }
+				 */
 			} else {
 				consumer.setStackFrame(null);
 			}

@@ -31,7 +31,7 @@ public abstract class GraphAction extends Action {
 	protected IDebugContextInput getInput() {
 		Object input = viewer.getInput();
 		if (input != null)
-			return (IDebugContextInput)input;
+			return (IDebugContextInput) input;
 		return null;
 	}
 
@@ -41,7 +41,7 @@ public abstract class GraphAction extends Action {
 	 * @return the current selection
 	 */
 	protected IStructuredSelection getSelection() {
-		return (IStructuredSelection)viewer.getSelection();
+		return (IStructuredSelection) viewer.getSelection();
 	}
 
 	/**

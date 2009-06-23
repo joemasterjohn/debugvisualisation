@@ -19,9 +19,9 @@ import org.eclipse.debug.core.model.IVariable;
  */
 public interface IDebugContextInput {
 
-	//---------------------------------------------------------
-	//Listener-related methods
-	//---------------------------------------------------------
+	// ---------------------------------------------------------
+	// Listener-related methods
+	// ---------------------------------------------------------
 
 	/**
 	 * Register a listener
@@ -37,9 +37,9 @@ public interface IDebugContextInput {
 	 */
 	public void removeDCInputChangeListener(IDCInputChangeListener listener);
 
-	//---------------------------------------------------------
-	//Getters for visible objects
-	//---------------------------------------------------------
+	// ---------------------------------------------------------
+	// Getters for visible objects
+	// ---------------------------------------------------------
 
 	/**
 	 * List all node, which is currently visible
@@ -58,8 +58,8 @@ public interface IDebugContextInput {
 	public Set<IVariable> getReferencesForNode(Integer node);
 
 	/**
-	 * Return all variables which are child variables of the node given by "from"
-	 * and references of the node given by "to".
+	 * Return all variables which are child variables of the node given by
+	 * "from" and references of the node given by "to".
 	 * 
 	 * @param from
 	 * @param to
@@ -75,9 +75,9 @@ public interface IDebugContextInput {
 	 */
 	public IValue getValue(Integer node);
 
-	//------------------------------------------------------------------
-	//Methods related to node state
-	//----------------------------------------------------------------
+	// ------------------------------------------------------------------
+	// Methods related to node state
+	// ----------------------------------------------------------------
 
 	/**
 	 * Checks whether the given node is currently open (child nodes are visible)
@@ -95,12 +95,12 @@ public interface IDebugContextInput {
 	public void toggleOpen(Integer node);
 
 	/**
-	 * Checks whether the given node can be opened. This method returns true even
-	 * the node is already opened.
+	 * Checks whether the given node can be opened. This method returns true
+	 * even the node is already opened.
 	 * 
 	 * @param node
 	 * @return true if the open operation is applicable on the given node, false
-	 * otherwise
+	 *         otherwise
 	 */
 	public boolean canOpen(Integer node);
 
@@ -126,9 +126,9 @@ public interface IDebugContextInput {
 	 */
 	public void showHiddenChildNodes(Integer node);
 
-	//------------------------------------------------------------------
-	//Other methods
-	//------------------------------------------------------------------
+	// ------------------------------------------------------------------
+	// Other methods
+	// ------------------------------------------------------------------
 
 	/**
 	 * Rebuild data. Need to be called when the underlying debug context is

@@ -19,8 +19,8 @@ import org.eclipse.debug.core.model.IVariable;
 abstract class DebugContextInput extends DebugContextInputListenerHandler {
 
 	/**
-	 * Contains the objects in the given context. Object is any IValue item, which
-	 * has a unique id.
+	 * Contains the objects in the given context. Object is any IValue item,
+	 * which has a unique id.
 	 */
 	protected final Map<Integer, IValue> objects = new HashMap<Integer, IValue>();
 
@@ -95,8 +95,8 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler {
 	}
 
 	/**
-	 * Reload variables of the given node. This method assumes that the given node
-	 * is already loaded.
+	 * Reload variables of the given node. This method assumes that the given
+	 * node is already loaded.
 	 * 
 	 * @param node
 	 * @throws DebugException
@@ -110,7 +110,8 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler {
 			readVars(v.getVariables(), node);
 	}
 
-	private void readVars(IVariable[] vars, Integer parent) throws DebugException {
+	private void readVars(IVariable[] vars, Integer parent)
+			throws DebugException {
 		for (IVariable v : vars) {
 			IValue val = v.getValue();
 			int id = ValueUtils.getID(val);
@@ -133,7 +134,7 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler {
 	 * @throws DebugException
 	 */
 	public void refresh() throws DebugException {
-		//System.out.println("Refreshing.."+stackframe.getVariables().length);
+		// System.out.println("Refreshing.."+stackframe.getVariables().length);
 		objects.clear();
 		references.clear();
 		children.clear();
@@ -156,7 +157,8 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler {
 			try {
 				return objects.get(node).hasVariables();
 			} catch (DebugException e) {
-				Activator.getDefault().logError(e, "Internal error in Debug Visualisation");
+				Activator.getDefault().logError(e,
+						"Internal error in Debug Visualisation");
 			}
 		}
 		return false;
@@ -174,7 +176,8 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler {
 				}
 				return params.toArray(new String[0]);
 			} catch (DebugException e) {
-				Activator.getDefault().logError(e, "Internal error in Debug Visualisation");
+				Activator.getDefault().logError(e,
+						"Internal error in Debug Visualisation");
 			}
 		}
 		return null;

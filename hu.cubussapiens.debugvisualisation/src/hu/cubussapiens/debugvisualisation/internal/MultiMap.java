@@ -9,8 +9,10 @@ import java.util.Set;
  * 
  * Note that this class is a subclass of HashMap<K, Set<V>>
  * 
- * @param <K> Type of key
- * @param <V> Type of elements in the sets
+ * @param <K>
+ *            Type of key
+ * @param <V>
+ *            Type of elements in the sets
  */
 public class MultiMap<K, V> extends HashMap<K, Set<V>> {
 

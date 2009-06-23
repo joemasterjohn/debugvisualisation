@@ -47,7 +47,8 @@ public class ValueUtils {
 		try {
 			typename = value.getReferenceTypeName();
 
-			int cut = Math.max(typename.lastIndexOf("."), typename.lastIndexOf("$")) + 1;
+			int cut = Math.max(typename.lastIndexOf("."), typename
+					.lastIndexOf("$")) + 1;
 			if ((cut > 0) && (cut < typename.length()))
 				typename = typename.substring(cut);
 

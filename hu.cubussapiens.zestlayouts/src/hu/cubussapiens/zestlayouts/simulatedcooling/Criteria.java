@@ -13,18 +13,25 @@ public interface Criteria {
 	 * Apply the criteria with the given graph configuration.
 	 * 
 	 * The graph bounds are given by four values: (x,y,w,h). This gives the
-	 * position and size of the place inside where the graph elements are visible.
+	 * position and size of the place inside where the graph elements are
+	 * visible.
 	 * 
-	 * @param entities nodes in the graph
-	 * @param relationships edges in the graph
-	 * @param x X coordinate of the upper-left corner
-	 * @param y Y coordinate of the upper-left corner
-	 * @param w Width
-	 * @param h Height
+	 * @param entities
+	 *            nodes in the graph
+	 * @param relationships
+	 *            edges in the graph
+	 * @param x
+	 *            X coordinate of the upper-left corner
+	 * @param y
+	 *            Y coordinate of the upper-left corner
+	 * @param w
+	 *            Width
+	 * @param h
+	 *            Height
 	 * @return punishment of the current graph layout by this criteria
 	 */
-	public double apply(
-			LayoutEntity[] entities, LayoutRelationship[] relationships,
-			double x, double y, double w, double h);
+	public double apply(LayoutEntity[] entities,
+			LayoutRelationship[] relationships, double x, double y, double w,
+			double h);
 
 }

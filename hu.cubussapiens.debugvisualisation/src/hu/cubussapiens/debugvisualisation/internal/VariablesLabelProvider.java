@@ -21,7 +21,8 @@ import org.eclipse.zest.core.widgets.ZestStyles;
  * needs to be given the input of the viewer to work properly (this input has to
  * be an IDebugContextInput instance)
  */
-public class VariablesLabelProvider extends LabelProvider implements IDebugContextInputAware, IConnectionStyleProvider, IEntityStyleProvider {
+public class VariablesLabelProvider extends LabelProvider implements
+		IDebugContextInputAware, IConnectionStyleProvider, IEntityStyleProvider {
 
 	IDebugContextInput input;
 
@@ -35,7 +36,7 @@ public class VariablesLabelProvider extends LabelProvider implements IDebugConte
 	@Override
 	public Image getImage(Object element) {
 		if (element instanceof Integer) {
-			Integer node = (Integer)element;
+			Integer node = (Integer) element;
 			if (node == -1)
 				return ImagePool.image(ISharedImages.IMG_DEF_VIEW);
 			if (!input.canOpen(node)) {
@@ -55,7 +56,7 @@ public class VariablesLabelProvider extends LabelProvider implements IDebugConte
 	@Override
 	public String getText(Object element) {
 		if (element instanceof Integer) {
-			Integer node = (Integer)element;
+			Integer node = (Integer) element;
 			if (node == -1)
 				return "Local context";
 			String name = "";
@@ -63,10 +64,11 @@ public class VariablesLabelProvider extends LabelProvider implements IDebugConte
 				try {
 					name += v.getName() + " ";
 				} catch (DebugException e) {
-					Activator.getDefault().logError(e, "Internal error in Debug Visualisation");
+					Activator.getDefault().logError(e,
+							"Internal error in Debug Visualisation");
 				}
 			}
-			String type = ValueUtils.getValueString(input.getValue(node));//input.getValue(node).getReferenceTypeName();
+			String type = ValueUtils.getValueString(input.getValue(node));// input.getValue(node).getReferenceTypeName();
 			name += ": " + type;
 			if (input.isOpen(node)) {
 				for (String param : input.getParams(node))

@@ -35,7 +35,8 @@ public class LayoutRegistry {
 		public LayoutEntry(IConfigurationElement element) {
 			this.element = element;
 			this.id = element.getAttribute(ExtensionConstants.EPA_Layout_id);
-			this.name = element.getAttribute(ExtensionConstants.EPA_Layout_name);
+			this.name = element
+					.getAttribute(ExtensionConstants.EPA_Layout_name);
 		}
 
 		/**
@@ -57,7 +58,8 @@ public class LayoutRegistry {
 		 */
 		public ILayoutAlgorithmCreator getLayoutCreator() {
 			try {
-				return (ILayoutAlgorithmCreator)element.createExecutableExtension(ExtensionConstants.EPA_Layout_class);
+				return (ILayoutAlgorithmCreator) element
+						.createExecutableExtension(ExtensionConstants.EPA_Layout_class);
 			} catch (CoreException e) {
 				e.printStackTrace();
 				return null;
@@ -73,9 +75,11 @@ public class LayoutRegistry {
 	 */
 	public LayoutRegistry() {
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
-		IExtensionPoint point = registry.getExtensionPoint(ExtensionConstants.EP_LayoutAlgorithm);
+		IExtensionPoint point = registry
+				.getExtensionPoint(ExtensionConstants.EP_LayoutAlgorithm);
 		for (IExtension extension : point.getExtensions()) {
-			for (IConfigurationElement element : extension.getConfigurationElements()) {
+			for (IConfigurationElement element : extension
+					.getConfigurationElements()) {
 				entries.add(new LayoutEntry(element));
 			}
 		}

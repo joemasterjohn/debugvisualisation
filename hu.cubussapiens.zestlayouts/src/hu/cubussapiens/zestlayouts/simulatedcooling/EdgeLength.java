@@ -14,8 +14,9 @@ public class EdgeLength implements Criteria {
 	/**
 	 * Creates a criteria which punishes long edges
 	 * 
-	 * @param factor a linear factor to determine punishment, which is
-	 * factor*length, where length is the length of the edge
+	 * @param factor
+	 *            a linear factor to determine punishment, which is
+	 *            factor*length, where length is the length of the edge
 	 */
 	public EdgeLength(double factor) {
 		this.factor = factor;
@@ -34,8 +35,8 @@ public class EdgeLength implements Criteria {
 			LayoutEntity i = r.getSourceInLayout();
 			LayoutEntity j = r.getDestinationInLayout();
 
-			double d = Math.pow(i.getXInLayout() - j.getXInLayout(), 2) +
-					Math.pow(i.getYInLayout() - j.getYInLayout(), 2);
+			double d = Math.pow(i.getXInLayout() - j.getXInLayout(), 2)
+					+ Math.pow(i.getYInLayout() - j.getYInLayout(), 2);
 
 			result += Math.sqrt(d) * factor;
 		}

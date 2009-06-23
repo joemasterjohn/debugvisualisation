@@ -9,7 +9,8 @@ public interface IDCInputChangeListener {
 	 * Indicates that a node is opened or closed
 	 * 
 	 * @param node
-	 * @param open the node is now open if true, and it's closed if false
+	 * @param open
+	 *            the node is now open if true, and it's closed if false
 	 */
 	public void openStateChanged(Integer node, boolean open);
 

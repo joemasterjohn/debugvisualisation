@@ -14,7 +14,8 @@ import org.eclipse.zest.core.viewers.IGraphEntityRelationshipContentProvider;
  * input.
  * 
  */
-public class VariablesGraphContentProvider implements IGraphEntityRelationshipContentProvider, IDCInputChangeListener {
+public class VariablesGraphContentProvider implements
+		IGraphEntityRelationshipContentProvider, IDCInputChangeListener {
 
 	IDebugContextInput input = null;
 
@@ -31,17 +32,18 @@ public class VariablesGraphContentProvider implements IGraphEntityRelationshipCo
 			input.removeDCInputChangeListener(this);
 
 		if (viewer instanceof GraphViewer)
-			this.viewer = (GraphViewer)viewer;
+			this.viewer = (GraphViewer) viewer;
 
 		if (newInput instanceof IDebugContextInput) {
-			this.input = (IDebugContextInput)newInput;
+			this.input = (IDebugContextInput) newInput;
 			input.addDCInputChangeListener(this);
 		}
 
 	}
 
 	public Object[] getRelationships(Object source, Object dest) {
-		Set<IVariable> vs = input.getRelations((Integer)source, (Integer)dest);
+		Set<IVariable> vs = input
+				.getRelations((Integer) source, (Integer) dest);
 		ArrayList<IVariable> l = new ArrayList<IVariable>(vs);
 		return l.toArray();
 	}

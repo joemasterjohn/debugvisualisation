@@ -15,7 +15,8 @@ public class RefreshLayoutAction extends GraphAction {
 		super(viewer);
 		setText("Refresh");
 		setToolTipText("Refresh layout of graph");
-		setImageDescriptor(ImagePool.getInstance().getDescriptor(ImagePool.icon_refresh));
+		setImageDescriptor(ImagePool.getInstance().getDescriptor(
+				ImagePool.icon_refresh));
 	}
 
 	@Override

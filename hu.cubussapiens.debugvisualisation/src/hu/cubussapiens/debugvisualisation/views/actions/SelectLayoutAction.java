@@ -18,18 +18,24 @@ public class SelectLayoutAction extends Action {
 	/**
 	 * Initializes a select layout action
 	 * 
-	 * @param layout the layout to set using this action
-	 * @param viewer the viewer to call when the action is executed
-	 * @param group the action group to notify of changes
+	 * @param layout
+	 *            the layout to set using this action
+	 * @param viewer
+	 *            the viewer to call when the action is executed
+	 * @param group
+	 *            the action group to notify of changes
 	 */
-	public SelectLayoutAction(LayoutEntry layout, GraphViewer viewer, SelectLayoutGroup group) {
+	public SelectLayoutAction(LayoutEntry layout, GraphViewer viewer,
+			SelectLayoutGroup group) {
 		super(layout.getName(), AS_RADIO_BUTTON);
 		this.layout = layout;
 		this.group = group;
 		this.viewer = viewer;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jface.action.Action#run()
 	 */
 	@Override

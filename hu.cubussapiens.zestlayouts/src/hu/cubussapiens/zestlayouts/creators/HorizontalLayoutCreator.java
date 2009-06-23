@@ -15,7 +15,8 @@ public class HorizontalLayoutCreator implements ILayoutAlgorithmCreator {
 	 * {@inheritDoc}
 	 */
 	public LayoutAlgorithm create() {
-		return new HorizontalLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING);
+		return new HorizontalLayoutAlgorithm(
+				LayoutStyles.NO_LAYOUT_NODE_RESIZING);
 	}
 
 }

@@ -24,7 +24,7 @@ public abstract class GraphSelectionAction extends GraphAction {
 
 		for (Object i : sel.toArray()) {
 			if (i instanceof Integer)
-				run((Integer)i, input);
+				run((Integer) i, input);
 		}
 	}
 

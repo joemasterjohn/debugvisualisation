@@ -40,9 +40,9 @@ abstract class DebugContextInputListenerHandler implements IDebugContextInput {
 	};
 
 	/**
-	 * This method can be used to trigger an event to the registered listeners. If
-	 * any method is called in the listener given by this method, the appropriate
-	 * method is called in every registered listener.
+	 * This method can be used to trigger an event to the registered listeners.
+	 * If any method is called in the listener given by this method, the
+	 * appropriate method is called in every registered listener.
 	 * 
 	 * @return
 	 */

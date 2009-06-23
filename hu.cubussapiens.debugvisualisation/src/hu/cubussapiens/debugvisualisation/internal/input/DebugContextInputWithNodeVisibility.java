@@ -47,15 +47,13 @@ public class DebugContextInputWithNodeVisibility extends DebugContextInput {
 
 	@Override
 	protected void onRefresh() {
-		//setVisibility(root, true);
-		/*try{
-		openNode(root);
-		}catch(Exception e){
-			e.printStackTrace();
-		}*/
-		//if (visible.contains(root)) openNode(root);
+		// setVisibility(root, true);
+		/*
+		 * try{ openNode(root); }catch(Exception e){ e.printStackTrace(); }
+		 */
+		// if (visible.contains(root)) openNode(root);
 		if (open != null) {
-			//System.out.println("onRefresh.. "+open.size());
+			// System.out.println("onRefresh.. "+open.size());
 			openNode(root);
 		}
 	}
@@ -91,17 +89,17 @@ public class DebugContextInputWithNodeVisibility extends DebugContextInput {
 	}
 
 	private void openNode(Integer node) {
-		//open closed node
+		// open closed node
 		open.add(node);
-		//reload child variables
+		// reload child variables
 		try {
 			refreshNode(node);
 		} catch (DebugException e) {
 			Activator.getDefault().logError(e, "Can't refresh node " + node);
 		}
-		//show all child nodes
+		// show all child nodes
 		for (Integer child : getChilds(node)) {
-			//if not hidden
+			// if not hidden
 			if (!hidden.contains(child))
 				setVisibility(child, true);
 		}
@@ -109,7 +107,7 @@ public class DebugContextInputWithNodeVisibility extends DebugContextInput {
 
 	private void closeNode(Integer node) {
 		if (node.equals(root))
-			return; //root node can't be closed
+			return; // root node can't be closed
 		for (Integer child : getChilds(node)) {
 			if (isOpen(child))
 				closeNode(node);

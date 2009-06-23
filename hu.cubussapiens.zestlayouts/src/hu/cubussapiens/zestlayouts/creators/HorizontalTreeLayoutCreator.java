@@ -15,7 +15,8 @@ public class HorizontalTreeLayoutCreator implements ILayoutAlgorithmCreator {
 	 * {@inheritDoc}
 	 */
 	public LayoutAlgorithm create() {
-		return new HorizontalTreeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING);
+		return new HorizontalTreeLayoutAlgorithm(
+				LayoutStyles.NO_LAYOUT_NODE_RESIZING);
 	}
 
 }

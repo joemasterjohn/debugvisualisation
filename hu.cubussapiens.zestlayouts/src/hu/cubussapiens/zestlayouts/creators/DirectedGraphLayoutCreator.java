@@ -19,11 +19,14 @@ public class DirectedGraphLayoutCreator implements ILayoutAlgorithmCreator {
 	 * {@inheritDoc}
 	 */
 	public LayoutAlgorithm create() {
-		//return new DirectedGraphLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING);
-		return new CompositeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING, new
-				LayoutAlgorithm[] { new
-				DirectedGraphLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), new
-				HorizontalShift(LayoutStyles.NO_LAYOUT_NODE_RESIZING) });
+		// return new
+		// DirectedGraphLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING);
+		return new CompositeLayoutAlgorithm(
+				LayoutStyles.NO_LAYOUT_NODE_RESIZING, new LayoutAlgorithm[] {
+						new DirectedGraphLayoutAlgorithm(
+								LayoutStyles.NO_LAYOUT_NODE_RESIZING),
+						new HorizontalShift(
+								LayoutStyles.NO_LAYOUT_NODE_RESIZING) });
 	}
 
 }

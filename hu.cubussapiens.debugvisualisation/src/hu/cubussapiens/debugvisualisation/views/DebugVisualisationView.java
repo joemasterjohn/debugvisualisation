@@ -37,7 +37,8 @@ import org.eclipse.zest.core.widgets.ZestStyles;
 /**
  * The main visualisation view element.
  */
-public class DebugVisualisationView extends ViewPart implements IStackFrameConsumer, IZoomableWorkbenchPart {
+public class DebugVisualisationView extends ViewPart implements
+		IStackFrameConsumer, IZoomableWorkbenchPart {
 
 	/**
 	 * The viewer
@@ -70,9 +71,9 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	 */
 	VariablesGraphContentProvider contentprovider = new VariablesGraphContentProvider();
 
-	//------------------------------------
-	//Actions
-	//------------------------------------
+	// ------------------------------------
+	// Actions
+	// ------------------------------------
 
 	/**
 	 * Toggle open/closed state of selected nodes
@@ -98,25 +99,24 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	 * The action group
 	 */
 	SelectLayoutGroup group;
-	
+
 	private ZoomContributionViewItem zoom;
 
 	@Override
 	public void createPartControl(Composite parent) {
 
-		//create viewer
+		// create viewer
 		viewer = new GraphViewer(parent, SWT.NONE);
 		viewer.setLayoutAlgorithm(layout.getDefault());
 		viewer.setLabelProvider(labelprovider);
 		viewer.setContentProvider(contentprovider);
 		viewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
-		
 
 		initializeActions();
 		createToolbar();
 		createMenu();
 
-		//double click on nodes
+		// double click on nodes
 		viewer.getGraphControl().addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -139,16 +139,16 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 
 		});
 
-		//listener for debug context
+		// listener for debug context
 		listener = new DebugContextListener(this);
 		DebugUITools.getDebugContextManager().addDebugContextListener(listener);
 
-		//Check if there is an already started debug context
+		// Check if there is an already started debug context
 		IAdaptable dc = DebugUITools.getDebugContext();
 		if (dc != null) {
 			Object o = dc.getAdapter(IStackFrame.class);
 			if (o instanceof IStackFrame)
-				setStackFrame((IStackFrame)o);
+				setStackFrame((IStackFrame) o);
 		}
 	}
 
@@ -157,7 +157,8 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	 */
 	private void createMenu() {
 		MenuManager mm = new MenuManager();
-		viewer.getGraphControl().setMenu(mm.createContextMenu(viewer.getGraphControl()));
+		viewer.getGraphControl().setMenu(
+				mm.createContextMenu(viewer.getGraphControl()));
 
 		mm.add(toggleOpen);
 		mm.add(hideNode);
@@ -177,8 +178,9 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		IToolBarManager tm = getViewSite().getActionBars().getToolBarManager();
 		tm.add(refresh);
 		group.fillActionBars(getViewSite().getActionBars());
-		//FIXME this causes java.lang.IllegalArgumentException: Argument cannot be null
-		//tm.add(zoom);
+		// FIXME this causes java.lang.IllegalArgumentException: Argument cannot
+		// be null
+		// tm.add(zoom);
 	}
 
 	/**
@@ -212,7 +214,8 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	public void dispose() {
 		super.dispose();
 		if (listener != null)
-			DebugUITools.getDebugContextManager().removeDebugContextListener(listener);
+			DebugUITools.getDebugContextManager().removeDebugContextListener(
+					listener);
 	}
 
 	public AbstractZoomableViewer getZoomableViewer() {

@@ -26,10 +26,12 @@ public class SelectLayoutGroup extends ActionGroup {
 	/**
 	 * Initializes the layout group.
 	 * 
-	 * @param manager the layout manager component that can be used for getting
-	 * the list of available layouts
-	 * @param viewer the graph viewer component to call back when the layout is
-	 * changed
+	 * @param manager
+	 *            the layout manager component that can be used for getting the
+	 *            list of available layouts
+	 * @param viewer
+	 *            the graph viewer component to call back when the layout is
+	 *            changed
 	 */
 	public SelectLayoutGroup(LayoutManager manager, GraphViewer viewer) {
 		layouts = new ArrayList<Action>();
@@ -49,7 +51,8 @@ public class SelectLayoutGroup extends ActionGroup {
 	 * Sets the selected layout. The layout action is supposed to call back the
 	 * group.
 	 * 
-	 * @param layout the layout action to set as selected
+	 * @param layout
+	 *            the layout action to set as selected
 	 */
 	public void selectLayout(SelectLayoutAction layout) {
 		selectedLayout = layout;
