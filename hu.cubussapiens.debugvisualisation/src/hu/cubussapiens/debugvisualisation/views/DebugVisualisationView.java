@@ -12,6 +12,7 @@ import hu.cubussapiens.debugvisualisation.views.actions.SelectLayoutGroup;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowHiddenChildNodesAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
 import hu.cubussapiens.zestlayouts.LayoutManager;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.ui.DebugUITools;
@@ -19,6 +20,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -26,13 +28,16 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
+import org.eclipse.zest.core.viewers.ZoomContributionViewItem;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 /**
  * The main visualisation view element.
  */
-public class DebugVisualisationView extends ViewPart implements IStackFrameConsumer {
+public class DebugVisualisationView extends ViewPart implements IStackFrameConsumer, IZoomableWorkbenchPart {
 
 	/**
 	 * The viewer
@@ -93,6 +98,8 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 	 * The action group
 	 */
 	SelectLayoutGroup group;
+	
+	private ZoomContributionViewItem zoom;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -103,6 +110,7 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		viewer.setLabelProvider(labelprovider);
 		viewer.setContentProvider(contentprovider);
 		viewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
+		
 
 		initializeActions();
 		createToolbar();
@@ -158,6 +166,8 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		IMenuManager imm = getViewSite().getActionBars().getMenuManager();
 		imm.add(refresh);
 		group.fillContextMenu(imm);
+		imm.add(new Separator());
+		imm.add(zoom);
 	}
 
 	/**
@@ -167,6 +177,8 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		IToolBarManager tm = getViewSite().getActionBars().getToolBarManager();
 		tm.add(refresh);
 		group.fillActionBars(getViewSite().getActionBars());
+		//FIXME this causes java.lang.IllegalArgumentException: Argument cannot be null
+		//tm.add(zoom);
 	}
 
 	/**
@@ -178,6 +190,7 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		showChilds = new ShowHiddenChildNodesAction(viewer);
 		refresh = new RefreshLayoutAction(viewer);
 		group = new SelectLayoutGroup(layout, viewer);
+		zoom = new ZoomContributionViewItem(this);
 	}
 
 	/**
@@ -200,6 +213,10 @@ public class DebugVisualisationView extends ViewPart implements IStackFrameConsu
 		super.dispose();
 		if (listener != null)
 			DebugUITools.getDebugContextManager().removeDebugContextListener(listener);
+	}
+
+	public AbstractZoomableViewer getZoomableViewer() {
+		return viewer;
 	}
 
 }
