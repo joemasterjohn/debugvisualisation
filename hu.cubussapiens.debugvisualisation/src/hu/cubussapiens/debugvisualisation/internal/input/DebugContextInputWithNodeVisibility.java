@@ -1,8 +1,10 @@
 package hu.cubussapiens.debugvisualisation.internal.input;
 
 import hu.cubussapiens.debugvisualisation.Activator;
+
 import java.util.HashSet;
 import java.util.Set;
+
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
 
@@ -82,6 +84,9 @@ public class DebugContextInputWithNodeVisibility extends DebugContextInput {
 	public void toggleOpen(Integer node) {
 		if (isOpen(node)) {
 			closeNode(node);
+			setVisibility(node, true); // reopen the closed node if it is closed
+										// when a cycle is present in the
+										// context
 		} else {
 			openNode(node);
 		}
@@ -100,20 +105,22 @@ public class DebugContextInputWithNodeVisibility extends DebugContextInput {
 		// show all child nodes
 		for (Integer child : getChilds(node)) {
 			// if not hidden
-			if (!hidden.contains(child))
+			if (!hidden.contains(child)) {
 				setVisibility(child, true);
+			}
+
 		}
 	}
 
 	private void closeNode(Integer node) {
 		if (node.equals(root))
 			return; // root node can't be closed
+		open.remove(node);
 		for (Integer child : getChilds(node)) {
 			if (isOpen(child))
-				closeNode(node);
+				closeNode(child);
 			setVisibility(child, false);
 		}
-		open.remove(node);
 	}
 
 	public void hideNode(Integer node) {

@@ -3,11 +3,13 @@ package hu.cubussapiens.debugvisualisation.internal.input;
 import hu.cubussapiens.debugvisualisation.Activator;
 import hu.cubussapiens.debugvisualisation.internal.MultiMap;
 import hu.cubussapiens.debugvisualisation.internal.ValueUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IValue;
@@ -116,11 +118,11 @@ abstract class DebugContextInput extends DebugContextInputListenerHandler {
 			IValue val = v.getValue();
 			int id = ValueUtils.getID(val);
 			if (id != -1) {
+				children.add(parent, id); // to handle issue #33
 				if (!objects.containsKey(id)) {
 					objects.put(id, val);
 					addRef(id, v);
 					addRelation(parent, id, v);
-					children.add(parent, id);
 					if (val.hasVariables() && isOpen(id))
 						readVars(val.getVariables(), id);
 				}
