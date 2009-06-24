@@ -4,6 +4,7 @@ import hu.cubussapiens.debugvisualisation.Activator;
 import hu.cubussapiens.debugvisualisation.ImagePool;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
 import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInputAware;
+
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IVariable;
 import org.eclipse.draw2d.ColorConstants;
@@ -25,6 +26,24 @@ public class VariablesLabelProvider extends LabelProvider implements
 		IDebugContextInputAware, IConnectionStyleProvider, IEntityStyleProvider {
 
 	IDebugContextInput input;
+
+	/**
+	 * Processes the string value by trimming the middle of the string if the
+	 * string is too long, and escapes \n sequences.
+	 * 
+	 * @param string
+	 *            The string to process.
+	 * @return The trimmed and escaped string.
+	 */
+	private String getProcessedValue(String string) {
+		String newString = string;
+		int length = newString.length();
+		if (length > 20) {
+			newString = string.substring(0, 8) + "..."
+					+ string.substring(length - 9, length - 1);
+		}
+		return newString.replace("\n", "\\n");
+	}
 
 	public void setInput(IDebugContextInput input) {
 		this.input = input;
@@ -50,11 +69,7 @@ public class VariablesLabelProvider extends LabelProvider implements
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getText(Object element) {
+	private String getRawText(Object element) {
 		if (element instanceof Integer) {
 			Integer node = (Integer) element;
 			if (node == -1)
@@ -77,6 +92,14 @@ public class VariablesLabelProvider extends LabelProvider implements
 			return name;
 		}
 		return element.toString();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getText(Object element) {
+		return getProcessedValue(getRawText(element));
 	}
 
 	public Color getColor(Object rel) {
