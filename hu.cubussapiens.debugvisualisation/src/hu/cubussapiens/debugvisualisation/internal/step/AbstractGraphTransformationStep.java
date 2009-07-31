@@ -9,7 +9,7 @@ import java.util.Set;
  * commands.
  */
 public abstract class AbstractGraphTransformationStep implements
-		IGraphTransformationStep {
+		IGraphTransformationStep, IGraphChangeListener {
 
 	private final IRootedGraphContentProvider parent;
 
@@ -19,6 +19,14 @@ public abstract class AbstractGraphTransformationStep implements
 	 */
 	public AbstractGraphTransformationStep(IRootedGraphContentProvider parent) {
 		this.parent = parent;
+		if (parent instanceof IGraphTransformationStep) {
+			((IGraphTransformationStep) parent).addListener(this);
+		}
+	}
+
+	public void graphChanged(IGraphChangeEvent event) {
+		// simply delegate event
+		trigger(event);
 	}
 
 	private final Set<IGraphChangeListener> listeners = new HashSet<IGraphChangeListener>();
