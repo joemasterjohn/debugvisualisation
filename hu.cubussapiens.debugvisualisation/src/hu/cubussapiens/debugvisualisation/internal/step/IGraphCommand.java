@@ -8,4 +8,11 @@ package hu.cubussapiens.debugvisualisation.internal.step;
  */
 public interface IGraphCommand {
 
+	/**
+	 * Get the array of nodes on which this operation should be executed
+	 * 
+	 * @return the target nodes of the command
+	 */
+	public Object[] getTarget();
+
 }

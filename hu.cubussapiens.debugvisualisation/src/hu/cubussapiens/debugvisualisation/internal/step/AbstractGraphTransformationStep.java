@@ -56,4 +56,9 @@ public abstract class AbstractGraphTransformationStep implements
 		listeners.remove(listener);
 	}
 
+	protected final void trigger(IGraphChangeEvent event) {
+		for (IGraphChangeListener l : listeners)
+			l.graphChanged(event);
+	}
+
 }

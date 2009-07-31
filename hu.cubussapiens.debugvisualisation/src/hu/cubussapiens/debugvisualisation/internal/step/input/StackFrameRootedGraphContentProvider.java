@@ -24,7 +24,7 @@ public class StackFrameRootedGraphContentProvider implements
 	/**
 	 * 
 	 */
-	public final Object root = new Integer(-1);
+	public static final Object root = new Integer(-1);
 
 	final IStackFrame sf;
 
