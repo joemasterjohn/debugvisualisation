@@ -24,7 +24,7 @@ public abstract class GraphSelectionAction extends GraphAction {
 		StackFrameContextInput input = getInput();
 
 		for (Object i : sel.toArray()) {
-			if (i instanceof Integer)
+			if (i instanceof Integer) // TODO: here's the problem!!!!
 				run((Integer) i, input);
 		}
 	}

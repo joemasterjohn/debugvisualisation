@@ -41,6 +41,8 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 	 */
 	@Override
 	protected boolean tryToExecute(IGraphCommand command) {
+		System.out.println("Executing command: " + command.toString()); // TODO:
+																		// println
 		last.execute(command);
 		return true;
 	}

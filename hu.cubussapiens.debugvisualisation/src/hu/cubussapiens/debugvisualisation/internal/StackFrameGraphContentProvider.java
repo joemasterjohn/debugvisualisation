@@ -88,8 +88,11 @@ public class StackFrameGraphContentProvider implements
 	}
 
 	public void graphChanged(IGraphChangeEvent event) {
-		if (viewer != null)
+		System.out.println("Graph changed");// TODO println
+		if (viewer != null) {
+			viewer.setInput(input);
 			viewer.refresh();
+		}
 	}
 
 }

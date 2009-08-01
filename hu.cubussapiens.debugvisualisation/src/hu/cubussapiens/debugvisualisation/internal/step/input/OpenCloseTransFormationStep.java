@@ -34,6 +34,7 @@ public class OpenCloseTransFormationStep extends
 	@Override
 	protected boolean tryToExecute(IGraphCommand command) {
 		if (command instanceof ToggleOpenNodeCommand) {
+			System.out.println("Toggle open action got");// TODO: println
 			for (Object node : command.getTarget()) {
 				if (open.contains(node))
 					open.remove(node);

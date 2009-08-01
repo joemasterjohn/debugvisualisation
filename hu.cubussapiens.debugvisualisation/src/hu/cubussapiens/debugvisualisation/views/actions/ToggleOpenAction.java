@@ -25,6 +25,7 @@ public class ToggleOpenAction extends GraphSelectionAction {
 	@Override
 	protected void run(Integer node, StackFrameContextInput input) {
 		//input.toggleOpen(node);
+		System.out.println("Executing toggle open command.."); // TODO: println
 		input.execute(new ToggleOpenNodeCommand(getSelection().toArray()));
 	}
 
