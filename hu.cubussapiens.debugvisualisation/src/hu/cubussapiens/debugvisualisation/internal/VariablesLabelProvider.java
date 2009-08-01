@@ -1,11 +1,17 @@
 package hu.cubussapiens.debugvisualisation.internal;
 
+import hu.cubussapiens.debugvisualisation.Activator;
 import hu.cubussapiens.debugvisualisation.ImagePool;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseNodeState;
+import hu.cubussapiens.debugvisualisation.internal.step.input.ParametersTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.StackFrameRootedGraphContentProvider;
 
+import java.util.Collection;
+
+import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
+import org.eclipse.debug.core.model.IVariable;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -80,6 +86,8 @@ public class VariablesLabelProvider extends LabelProvider implements
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	// Return type is ensured by ParametersTransformationStep.getNodeState()
 	private String getRawText(Object element) {
 		if (StackFrameRootedGraphContentProvider.root.equals(element))
 			return "Local context";
@@ -96,10 +104,21 @@ public class VariablesLabelProvider extends LabelProvider implements
 			 */
 			String type = ValueUtils.getValueString(node);// input.getValue(node).getReferenceTypeName();
 			name += ": " + type;
-			/*
-			 * TODO: parameters if (input.isOpen(node)) { for (String param :
-			 * input.getParams(node)) name += "\n" + param; }
-			 */
+
+			Collection<IVariable> params = (Collection<IVariable>) input
+					.getNodeState(element,
+							ParametersTransformationStep.hasParameters);
+			for (IVariable param : params) {
+				try {
+					name += "\n" + param.getName() + "= "
+							+ getProcessedValue(param.getValue()
+									.getValueString());
+				} catch (DebugException e) {
+					Activator.getDefault().logError(e,
+							"Error getting parameter value");
+				}
+			}
+
 			return name;
 		}
 		return element.toString();
@@ -110,7 +129,8 @@ public class VariablesLabelProvider extends LabelProvider implements
 	 */
 	@Override
 	public String getText(Object element) {
-		return getProcessedValue(getRawText(element));
+		// return getProcessedValue(getRawText(element));
+		return getRawText(element);
 	}
 
 	public Color getColor(Object rel) {

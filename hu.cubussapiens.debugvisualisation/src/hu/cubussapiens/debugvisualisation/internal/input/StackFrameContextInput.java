@@ -7,6 +7,7 @@ import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformat
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseTransFormationStep;
+import hu.cubussapiens.debugvisualisation.internal.step.input.ParametersTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.StackFrameRootedGraphContentProvider;
 
 import java.util.Collection;
@@ -18,9 +19,10 @@ import org.eclipse.debug.core.model.IStackFrame;
  */
 public class StackFrameContextInput extends AbstractGraphTransformationStep {
 
-	final StackFrameRootedGraphContentProvider sfg;
+	final StackFrameRootedGraphContentProvider root;
 
 	final OpenCloseTransFormationStep t1;
+	final ParametersTransformationStep t2;
 
 	final IGraphTransformationStep last;
 
@@ -30,10 +32,11 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 	 */
 	public StackFrameContextInput(IStackFrame sf) {
 		super(null);
-		sfg = new StackFrameRootedGraphContentProvider(sf);
-		t1 = new OpenCloseTransFormationStep(sfg);
+		root = new StackFrameRootedGraphContentProvider(sf);
+		t1 = new OpenCloseTransFormationStep(root);
+		t2 = new ParametersTransformationStep(t1);
 
-		last = t1;
+		last = t2;
 		last.addListener(this);
 	}
 
