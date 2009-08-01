@@ -37,6 +37,11 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 		last.addListener(this);
 	}
 
+	@Override
+	protected Object tryToGetNodeState(Object node, Object statedomain) {
+		return last.getNodeState(node, statedomain);
+	}
+
 	/* (non-Javadoc)
 	 * @see hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep#tryToExecute(hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand)
 	 */

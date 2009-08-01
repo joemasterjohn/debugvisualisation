@@ -56,6 +56,25 @@ public abstract class AbstractGraphTransformationStep implements
 	 */
 	protected abstract boolean tryToExecute(IGraphCommand command);
 
+	public Object getNodeState(Object node, Object statedomain) {
+		Object result = tryToGetNodeState(node, statedomain);
+		if ((result == null)
+				&& (getParent() instanceof IGraphTransformationStep))
+			return ((IGraphTransformationStep) getParent()).getNodeState(node,
+					statedomain);
+		return result;
+	}
+
+	/**
+	 * Try to get a node state from this step. If failed, this method return
+	 * null. In this case this method should be asked from its parent.
+	 * 
+	 * @param node
+	 * @param statedomain
+	 * @return the state if the given node, or null, if this step
+	 */
+	protected abstract Object tryToGetNodeState(Object node, Object statedomain);
+
 	public IRootedGraphContentProvider getParent() {
 		return parent;
 	}

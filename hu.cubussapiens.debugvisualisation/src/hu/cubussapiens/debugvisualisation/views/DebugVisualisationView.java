@@ -200,8 +200,7 @@ public class DebugVisualisationView extends ViewPart implements
 	 */
 	public void setStackFrame(IStackFrame stackframe) {
 		StackFrameContextInput input = inputfactory.getInput(stackframe);
-		// labelprovider.setInput(input);
-		// TODO: repair labelprovider
+		labelprovider.setInput(input);
 		viewer.setInput(input);
 		viewer.refresh();
 	}

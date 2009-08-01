@@ -46,6 +46,20 @@ public class OpenCloseTransFormationStep extends
 		return false;
 	}
 
+	@Override
+	protected Object tryToGetNodeState(Object node, Object statedomain) {
+		if (OpenCloseNodeState.class.equals(statedomain)) {
+			if (StackFrameRootedGraphContentProvider.root.equals(node))
+				return OpenCloseNodeState.Root;
+			if (getParent().getChilds(node).isEmpty())
+				return OpenCloseNodeState.ChildLess;
+			if (open.contains(node))
+				return OpenCloseNodeState.Open;
+			return OpenCloseNodeState.Close;
+		}
+		return null;
+	}
+
 	/* (non-Javadoc)
 	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getChilds(java.lang.Object)
 	 */

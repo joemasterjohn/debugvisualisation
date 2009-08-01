@@ -1,6 +1,8 @@
 package hu.cubussapiens.debugvisualisation.internal;
 
 import hu.cubussapiens.debugvisualisation.ImagePool;
+import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseNodeState;
 import hu.cubussapiens.debugvisualisation.internal.step.input.StackFrameRootedGraphContentProvider;
 
 import org.eclipse.debug.core.model.IValue;
@@ -22,7 +24,16 @@ import org.eclipse.zest.core.widgets.ZestStyles;
 public class VariablesLabelProvider extends LabelProvider implements
 		IConnectionStyleProvider, IEntityStyleProvider {
 
-	// IDebugContextInput input;
+	StackFrameContextInput input;
+
+	/**
+	 * Give the currently used input object this this label provider
+	 * 
+	 * @param input
+	 */
+	public void setInput(StackFrameContextInput input) {
+		this.input = input;
+	}
 
 	/**
 	 * Processes the string value by trimming the middle of the string if the
@@ -42,10 +53,6 @@ public class VariablesLabelProvider extends LabelProvider implements
 		return newString.replace("\n", "\\n");
 	}
 
-	/*
-	 * public void setInput(IDebugContextInput input) { this.input = input; }
-	 */
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -55,16 +62,22 @@ public class VariablesLabelProvider extends LabelProvider implements
 			// Integer node = (Integer) element;
 			if (StackFrameRootedGraphContentProvider.root.equals(element))
 				return ImagePool.image(ISharedImages.IMG_DEF_VIEW);
-			/*
-			 * if (!input.canOpen(node)) { return
-			 * ImagePool.image(ISharedImages.IMG_OBJ_ELEMENT); } if
-			 * (input.isOpen(node)) return
-			 * ImagePool.image(ImagePool.icon_node_open);
-			 */
-			else
+		if (element instanceof IValue) {
+			Object o = input.getNodeState(element, OpenCloseNodeState.class);
+			if (o == null)
+				return null;
+			switch ((OpenCloseNodeState) o) {
+			case Root:
+				return ImagePool.image(ISharedImages.IMG_DEF_VIEW);
+			case ChildLess:
+				return ImagePool.image(ISharedImages.IMG_OBJ_ELEMENT);
+			case Open:
+				return ImagePool.image(ImagePool.icon_node_open);
+			case Close:
 				return ImagePool.image(ImagePool.icon_node_closed);
-		// }
-		// return null;
+			}
+		}
+		return null;
 	}
 
 	private String getRawText(Object element) {
