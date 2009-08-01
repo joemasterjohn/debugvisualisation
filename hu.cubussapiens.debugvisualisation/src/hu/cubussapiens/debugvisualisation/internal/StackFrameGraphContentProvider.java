@@ -17,7 +17,8 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.zest.core.viewers.IGraphEntityRelationshipContentProvider;
 
 /**
- *
+ * This object accepts StackFrameContextInput as input, and provides content for
+ * a Zest GraphViewer
  */
 public class StackFrameGraphContentProvider implements
 		IGraphEntityRelationshipContentProvider, IGraphChangeListener {
