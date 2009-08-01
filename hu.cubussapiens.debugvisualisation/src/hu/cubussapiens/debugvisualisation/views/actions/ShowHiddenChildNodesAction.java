@@ -22,7 +22,7 @@ public class ShowHiddenChildNodesAction extends GraphSelectionAction {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void run(Integer node, StackFrameContextInput input) {
+	protected void run(Object node, StackFrameContextInput input) {
 		// input.showHiddenChildNodes(node);
 		// TODO: implement this on StackFrameContextInput
 	}

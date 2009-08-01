@@ -21,7 +21,7 @@ public class HideAction extends GraphSelectionAction {
 	}
 
 	@Override
-	protected void run(Integer node, StackFrameContextInput input) {
+	protected void run(Object node, StackFrameContextInput input) {
 		// input.hideNode(node);
 		// TODO: implement this on stack frame context input
 	}

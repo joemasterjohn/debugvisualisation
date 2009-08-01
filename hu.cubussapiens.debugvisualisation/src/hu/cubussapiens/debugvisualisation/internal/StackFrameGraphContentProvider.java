@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.viewers.IGraphEntityRelationshipContentProvider;
 
 /**
@@ -25,7 +26,7 @@ public class StackFrameGraphContentProvider implements
 
 	StackFrameContextInput input = null;
 
-	Viewer viewer = null;
+	GraphViewer viewer = null;
 
 	// final List<Object> edges = new ArrayList<Object>();
 
@@ -78,6 +79,7 @@ public class StackFrameGraphContentProvider implements
 	 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
 	 */
 	public void inputChanged(Viewer arg0, Object oldinput, Object newinput) {
+		viewer = (GraphViewer) arg0;
 		if (input != null){
 			input.removeListener(this);
 		}
@@ -90,8 +92,9 @@ public class StackFrameGraphContentProvider implements
 	public void graphChanged(IGraphChangeEvent event) {
 		System.out.println("Graph changed");// TODO println
 		if (viewer != null) {
-			viewer.setInput(input);
+			// viewer.setInput(input);
 			viewer.refresh();
+			viewer.applyLayout();
 		}
 	}
 

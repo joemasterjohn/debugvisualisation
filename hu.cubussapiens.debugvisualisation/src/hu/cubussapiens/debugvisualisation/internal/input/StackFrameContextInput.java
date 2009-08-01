@@ -34,6 +34,7 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 		t1 = new OpenCloseTransFormationStep(sfg);
 
 		last = t1;
+		last.addListener(this);
 	}
 
 	/* (non-Javadoc)
