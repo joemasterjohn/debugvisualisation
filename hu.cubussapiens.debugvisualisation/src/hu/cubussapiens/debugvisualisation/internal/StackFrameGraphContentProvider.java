@@ -90,7 +90,6 @@ public class StackFrameGraphContentProvider implements
 	}
 
 	public void graphChanged(IGraphChangeEvent event) {
-		System.out.println("Graph changed");// TODO println
 		if (viewer != null) {
 			// viewer.setInput(input);
 			viewer.refresh();

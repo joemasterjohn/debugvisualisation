@@ -40,18 +40,7 @@ public class DebugContextListener implements IDebugContextListener {
 		if (context instanceof StructuredSelection) {
 			Object data = ((StructuredSelection) context).getFirstElement();
 			if (data instanceof IStackFrame) {
-				// System.out.println("Yaaaay! We got IStackFrame! :)");
 				consumer.setStackFrame((IStackFrame) data);
-				/*
-				 * try { IVariable[] variables = ((IStackFrame)
-				 * data).getVariables(); for(IVariable var : variables){
-				 * System.out
-				 * .println(var.getName()+" : "+var.getValue().getReferenceTypeName
-				 * ()+" = "+var.getValue().getValueString() +
-				 * " - "+var.getValue().getModelIdentifier() ); } } catch
-				 * (DebugException e) { // TODO Auto-generated catch block
-				 * e.printStackTrace(); }
-				 */
 			} else {
 				consumer.setStackFrame(null);
 			}

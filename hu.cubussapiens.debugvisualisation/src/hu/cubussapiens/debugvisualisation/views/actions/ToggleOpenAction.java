@@ -23,8 +23,6 @@ public class ToggleOpenAction extends GraphAction {
 
 	@Override
 	public void run() {
-		//input.toggleOpen(node);
-		System.out.println("Executing toggle open command.."); // TODO: println
 		getInput().execute(new ToggleOpenNodeCommand(getSelection().toArray()));
 	}
 
