@@ -203,6 +203,7 @@ public class DebugVisualisationView extends ViewPart implements
 		// labelprovider.setInput(input);
 		// TODO: repair labelprovider
 		viewer.setInput(input);
+		viewer.refresh();
 	}
 
 	@Override

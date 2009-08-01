@@ -1,12 +1,9 @@
 package hu.cubussapiens.debugvisualisation.internal;
 
-import hu.cubussapiens.debugvisualisation.Activator;
 import hu.cubussapiens.debugvisualisation.ImagePool;
-import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
-import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInputAware;
+import hu.cubussapiens.debugvisualisation.internal.step.input.StackFrameRootedGraphContentProvider;
 
-import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.model.IVariable;
+import org.eclipse.debug.core.model.IValue;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -23,9 +20,9 @@ import org.eclipse.zest.core.widgets.ZestStyles;
  * be an IDebugContextInput instance)
  */
 public class VariablesLabelProvider extends LabelProvider implements
-		IDebugContextInputAware, IConnectionStyleProvider, IEntityStyleProvider {
+		IConnectionStyleProvider, IEntityStyleProvider {
 
-	IDebugContextInput input;
+	// IDebugContextInput input;
 
 	/**
 	 * Processes the string value by trimming the middle of the string if the
@@ -45,50 +42,51 @@ public class VariablesLabelProvider extends LabelProvider implements
 		return newString.replace("\n", "\\n");
 	}
 
-	public void setInput(IDebugContextInput input) {
-		this.input = input;
-	}
+	/*
+	 * public void setInput(IDebugContextInput input) { this.input = input; }
+	 */
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public Image getImage(Object element) {
-		if (element instanceof Integer) {
-			Integer node = (Integer) element;
-			if (node == -1)
+		// if (element instanceof Integer) {
+			// Integer node = (Integer) element;
+			if (StackFrameRootedGraphContentProvider.root.equals(element))
 				return ImagePool.image(ISharedImages.IMG_DEF_VIEW);
-			if (!input.canOpen(node)) {
-				return ImagePool.image(ISharedImages.IMG_OBJ_ELEMENT);
-			}
-			if (input.isOpen(node))
-				return ImagePool.image(ImagePool.icon_node_open);
+			/*
+			 * if (!input.canOpen(node)) { return
+			 * ImagePool.image(ISharedImages.IMG_OBJ_ELEMENT); } if
+			 * (input.isOpen(node)) return
+			 * ImagePool.image(ImagePool.icon_node_open);
+			 */
 			else
 				return ImagePool.image(ImagePool.icon_node_closed);
-		}
-		return null;
+		// }
+		// return null;
 	}
 
 	private String getRawText(Object element) {
-		if (element instanceof Integer) {
-			Integer node = (Integer) element;
-			if (node == -1)
-				return "Local context";
-			String name = "";
-			for (IVariable v : input.getReferencesForNode(node)) {
-				try {
-					name += v.getName() + " ";
-				} catch (DebugException e) {
-					Activator.getDefault().logError(e,
-							"Internal error in Debug Visualisation");
-				}
-			}
-			String type = ValueUtils.getValueString(input.getValue(node));// input.getValue(node).getReferenceTypeName();
+		if (StackFrameRootedGraphContentProvider.root.equals(element))
+			return "Local context";
+		if (element instanceof IValue) {
+			IValue node = (IValue) element;
+
+			String name = "v";
+			/*
+			 * TODO: references for (IVariable v :
+			 * input.getReferencesForNode(node)) { try { name += v.getName() +
+			 * " "; } catch (DebugException e) {
+			 * Activator.getDefault().logError(e,
+			 * "Internal error in Debug Visualisation"); } }
+			 */
+			String type = ValueUtils.getValueString(node);// input.getValue(node).getReferenceTypeName();
 			name += ": " + type;
-			if (input.isOpen(node)) {
-				for (String param : input.getParams(node))
-					name += "\n" + param;
-			}
+			/*
+			 * TODO: parameters if (input.isOpen(node)) { for (String param :
+			 * input.getParams(node)) name += "\n" + param; }
+			 */
 			return name;
 		}
 		return element.toString();

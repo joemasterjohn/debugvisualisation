@@ -44,7 +44,8 @@ public class StackFrameGraphContentProvider implements
 	private void collectNodes(Set<Object> buffer, Object parent) {
 		if ((parent != null) && (buffer.contains(parent)))
 			return;
-		buffer.add(parent);
+		if (parent != null)
+			buffer.add(parent);
 		Collection<Object> os = (parent == null) ? input.getRoots() : input
 				.getChilds(parent);
 		for (Object o : os)
