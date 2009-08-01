@@ -6,6 +6,7 @@ package hu.cubussapiens.debugvisualisation.internal.input;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphTransformationStep;
+import hu.cubussapiens.debugvisualisation.internal.step.input.HideNodesTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseTransFormationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.ParametersTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.StackFrameRootedGraphContentProvider;
@@ -23,6 +24,7 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 
 	final OpenCloseTransFormationStep t1;
 	final ParametersTransformationStep t2;
+	final HideNodesTransformationStep t3;
 
 	final IGraphTransformationStep last;
 
@@ -35,8 +37,9 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 		root = new StackFrameRootedGraphContentProvider(sf);
 		t1 = new OpenCloseTransFormationStep(root);
 		t2 = new ParametersTransformationStep(t1);
+		t3 = new HideNodesTransformationStep(t2);
 
-		last = t2;
+		last = t3;
 		last.addListener(this);
 	}
 

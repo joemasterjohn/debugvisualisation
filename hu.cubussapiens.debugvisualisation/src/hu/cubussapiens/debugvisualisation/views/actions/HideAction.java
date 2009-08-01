@@ -1,13 +1,13 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+import hu.cubussapiens.debugvisualisation.internal.step.input.HideNodesCommand;
 
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
  * Hides all selected nodes. (calls input.hideNode() on all selected node)
  */
-public class HideAction extends GraphSelectionAction {
+public class HideAction extends GraphAction {
 
 	/**
 	 * Creates an action, which can hide all selected nodes on a graph
@@ -21,9 +21,8 @@ public class HideAction extends GraphSelectionAction {
 	}
 
 	@Override
-	protected void run(Object node, StackFrameContextInput input) {
-		// input.hideNode(node);
-		// TODO: implement this on stack frame context input
+	public void run() {
+		getInput().execute(new HideNodesCommand(getSelection().toArray()));
 	}
 
 }

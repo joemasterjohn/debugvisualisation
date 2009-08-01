@@ -1,13 +1,13 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+import hu.cubussapiens.debugvisualisation.internal.step.input.ShowHiddenChildNodesCommand;
 
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
  * Shows all hidden child nodes of the selected nodes
  */
-public class ShowHiddenChildNodesAction extends GraphSelectionAction {
+public class ShowHiddenChildNodesAction extends GraphAction {
 
 	/**
 	 * @param viewer
@@ -22,9 +22,9 @@ public class ShowHiddenChildNodesAction extends GraphSelectionAction {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void run(Object node, StackFrameContextInput input) {
-		// input.showHiddenChildNodes(node);
-		// TODO: implement this on StackFrameContextInput
+	public void run() {
+		getInput().execute(
+				new ShowHiddenChildNodesCommand(getSelection().toArray()));
 	}
 
 }
