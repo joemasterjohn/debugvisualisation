@@ -2,10 +2,10 @@ package hu.cubussapiens.debugvisualisation.views;
 
 import hu.cubussapiens.debugvisualisation.internal.DebugContextListener;
 import hu.cubussapiens.debugvisualisation.internal.IStackFrameConsumer;
-import hu.cubussapiens.debugvisualisation.internal.VariablesGraphContentProvider;
+import hu.cubussapiens.debugvisualisation.internal.StackFrameGraphContentProvider;
 import hu.cubussapiens.debugvisualisation.internal.VariablesLabelProvider;
-import hu.cubussapiens.debugvisualisation.internal.input.DebugContextInputFactory;
-import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
+import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInputFactory;
 import hu.cubussapiens.debugvisualisation.views.actions.HideAction;
 import hu.cubussapiens.debugvisualisation.views.actions.RefreshLayoutAction;
 import hu.cubussapiens.debugvisualisation.views.actions.SelectLayoutGroup;
@@ -54,7 +54,7 @@ public class DebugVisualisationView extends ViewPart implements
 	/**
 	 * A factory to generate inputs from IStackFrames
 	 */
-	DebugContextInputFactory inputfactory = new DebugContextInputFactory();
+	StackFrameContextInputFactory inputfactory = new StackFrameContextInputFactory();
 
 	/**
 	 * Listening to changes in debug context
@@ -69,7 +69,7 @@ public class DebugVisualisationView extends ViewPart implements
 	/**
 	 * Content provider
 	 */
-	VariablesGraphContentProvider contentprovider = new VariablesGraphContentProvider();
+	StackFrameGraphContentProvider contentprovider = new StackFrameGraphContentProvider();
 
 	// ------------------------------------
 	// Actions
@@ -199,8 +199,9 @@ public class DebugVisualisationView extends ViewPart implements
 	 * A new stack frame is given when the debug context is changed
 	 */
 	public void setStackFrame(IStackFrame stackframe) {
-		IDebugContextInput input = inputfactory.getInput(stackframe);
-		labelprovider.setInput(input);
+		StackFrameContextInput input = inputfactory.getInput(stackframe);
+		// labelprovider.setInput(input);
+		// TODO: repair labelprovider
 		viewer.setInput(input);
 	}
 

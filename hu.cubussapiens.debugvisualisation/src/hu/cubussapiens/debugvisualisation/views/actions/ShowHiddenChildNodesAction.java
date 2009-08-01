@@ -1,6 +1,7 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
+import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
@@ -21,8 +22,9 @@ public class ShowHiddenChildNodesAction extends GraphSelectionAction {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void run(Integer node, IDebugContextInput input) {
-		input.showHiddenChildNodes(node);
+	protected void run(Integer node, StackFrameContextInput input) {
+		// input.showHiddenChildNodes(node);
+		// TODO: implement this on StackFrameContextInput
 	}
 
 }

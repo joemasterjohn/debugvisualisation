@@ -1,6 +1,7 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
+import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
@@ -20,8 +21,9 @@ public class HideAction extends GraphSelectionAction {
 	}
 
 	@Override
-	protected void run(Integer node, IDebugContextInput input) {
-		input.hideNode(node);
+	protected void run(Integer node, StackFrameContextInput input) {
+		// input.hideNode(node);
+		// TODO: implement this on stack frame context input
 	}
 
 }

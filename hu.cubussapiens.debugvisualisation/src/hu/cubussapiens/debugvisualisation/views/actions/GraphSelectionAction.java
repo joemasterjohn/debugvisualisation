@@ -1,6 +1,7 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
+import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
@@ -20,7 +21,7 @@ public abstract class GraphSelectionAction extends GraphAction {
 	@Override
 	public final void run() {
 		IStructuredSelection sel = getSelection();
-		IDebugContextInput input = getInput();
+		StackFrameContextInput input = getInput();
 
 		for (Object i : sel.toArray()) {
 			if (i instanceof Integer)
@@ -28,6 +29,6 @@ public abstract class GraphSelectionAction extends GraphAction {
 		}
 	}
 
-	protected abstract void run(Integer node, IDebugContextInput input);
+	protected abstract void run(Integer node, StackFrameContextInput input);
 
 }

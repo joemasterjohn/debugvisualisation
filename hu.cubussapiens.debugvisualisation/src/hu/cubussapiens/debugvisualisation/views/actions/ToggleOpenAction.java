@@ -1,6 +1,8 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
+import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+import hu.cubussapiens.debugvisualisation.internal.step.input.ToggleOpenNodeCommand;
+
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
@@ -21,8 +23,9 @@ public class ToggleOpenAction extends GraphSelectionAction {
 	}
 
 	@Override
-	protected void run(Integer node, IDebugContextInput input) {
-		input.toggleOpen(node);
+	protected void run(Integer node, StackFrameContextInput input) {
+		//input.toggleOpen(node);
+		input.execute(new ToggleOpenNodeCommand(getSelection().toArray()));
 	}
 
 }

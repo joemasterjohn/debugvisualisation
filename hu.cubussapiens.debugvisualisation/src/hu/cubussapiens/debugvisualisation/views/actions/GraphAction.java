@@ -1,6 +1,7 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.internal.input.IDebugContextInput;
+import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.zest.core.viewers.GraphViewer;
@@ -28,10 +29,10 @@ public abstract class GraphAction extends Action {
 	 * 
 	 * @return the actual input
 	 */
-	protected IDebugContextInput getInput() {
+	protected StackFrameContextInput getInput() {
 		Object input = viewer.getInput();
 		if (input != null)
-			return (IDebugContextInput) input;
+			return (StackFrameContextInput) input;
 		return null;
 	}
 
