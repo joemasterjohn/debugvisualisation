@@ -13,7 +13,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.debug.core.model.IValue;
-import org.eclipse.debug.core.model.IVariable;
 
 /**
  * This transformation step filters all constant child nodes from the graph, and
@@ -51,13 +50,11 @@ public class ParametersTransformationStep extends
 	@Override
 	protected Object tryToGetNodeState(Object node, Object statedomain) {
 		if (hasParameters.equals(statedomain)) {
-			Collection<IVariable> vars = new ArrayList<IVariable>();
+			Collection<Object> vars = new ArrayList<Object>();
 			for (Object o : getParent().getChilds(node))
 				if (o instanceof IValue)
 					if (ValueUtils.getID((IValue) o) == -1) {
-						vars
-								.add((IVariable) getEdge(node, o).iterator()
-										.next());
+						vars.add(getEdge(node, o).iterator().next());
 				}
 
 			return vars;

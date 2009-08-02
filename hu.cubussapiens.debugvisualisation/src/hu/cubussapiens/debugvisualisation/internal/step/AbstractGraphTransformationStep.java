@@ -58,10 +58,8 @@ public abstract class AbstractGraphTransformationStep implements
 
 	public Object getNodeState(Object node, Object statedomain) {
 		Object result = tryToGetNodeState(node, statedomain);
-		if ((result == null)
-				&& (getParent() instanceof IGraphTransformationStep))
-			return ((IGraphTransformationStep) getParent()).getNodeState(node,
-					statedomain);
+		if (result == null)
+			return getParent().getNodeState(node, statedomain);
 		return result;
 	}
 

@@ -103,4 +103,9 @@ public class StackFrameRootedGraphContentProvider implements
 		return roots;
 	}
 
+	public Object getNodeState(Object node, Object statedomain) {
+
+		return null;
+	}
+
 }

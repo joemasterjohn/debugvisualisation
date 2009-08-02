@@ -86,8 +86,6 @@ public class VariablesLabelProvider extends LabelProvider implements
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
-	// Return type is ensured by ParametersTransformationStep.getNodeState()
 	private String getRawText(Object element) {
 		if (StackFrameRootedGraphContentProvider.root.equals(element))
 			return "Local context";
@@ -105,10 +103,11 @@ public class VariablesLabelProvider extends LabelProvider implements
 			String type = ValueUtils.getValueString(node);// input.getValue(node).getReferenceTypeName();
 			name += ": " + type;
 
-			Collection<IVariable> params = (Collection<IVariable>) input
+			Collection<?> params = (Collection<?>) input
 					.getNodeState(element,
 							ParametersTransformationStep.hasParameters);
-			for (IVariable param : params) {
+			for (Object par : params) {
+				IVariable param = (IVariable) par;
 				try {
 					name += "\n" + param.getName() + "= "
 							+ getProcessedValue(param.getValue()

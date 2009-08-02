@@ -37,4 +37,14 @@ public interface IRootedGraphContentProvider {
 	 * @return all directed edge, which connects nodea with nodeb.
 	 */
 	public Collection<Object> getEdge(Object nodea, Object nodeb);
+
+	/**
+	 * Get the state for the given node in the specified state-domain. The
+	 * state-domain tells that which aspect of node state should be returned.
+	 * 
+	 * @param node
+	 * @param statedomain
+	 * @return state of the node in the given domain
+	 */
+	public Object getNodeState(Object node, Object statedomain);
 }
