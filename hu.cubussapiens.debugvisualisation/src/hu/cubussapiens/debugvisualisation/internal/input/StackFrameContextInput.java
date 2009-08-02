@@ -10,6 +10,7 @@ import hu.cubussapiens.debugvisualisation.internal.step.input.CacheTransformatio
 import hu.cubussapiens.debugvisualisation.internal.step.input.HideNodesTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseTransFormationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.ParametersTransformationStep;
+import hu.cubussapiens.debugvisualisation.internal.step.input.ReferenceTrackerTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.StackFrameRootedGraphContentProvider;
 
 import java.util.Collection;
@@ -27,6 +28,7 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 	final OpenCloseTransFormationStep t1;
 	final ParametersTransformationStep t2;
 	final HideNodesTransformationStep t3;
+	final ReferenceTrackerTransformationStep t4;
 
 	final IGraphTransformationStep last;
 
@@ -41,8 +43,9 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 		t1 = new OpenCloseTransFormationStep(rootcache);
 		t2 = new ParametersTransformationStep(t1);
 		t3 = new HideNodesTransformationStep(t2);
+		t4 = new ReferenceTrackerTransformationStep(t3);
 
-		last = t3;
+		last = t4;
 		last.addListener(this);
 	}
 

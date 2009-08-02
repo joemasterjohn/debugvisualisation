@@ -5,6 +5,7 @@ import hu.cubussapiens.debugvisualisation.ImagePool;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseNodeState;
 import hu.cubussapiens.debugvisualisation.internal.step.input.ParametersTransformationStep;
+import hu.cubussapiens.debugvisualisation.internal.step.input.ReferenceTrackerTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.StackFrameRootedGraphContentProvider;
 
 import java.util.Collection;
@@ -92,15 +93,16 @@ public class VariablesLabelProvider extends LabelProvider implements
 		if (element instanceof IValue) {
 			IValue node = (IValue) element;
 
-			String name = "v";
-			/*
-			 * TODO: references for (IVariable v :
-			 * input.getReferencesForNode(node)) { try { name += v.getName() +
-			 * " "; } catch (DebugException e) {
-			 * Activator.getDefault().logError(e,
-			 * "Internal error in Debug Visualisation"); } }
-			 */
-			String type = ValueUtils.getValueString(node);// input.getValue(node).getReferenceTypeName();
+			Collection<?> refs = (Collection<?>) input.getNodeState(element,
+					ReferenceTrackerTransformationStep.getReferences);
+			
+			String name = "";
+			for(Object ref : refs){
+				name = (name.equals("")) ? ref.toString() : name + ", "
+						+ ref.toString();
+			}
+
+			String type = ValueUtils.getValueString(node);
 			name += ": " + type;
 
 			Collection<?> params = (Collection<?>) input
