@@ -23,6 +23,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -40,7 +42,7 @@ import org.eclipse.zest.core.widgets.ZestStyles;
  * The main visualisation view element.
  */
 public class DebugVisualisationView extends ViewPart implements
-		IStackFrameConsumer, IZoomableWorkbenchPart {
+		IStackFrameConsumer, IZoomableWorkbenchPart, ISelectionChangedListener {
 
 	/**
 	 * The viewer
@@ -112,6 +114,11 @@ public class DebugVisualisationView extends ViewPart implements
 	 */
 	SelectLayoutGroup group;
 
+	/**
+	 * Other views to connect selection
+	 */
+	ConnectedViews connectedviews = new ConnectedViews();
+
 	private ZoomContributionViewItem zoom;
 
 	@Override
@@ -162,6 +169,22 @@ public class DebugVisualisationView extends ViewPart implements
 			if (o instanceof IStackFrame)
 				setStackFrame((IStackFrame) o);
 		}
+
+		// Connecting the other views
+		connectedviews.init();
+		getSite().setSelectionProvider(viewer);
+
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			public void selectionChanged(SelectionChangedEvent event) {
+				connectedviews.setSelection(event.getSelection());
+			}
+		});
+
+		connectedviews.addSelectionChangedListener(this);
+	}
+
+	public void selectionChanged(SelectionChangedEvent event) {
+		viewer.setSelection(event.getSelection());
 	}
 
 	/**
