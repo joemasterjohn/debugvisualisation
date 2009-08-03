@@ -16,13 +16,13 @@ import java.util.Set;
 /**
  *
  */
-public class OpenCloseTransFormationStep extends
+public class OpenCloseTransformationStep extends
 		AbstractGraphTransformationStep {
 
 	/**
 	 * @param parent
 	 */
-	public OpenCloseTransFormationStep(IRootedGraphContentProvider parent) {
+	public OpenCloseTransformationStep(IRootedGraphContentProvider parent) {
 		super(parent);
 	}
 
