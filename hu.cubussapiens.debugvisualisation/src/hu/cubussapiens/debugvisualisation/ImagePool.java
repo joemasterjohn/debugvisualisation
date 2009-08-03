@@ -3,6 +3,7 @@ package hu.cubussapiens.debugvisualisation;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
@@ -38,6 +39,11 @@ public class ImagePool {
 	 * Icon for layout selection
 	 */
 	public static final String icon_select_layout = "/icons/layout.gif";
+
+	/**
+	 * Icon for root node
+	 */
+	public static final String icon_root = "/icons/home_nav.gif";
 
 	private ImageRegistry registry = new ImageRegistry();
 
@@ -104,6 +110,20 @@ public class ImagePool {
 	 */
 	public static Image image(String id) {
 		return getInstance().getImage(id);
+	}
+
+	/**
+	 * Retrieves an image descriptor form the image pool. Valid identifiers can
+	 * be found as public static fields in org.eclipse.ui.ISharedImages or
+	 * hu.cubussapiens.debugvisualisation.ImagePool. This method is equivalent
+	 * with calling ImagePool.getInstance().getImage(id);
+	 * 
+	 * @param id
+	 *            An identifier for an image
+	 * @return The image descriptor for the asked image
+	 */
+	public static ImageDescriptor imageDescriptor(String id) {
+		return getInstance().getDescriptor(id);
 	}
 
 	/**

@@ -6,10 +6,12 @@ import hu.cubussapiens.debugvisualisation.internal.StackFrameGraphContentProvide
 import hu.cubussapiens.debugvisualisation.internal.VariablesLabelProvider;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInputFactory;
+import hu.cubussapiens.debugvisualisation.views.actions.DigInAction;
 import hu.cubussapiens.debugvisualisation.views.actions.HideAction;
 import hu.cubussapiens.debugvisualisation.views.actions.RefreshLayoutAction;
 import hu.cubussapiens.debugvisualisation.views.actions.SelectLayoutGroup;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowHiddenChildNodesAction;
+import hu.cubussapiens.debugvisualisation.views.actions.ShowRootAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
 import hu.cubussapiens.zestlayouts.LayoutManager;
 
@@ -96,6 +98,16 @@ public class DebugVisualisationView extends ViewPart implements
 	IAction refresh;
 
 	/**
+	 * Dig in graph command
+	 */
+	IAction digIn;
+
+	/**
+	 * Action to show root node
+	 */
+	IAction showRoot;
+
+	/**
 	 * The action group
 	 */
 	SelectLayoutGroup group;
@@ -163,6 +175,9 @@ public class DebugVisualisationView extends ViewPart implements
 		mm.add(toggleOpen);
 		mm.add(hideNode);
 		mm.add(showChilds);
+		mm.add(new Separator());
+		mm.add(digIn);
+		mm.add(showRoot);
 
 		IMenuManager imm = getViewSite().getActionBars().getMenuManager();
 		imm.add(refresh);
@@ -178,6 +193,7 @@ public class DebugVisualisationView extends ViewPart implements
 		IToolBarManager tm = getViewSite().getActionBars().getToolBarManager();
 		tm.add(refresh);
 		group.fillActionBars(getViewSite().getActionBars());
+		tm.add(showRoot);
 		// FIXME this causes java.lang.IllegalArgumentException: Argument cannot
 		// be null
 		// tm.add(zoom);
@@ -191,6 +207,8 @@ public class DebugVisualisationView extends ViewPart implements
 		hideNode = new HideAction(viewer);
 		showChilds = new ShowHiddenChildNodesAction(viewer);
 		refresh = new RefreshLayoutAction(viewer);
+		digIn = new DigInAction(viewer);
+		showRoot = new ShowRootAction(viewer);
 		group = new SelectLayoutGroup(layout, viewer);
 		zoom = new ZoomContributionViewItem(this);
 	}

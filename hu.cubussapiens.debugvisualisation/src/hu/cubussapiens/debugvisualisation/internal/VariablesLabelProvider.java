@@ -68,14 +68,14 @@ public class VariablesLabelProvider extends LabelProvider implements
 		// if (element instanceof Integer) {
 			// Integer node = (Integer) element;
 			if (StackFrameRootedGraphContentProvider.root.equals(element))
-				return ImagePool.image(ISharedImages.IMG_DEF_VIEW);
+			return ImagePool.image(ImagePool.icon_root);
 		if (element instanceof IValue) {
 			Object o = input.getNodeState(element, OpenCloseNodeState.class);
 			if (o == null)
 				return null;
 			switch ((OpenCloseNodeState) o) {
 			case Root:
-				return ImagePool.image(ISharedImages.IMG_DEF_VIEW);
+				return ImagePool.image(ImagePool.icon_root);
 			case ChildLess:
 				return ImagePool.image(ISharedImages.IMG_OBJ_ELEMENT);
 			case Open:
