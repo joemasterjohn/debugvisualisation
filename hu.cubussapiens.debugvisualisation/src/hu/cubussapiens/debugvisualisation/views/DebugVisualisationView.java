@@ -171,16 +171,17 @@ public class DebugVisualisationView extends ViewPart implements
 		}
 
 		// Connecting the other views
-		connectedviews.init();
-		getSite().setSelectionProvider(viewer);
-
-		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			public void selectionChanged(SelectionChangedEvent event) {
-				connectedviews.setSelection(event.getSelection());
-			}
-		});
-
-		connectedviews.addSelectionChangedListener(this);
+		// TODO: I've commented this out because it causes some serious problems
+		// connectedviews.init();
+		// getSite().setSelectionProvider(viewer);
+		//
+		// viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+		// public void selectionChanged(SelectionChangedEvent event) {
+		// connectedviews.setSelection(event.getSelection());
+		// }
+		// });
+		//
+		// connectedviews.addSelectionChangedListener(this);
 	}
 
 	public void selectionChanged(SelectionChangedEvent event) {
