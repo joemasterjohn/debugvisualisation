@@ -56,6 +56,37 @@ public class ConnectedViews implements ISelectionProvider,
 	}
 
 	/**
+	 * Unregister the selection provider
+	 * 
+	 * @param vid
+	 */
+	public void clearSelectionProvider(String vid){
+		if (sps.containsKey(vid)){
+			ISelectionProvider sp = sps.get(vid);
+			sp.removeSelectionChangedListener(this);
+			sps.remove(vid);
+		}
+	}
+
+	/**
+	 * Clear and refresh the selection provider
+	 * 
+	 * @param vid
+	 */
+	public void refreshSelectionProvider(String vid) {
+		clearSelectionProvider(vid);
+		getSelectionProvider(vid);
+	}
+
+	/**
+	 * Refresh all registered selection providers
+	 */
+	public void refresh() {
+		for (String vid : views)
+			refreshSelectionProvider(vid);
+	}
+
+	/**
 	 * Try to find a selection provider of the view with the given id
 	 * 
 	 * @param vid
@@ -68,11 +99,12 @@ public class ConnectedViews implements ISelectionProvider,
 					.getActiveWorkbenchWindow().getActivePage().findView(vid)
 					.getSite().getSelectionProvider();
 			sp.addSelectionChangedListener(this);
-			/*
-			 * if (sp == null)
-			 * System.out.println("No SelectionProvider is given!"); else
-			 * System.out.println("SelectionProvider found!");
-			 */
+
+			// if (sp == null)
+			// System.out.println("No SelectionProvider is given!");
+			// else
+			// System.out.println("SelectionProvider found!");
+
 			return sp;
 		} catch (NullPointerException e) {
 			Activator.getDefault().logError(e, "Can't find view: " + vid);
@@ -116,11 +148,15 @@ public class ConnectedViews implements ISelectionProvider,
 	}
 
 	public void setSelection(ISelection selection) {
-		for (ISelectionProvider sp : getSelectionProviders())
+		refresh();
+		System.out.println("Selection from inside");
+		for (ISelectionProvider sp : getSelectionProviders()) {
 			sp.setSelection(selection);
+		}
 	}
 
 	public void selectionChanged(SelectionChangedEvent event) {
+		System.out.println("Selection from outside" + sps.size());
 		for (ISelectionChangedListener l : listeners)
 			l.selectionChanged(event);
 
