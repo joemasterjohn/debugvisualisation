@@ -54,7 +54,9 @@ public class ParametersTransformationStep extends
 			for (Object o : getParent().getChilds(node))
 				if (o instanceof IValue)
 					if (ValueUtils.getID((IValue) o) == -1) {
-						vars.add(getEdge(node, o).iterator().next());
+						for (Object edge : getEdge(node, o))
+							if (!vars.contains(edge))
+								vars.add(edge);
 				}
 
 			return vars;

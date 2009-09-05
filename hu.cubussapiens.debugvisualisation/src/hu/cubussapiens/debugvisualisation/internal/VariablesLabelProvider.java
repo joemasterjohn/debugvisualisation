@@ -90,6 +90,15 @@ public class VariablesLabelProvider extends LabelProvider implements
 	private String getRawText(Object element) {
 		if (StackFrameRootedGraphContentProvider.root.equals(element))
 			return "Local context";
+		if (element instanceof IVariable) {
+			IVariable var = (IVariable) element;
+			try {
+				return var.getName();
+			} catch (DebugException e) {
+				Activator.getDefault().logError(e,
+						"Error getting variable name");
+			}
+		}
 		if (element instanceof IValue) {
 			IValue node = (IValue) element;
 
@@ -98,8 +107,16 @@ public class VariablesLabelProvider extends LabelProvider implements
 			
 			String name = "";
 			for(Object ref : refs){
-				name = (name.equals("")) ? ref.toString() : name + ", "
-						+ ref.toString();
+				try {
+					String refname = (ref instanceof IVariable) ? ((IVariable) ref)
+							.getName()
+							: "" + ref;
+					name = (name.equals("")) ? refname : name + ", " + refname;
+				} catch (DebugException e) {
+					Activator.getDefault().logError(e,
+							"Error getting variable name");
+				}
+
 			}
 
 			String type = ValueUtils.getValueString(node);
