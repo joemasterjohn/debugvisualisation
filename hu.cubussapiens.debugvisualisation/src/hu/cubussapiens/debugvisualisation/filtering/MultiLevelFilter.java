@@ -3,6 +3,8 @@
  */
 package hu.cubussapiens.debugvisualisation.filtering;
 
+import hu.cubussapiens.debugvisualisation.filtering.internal.MultiLevelVariable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,27 +20,39 @@ public class MultiLevelFilter implements IVariableFilter {
 
 	private final IVariableFilter[] filters;
 
+	private final boolean[] nameMask;
+
 	/**
 	 * Create a multilevel filter by giving a filter for every levels.
 	 * 
 	 * @param filters
 	 *            filters for each level
+	 * @param nameMask
+	 *            tells if a node selected by the filter will give a name part
+	 *            to the resulting variable path
 	 */
-	public MultiLevelFilter(IVariableFilter... filters) {
+	public MultiLevelFilter(IVariableFilter[] filters, boolean[] nameMask) {
 		this.filters = filters;
+		this.nameMask = nameMask;
 	}
 
-	private IVariable[] applyLevel(IVariable[] variables, IVariableFilter filter)
+	private List<List<IVariable>> applyLevel(List<List<IVariable>> vars,
+			IVariableFilter filter)
 			throws DebugException {
-		List<IVariable> vs = new ArrayList<IVariable>();
 
-		for (IVariable v : variables) {
+		List<List<IVariable>> result = new ArrayList<List<IVariable>>();
+
+		for (List<IVariable> path : vars) {
+			IVariable v = path.get(path.size() - 1);
 			IVariable[] r = filter.filter(v.getValue());
-			for (IVariable s : r)
-				vs.add(s);
+			for (IVariable s : r) {
+				List<IVariable> l = new ArrayList<IVariable>(path);
+				l.add(s);
+				result.add(l);
+			}
 		}
 
-		return vs.toArray(variables);
+		return result;
 	}
 
 	/* (non-Javadoc)
@@ -46,10 +60,24 @@ public class MultiLevelFilter implements IVariableFilter {
 	 */
 	public IVariable[] filter(IValue value) throws DebugException {
 		IVariable[] result = filters[0].filter(value);
-		for (int i = 1; i < filters.length; i++)
-			result = applyLevel(result, filters[i]);
 
-		return result;
+		List<List<IVariable>> vars = new ArrayList<List<IVariable>>();
+		for (IVariable v : result) {
+			List<IVariable> l = new ArrayList<IVariable>();
+			l.add(v);
+			vars.add(l);
+		}
+
+		for (int i = 1; i < filters.length; i++)
+			vars = applyLevel(vars, filters[i]);
+
+		IVariable[] vs = new IVariable[vars.size()];
+
+		for (int i = 0; i < vs.length; i++)
+			vs[i] = new MultiLevelVariable(vars.get(i)
+					.toArray(new IVariable[0]), nameMask);
+
+		return vs;
 	}
 
 }

@@ -1,4 +1,4 @@
-package hu.cubussapiens.debugvisualisation.filtering;
+package hu.cubussapiens.debugvisualisation.filtering.internal;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.ILaunch;
@@ -7,81 +7,86 @@ import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 
 /**
- *
+ * A virtual variable, which aggregates a path of variables
  */
-public class CustomVariable implements IVariable {
+public class MultiLevelVariable implements IVariable {
 
 	final IVariable[] path;
 
-	CustomVariable(IVariable[] path) {
+	final IVariable last;
+
+	final String s;
+
+	/**
+	 * @param path
+	 * @param nameMask
+	 * @throws DebugException
+	 */
+	public MultiLevelVariable(IVariable[] path, boolean[] nameMask)
+			throws DebugException {
 		this.path = path;
+		last = path[path.length - 1];
+		String t = "";
+		for (int i = 0; i < path.length; i++)
+			if (nameMask[i]) {
+				IVariable v = path[i];
+				t += v.getName();
+			}
+		s = t;
 	}
 
 	public String getName() throws DebugException {
-		// TODO Auto-generated method stub
-		return null;
+		return s;
 	}
 
 	public String getReferenceTypeName() throws DebugException {
-		// TODO Auto-generated method stub
-		return null;
+		return last.getReferenceTypeName();
 	}
 
 	public IValue getValue() throws DebugException {
-		// TODO Auto-generated method stub
-		return null;
+		return last.getValue();
 	}
 
 	public boolean hasValueChanged() throws DebugException {
-		// TODO Auto-generated method stub
-		return false;
+		return last.hasValueChanged();
 	}
 
 	public IDebugTarget getDebugTarget() {
-		// TODO Auto-generated method stub
-		return null;
+		return last.getDebugTarget();
 	}
 
 	public ILaunch getLaunch() {
-		// TODO Auto-generated method stub
-		return null;
+		return last.getLaunch();
 	}
 
 	public String getModelIdentifier() {
-		// TODO Auto-generated method stub
-		return null;
+		return last.getModelIdentifier();
 	}
 
 	@SuppressWarnings("unchecked")
 	// IVariable does not allow adding generic parameter to Class
 	public Object getAdapter(Class arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return last.getAdapter(arg0);
 	}
 
 	public void setValue(String arg0) throws DebugException {
-		// TODO Auto-generated method stub
-
+		last.setValue(arg0);
 	}
 
 	public void setValue(IValue arg0) throws DebugException {
-		// TODO Auto-generated method stub
-
+		last.setValue(arg0);
 	}
 
 	public boolean supportsValueModification() {
-		// TODO Auto-generated method stub
-		return false;
+		return last.supportsValueModification();
 	}
 
 	public boolean verifyValue(String arg0) throws DebugException {
-		// TODO Auto-generated method stub
-		return false;
+		return last.verifyValue(arg0);
 	}
 
 	public boolean verifyValue(IValue arg0) throws DebugException {
-		// TODO Auto-generated method stub
-		return false;
+		return last.verifyValue(arg0);
 	}
 
 }
