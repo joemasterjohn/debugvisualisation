@@ -1,7 +1,9 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.ImagePool;
+import hu.cubussapiens.debugvisualisation.Activator;
+
 import java.util.List;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IMenuCreator;
@@ -27,8 +29,8 @@ public class SelectLayoutDropdown extends Action implements IMenuCreator {
 	public SelectLayoutDropdown(List<Action> layouts) {
 		this.layouts = layouts;
 		setText("Layout");
-		setImageDescriptor(ImagePool.getInstance().getDescriptor(
-				ImagePool.icon_select_layout));
+		setImageDescriptor(Activator.getDefault().getImageRegistry()
+				.getDescriptor(Activator.icon_select_layout));
 		setMenuCreator(this);
 	}
 

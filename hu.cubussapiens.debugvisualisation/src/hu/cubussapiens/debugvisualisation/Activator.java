@@ -3,15 +3,17 @@ package hu.cubussapiens.debugvisualisation;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends Plugin {
+public class Activator extends AbstractUIPlugin {
 
 	/**
 	 * The plug-in ID
@@ -36,7 +38,6 @@ public class Activator extends Plugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		Bundle bundle = context.getBundle();
-		new ImagePool(bundle);
 		plugin = this;
 		log = Platform.getLog(bundle);
 	}
@@ -47,7 +48,6 @@ public class Activator extends Plugin {
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
-		ImagePool.getInstance().dispose();
 		super.stop(context);
 		log = null;
 	}
@@ -96,6 +96,48 @@ public class Activator extends Plugin {
 		Status status = new Status(IStatus.ERROR, PLUGIN_ID, errorCode,
 				message, e);
 		log.log(status);
+	}
+
+	// *************** Loading of images ************************* //
+
+	/**
+	 * Refresh icon
+	 */
+	public static final String icon_refresh = "/icons/view-refresh.gif";
+
+	/**
+	 * Icon for an open node
+	 */
+	public static final String icon_node_open = "/icons/node-open.gif";
+
+	/**
+	 * Icon for a closed node
+	 */
+	public static final String icon_node_closed = "/icons/node-closed.gif";
+
+	/**
+	 * Icon for layout selection
+	 */
+	public static final String icon_select_layout = "/icons/layout.gif";
+
+	/**
+	 * Icon for root node
+	 */
+	public static final String icon_root = "/icons/home_nav.gif";
+
+	@Override
+	protected void initializeImageRegistry(ImageRegistry reg) {
+		super.initializeImageRegistry(reg);
+		reg.put(icon_refresh, ImageDescriptor.createFromURL(getBundle()
+				.getEntry(icon_refresh)));
+		reg.put(icon_root, ImageDescriptor.createFromURL(getBundle().getEntry(
+				icon_root)));
+		reg.put(icon_node_closed, ImageDescriptor.createFromURL(getBundle()
+				.getEntry(icon_node_closed)));
+		reg.put(icon_node_open, ImageDescriptor.createFromURL(getBundle()
+				.getEntry(icon_node_open)));
+		reg.put(icon_select_layout, ImageDescriptor.createFromURL(getBundle()
+				.getEntry(icon_select_layout)));
 	}
 
 }

@@ -1,6 +1,6 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.ImagePool;
+import hu.cubussapiens.debugvisualisation.Activator;
 
 import org.eclipse.zest.core.viewers.GraphViewer;
 
@@ -16,7 +16,8 @@ public class RefreshLayoutAction extends GraphAction {
 		super(viewer);
 		setText("Refresh");
 		setToolTipText("Refresh layout of graph");
-		setImageDescriptor(ImagePool.imageDescriptor(ImagePool.icon_refresh));
+		setImageDescriptor(Activator.getDefault().getImageRegistry()
+				.getDescriptor(Activator.icon_refresh));
 	}
 
 	@Override

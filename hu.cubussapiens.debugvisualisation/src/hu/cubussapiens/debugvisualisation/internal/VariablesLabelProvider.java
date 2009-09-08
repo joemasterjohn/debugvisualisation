@@ -1,7 +1,6 @@
 package hu.cubussapiens.debugvisualisation.internal;
 
 import hu.cubussapiens.debugvisualisation.Activator;
-import hu.cubussapiens.debugvisualisation.ImagePool;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseNodeState;
 import hu.cubussapiens.debugvisualisation.internal.step.input.ParametersTransformationStep;
@@ -19,6 +18,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.zest.core.viewers.IConnectionStyleProvider;
 import org.eclipse.zest.core.viewers.IEntityStyleProvider;
 import org.eclipse.zest.core.widgets.ZestStyles;
@@ -68,20 +68,25 @@ public class VariablesLabelProvider extends LabelProvider implements
 		// if (element instanceof Integer) {
 			// Integer node = (Integer) element;
 			if (StackFrameRootedGraphContentProvider.root.equals(element))
-			return ImagePool.image(ImagePool.icon_root);
+			return Activator.getDefault().getImageRegistry().get(
+					Activator.icon_root);
 		if (element instanceof IValue) {
 			Object o = input.getNodeState(element, OpenCloseNodeState.class);
 			if (o == null)
 				return null;
 			switch ((OpenCloseNodeState) o) {
 			case Root:
-				return ImagePool.image(ImagePool.icon_root);
+				return Activator.getDefault().getImageRegistry().get(
+						Activator.icon_root);
 			case ChildLess:
-				return ImagePool.image(ISharedImages.IMG_OBJ_ELEMENT);
+				return PlatformUI.getWorkbench().getSharedImages().getImage(
+						ISharedImages.IMG_OBJ_ELEMENT);
 			case Open:
-				return ImagePool.image(ImagePool.icon_node_open);
+				return Activator.getDefault().getImageRegistry().get(
+						Activator.icon_node_open);
 			case Close:
-				return ImagePool.image(ImagePool.icon_node_closed);
+				return Activator.getDefault().getImageRegistry().get(
+						Activator.icon_node_closed);
 			}
 		}
 		return null;
