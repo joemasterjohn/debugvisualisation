@@ -6,6 +6,7 @@ import hu.cubussapiens.debugvisualisation.internal.StackFrameGraphContentProvide
 import hu.cubussapiens.debugvisualisation.internal.VariablesLabelProvider;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInputFactory;
+import hu.cubussapiens.debugvisualisation.internal.widgets.VisualisationGraphViewer;
 import hu.cubussapiens.debugvisualisation.views.actions.DigInAction;
 import hu.cubussapiens.debugvisualisation.views.actions.HideAction;
 import hu.cubussapiens.debugvisualisation.views.actions.RefreshLayoutAction;
@@ -125,7 +126,7 @@ public class DebugVisualisationView extends ViewPart implements
 	public void createPartControl(Composite parent) {
 
 		// create viewer
-		viewer = new GraphViewer(parent, SWT.NONE);
+		viewer = new VisualisationGraphViewer(parent, SWT.NONE);
 		viewer.setLayoutAlgorithm(layout.getDefault());
 		viewer.setLabelProvider(labelprovider);
 		viewer.setContentProvider(contentprovider);
