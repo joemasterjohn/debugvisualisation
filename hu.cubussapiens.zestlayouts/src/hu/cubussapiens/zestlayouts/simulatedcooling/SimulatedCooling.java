@@ -15,8 +15,9 @@ import org.eclipse.zest.layouts.dataStructures.InternalRelationship;
 public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 		IContinuableLayoutAlgorithm {
 
-	private static final double coolingfactor = 0.65;
-	private static final double begintemp = 1000;
+	private double coolingFactor = 0.65;
+	private double beginTemp = 1000;
+	private double stopDifference = 0.001;
 	private ICriteria[] crits;
 	private volatile boolean fNeedsRecall = true;
 	private volatile boolean fCancel;
@@ -55,9 +56,10 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 	 * @param styles
 	 * @param criterias
 	 */
-	public SimulatedCooling(int styles, ICriteria[] criterias) {
+	public SimulatedCooling(int styles, ICriteria[] criterias, double stopDifference) {
 		super(styles);
 		crits = criterias.clone();
+		this.stopDifference = stopDifference;
 	}
 
 	/**
@@ -154,7 +156,7 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 			}
 		}
 
-		temp = begintemp;
+		temp = beginTemp;
 
 		int step = 0;
 
@@ -176,7 +178,7 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 			// the smaller the better.
 			if (newvalue <= value) {
 				// reduce temperature
-				temp = temp * coolingfactor;
+				temp = temp * coolingFactor;
 				valuedelta += value - newvalue;
 			} else {
 				// undo the applied move.
@@ -185,7 +187,7 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 
 			step++;
 		}
-		if (valuedelta < 0.001) fNeedsRecall = false;
+		if (valuedelta < stopDifference) fNeedsRecall = false;
 		fireProgressEnded(1);
 	}
 
@@ -245,6 +247,8 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 	public void startLayouting() {
 		fNeedsRecall = true;
 		fCancel = false;
+		beginTemp = 1000;
+		coolingFactor = 0.65;
 	}
 
 	public void cancel() {

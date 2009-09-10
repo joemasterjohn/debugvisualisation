@@ -26,7 +26,7 @@ public class SimulatedCoolingFactory implements ILayoutAlgorithmFactory {
 		return new SimulatedCooling(LayoutStyles.NO_LAYOUT_NODE_RESIZING,
 				new ICriteria[] {new InBounds(), /*new PointDistribution(10),*/
 				new ArcAngleDistribution(1000), new EdgeLength(0.0001),
-				new EdgeIntersection(1000), new DistinctNodes(1000000)});
+				new EdgeIntersection(1000), new DistinctNodes(1000000)}, 15);
 		// note: the values above are results of experiments, not calculations,
 		// and can be refined as needed.
 	}
