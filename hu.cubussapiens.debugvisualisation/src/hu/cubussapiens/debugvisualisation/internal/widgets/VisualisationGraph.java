@@ -17,7 +17,7 @@ import org.eclipse.zest.core.widgets.Graph;
  */
 public class VisualisationGraph extends Graph {
 	boolean isLayoutRunning = false;
-	IContinuableLayoutAlgorithm algorithm;
+	IContinuableLayoutAlgorithm runningAlgorithm;
 
 	private class ApplyLayoutJob extends Job {
 
@@ -98,20 +98,26 @@ public class VisualisationGraph extends Graph {
 	@Override
 	public void applyLayout() {
 		if (isLayoutRunning) {
-			super.applyLayout();
-			return;
-		} else if (getLayoutAlgorithm() instanceof IContinuableLayoutAlgorithm
+			if (getLayoutAlgorithm().equals(runningAlgorithm)) {
+				super.applyLayout();
+				return;
+			} else {
+				runningAlgorithm.cancel();
+			}
+		}
+		if (getLayoutAlgorithm() instanceof IContinuableLayoutAlgorithm
 				&& !isLayoutRunning && !getNodes().isEmpty()) {
 			// Start a layouting job
 			isLayoutRunning = true;
-			algorithm = (IContinuableLayoutAlgorithm) getLayoutAlgorithm();
-			algorithm.startLayouting();
+			runningAlgorithm = (IContinuableLayoutAlgorithm) getLayoutAlgorithm();
+			runningAlgorithm.startLayouting();
 			ApplyLayoutJob job = new ApplyLayoutJob("Applying layout");
 			job.setGraph(this);
 			job.setUser(true);
 			job.schedule();
 			return;
 		} else {
+			isLayoutRunning = false;
 			super.applyLayout();
 		}
 	}
