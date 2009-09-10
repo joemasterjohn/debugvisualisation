@@ -5,19 +5,24 @@
    <extension
          point="hu.cubussapiens.zestlayouts">
       <layout
-            class="hu.cubussapiens.zestlayouts.creators.TreeLayoutCreator"
+            class="hu.cubussapiens.zestlayouts.factories.TreeLayoutFactory"
             id="hu.cubussapiens.zestlayouts.treelayout"
             name="Tree Layout">
       </layout>
       <layout
-            class="hu.cubussapiens.zestlayouts.creators.RadialLayoutCreator"
+            class="hu.cubussapiens.zestlayouts.factories.RadialLayoutFactory"
             id="hu.cubussapiens.zestlayouts.radial"
             name="Radial Layout">
       </layout>
       <layout
-            class="hu.cubussapiens.zestlayouts.creators.SpringLayoutCreator"
+            class="hu.cubussapiens.zestlayouts.factories.SpringLayoutFactory"
             id="hu.cubussapiens.zestlayouts.spring"
             name="Spring Layout">
+      </layout>
+      <layout
+            class="hu.cubussapiens.zestlayouts.factories.SimulatedCoolingFactory"
+            id="hu.cubussapiens.zestlayouts.simulatedcooling"
+            name="Simulated Cooling (Slow)">
       </layout>
    </extension>
 

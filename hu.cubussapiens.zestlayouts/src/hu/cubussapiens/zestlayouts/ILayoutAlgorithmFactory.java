@@ -7,7 +7,7 @@ import org.eclipse.zest.layouts.LayoutAlgorithm;
  * parameters.
  * 
  */
-public interface ILayoutAlgorithmCreator {
+public interface ILayoutAlgorithmFactory {
 
 	/**
 	 * 

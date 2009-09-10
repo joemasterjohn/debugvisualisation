@@ -1,4 +1,6 @@
-package hu.cubussapiens.zestlayouts.simulatedcooling;
+package hu.cubussapiens.zestlayouts.simulatedcooling.criteria;
+
+import hu.cubussapiens.zestlayouts.simulatedcooling.ICriteria;
 
 import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
@@ -9,7 +11,7 @@ import org.eclipse.zest.layouts.LayoutRelationship;
  * distance between the nodes.
  * 
  */
-public class PointDistribution implements Criteria {
+public class PointDistribution implements ICriteria {
 
 	private final double factor;
 
@@ -50,3 +52,4 @@ public class PointDistribution implements Criteria {
 	}
 
 }
+

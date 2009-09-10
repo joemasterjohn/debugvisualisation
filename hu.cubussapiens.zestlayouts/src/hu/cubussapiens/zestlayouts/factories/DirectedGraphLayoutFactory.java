@@ -1,6 +1,6 @@
-package hu.cubussapiens.zestlayouts.creators;
+package hu.cubussapiens.zestlayouts.factories;
 
-import hu.cubussapiens.zestlayouts.ILayoutAlgorithmCreator;
+import hu.cubussapiens.zestlayouts.ILayoutAlgorithmFactory;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.CompositeLayoutAlgorithm;
@@ -13,7 +13,7 @@ import org.eclipse.zest.layouts.algorithms.HorizontalShift;
  * HorizontalShift.
  * 
  */
-public class DirectedGraphLayoutCreator implements ILayoutAlgorithmCreator {
+public class DirectedGraphLayoutFactory implements ILayoutAlgorithmFactory {
 
 	/**
 	 * {@inheritDoc}

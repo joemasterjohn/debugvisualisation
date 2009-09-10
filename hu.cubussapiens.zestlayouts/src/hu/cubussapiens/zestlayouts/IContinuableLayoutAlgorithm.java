@@ -15,5 +15,18 @@ public interface IContinuableLayoutAlgorithm extends LayoutAlgorithm {
 	 * @return true if the algorithm should be recalled again.
 	 */
 	public boolean needsRecall();
+	
+	/**
+	 * Callback method marking the start of the layouting.
+	 */
+	public void startLayouting();
+	/**
+	 * Callback method marking the end of the layouting.
+	 */
+	public void finishLayouting();
+	/**
+	 * Callback method marking the cancellation of the layouting.
+	 */
+	public void cancel();
 
 }

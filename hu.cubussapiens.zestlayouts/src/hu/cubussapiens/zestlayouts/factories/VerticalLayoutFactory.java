@@ -1,6 +1,6 @@
-package hu.cubussapiens.zestlayouts.creators;
+package hu.cubussapiens.zestlayouts.factories;
 
-import hu.cubussapiens.zestlayouts.ILayoutAlgorithmCreator;
+import hu.cubussapiens.zestlayouts.ILayoutAlgorithmFactory;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.VerticalLayoutAlgorithm;
@@ -9,7 +9,7 @@ import org.eclipse.zest.layouts.algorithms.VerticalLayoutAlgorithm;
  * Creator for VerticalLayoutAlgorithm
  * 
  */
-public class VerticalLayoutCreator implements ILayoutAlgorithmCreator {
+public class VerticalLayoutFactory implements ILayoutAlgorithmFactory {
 
 	/**
 	 * {@inheritDoc}

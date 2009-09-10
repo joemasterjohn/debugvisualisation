@@ -1,4 +1,6 @@
-package hu.cubussapiens.zestlayouts.simulatedcooling;
+package hu.cubussapiens.zestlayouts.simulatedcooling.criteria;
+
+import hu.cubussapiens.zestlayouts.simulatedcooling.ICriteria;
 
 import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
@@ -8,7 +10,7 @@ import org.eclipse.zest.layouts.LayoutRelationship;
  * out-bound if its position is not in the bounds of the graph.
  * 
  */
-public class InBounds implements Criteria {
+public class InBounds implements ICriteria {
 
 	/**
 	 * {@inheritDoc}
@@ -38,3 +40,4 @@ public class InBounds implements Criteria {
 	}
 
 }
+

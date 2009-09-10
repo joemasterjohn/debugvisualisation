@@ -7,7 +7,7 @@ import org.eclipse.zest.layouts.LayoutRelationship;
  * A criteria generates a double value from a graph configuration. The lower the
  * value, the better the graph by this criteria.
  */
-public interface Criteria {
+public interface ICriteria {
 
 	/**
 	 * Apply the criteria with the given graph configuration.

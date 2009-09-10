@@ -1,4 +1,7 @@
-package hu.cubussapiens.zestlayouts.simulatedcooling;
+package hu.cubussapiens.zestlayouts.simulatedcooling.criteria;
+
+
+import hu.cubussapiens.zestlayouts.simulatedcooling.ICriteria;
 
 import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
@@ -7,7 +10,7 @@ import org.eclipse.zest.layouts.LayoutRelationship;
  * This criteria punishes long edges by multiplying edge length by the given
  * values. The value of punishment is linear to the edge length.
  */
-public class EdgeLength implements Criteria {
+public class EdgeLength implements ICriteria {
 
 	private final double factor;
 

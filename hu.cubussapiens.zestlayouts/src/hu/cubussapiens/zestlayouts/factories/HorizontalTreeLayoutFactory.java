@@ -1,6 +1,6 @@
-package hu.cubussapiens.zestlayouts.creators;
+package hu.cubussapiens.zestlayouts.factories;
 
-import hu.cubussapiens.zestlayouts.ILayoutAlgorithmCreator;
+import hu.cubussapiens.zestlayouts.ILayoutAlgorithmFactory;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
@@ -9,7 +9,7 @@ import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
  * Creator for HorizontalTreeLayoutAlgorithm
  * 
  */
-public class HorizontalTreeLayoutCreator implements ILayoutAlgorithmCreator {
+public class HorizontalTreeLayoutFactory implements ILayoutAlgorithmFactory {
 
 	/**
 	 * {@inheritDoc}

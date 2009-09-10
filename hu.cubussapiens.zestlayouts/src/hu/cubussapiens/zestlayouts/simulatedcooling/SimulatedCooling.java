@@ -1,6 +1,7 @@
 package hu.cubussapiens.zestlayouts.simulatedcooling;
 
 import hu.cubussapiens.zestlayouts.IContinuableLayoutAlgorithm;
+
 import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
 import org.eclipse.zest.layouts.algorithms.AbstractLayoutAlgorithm;
@@ -15,13 +16,16 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 		IContinuableLayoutAlgorithm {
 
 	private static final double coolingfactor = 0.65;
-
 	private static final double begintemp = 1000;
+	private ICriteria[] crits;
+	private volatile boolean fNeedsRecall = true;
+	private volatile boolean fCancel;
 
 	/**
-	 * Map getLayoutEntity() for an array
-	 * 
-	 * @param nodes
+	 * Map getLayoutEntity() for an array of {@link InternalNodes}. This conversion is needed
+	 * as the InternalNodes do not contain the layout information
+	 * explicitly thats needed in the criteria calculations.
+	 * @param nodes {@link LayoutEntity}
 	 * @return
 	 */
 	private LayoutEntity[] convert(InternalNode[] nodes) {
@@ -32,6 +36,10 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 	}
 
 	/**
+	 * This method generates the {@link LayoutRelationship} elements from an
+	 * array of {@link InternalRelationship} elements. This conversion is needed
+	 * as the InternalRelationships do not contain the layout information
+	 * explicitly thats needed in the criteria calculations.
 	 * @param relations
 	 * @return
 	 */
@@ -42,22 +50,18 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 		return result;
 	}
 
-	private Criteria[] crits;
-
 	/**
 	 * Creates a simulated cooling algorithm.
-	 * 
 	 * @param styles
 	 * @param criterias
 	 */
-	public SimulatedCooling(int styles, Criteria[] criterias) {
+	public SimulatedCooling(int styles, ICriteria[] criterias) {
 		super(styles);
-		crits = criterias;
+		crits = criterias.clone();
 	}
 
 	/**
 	 * Get criteria values for current graph configuration
-	 * 
 	 * @param entitiesToLayout
 	 * @param relationshipsToConsider
 	 * @param boundsX
@@ -72,11 +76,12 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 
 		double result = 0;
 
-		for (Criteria crit : crits) {
+		for (ICriteria crit : crits) {
 			try {
 				result += crit.apply(convert(entitiesToLayout),
 						convert(relationshipsToConsider), boundsX, boundsY,
 						boundsWidth, boundsHeight);
+				if (fCancel) break;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -93,7 +98,6 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 
 	/**
 	 * Apply a random move on the configuration, and save it in private fields.
-	 * 
 	 * @param entity
 	 */
 	private void applyRandomMove(LayoutEntity entity) {
@@ -120,10 +124,8 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 		oldpos = null;
 	}
 
-	private volatile boolean f_needsRecall;
-
-	public boolean needsRecall() {
-		return f_needsRecall;
+	public synchronized boolean needsRecall() {
+		return fNeedsRecall;
 	}
 
 	/**
@@ -132,13 +134,13 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 	 *      double, double, double, double)
 	 */
 	@Override
-	protected void applyLayoutInternal(InternalNode[] entitiesToLayout,
+	protected synchronized void applyLayoutInternal(
+			InternalNode[] entitiesToLayout,
 			InternalRelationship[] relationshipsToConsider, double boundsX,
 			double boundsY, double boundsWidth, double boundsHeight) {
-
 		fireProgressStarted(1);
 
-		f_needsRecall = true;
+		fNeedsRecall = true;
 		double valuedelta = 0;
 
 		// move outbounded nodes inbound
@@ -156,27 +158,21 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 
 		int step = 0;
 
-		while (temp > 1) {
+		while (temp > 1 && !fCancel) {
 
 			// get criteria value for current configuration:
 			double value = getCriteria(entitiesToLayout,
 					relationshipsToConsider, boundsX, boundsY, boundsWidth,
 					boundsHeight);
-
 			// select a node
 			LayoutEntity entity = entitiesToLayout[step
 					% entitiesToLayout.length].getLayoutEntity();
-
 			// random move for entity
 			applyRandomMove(entity);
-
 			// recalculate value for new configuration
 			double newvalue = getCriteria(entitiesToLayout,
 					relationshipsToConsider, boundsX, boundsY, boundsWidth,
 					boundsHeight);
-
-			// System.out.println(value+" -> "+newvalue);
-
 			// the smaller the better.
 			if (newvalue <= value) {
 				// reduce temperature
@@ -189,11 +185,7 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 
 			step++;
 		}
-
-		// System.out.println("valudelta: "+valuedelta);
-		if (valuedelta < 0.001)
-			f_needsRecall = false;
-
+		if (valuedelta < 0.001) fNeedsRecall = false;
 		fireProgressEnded(1);
 	}
 
@@ -239,8 +231,6 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 	protected void preLayoutAlgorithm(InternalNode[] entitiesToLayout,
 			InternalRelationship[] relationshipsToConsider, double x, double y,
 			double width, double height) {
-		//
-
 	}
 
 	/**
@@ -250,6 +240,21 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 	public void setLayoutArea(double x, double y, double width, double height) {
 		//
 
+	}
+
+	public void startLayouting() {
+		fNeedsRecall = true;
+		fCancel = false;
+	}
+
+	public void cancel() {
+		fCancel = true;
+		finishLayouting();
+	}
+
+	public void finishLayouting() {
+		fNeedsRecall = false;
+		
 	}
 
 }

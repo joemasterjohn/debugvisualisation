@@ -1,6 +1,6 @@
-package hu.cubussapiens.zestlayouts.creators;
+package hu.cubussapiens.zestlayouts.factories;
 
-import hu.cubussapiens.zestlayouts.ILayoutAlgorithmCreator;
+import hu.cubussapiens.zestlayouts.ILayoutAlgorithmFactory;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
@@ -9,7 +9,7 @@ import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
  * Creator for layout algorithm, which simulates springs at the edges
  * 
  */
-public class SpringLayoutCreator implements ILayoutAlgorithmCreator {
+public class SpringLayoutFactory implements ILayoutAlgorithmFactory {
 
 	/**
 	 * {@inheritDoc}

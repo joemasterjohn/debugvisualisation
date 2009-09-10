@@ -56,9 +56,9 @@ public class LayoutRegistry {
 		/**
 		 * @return Creator of the registered layout algorithm
 		 */
-		public ILayoutAlgorithmCreator getLayoutCreator() {
+		public ILayoutAlgorithmFactory getLayoutCreator() {
 			try {
-				return (ILayoutAlgorithmCreator) element
+				return (ILayoutAlgorithmFactory) element
 						.createExecutableExtension(ExtensionConstants.EPA_Layout_class);
 			} catch (CoreException e) {
 				e.printStackTrace();

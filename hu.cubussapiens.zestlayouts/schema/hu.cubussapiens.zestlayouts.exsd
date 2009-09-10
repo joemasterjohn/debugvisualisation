@@ -6,7 +6,7 @@
          <meta.schema plugin="hu.cubussapiens.zestlayouts" id="hu.cubussapiens.zestlayouts" name="Zest Graph Layouts"/>
       </appinfo>
       <documentation>
-         [Enter description of this extension point.]
+         This extension point is used to define graph layouts for the Zest Graph viewer.
       </documentation>
    </annotation>
 
@@ -52,24 +52,24 @@
          <attribute name="name" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  The name of the layout algorithm. This name is visible on the user interface.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  A Layout Factory class. It is used to instantiate a LayoutAlgorithm, and set its default parameters.
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":hu.cubussapiens.zestlayouts.ILayoutAlgorithmCreator"/>
+                  <meta.attribute kind="java" basedOn=":hu.cubussapiens.zestlayouts.ILayoutAlgorithmFactory"/>
                </appinfo>
             </annotation>
          </attribute>
          <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  An identifier value for the layout algorithm. It is recommended to use a hierarchical naming structure similar to the packages to avoid duplication of values.
                </documentation>
             </annotation>
          </attribute>
@@ -81,7 +81,7 @@
          <meta.section type="since"/>
       </appinfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         Version 0.5.0
       </documentation>
    </annotation>
 
