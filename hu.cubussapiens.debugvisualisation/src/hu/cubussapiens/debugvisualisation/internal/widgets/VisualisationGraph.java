@@ -22,6 +22,7 @@ public class VisualisationGraph extends Graph {
 	private class ApplyLayoutJob extends Job {
 
 		Graph graph;
+		IContinuableLayoutAlgorithm algorithm;
 
 		public ApplyLayoutJob(String name) {
 			super(name);
@@ -60,11 +61,14 @@ public class VisualisationGraph extends Graph {
 
 			algorithm = (IContinuableLayoutAlgorithm) graph
 					.getLayoutAlgorithm();
-			while (!monitor.isCanceled() && !graph.isDisposed()
-					&& iteration < maxIteration && algorithm.needsRecall()) {
+			while (!monitor.isCanceled()
+					&& !graph.isDisposed()
+					&& iteration < maxIteration
+					&& algorithm.needsRecall()
+					&& graph.getLayoutAlgorithm() instanceof IContinuableLayoutAlgorithm) {
 				graph.applyLayout();
-				algorithm = (IContinuableLayoutAlgorithm) graph
-						.getLayoutAlgorithm();
+				// algorithm = (IContinuableLayoutAlgorithm) graph
+				// .getLayoutAlgorithm();
 				iteration++;
 				monitor.worked(1);
 			}
