@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.zest.core.widgets.Graph;
 
 /**
- *
+ * A descendant of the Zest {@link Graph} widget, handling continuable layouts.
  */
 public class VisualisationGraph extends Graph {
 	boolean isLayoutRunning = false;
@@ -22,7 +22,6 @@ public class VisualisationGraph extends Graph {
 	private class ApplyLayoutJob extends Job {
 
 		Graph graph;
-		IContinuableLayoutAlgorithm algorithm;
 
 		public ApplyLayoutJob(String name) {
 			super(name);
@@ -67,8 +66,6 @@ public class VisualisationGraph extends Graph {
 					&& algorithm.needsRecall()
 					&& graph.getLayoutAlgorithm() instanceof IContinuableLayoutAlgorithm) {
 				graph.applyLayout();
-				// algorithm = (IContinuableLayoutAlgorithm) graph
-				// .getLayoutAlgorithm();
 				iteration++;
 				monitor.worked(1);
 			}
@@ -86,12 +83,13 @@ public class VisualisationGraph extends Graph {
 	}
 
 	/**
+	 * Initializes a visualisation graph.
+	 * 
 	 * @param parent
 	 * @param style
 	 */
 	public VisualisationGraph(Composite parent, int style) {
 		super(parent, style);
-		// TODO Auto-generated constructor stub
 	}
 
 	/*
