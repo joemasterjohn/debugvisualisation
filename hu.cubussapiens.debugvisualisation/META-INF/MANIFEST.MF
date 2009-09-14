@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Debug Visualisation Plug-in
 Bundle-SymbolicName: hu.cubussapiens.debugvisualisation;singleton:=true
-Bundle-Version: 0.7.0.20090910
+Bundle-Version: 0.7.0.qualifier
 Bundle-Activator: hu.cubussapiens.debugvisualisation.Activator
 Bundle-Vendor: cubussapiens.hu
 Require-Bundle: org.eclipse.core.runtime,
