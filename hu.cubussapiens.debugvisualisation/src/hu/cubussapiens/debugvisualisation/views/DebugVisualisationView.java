@@ -10,6 +10,7 @@ import hu.cubussapiens.debugvisualisation.internal.widgets.VisualisationGraphVie
 import hu.cubussapiens.debugvisualisation.views.actions.DigInAction;
 import hu.cubussapiens.debugvisualisation.views.actions.HideAction;
 import hu.cubussapiens.debugvisualisation.views.actions.RefreshLayoutAction;
+import hu.cubussapiens.debugvisualisation.views.actions.SaveImageAction;
 import hu.cubussapiens.debugvisualisation.views.actions.SelectLayoutGroup;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowHiddenChildNodesAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowRootAction;
@@ -34,7 +35,6 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
-import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
 import org.eclipse.zest.core.viewers.ZoomContributionViewItem;
 import org.eclipse.zest.core.widgets.ZestStyles;
@@ -48,7 +48,7 @@ public class DebugVisualisationView extends ViewPart implements
 	/**
 	 * The viewer
 	 */
-	GraphViewer viewer;
+	VisualisationGraphViewer viewer;
 
 	/**
 	 * A layout manager which can provide layouts registered to the extension
@@ -109,6 +109,10 @@ public class DebugVisualisationView extends ViewPart implements
 	 * Action to show root node
 	 */
 	IAction showRoot;
+	/**
+	 * Action to save the graph as an image file.
+	 */
+	SaveImageAction saveImage;
 
 	/**
 	 * The action group
@@ -209,6 +213,7 @@ public class DebugVisualisationView extends ViewPart implements
 		group.fillContextMenu(imm);
 		imm.add(new Separator());
 		imm.add(zoom);
+		imm.add(saveImage);
 	}
 
 	/**
@@ -236,6 +241,7 @@ public class DebugVisualisationView extends ViewPart implements
 		showRoot = new ShowRootAction(viewer);
 		group = new SelectLayoutGroup(layout, viewer);
 		zoom = new ZoomContributionViewItem(this);
+		saveImage = new SaveImageAction(viewer);
 	}
 
 	/**
