@@ -17,6 +17,9 @@ import hu.cubussapiens.debugvisualisation.views.actions.ShowRootAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
 import hu.cubussapiens.zestlayouts.LayoutManager;
 
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.IStateListener;
+import org.eclipse.core.commands.State;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.ui.DebugUITools;
@@ -27,12 +30,16 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
@@ -48,7 +55,7 @@ public class DebugVisualisationView extends ViewPart implements
 	/**
 	 * The viewer
 	 */
-	VisualisationGraphViewer viewer;
+	VisualisationGraphViewer graphViewer;
 
 	/**
 	 * A layout manager which can provide layouts registered to the extension
@@ -119,6 +126,24 @@ public class DebugVisualisationView extends ViewPart implements
 	 */
 	SelectLayoutGroup group;
 
+	IStateListener stateListener = new IStateListener() {
+
+		public void handleStateChange(State state, Object oldValue) {
+			graphViewer.refresh();
+		}
+	};
+
+	class LocalContextFilter extends ViewerFilter {
+
+		@Override
+		public boolean select(Viewer viewer, Object parentElement,
+				Object element) {
+			State state = getState();
+			Boolean value = (Boolean) state.getValue();
+			return value || !element.equals(-1);
+		}
+	}
+
 	/**
 	 * Other views to connect selection
 	 */
@@ -126,22 +151,34 @@ public class DebugVisualisationView extends ViewPart implements
 
 	private ZoomContributionViewItem zoom;
 
+	private String contextCommandID = "hu.cubussapiens.debugvisualisation.showlocalcontext";
+	private String contextStateID = "org.eclipse.ui.commands.toggleState";
+
+	private State getState() {
+		ICommandService commandService = (ICommandService) PlatformUI
+				.getWorkbench().getActiveWorkbenchWindow().getService(
+						ICommandService.class);
+		Command command = commandService.getCommand(contextCommandID);
+		return command.getState(contextStateID);
+	}
+
 	@Override
 	public void createPartControl(Composite parent) {
 
 		// create viewer
-		viewer = new VisualisationGraphViewer(parent, SWT.NONE);
-		viewer.setLayoutAlgorithm(layout.getDefault());
-		viewer.setLabelProvider(labelprovider);
-		viewer.setContentProvider(contentprovider);
-		viewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
+		graphViewer = new VisualisationGraphViewer(parent, SWT.NONE);
+		graphViewer.setLayoutAlgorithm(layout.getDefault());
+		graphViewer.setLabelProvider(labelprovider);
+		graphViewer.setContentProvider(contentprovider);
+		graphViewer.addFilter(new LocalContextFilter());
+		graphViewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
 
 		initializeActions();
 		createToolbar();
 		createMenu();
 
 		// double click on nodes
-		viewer.getGraphControl().addMouseListener(new MouseAdapter() {
+		graphViewer.getGraphControl().addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
@@ -151,7 +188,7 @@ public class DebugVisualisationView extends ViewPart implements
 
 		});
 
-		viewer.getGraphControl().addKeyListener(new KeyAdapter() {
+		graphViewer.getGraphControl().addKeyListener(new KeyAdapter() {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -190,7 +227,7 @@ public class DebugVisualisationView extends ViewPart implements
 	}
 
 	public void selectionChanged(SelectionChangedEvent event) {
-		viewer.setSelection(event.getSelection());
+		graphViewer.setSelection(event.getSelection());
 	}
 
 	/**
@@ -198,8 +235,8 @@ public class DebugVisualisationView extends ViewPart implements
 	 */
 	private void createMenu() {
 		MenuManager mm = new MenuManager();
-		viewer.getGraphControl().setMenu(
-				mm.createContextMenu(viewer.getGraphControl()));
+		graphViewer.getGraphControl().setMenu(
+				mm.createContextMenu(graphViewer.getGraphControl()));
 
 		mm.add(toggleOpen);
 		mm.add(hideNode);
@@ -233,15 +270,18 @@ public class DebugVisualisationView extends ViewPart implements
 	 * Initializes the action components
 	 */
 	private void initializeActions() {
-		toggleOpen = new ToggleOpenAction(viewer);
-		hideNode = new HideAction(viewer);
-		showChilds = new ShowHiddenChildNodesAction(viewer);
-		refresh = new RefreshLayoutAction(viewer);
-		digIn = new DigInAction(viewer);
-		showRoot = new ShowRootAction(viewer);
-		group = new SelectLayoutGroup(layout, viewer);
+		toggleOpen = new ToggleOpenAction(graphViewer);
+		hideNode = new HideAction(graphViewer);
+		showChilds = new ShowHiddenChildNodesAction(graphViewer);
+		refresh = new RefreshLayoutAction(graphViewer);
+		digIn = new DigInAction(graphViewer);
+		showRoot = new ShowRootAction(graphViewer);
+		group = new SelectLayoutGroup(layout, graphViewer);
 		zoom = new ZoomContributionViewItem(this);
-		saveImage = new SaveImageAction(viewer);
+		saveImage = new SaveImageAction(graphViewer);
+
+		State state = getState();
+		state.addListener(stateListener);
 	}
 
 	/**
@@ -250,13 +290,13 @@ public class DebugVisualisationView extends ViewPart implements
 	public void setStackFrame(IStackFrame stackframe) {
 		StackFrameContextInput input = inputfactory.getInput(stackframe);
 		labelprovider.setInput(input);
-		viewer.setInput(input);
-		viewer.refresh();
+		graphViewer.setInput(input);
+		graphViewer.refresh();
 	}
 
 	@Override
 	public void setFocus() {
-		viewer.getControl().setFocus();
+		graphViewer.getControl().setFocus();
 
 	}
 
@@ -266,10 +306,11 @@ public class DebugVisualisationView extends ViewPart implements
 		if (listener != null)
 			DebugUITools.getDebugContextManager().removeDebugContextListener(
 					listener);
+		getState().removeListener(stateListener);
 	}
 
 	public AbstractZoomableViewer getZoomableViewer() {
-		return viewer;
+		return graphViewer;
 	}
 
 }
