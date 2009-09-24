@@ -31,6 +31,19 @@ public class VariableFilterProvider implements IVariableFilterProvider {
 		filters.put("java.lang.Long", new NameFilter("value"));
 		filters.put("java.lang.Float", new NameFilter("value"));
 		filters.put("java.lang.Double", new NameFilter("value"));
+		filters.put("java.lang.Float", new NameFilter("value"));
+		
+		filters.put("java.util.HashMap<K,V>",new MultiLevelFilter(new IVariableFilter[]{
+				new NameFilter("table"),
+				new NotNullFilter(),
+				new NameFilter("value")
+		}, new boolean[]{false,true,false}));
+		filters.put("java.util.HashSet<E>", new MultiLevelFilter(new IVariableFilter[]{
+				new NameFilter("map"),
+				new NameFilter("table"),
+				new NotNullFilter(),
+				new NameFilter("key")
+		}, new boolean[]{false,false,true,false}));
 	}
 
 	/* (non-Javadoc)
