@@ -291,7 +291,7 @@ public class DebugVisualisationView extends ViewPart implements
 		StackFrameContextInput input = inputfactory.getInput(stackframe);
 		labelprovider.setInput(input);
 		graphViewer.setInput(input);
-		graphViewer.refresh();
+		// graphViewer.refresh();
 	}
 
 	@Override
