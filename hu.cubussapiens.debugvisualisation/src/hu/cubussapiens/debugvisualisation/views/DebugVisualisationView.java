@@ -22,11 +22,11 @@ import org.eclipse.core.commands.IStateListener;
 import org.eclipse.core.commands.State;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IStackFrame;
+import org.eclipse.debug.ui.AbstractDebugView;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -40,16 +40,15 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
-import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
 import org.eclipse.zest.core.viewers.ZoomContributionViewItem;
 import org.eclipse.zest.core.widgets.ZestStyles;
 
 /**
- * The main visualisation view element.
+ *
  */
-public class DebugVisualisationView extends ViewPart implements
+public class DebugVisualisationView extends AbstractDebugView implements
 		IStackFrameConsumer, IZoomableWorkbenchPart, ISelectionChangedListener {
 
 	/**
@@ -163,8 +162,35 @@ public class DebugVisualisationView extends ViewPart implements
 	}
 
 	@Override
-	public void createPartControl(Composite parent) {
+	protected void configureToolBar(IToolBarManager tbm) {
+		tbm.add(refresh);
+		group.fillActionBars(getViewSite().getActionBars());
+		tbm.add(showRoot);
+		// FIXME this causes java.lang.IllegalArgumentException: Argument cannot
+		// be null
+		// tm.add(zoom);
 
+	}
+
+	@Override
+	protected void createActions() {
+
+		toggleOpen = new ToggleOpenAction(graphViewer);
+		hideNode = new HideAction(graphViewer);
+		showChilds = new ShowHiddenChildNodesAction(graphViewer);
+		refresh = new RefreshLayoutAction(graphViewer);
+		digIn = new DigInAction(graphViewer);
+		showRoot = new ShowRootAction(graphViewer);
+		group = new SelectLayoutGroup(layout, graphViewer);
+		zoom = new ZoomContributionViewItem(this);
+		saveImage = new SaveImageAction(graphViewer);
+
+		State state = getState();
+		state.addListener(stateListener);
+	}
+
+	@Override
+	protected Viewer createViewer(Composite parent) {
 		// create viewer
 		graphViewer = new VisualisationGraphViewer(parent, SWT.NONE);
 		graphViewer.setLayoutAlgorithm(layout.getDefault());
@@ -172,11 +198,6 @@ public class DebugVisualisationView extends ViewPart implements
 		graphViewer.setContentProvider(contentprovider);
 		graphViewer.addFilter(new LocalContextFilter());
 		graphViewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
-
-		initializeActions();
-		createToolbar();
-		createMenu();
-
 		// double click on nodes
 		graphViewer.getGraphControl().addMouseListener(new MouseAdapter() {
 
@@ -224,80 +245,38 @@ public class DebugVisualisationView extends ViewPart implements
 		// });
 		//
 		// connectedviews.addSelectionChangedListener(this);
+		return graphViewer;
 	}
 
-	public void selectionChanged(SelectionChangedEvent event) {
-		graphViewer.setSelection(event.getSelection());
+	@Override
+	protected void fillContextMenu(IMenuManager menu) {
+		// TODO Auto-generated method stub
+		menu.add(toggleOpen);
+		menu.add(hideNode);
+		menu.add(showChilds);
+		menu.add(new Separator());
+		menu.add(digIn);
+		menu.add(showRoot);
 	}
 
-	/**
-	 * Creates the menu GUI contributions
-	 */
-	private void createMenu() {
-		MenuManager mm = new MenuManager();
-		graphViewer.getGraphControl().setMenu(
-				mm.createContextMenu(graphViewer.getGraphControl()));
-
-		mm.add(toggleOpen);
-		mm.add(hideNode);
-		mm.add(showChilds);
-		mm.add(new Separator());
-		mm.add(digIn);
-		mm.add(showRoot);
-
-		IMenuManager imm = getViewSite().getActionBars().getMenuManager();
-		imm.add(refresh);
-		group.fillContextMenu(imm);
-		imm.add(new Separator());
-		imm.add(zoom);
-		imm.add(saveImage);
+	@Override
+	protected String getHelpContextId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	/**
-	 * Creates the toolbar GUI contributions
-	 */
-	private void createToolbar() {
-		IToolBarManager tm = getViewSite().getActionBars().getToolBarManager();
-		tm.add(refresh);
-		group.fillActionBars(getViewSite().getActionBars());
-		tm.add(showRoot);
-		// FIXME this causes java.lang.IllegalArgumentException: Argument cannot
-		// be null
-		// tm.add(zoom);
-	}
-
-	/**
-	 * Initializes the action components
-	 */
-	private void initializeActions() {
-		toggleOpen = new ToggleOpenAction(graphViewer);
-		hideNode = new HideAction(graphViewer);
-		showChilds = new ShowHiddenChildNodesAction(graphViewer);
-		refresh = new RefreshLayoutAction(graphViewer);
-		digIn = new DigInAction(graphViewer);
-		showRoot = new ShowRootAction(graphViewer);
-		group = new SelectLayoutGroup(layout, graphViewer);
-		zoom = new ZoomContributionViewItem(this);
-		saveImage = new SaveImageAction(graphViewer);
-
-		State state = getState();
-		state.addListener(stateListener);
-	}
-
-	/**
-	 * A new stack frame is given when the debug context is changed
-	 */
 	public void setStackFrame(IStackFrame stackframe) {
 		StackFrameContextInput input = inputfactory.getInput(stackframe);
 		labelprovider.setInput(input);
 		graphViewer.setInput(input);
-		// graphViewer.refresh();
 	}
 
-	@Override
-	public void setFocus() {
-		graphViewer.getControl().setFocus();
+	public AbstractZoomableViewer getZoomableViewer() {
+		return graphViewer;
+	}
 
+	public void selectionChanged(SelectionChangedEvent event) {
+		graphViewer.setSelection(event.getSelection());
 	}
 
 	@Override
@@ -309,8 +288,29 @@ public class DebugVisualisationView extends ViewPart implements
 		getState().removeListener(stateListener);
 	}
 
-	public AbstractZoomableViewer getZoomableViewer() {
-		return graphViewer;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.debug.ui.AbstractDebugView#createPartControl(org.eclipse.
+	 * swt.widgets.Composite)
+	 */
+	@Override
+	public void createPartControl(Composite parent) {
+		super.createPartControl(parent);
+		createMenu();
+	}
+
+	/**
+	 * Creates the menu GUI contributions
+	 */
+	private void createMenu() {
+		IMenuManager imm = getViewSite().getActionBars().getMenuManager();
+		imm.add(refresh);
+		group.fillContextMenu(imm);
+		imm.add(new Separator());
+		imm.add(zoom);
+		imm.add(saveImage);
 	}
 
 }
