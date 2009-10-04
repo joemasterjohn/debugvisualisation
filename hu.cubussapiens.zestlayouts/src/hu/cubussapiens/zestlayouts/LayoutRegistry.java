@@ -1,7 +1,8 @@
 package hu.cubussapiens.zestlayouts;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -68,7 +69,7 @@ public class LayoutRegistry {
 
 	}
 
-	protected Set<LayoutEntry> entries = new HashSet<LayoutEntry>();
+	protected Set<LayoutEntry> entries = new LinkedHashSet<LayoutEntry>();
 
 	/**
 	 * Create a layout registry, and load all registered entries

@@ -1,9 +1,11 @@
 package hu.cubussapiens.zestlayouts;
 
 import hu.cubussapiens.zestlayouts.LayoutRegistry.LayoutEntry;
+
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 
 /**
@@ -15,7 +17,7 @@ public class LayoutManager {
 
 	protected LayoutRegistry reg;
 
-	protected Map<String, LayoutEntry> entries = new HashMap<String, LayoutEntry>();
+	protected Map<String, LayoutEntry> entries = new LinkedHashMap<String, LayoutEntry>();
 
 	/**
 	 * Create a LayoutManager and load all available layout algorithms using a
