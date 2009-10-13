@@ -147,6 +147,7 @@ public class DebugVisualisationView extends AbstractDebugView implements
 	 * Other views to connect selection
 	 */
 	ConnectedViews connectedviews = new ConnectedViews();
+	VariableSelectionSynchronizer selectionSynchronizer;
 
 	private ZoomContributionViewItem zoom;
 
@@ -245,6 +246,8 @@ public class DebugVisualisationView extends AbstractDebugView implements
 		// });
 		//
 		// connectedviews.addSelectionChangedListener(this);
+		getSite().setSelectionProvider(graphViewer);
+		selectionSynchronizer = new VariableSelectionSynchronizer(getSite());
 		return graphViewer;
 	}
 
@@ -286,6 +289,9 @@ public class DebugVisualisationView extends AbstractDebugView implements
 			DebugUITools.getDebugContextManager().removeDebugContextListener(
 					listener);
 		getState().removeListener(stateListener);
+		if (selectionSynchronizer != null) {
+			selectionSynchronizer.dispose();
+		}
 	}
 
 	/*
