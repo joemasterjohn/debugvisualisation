@@ -83,6 +83,8 @@ public class DebugVisualisationView extends ViewPart implements
 	 */
 	StackFrameGraphContentProvider contentprovider = new StackFrameGraphContentProvider();
 
+	VariableSelectionSynchronizer selectionSynchronizer;
+
 	// ------------------------------------
 	// Actions
 	// ------------------------------------
@@ -144,11 +146,6 @@ public class DebugVisualisationView extends ViewPart implements
 		}
 	}
 
-	/**
-	 * Other views to connect selection
-	 */
-	ConnectedViews connectedviews = new ConnectedViews();
-
 	private ZoomContributionViewItem zoom;
 
 	private String contextCommandID = "hu.cubussapiens.debugvisualisation.showlocalcontext";
@@ -172,6 +169,8 @@ public class DebugVisualisationView extends ViewPart implements
 		graphViewer.setContentProvider(contentprovider);
 		graphViewer.addFilter(new LocalContextFilter());
 		graphViewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
+		// TODO why is this needed for selection synchronizing?
+		graphViewer.setUseHashlookup(false);
 
 		initializeActions();
 		createToolbar();
@@ -212,20 +211,8 @@ public class DebugVisualisationView extends ViewPart implements
 				setStackFrame((IStackFrame) o);
 		}
 
-		// Connecting the other views
-		// TODO: I've commented this out because it causes some serious problems
-		// connectedviews.init();
-		// getSite().setSelectionProvider(viewer);
-		//
-		// viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-		// public void selectionChanged(SelectionChangedEvent event) {
-		// connectedviews.setSelection(event.getSelection());
-		// }
-		// });
-		//
-		// connectedviews.addSelectionChangedListener(this);
 		getSite().setSelectionProvider(graphViewer);
-		// selectionSynchronizer = new VariableSelectionSynchronizer(getSite());
+		selectionSynchronizer = new VariableSelectionSynchronizer(getSite());
 	}
 
 	public void selectionChanged(SelectionChangedEvent event) {
@@ -309,6 +296,9 @@ public class DebugVisualisationView extends ViewPart implements
 			DebugUITools.getDebugContextManager().removeDebugContextListener(
 					listener);
 		getState().removeListener(stateListener);
+		if (selectionSynchronizer != null) {
+			selectionSynchronizer.dispose();
+		}
 	}
 
 	public AbstractZoomableViewer getZoomableViewer() {

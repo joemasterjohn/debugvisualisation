@@ -12,7 +12,6 @@ import java.util.Collection;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Color;
@@ -157,7 +156,8 @@ public class VariablesLabelProvider extends LabelProvider implements
 	}
 
 	public Color getColor(Object rel) {
-		return ColorConstants.black;
+		// return ColorConstants.black;
+		return null;
 	}
 
 	public int getConnectionStyle(Object rel) {
@@ -165,7 +165,8 @@ public class VariablesLabelProvider extends LabelProvider implements
 	}
 
 	public Color getHighlightColor(Object rel) {
-		return ColorConstants.darkGray;
+		// return ColorConstants.darkGray;
+		return null;
 	}
 
 	public int getLineWidth(Object rel) {
@@ -183,15 +184,18 @@ public class VariablesLabelProvider extends LabelProvider implements
 	}
 
 	public Color getBackgroundColour(Object entity) {
-		return ColorConstants.button;
+		// return ColorConstants.button;
+		return null;
 	}
 
 	public Color getBorderColor(Object entity) {
-		return ColorConstants.darkGray;
+		// return ColorConstants.darkGray;
+		return null;
 	}
 
 	public Color getBorderHighlightColor(Object entity) {
-		return ColorConstants.black;
+		// return ColorConstants.black;
+		return null;
 	}
 
 	public int getBorderWidth(Object entity) {
@@ -199,11 +203,13 @@ public class VariablesLabelProvider extends LabelProvider implements
 	}
 
 	public Color getForegroundColour(Object entity) {
-		return ColorConstants.black;
+		// return ColorConstants.black;
+		return null;
 	}
 
 	public Color getNodeHighlightColor(Object entity) {
-		return ColorConstants.buttonLightest;
+		// return ColorConstants.buttonDarker;
+		return null;
 	}
 
 }

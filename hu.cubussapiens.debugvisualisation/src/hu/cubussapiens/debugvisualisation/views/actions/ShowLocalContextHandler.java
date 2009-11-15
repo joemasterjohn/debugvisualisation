@@ -14,7 +14,7 @@ import org.eclipse.core.commands.State;
  */
 public class ShowLocalContextHandler extends AbstractHandler {
 	
-	public final static String STATE_ID = "org.eclipse.ui.commands.toggleState"; //$NON-NLS-1$
+	private final static String STATE_ID = "org.eclipse.ui.commands.toggleState"; //$NON-NLS-1$
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
