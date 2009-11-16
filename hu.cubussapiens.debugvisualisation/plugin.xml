@@ -27,12 +27,32 @@
             id="hu.cubussapiens.debugvisualisation.category"
             name="Debug Visualisation">
       </category>
+      <command
+            categoryId="hu.cubussapiens.debugvisualisation.category"
+            id="hu.cubussapiens.debugvisualisation.visualisevariable"
+            name="Add Variable to Visualisaton">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="hu.cubussapiens.debugvisualisation.views.actions.ShowLocalContextHandler"
             commandId="hu.cubussapiens.debugvisualisation.showlocalcontext">
+      </handler>
+      <handler
+            class="hu.cubussapiens.debugvisualisation.views.actions.VisualiseVariableHandler"
+            commandId="hu.cubussapiens.debugvisualisation.visualisevariable">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     operator="or">
+                  <instanceof
+                        value="org.eclipse.debug.core.model.IVariable">
+                  </instanceof>
+               </iterate>
+            </with>
+         </enabledWhen>
       </handler>
    </extension>
    <extension
@@ -43,6 +63,14 @@
                commandId="hu.cubussapiens.debugvisualisation.showlocalcontext"
                label="Show Local Context Node"
                style="toggle">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.eclipse.debug.ui.VariableView">
+         <command
+               commandId="hu.cubussapiens.debugvisualisation.visualisevariable"
+               label="Add Variable to Visualisation"
+               style="push">
          </command>
       </menuContribution>
    </extension>
