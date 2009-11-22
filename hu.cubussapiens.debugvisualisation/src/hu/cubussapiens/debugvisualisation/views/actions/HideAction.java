@@ -1,6 +1,6 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.internal.step.input.HideNodesCommand;
+import hu.cubussapiens.debugvisualisation.internal.api.IHiddenNodes;
 
 import org.eclipse.zest.core.viewers.GraphViewer;
 
@@ -20,9 +20,12 @@ public class HideAction extends GraphAction {
 		setToolTipText("Hide selected nodes");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
-		getInput().execute(new HideNodesCommand(getSelection().toArray()));
+		IHiddenNodes hidden = (IHiddenNodes) getInput().getAdapter(
+				IHiddenNodes.class);
+		hidden.hideNodes(getSelection().toList());
 	}
 
 }

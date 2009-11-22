@@ -8,7 +8,6 @@ import hu.cubussapiens.debugvisualisation.filtering.IVariableFilter;
 import hu.cubussapiens.debugvisualisation.filtering.IVariableFilterProvider;
 import hu.cubussapiens.debugvisualisation.filtering.internal.VariableFilterProvider;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
-import hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
 import java.util.ArrayList;
@@ -35,71 +34,39 @@ public class FilterTransformationStep extends AbstractGraphTransformationStep {
 	}
 
 	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep#tryToExecute(hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand)
+	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
 	 */
-	@Override
-	protected boolean tryToExecute(IGraphCommand command) {
-		// no commands
-		return false;
+	public Collection<Object> getRoots() {
+		return getParent().getRoots();
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep#tryToGetNodeState(java.lang.Object, java.lang.Object)
-	 */
-	@Override
-	protected Object tryToGetNodeState(Object node, Object statedomain) {
-		// no stored states
+	public Object getEdgeTarget(Object edge) {
+		if (edge instanceof IVariable)
+			try {
+				return ((IVariable) edge).getValue();
+			} catch (DebugException e) {
+				Activator.getDefault().logError(e,
+						"Can't retrieve value of " + edge);
+			}
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getChilds(java.lang.Object)
-	 */
-	public Collection<Object> getChilds(Object node) {
+	public Collection<Object> getEdges(Object node) {
 		try {
 			IVariableFilter vf = (node instanceof IValue) ? provider
 					.getFilter(((IValue) node).getReferenceTypeName()) : null;
 			if (vf == null)
-				return getParent().getChilds(node);
+				return getParent().getEdges(node);
 			List<Object> os = new ArrayList<Object>();
 			for (IVariable v : vf.filter((IValue) node)) {
-				os.add(v.getValue());
+				os.add(v);
 			}
 			return os;
 		} catch (DebugException e) {
 			Activator.getDefault()
 					.logError(e, "Can't apply filter for " + node);
-			return getParent().getChilds(node);
+			return getParent().getEdges(node);
 		}
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getEdge(java.lang.Object, java.lang.Object)
-	 */
-	public Collection<Object> getEdge(Object nodea, Object nodeb) {
-		try {
-			IVariableFilter vf = (nodea instanceof IValue) ? provider
-					.getFilter(((IValue) nodea).getReferenceTypeName()) : null;
-			if (vf == null)
-				return getParent().getEdge(nodea, nodeb);
-			List<Object> os = new ArrayList<Object>();
-			for (IVariable v : vf.filter((IValue) nodea))
-				if (nodeb.equals(v.getValue())) {
-					os.add(v);
-				}
-			return os;
-		} catch (DebugException e) {
-			Activator.getDefault().logError(e,
-					"Can't apply filter for " + nodea);
-			return getParent().getChilds(nodea);
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
-	 */
-	public Collection<Object> getRoots() {
-		return getParent().getRoots();
 	}
 
 }

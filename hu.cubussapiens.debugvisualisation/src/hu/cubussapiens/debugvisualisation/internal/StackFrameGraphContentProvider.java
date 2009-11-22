@@ -28,15 +28,15 @@ public class StackFrameGraphContentProvider implements
 
 	GraphViewer viewer = null;
 
-	// final List<Object> edges = new ArrayList<Object>();
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.zest.core.viewers.IGraphEntityRelationshipContentProvider#getRelationships(java.lang.Object, java.lang.Object)
 	 */
 	public Object[] getRelationships(Object source, Object dest) {
 		List<Object> edges = new ArrayList<Object>();
 		if (input != null) {
-			edges.addAll(input.getEdge(source, dest));
+			for (Object o : input.getEdges(source))
+				if (dest.equals(input.getEdgeTarget(o)))
+					edges.add(o);
 		}
 		return edges.toArray();
 	}
@@ -47,10 +47,16 @@ public class StackFrameGraphContentProvider implements
 			return;
 		if (parent != null)
 			buffer.add(parent);
-		Collection<Object> os = (parent == null) ? input.getRoots() : input
-				.getChilds(parent);
+		Collection<Object> os = null;
+		if (parent == null) {
+			os = new ArrayList<Object>();
+			for (Object o : input.getRoots()) {
+				os.addAll(input.getEdges(o));
+			}
+		} else
+			os = input.getEdges(parent);
 		for (Object o : os)
-			collectNodes(buffer, o);
+			collectNodes(buffer, input.getEdgeTarget(o));
 	}
 
 	/* (non-Javadoc)

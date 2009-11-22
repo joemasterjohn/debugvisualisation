@@ -1,6 +1,6 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.internal.step.input.ShowHiddenChildNodesCommand;
+import hu.cubussapiens.debugvisualisation.internal.api.IHiddenNodes;
 
 import org.eclipse.zest.core.viewers.GraphViewer;
 
@@ -21,10 +21,12 @@ public class ShowHiddenChildNodesAction extends GraphAction {
 	/**
 	 * {@inheritDoc}
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
-		getInput().execute(
-				new ShowHiddenChildNodesCommand(getSelection().toArray()));
+		IHiddenNodes hidden = (IHiddenNodes) getInput().getAdapter(
+				IHiddenNodes.class);
+		hidden.showHiddenChildNodes(getSelection().toList());
 	}
 
 }

@@ -37,14 +37,32 @@ public class StackFrameRootedGraphContentProvider implements
 	}
 
 	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getChilds(java.lang.Object)
+	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
 	 */
-	public Collection<Object> getChilds(Object node) {
+	public Collection<Object> getRoots() {
+		List<Object> roots = new ArrayList<Object>();
+		roots.add(root);
+		return roots;
+	}
+
+	public Object getEdgeTarget(Object edge) {
+		if (edge instanceof IVariable) {
+			try {
+				return ((IVariable) edge).getValue();
+			} catch (DebugException e) {
+				Activator.getDefault().logError(e,
+						"Can't retrieve value of " + edge);
+			}
+		}
+		return null;
+	}
+
+	public Collection<Object> getEdges(Object node) {
 		List<Object> os = new ArrayList<Object>();
 		if (root.equals(node)) {
 			try {
 				for (IVariable v : sf.getVariables()) {
-					os.add(v.getValue());
+					os.add(v);
 				}
 			} catch (DebugException e) {
 				Activator.getDefault().logError(e,
@@ -55,7 +73,7 @@ public class StackFrameRootedGraphContentProvider implements
 			IValue value = (IValue) node;
 			try {
 				for (IVariable v : value.getVariables()) {
-					os.add(v.getValue());
+					os.add(v);
 				}
 			} catch (DebugException e) {
 				Activator.getDefault().logError(e, "Can't list variables");
@@ -64,48 +82,13 @@ public class StackFrameRootedGraphContentProvider implements
 		return os;
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getEdge(java.lang.Object, java.lang.Object)
-	 */
-	public Collection<Object> getEdge(Object nodea, Object nodeb) {
-		List<Object> os = new ArrayList<Object>();
-		if (root.equals(nodea)) {
-			try {
-				for (IVariable v : sf.getVariables()) {
-					if (v.getValue().equals(nodeb))
-						os.add(v);
-				}
-			} catch (DebugException e) {
-				Activator.getDefault().logError(e,
-						"Can't list context variables");
-			}
-		}
-		if (nodea instanceof IValue) {
-			IValue value = (IValue) nodea;
-			try {
-				for (IVariable v : value.getVariables()) {
-					if (v.getValue().equals(nodeb))
-						os.add(v);
-				}
-			} catch (DebugException e) {
-				Activator.getDefault().logError(e, "Can't list variables");
-			}
-		}
-		return os;
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
-	 */
-	public Collection<Object> getRoots() {
-		List<Object> roots = new ArrayList<Object>();
-		roots.add(root);
-		return roots;
-	}
-
-	public Object getNodeState(Object node, Object statedomain) {
-
+	@SuppressWarnings("unchecked")
+	public Object getAdapter(Class adapter) {
 		return null;
+	}
+
+	public void clearCache() {
+
 	}
 
 }

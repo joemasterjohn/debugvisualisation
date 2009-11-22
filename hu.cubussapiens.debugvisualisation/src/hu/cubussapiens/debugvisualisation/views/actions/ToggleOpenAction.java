@@ -1,6 +1,6 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.internal.step.input.ToggleOpenNodeCommand;
+import hu.cubussapiens.debugvisualisation.internal.api.IOpenCloseNodes;
 
 import org.eclipse.zest.core.viewers.GraphViewer;
 
@@ -23,7 +23,10 @@ public class ToggleOpenAction extends GraphAction {
 
 	@Override
 	public void run() {
-		getInput().execute(new ToggleOpenNodeCommand(getSelection().toArray()));
+		IOpenCloseNodes ocn = (IOpenCloseNodes) getInput().getAdapter(
+				IOpenCloseNodes.class);
+		if (!getSelection().isEmpty())
+			ocn.toggleOpenNode(getSelection().getFirstElement());
 	}
 
 }

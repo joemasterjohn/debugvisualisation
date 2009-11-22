@@ -3,8 +3,6 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.input;
 
-import hu.cubussapiens.debugvisualisation.internal.step.input.ClearCache;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +34,7 @@ public class StackFrameContextInputFactory {
 			if (!inputs.containsKey(sf))
 				inputs.put(sf, new StackFrameContextInput(sf));
 			else {
-				inputs.get(sf).execute(new ClearCache());
+				inputs.get(sf).clearCache();
 			}
 			return inputs.get(sf);
 		}

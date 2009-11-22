@@ -35,44 +35,6 @@ public abstract class AbstractGraphTransformationStep implements
 		listeners.add(listener);
 	}
 
-	public void execute(IGraphCommand command) {
-		// try to execute
-		boolean success = tryToExecute(command);
-		// if failed, delegate to parent (if it can accept it)
-		if (!success && (getParent() instanceof IGraphTransformationStep)) {
-			((IGraphTransformationStep) getParent()).execute(command);
-		}
-
-	}
-
-	/**
-	 * try to execute the given command. If the command is recognized by this
-	 * step, it will execute it, and return true. Otherwise the method will
-	 * return false
-	 * 
-	 * @param command
-	 * @return true only if the given command is recognized and executed by this
-	 *         step. False otherwise
-	 */
-	protected abstract boolean tryToExecute(IGraphCommand command);
-
-	public Object getNodeState(Object node, Object statedomain) {
-		Object result = tryToGetNodeState(node, statedomain);
-		if (result == null)
-			return getParent().getNodeState(node, statedomain);
-		return result;
-	}
-
-	/**
-	 * Try to get a node state from this step. If failed, this method return
-	 * null. In this case this method should be asked from its parent.
-	 * 
-	 * @param node
-	 * @param statedomain
-	 * @return the state if the given node, or null, if this step
-	 */
-	protected abstract Object tryToGetNodeState(Object node, Object statedomain);
-
 	public IRootedGraphContentProvider getParent() {
 		return parent;
 	}
@@ -84,6 +46,31 @@ public abstract class AbstractGraphTransformationStep implements
 	protected final void trigger(IGraphChangeEvent event) {
 		for (IGraphChangeListener l : listeners)
 			l.graphChanged(event);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Object getAdapter(Class adapter) {
+		Object o = tryAdapter(adapter);
+		if (o != null)
+			return o;
+		if (parent != null)
+			return parent.getAdapter(adapter);
+		return null;
+	}
+
+	/**
+	 * Override this method to provide adapter interfaces
+	 * 
+	 * @param adapter
+	 * @return
+	 */
+	protected Object tryAdapter(Class<?> adapter) {
+		return null;
+	}
+
+	public void clearCache() {
+		if (parent != null)
+			parent.clearCache();
 	}
 
 }

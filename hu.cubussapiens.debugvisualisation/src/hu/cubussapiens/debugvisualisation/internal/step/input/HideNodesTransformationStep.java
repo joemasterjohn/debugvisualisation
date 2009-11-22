@@ -3,9 +3,8 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.step.input;
 
+import hu.cubussapiens.debugvisualisation.internal.api.IHiddenNodes;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
-import hu.cubussapiens.debugvisualisation.internal.step.ExecutedGraphCommandEvent;
-import hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.Set;
  *
  */
 public class HideNodesTransformationStep extends
-		AbstractGraphTransformationStep {
+		AbstractGraphTransformationStep implements IHiddenNodes {
 
 	private final Set<Object> hidden = new HashSet<Object>();
 
@@ -29,53 +28,26 @@ public class HideNodesTransformationStep extends
 		super(parent);
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep#tryToExecute(hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand)
-	 */
+	public void hideNodes(Collection<Object> nodes) {
+		hidden.addAll(nodes);
+		trigger(null);
+	}
+
+	public void showHiddenChildNodes(Collection<Object> nodes) {
+		for (Object o : nodes)
+			for (Object us : getParent().getEdges(o)) {
+				Object u = getEdgeTarget(us);
+				if (hidden.contains(u))
+					hidden.remove(u);
+			}
+		trigger(null);
+	}
+
 	@Override
-	protected boolean tryToExecute(IGraphCommand command) {
-		if (command instanceof HideNodesCommand) {
-			for (Object o : command.getTarget())
-				hidden.add(o);
-			trigger(new ExecutedGraphCommandEvent(command));
-			return true;
-		}
-		if (command instanceof ShowHiddenChildNodesCommand) {
-			for (Object o : command.getTarget())
-				for (Object u : getParent().getChilds(o))
-					if (hidden.contains(u))
-						hidden.remove(u);
-			trigger(new ExecutedGraphCommandEvent(command));
-			return true;
-		}
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep#tryToGetNodeState(java.lang.Object, java.lang.Object)
-	 */
-	@Override
-	protected Object tryToGetNodeState(Object node, Object statedomain) {
-		// no provided node states
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getChilds(java.lang.Object)
-	 */
-	public Collection<Object> getChilds(Object node) {
-		List<Object> result = new ArrayList<Object>();
-		for (Object o : getParent().getChilds(node))
-			if (!hidden.contains(o)) 
-					result.add(o);
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getEdge(java.lang.Object, java.lang.Object)
-	 */
-	public Collection<Object> getEdge(Object nodea, Object nodeb) {
-		return getParent().getEdge(nodea, nodeb);
+	protected Object tryAdapter(Class<?> adapter) {
+		if (IHiddenNodes.class.equals(adapter))
+			return this;
+		return super.tryAdapter(adapter);
 	}
 
 	/* (non-Javadoc)
@@ -84,6 +56,18 @@ public class HideNodesTransformationStep extends
 	public Collection<Object> getRoots() {
 		// roots can't be hidden
 		return getParent().getRoots();
+	}
+
+	public Object getEdgeTarget(Object edge) {
+		return getParent().getEdgeTarget(edge);
+	}
+
+	public Collection<Object> getEdges(Object node) {
+		List<Object> result = new ArrayList<Object>();
+		for (Object o : getParent().getEdges(node))
+			if (!hidden.contains(getParent().getEdgeTarget(o)))
+				result.add(o);
+		return result;
 	}
 
 }

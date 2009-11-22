@@ -19,14 +19,6 @@ public interface IGraphTransformationStep extends IRootedGraphContentProvider {
 	public IRootedGraphContentProvider getParent();
 
 	/**
-	 * Execute the given command on the graph. If this transformation step does
-	 * not recognizes the command, it provides it to its parent.
-	 * 
-	 * @param command
-	 */
-	public void execute(IGraphCommand command);
-
-	/**
 	 * Add a listener to catch graph change events
 	 * 
 	 * @param listener

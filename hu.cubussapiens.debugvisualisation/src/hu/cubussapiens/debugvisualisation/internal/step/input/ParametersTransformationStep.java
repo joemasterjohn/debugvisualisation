@@ -4,8 +4,8 @@
 package hu.cubussapiens.debugvisualisation.internal.step.input;
 
 import hu.cubussapiens.debugvisualisation.internal.ValueUtils;
+import hu.cubussapiens.debugvisualisation.internal.api.INodeParameters;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
-import hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
 import java.util.ArrayList;
@@ -19,14 +19,7 @@ import org.eclipse.debug.core.model.IValue;
  * provides state query method to list these parameters separately.
  */
 public class ParametersTransformationStep extends
-		AbstractGraphTransformationStep {
-
-	/**
-	 * This object should be given to the getState method in order to list the
-	 * constant parameters of the given node. With this state-domain, the method
-	 * will return a Collection of IVariable-s.
-	 */
-	public static final Object hasParameters = new Integer(-2);
+		AbstractGraphTransformationStep implements INodeParameters {
 
 	/**
 	 * @param parent
@@ -35,54 +28,25 @@ public class ParametersTransformationStep extends
 		super(parent);
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep#tryToExecute(hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand)
-	 */
-	@Override
-	protected boolean tryToExecute(IGraphCommand command) {
-		// No commands
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep#tryToGetNodeState(java.lang.Object, java.lang.Object)
-	 */
-	@Override
-	protected Object tryToGetNodeState(Object node, Object statedomain) {
-		if (hasParameters.equals(statedomain)) {
-			Collection<Object> vars = new ArrayList<Object>();
-			for (Object o : getParent().getChilds(node))
-				if (o instanceof IValue)
-					if (ValueUtils.getID((IValue) o) == -1) {
-						for (Object edge : getEdge(node, o))
-							if (!vars.contains(edge))
-								vars.add(edge);
-				}
-
-			return vars;
-		}
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getChilds(java.lang.Object)
-	 */
-	public Collection<Object> getChilds(Object node) {
-		List<Object> result = new ArrayList<Object>();
-		for (Object o : getParent().getChilds(node))
-			if (o instanceof IValue) {
-				if (ValueUtils.getID((IValue) o) != -1) {
-					result.add(o);
+	public Collection<Object> getParameters(Object node) {
+		Collection<Object> vars = new ArrayList<Object>();
+		for (Object u : getParent().getEdges(node)) {
+			Object o = getParent().getEdgeTarget(u);
+			if (o instanceof IValue)
+				if (ValueUtils.getID((IValue) o) == -1) {
+					if (!vars.contains(u))
+						vars.add(u);
 				}
 		}
-		return result;
+
+		return vars;
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getEdge(java.lang.Object, java.lang.Object)
-	 */
-	public Collection<Object> getEdge(Object nodea, Object nodeb) {
-		return getParent().getEdge(nodea, nodeb);
+	@Override
+	protected Object tryAdapter(Class<?> adapter) {
+		if (INodeParameters.class.equals(adapter))
+			return this;
+		return super.tryAdapter(adapter);
 	}
 
 	/* (non-Javadoc)
@@ -90,6 +54,23 @@ public class ParametersTransformationStep extends
 	 */
 	public Collection<Object> getRoots() {
 		return getParent().getRoots();
+	}
+
+	public Object getEdgeTarget(Object edge) {
+		return getParent().getEdgeTarget(edge);
+	}
+
+	public Collection<Object> getEdges(Object node) {
+		List<Object> result = new ArrayList<Object>();
+		for (Object u : getParent().getEdges(node)) {
+			Object o = getParent().getEdgeTarget(u);
+			if (o instanceof IValue) {
+				if (ValueUtils.getID((IValue) o) != -1) {
+					result.add(u);
+				}
+			}
+		}
+		return result;
 	}
 
 }

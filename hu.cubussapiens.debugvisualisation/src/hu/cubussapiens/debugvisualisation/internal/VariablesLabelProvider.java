@@ -1,10 +1,11 @@
 package hu.cubussapiens.debugvisualisation.internal;
 
 import hu.cubussapiens.debugvisualisation.Activator;
+import hu.cubussapiens.debugvisualisation.internal.api.INodeParameters;
+import hu.cubussapiens.debugvisualisation.internal.api.IOpenCloseNodes;
+import hu.cubussapiens.debugvisualisation.internal.api.IReferenceTracker;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseNodeState;
-import hu.cubussapiens.debugvisualisation.internal.step.input.ParametersTransformationStep;
-import hu.cubussapiens.debugvisualisation.internal.step.input.ReferenceTrackerTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.StackFrameRootedGraphContentProvider;
 
 import java.util.Collection;
@@ -70,7 +71,9 @@ public class VariablesLabelProvider extends LabelProvider implements
 			return Activator.getDefault().getImageRegistry().get(
 					Activator.icon_root);
 		if (element instanceof IValue) {
-			Object o = input.getNodeState(element, OpenCloseNodeState.class);
+			IOpenCloseNodes ocn = (IOpenCloseNodes) input
+					.getAdapter(IOpenCloseNodes.class);
+			Object o = ocn.getNodeState(element);
 			if (o == null)
 				return null;
 			switch ((OpenCloseNodeState) o) {
@@ -106,8 +109,9 @@ public class VariablesLabelProvider extends LabelProvider implements
 		if (element instanceof IValue) {
 			IValue node = (IValue) element;
 
-			Collection<?> refs = (Collection<?>) input.getNodeState(element,
-					ReferenceTrackerTransformationStep.getReferences);
+			IReferenceTracker reftracker = (IReferenceTracker) input
+					.getAdapter(IReferenceTracker.class);
+			Collection<?> refs = reftracker.getReferences(node);
 			
 			String name = "";
 			for(Object ref : refs){
@@ -126,9 +130,9 @@ public class VariablesLabelProvider extends LabelProvider implements
 			String type = ValueUtils.getValueString(node);
 			name += ": " + type;
 
-			Collection<?> params = (Collection<?>) input
-					.getNodeState(element,
-							ParametersTransformationStep.hasParameters);
+			INodeParameters nodeparameters = (INodeParameters) input
+					.getAdapter(INodeParameters.class);
+			Collection<?> params = nodeparameters.getParameters(element);
 			for (Object par : params) {
 				IVariable param = (IVariable) par;
 				try {

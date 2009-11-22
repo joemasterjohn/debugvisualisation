@@ -5,13 +5,15 @@ package hu.cubussapiens.debugvisualisation.internal.step;
 
 import java.util.Collection;
 
+import org.eclipse.core.runtime.IAdaptable;
+
 /**
  * An interface, which provides elements of a graph. Every separately
  * weakly-connected graph components are identified by so-called roots, which
  * are simple nodes, except that every node in a component can be reached from
  * the root node of the component.
  */
-public interface IRootedGraphContentProvider {
+public interface IRootedGraphContentProvider extends IAdaptable {
 
 	/**
 	 * Get the root nodes of the separated components
@@ -21,30 +23,23 @@ public interface IRootedGraphContentProvider {
 	public Collection<Object> getRoots();
 
 	/**
-	 * Get the nodes, which have a directed connection from the given node.
+	 * Get all directed edges which has the source equals to the given node
 	 * 
 	 * @param node
-	 * @return the child nodes of the given node
+	 * @return collection of edges
 	 */
-	public Collection<Object> getChilds(Object node);
+	public Collection<Object> getEdges(Object node);
 
 	/**
-	 * Get all directed edge, which connects the given two nodes directed from
-	 * nodea to nodeb.
+	 * Get the target node of the given edge
 	 * 
-	 * @param nodea
-	 * @param nodeb
-	 * @return all directed edge, which connects nodea with nodeb.
+	 * @param edge
+	 * @return the target node of the edge
 	 */
-	public Collection<Object> getEdge(Object nodea, Object nodeb);
+	public Object getEdgeTarget(Object edge);
 
 	/**
-	 * Get the state for the given node in the specified state-domain. The
-	 * state-domain tells that which aspect of node state should be returned.
-	 * 
-	 * @param node
-	 * @param statedomain
-	 * @return state of the node in the given domain
+	 * Clear all cached data
 	 */
-	public Object getNodeState(Object node, Object statedomain);
+	public void clearCache();
 }

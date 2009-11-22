@@ -4,7 +4,6 @@
 package hu.cubussapiens.debugvisualisation.internal.input;
 
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
-import hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.CacheTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.DigInTransformationStep;
@@ -57,31 +56,8 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 	}
 
 	@Override
-	protected Object tryToGetNodeState(Object node, Object statedomain) {
-		return last.getNodeState(node, statedomain);
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep#tryToExecute(hu.cubussapiens.debugvisualisation.internal.step.IGraphCommand)
-	 */
-	@Override
-	protected boolean tryToExecute(IGraphCommand command) {
-		last.execute(command);
-		return true;
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getChilds(java.lang.Object)
-	 */
-	public Collection<Object> getChilds(Object node) {
-		return last.getChilds(node);
-	}
-
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getEdge(java.lang.Object, java.lang.Object)
-	 */
-	public Collection<Object> getEdge(Object nodea, Object nodeb) {
-		return last.getEdge(nodea, nodeb);
+	protected Object tryAdapter(Class<?> adapter) {
+		return last.getAdapter(adapter);
 	}
 
 	/* (non-Javadoc)
@@ -89,6 +65,20 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 	 */
 	public Collection<Object> getRoots() {
 		return last.getRoots();
+	}
+
+	public Object getEdgeTarget(Object edge) {
+		return last.getEdgeTarget(edge);
+	}
+
+	public Collection<Object> getEdges(Object node) {
+		return last.getEdges(node);
+	}
+
+	@Override
+	public void clearCache() {
+		last.clearCache();
+		super.clearCache();
 	}
 
 }
