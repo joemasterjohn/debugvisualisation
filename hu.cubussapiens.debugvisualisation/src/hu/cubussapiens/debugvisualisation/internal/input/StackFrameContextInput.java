@@ -15,6 +15,8 @@ import hu.cubussapiens.debugvisualisation.internal.step.input.ReferenceTrackerTr
 import hu.cubussapiens.debugvisualisation.internal.step.input.StackFrameRootedGraphContentProvider;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.debug.core.model.IStackFrame;
 
@@ -55,9 +57,16 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 		last.addListener(this);
 	}
 
+	private final Map<Class<?>, Object> adapters = new HashMap<Class<?>, Object>();
+
 	@Override
 	protected Object tryAdapter(Class<?> adapter) {
-		return last.getAdapter(adapter);
+		if (adapters.containsKey(adapter)) {
+			return adapters.get(adapter);
+		}
+		Object a = last.getAdapter(adapter);
+		adapters.put(adapter, a);
+		return a;
 	}
 
 	/* (non-Javadoc)
