@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="hu.cubussapiens.debugvisualisation.filterproviders" name="Filter providers for the debug visualisation plugin" schema="schema/hu.cubussapiens.debugvisualisation.filterproviders.exsd"/>
    <extension
          point="org.eclipse.ui.views">
       <view

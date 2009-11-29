@@ -4,17 +4,18 @@
 package hu.cubussapiens.debugvisualisation.internal.step.input;
 
 import hu.cubussapiens.debugvisualisation.Activator;
-import hu.cubussapiens.debugvisualisation.filtering.IVariableFilter;
-import hu.cubussapiens.debugvisualisation.filtering.IVariableFilterProvider;
-import hu.cubussapiens.debugvisualisation.filtering.internal.VariableFilterProvider;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugException;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.ILogicalStructureType;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 
@@ -23,18 +24,19 @@ import org.eclipse.debug.core.model.IVariable;
  */
 public class FilterTransformationStep extends AbstractGraphTransformationStep {
 
-	final IVariableFilterProvider provider;
-
 	/**
 	 * @param parent
 	 */
 	public FilterTransformationStep(IRootedGraphContentProvider parent) {
 		super(parent);
-		provider = new VariableFilterProvider();
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider
+	 * #getRoots()
 	 */
 	public Collection<Object> getRoots() {
 		return getParent().getRoots();
@@ -53,16 +55,27 @@ public class FilterTransformationStep extends AbstractGraphTransformationStep {
 
 	public Collection<Object> getEdges(Object node) {
 		try {
-			IVariableFilter vf = (node instanceof IValue) ? provider
-					.getFilter(((IValue) node).getReferenceTypeName()) : null;
-			if (vf == null)
-				return getParent().getEdges(node);
-			List<Object> os = new ArrayList<Object>();
-			for (IVariable v : vf.filter((IValue) node)) {
-				os.add(v);
+			// IVariableFilter vf = (node instanceof IValue) ? provider
+			// .getFilter(((IValue) node)) : null;
+			if (node instanceof IValue) {
+				ILogicalStructureType[] structureTypes = DebugPlugin
+						.getLogicalStructureTypes((IValue) node);
+				if (structureTypes.length > 0) {
+					List<IVariable> os = Arrays.asList(structureTypes[0]
+							.getLogicalStructure((IValue) node).getVariables());
+					return new ArrayList<Object>(os);
+				}
 			}
-			return os;
+			return getParent().getEdges(node);
+			/*
+			 * List<Object> os = new ArrayList<Object>(); for (IVariable v :
+			 * vf.filter((IValue) node)) { os.add(v); } return os;
+			 */
 		} catch (DebugException e) {
+			Activator.getDefault()
+					.logError(e, "Can't apply filter for " + node);
+			return getParent().getEdges(node);
+		} catch (CoreException e) {
 			Activator.getDefault()
 					.logError(e, "Can't apply filter for " + node);
 			return getParent().getEdges(node);
