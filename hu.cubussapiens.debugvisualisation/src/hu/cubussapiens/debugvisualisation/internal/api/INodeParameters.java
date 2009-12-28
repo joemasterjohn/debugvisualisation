@@ -3,6 +3,9 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.api;
 
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+
 import java.util.Collection;
 
 /**
@@ -16,6 +19,6 @@ public interface INodeParameters {
 	 * @param node
 	 * @return the parameters of the given node
 	 */
-	public Collection<Object> getParameters(Object node);
+	public Collection<IDVVariable> getParameters(IDVValue node);
 
 }

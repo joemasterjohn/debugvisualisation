@@ -3,6 +3,8 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.api;
 
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+
 import java.util.Collection;
 
 /**
@@ -15,13 +17,13 @@ public interface IHiddenNodes {
 	 * 
 	 * @param nodes
 	 */
-	public void hideNodes(Collection<Object> nodes);
+	public void hideNodes(Collection<IDVValue> nodes);
 
 	/**
 	 * Show all hidden child nodes of the given nodes
 	 * 
 	 * @param nodes
 	 */
-	public void showHiddenChildNodes(Collection<Object> nodes);
+	public void showHiddenChildNodes(Collection<IDVValue> nodes);
 
 }

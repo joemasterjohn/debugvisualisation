@@ -3,11 +3,12 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.input;
 
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.CacheTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.DigInTransformationStep;
-import hu.cubussapiens.debugvisualisation.internal.step.input.FilterTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.HideNodesTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.ParametersTransformationStep;
@@ -27,7 +28,7 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 
 	final StackFrameRootedGraphContentProvider root;
 
-	final FilterTransformationStep filter;
+	// final FilterTransformationStep filter;
 	final CacheTransformationStep rootcache;
 	final DigInTransformationStep t0;
 	final OpenCloseTransformationStep t1;
@@ -44,8 +45,8 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 	public StackFrameContextInput(IStackFrame sf) {
 		super(null);
 		root = new StackFrameRootedGraphContentProvider(sf);
-		filter = new FilterTransformationStep(root);
-		rootcache = new CacheTransformationStep(filter);
+		// filter = new FilterTransformationStep(root);
+		rootcache = new CacheTransformationStep(root);
 		t4 = new ReferenceTrackerTransformationStep(rootcache);
 		t0 = new DigInTransformationStep(t4);
 		t1 = new OpenCloseTransformationStep(t0);
@@ -72,15 +73,15 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 	/* (non-Javadoc)
 	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
 	 */
-	public Collection<Object> getRoots() {
+	public Collection<IDVValue> getRoots() {
 		return last.getRoots();
 	}
 
-	public Object getEdgeTarget(Object edge) {
+	public IDVValue getEdgeTarget(IDVVariable edge) {
 		return last.getEdgeTarget(edge);
 	}
 
-	public Collection<Object> getEdges(Object node) {
+	public Collection<IDVVariable> getEdges(IDVValue node) {
 		return last.getEdges(node);
 	}
 

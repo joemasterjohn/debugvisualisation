@@ -4,6 +4,8 @@
 package hu.cubussapiens.debugvisualisation.internal.step.input;
 
 import hu.cubussapiens.debugvisualisation.internal.api.IReferenceTracker;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
@@ -39,30 +41,30 @@ public class ReferenceTrackerTransformationStep extends
 		super.clearCache();
 	}
 
-	public Collection<Object> getReferences(Object node) {
+	public Collection<IDVVariable> getReferences(IDVValue node) {
 		if (refs.containsKey(node))
 			return refs.get(node);
-		return new HashSet<Object>();
+		return new HashSet<IDVVariable>();
 	}
 
-	final Map<Object, Set<Object>> refs = new HashMap<Object, Set<Object>>();
+	final Map<IDVValue, Set<IDVVariable>> refs = new HashMap<IDVValue, Set<IDVVariable>>();
 
 	/* (non-Javadoc)
 	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
 	 */
-	public Collection<Object> getRoots() {
+	public Collection<IDVValue> getRoots() {
 		return getParent().getRoots();
 	}
 
-	public Object getEdgeTarget(Object edge) {
-		Object n = getParent().getEdgeTarget(edge);
+	public IDVValue getEdgeTarget(IDVVariable edge) {
+		IDVValue n = getParent().getEdgeTarget(edge);
 		if (!refs.containsKey(n))
-			refs.put(n, new HashSet<Object>());
+			refs.put(n, new HashSet<IDVVariable>());
 		refs.get(n).add(edge);
 		return n;
 	}
 
-	public Collection<Object> getEdges(Object node) {
+	public Collection<IDVVariable> getEdges(IDVValue node) {
 		return getParent().getEdges(node);
 	}
 

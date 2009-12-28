@@ -3,6 +3,9 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.api;
 
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+
 import java.util.Collection;
 
 /**
@@ -16,6 +19,6 @@ public interface IReferenceTracker {
 	 * @param node
 	 * @return all known references to the given node
 	 */
-	public Collection<Object> getReferences(Object node);
+	public Collection<IDVVariable> getReferences(IDVValue node);
 
 }

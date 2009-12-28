@@ -3,6 +3,8 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.api;
 
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+
 import java.util.Collection;
 
 /**
@@ -15,7 +17,7 @@ public interface IDigInNodes {
 	 * 
 	 * @param nodes
 	 */
-	public void digIn(Collection<Object> nodes);
+	public void digIn(Collection<IDVValue> nodes);
 
 	/**
 	 * Show the real root elements

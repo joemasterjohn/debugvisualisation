@@ -5,6 +5,8 @@ package hu.cubussapiens.debugvisualisation.internal.step.input;
 
 import hu.cubussapiens.debugvisualisation.internal.ValueUtils;
 import hu.cubussapiens.debugvisualisation.internal.api.INodeParameters;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
@@ -28,10 +30,11 @@ public class ParametersTransformationStep extends
 		super(parent);
 	}
 
-	public Collection<Object> getParameters(Object node) {
-		Collection<Object> vars = new ArrayList<Object>();
-		for (Object u : getParent().getEdges(node)) {
-			Object o = getParent().getEdgeTarget(u);
+	public Collection<IDVVariable> getParameters(IDVValue node) {
+		Collection<IDVVariable> vars = new ArrayList<IDVVariable>();
+		for (IDVVariable u : getParent().getEdges(node)) {
+			IValue o = (IValue) getParent().getEdgeTarget(u).getAdapter(
+					IValue.class);
 			if (o instanceof IValue)
 				if (ValueUtils.getID((IValue) o) == -1) {
 					if (!vars.contains(u))
@@ -52,18 +55,19 @@ public class ParametersTransformationStep extends
 	/* (non-Javadoc)
 	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
 	 */
-	public Collection<Object> getRoots() {
+	public Collection<IDVValue> getRoots() {
 		return getParent().getRoots();
 	}
 
-	public Object getEdgeTarget(Object edge) {
+	public IDVValue getEdgeTarget(IDVVariable edge) {
 		return getParent().getEdgeTarget(edge);
 	}
 
-	public Collection<Object> getEdges(Object node) {
-		List<Object> result = new ArrayList<Object>();
-		for (Object u : getParent().getEdges(node)) {
-			Object o = getParent().getEdgeTarget(u);
+	public Collection<IDVVariable> getEdges(IDVValue node) {
+		List<IDVVariable> result = new ArrayList<IDVVariable>();
+		for (IDVVariable u : getParent().getEdges(node)) {
+			IValue o = (IValue) getParent().getEdgeTarget(u).getAdapter(
+					IValue.class);
 			if (o instanceof IValue) {
 				if (ValueUtils.getID((IValue) o) != -1) {
 					result.add(u);

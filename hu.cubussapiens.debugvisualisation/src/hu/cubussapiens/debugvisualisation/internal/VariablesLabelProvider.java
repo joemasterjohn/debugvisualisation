@@ -5,8 +5,9 @@ import hu.cubussapiens.debugvisualisation.internal.api.INodeParameters;
 import hu.cubussapiens.debugvisualisation.internal.api.IOpenCloseNodes;
 import hu.cubussapiens.debugvisualisation.internal.api.IReferenceTracker;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseNodeState;
-import hu.cubussapiens.debugvisualisation.internal.step.input.StackFrameRootedGraphContentProvider;
 
 import java.util.Collection;
 
@@ -67,13 +68,13 @@ public class VariablesLabelProvider extends LabelProvider implements
 	public Image getImage(Object element) {
 		// if (element instanceof Integer) {
 			// Integer node = (Integer) element;
-			if (StackFrameRootedGraphContentProvider.root.equals(element))
-			return Activator.getDefault().getImageRegistry().get(
-					Activator.icon_root);
-		if (element instanceof IValue) {
+		// if (StackFrameRootedGraphContentProvider.root.equals(element))
+		// return Activator.getDefault().getImageRegistry().get(
+		// Activator.icon_root);
+		if (element instanceof IDVValue) {
 			IOpenCloseNodes ocn = (IOpenCloseNodes) input
 					.getAdapter(IOpenCloseNodes.class);
-			Object o = ocn.getNodeState(element);
+			Object o = ocn.getNodeState((IDVValue) element);
 			if (o == null)
 				return null;
 			switch ((OpenCloseNodeState) o) {
@@ -95,10 +96,11 @@ public class VariablesLabelProvider extends LabelProvider implements
 	}
 
 	private String getRawText(Object element) {
-		if (StackFrameRootedGraphContentProvider.root.equals(element))
-			return "Local context";
-		if (element instanceof IVariable) {
-			IVariable var = (IVariable) element;
+		// if (StackFrameRootedGraphContentProvider.root.equals(element))
+		// return "Local context";
+		if (element instanceof IDVVariable) {
+			IVariable var = (IVariable) ((IDVVariable) element)
+					.getAdapter(IVariable.class);
 			try {
 				return var.getName();
 			} catch (DebugException e) {
@@ -106,12 +108,13 @@ public class VariablesLabelProvider extends LabelProvider implements
 						"Error getting variable name");
 			}
 		}
-		if (element instanceof IValue) {
-			IValue node = (IValue) element;
+		if (element instanceof IDVValue) {
+			IValue node = (IValue) ((IDVValue) element)
+					.getAdapter(IValue.class);
 
 			IReferenceTracker reftracker = (IReferenceTracker) input
 					.getAdapter(IReferenceTracker.class);
-			Collection<?> refs = reftracker.getReferences(node);
+			Collection<?> refs = reftracker.getReferences((IDVValue) element);
 			
 			String name = "";
 			for(Object ref : refs){
@@ -132,9 +135,10 @@ public class VariablesLabelProvider extends LabelProvider implements
 
 			INodeParameters nodeparameters = (INodeParameters) input
 					.getAdapter(INodeParameters.class);
-			Collection<?> params = nodeparameters.getParameters(element);
-			for (Object par : params) {
-				IVariable param = (IVariable) par;
+			Collection<IDVVariable> params = nodeparameters
+					.getParameters((IDVValue) element);
+			for (IDVVariable par : params) {
+				IVariable param = (IVariable) par.getAdapter(IVariable.class);
 				try {
 					name += "\n" + param.getName() + "= "
 							+ getProcessedValue(param.getValue()

@@ -3,6 +3,7 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.api;
 
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseNodeState;
 
 /**
@@ -16,7 +17,7 @@ public interface IOpenCloseNodes {
 	 * @param node
 	 * @return the state of the node
 	 */
-	public OpenCloseNodeState getNodeState(Object node);
+	public OpenCloseNodeState getNodeState(IDVValue node);
 
 	/**
 	 * Opens a closed node if it can be opened, and close it is opened and
@@ -24,6 +25,6 @@ public interface IOpenCloseNodes {
 	 * 
 	 * @param node
 	 */
-	public void toggleOpenNode(Object node);
+	public void toggleOpenNode(IDVValue node);
 
 }

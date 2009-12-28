@@ -1,6 +1,7 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
 import hu.cubussapiens.debugvisualisation.internal.api.IOpenCloseNodes;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 
 import org.eclipse.zest.core.viewers.GraphViewer;
 
@@ -26,7 +27,7 @@ public class ToggleOpenAction extends GraphAction {
 		IOpenCloseNodes ocn = (IOpenCloseNodes) getInput().getAdapter(
 				IOpenCloseNodes.class);
 		if (!getSelection().isEmpty())
-			ocn.toggleOpenNode(getSelection().getFirstElement());
+			ocn.toggleOpenNode((IDVValue) getSelection().getFirstElement());
 	}
 
 }

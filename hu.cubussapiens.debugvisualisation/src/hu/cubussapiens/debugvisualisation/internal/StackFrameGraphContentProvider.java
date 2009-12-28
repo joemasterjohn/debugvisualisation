@@ -4,6 +4,8 @@
 package hu.cubussapiens.debugvisualisation.internal;
 
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphChangeEvent;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphChangeListener;
 
@@ -34,7 +36,7 @@ public class StackFrameGraphContentProvider implements
 	public Object[] getRelationships(Object source, Object dest) {
 		List<Object> edges = new ArrayList<Object>();
 		if (input != null) {
-			for (Object o : input.getEdges(source))
+			for (IDVVariable o : input.getEdges((IDVValue) source))
 				if (dest.equals(input.getEdgeTarget(o)))
 					edges.add(o);
 		}
@@ -47,15 +49,16 @@ public class StackFrameGraphContentProvider implements
 			return;
 		if (parent != null)
 			buffer.add(parent);
-		Collection<Object> os = null;
+		Collection<IDVVariable> os = null;
 		if (parent == null) {
-			os = new ArrayList<Object>();
-			for (Object o : input.getRoots()) {
+			os = new ArrayList<IDVVariable>();
+			for (IDVValue o : input.getRoots()) {
 				os.addAll(input.getEdges(o));
+				buffer.add(o);
 			}
 		} else
-			os = input.getEdges(parent);
-		for (Object o : os)
+			os = input.getEdges((IDVValue) parent);
+		for (IDVVariable o : os)
 			collectNodes(buffer, input.getEdgeTarget(o));
 	}
 

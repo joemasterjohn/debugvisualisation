@@ -30,8 +30,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -135,16 +133,6 @@ public class DebugVisualisationView extends ViewPart implements
 		}
 	};
 
-	class LocalContextFilter extends ViewerFilter {
-
-		@Override
-		public boolean select(Viewer viewer, Object parentElement,
-				Object element) {
-			State state = getState();
-			Boolean value = (Boolean) state.getValue();
-			return value || !element.equals(-1);
-		}
-	}
 
 	private ZoomContributionViewItem zoom;
 
@@ -167,7 +155,7 @@ public class DebugVisualisationView extends ViewPart implements
 		graphViewer.setLayoutAlgorithm(layout.getDefault());
 		graphViewer.setLabelProvider(labelprovider);
 		graphViewer.setContentProvider(contentprovider);
-		graphViewer.addFilter(new LocalContextFilter());
+		// graphViewer.addFilter(new LocalContextFilter());
 		graphViewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
 		// TODO why is this needed for selection synchronizing?
 		graphViewer.setUseHashlookup(false);

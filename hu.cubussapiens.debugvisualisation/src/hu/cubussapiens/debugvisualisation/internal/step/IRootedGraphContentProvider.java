@@ -3,6 +3,9 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.step;
 
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+
 import java.util.Collection;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -20,7 +23,7 @@ public interface IRootedGraphContentProvider extends IAdaptable {
 	 * 
 	 * @return root nodes of the separated components of the graph
 	 */
-	public Collection<Object> getRoots();
+	public Collection<IDVValue> getRoots();
 
 	/**
 	 * Get all directed edges which has the source equals to the given node
@@ -28,7 +31,7 @@ public interface IRootedGraphContentProvider extends IAdaptable {
 	 * @param node
 	 * @return collection of edges
 	 */
-	public Collection<Object> getEdges(Object node);
+	public Collection<IDVVariable> getEdges(IDVValue node);
 
 	/**
 	 * Get the target node of the given edge
@@ -36,7 +39,7 @@ public interface IRootedGraphContentProvider extends IAdaptable {
 	 * @param edge
 	 * @return the target node of the edge
 	 */
-	public Object getEdgeTarget(Object edge);
+	public IDVValue getEdgeTarget(IDVVariable edge);
 
 	/**
 	 * Clear all cached data

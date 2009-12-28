@@ -4,6 +4,10 @@
 package hu.cubussapiens.debugvisualisation.internal.step.input;
 
 import hu.cubussapiens.debugvisualisation.Activator;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.internal.model.impl.DVValueImpl;
+import hu.cubussapiens.debugvisualisation.internal.model.impl.DVVariablesImpl;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
 import java.util.ArrayList;
@@ -21,11 +25,6 @@ import org.eclipse.debug.core.model.IVariable;
 public class StackFrameRootedGraphContentProvider implements
 		IRootedGraphContentProvider {
 
-	/**
-	 * 
-	 */
-	public static final Object root = new Integer(-1);
-
 	final IStackFrame sf;
 
 	/**
@@ -39,41 +38,37 @@ public class StackFrameRootedGraphContentProvider implements
 	/* (non-Javadoc)
 	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
 	 */
-	public Collection<Object> getRoots() {
-		List<Object> roots = new ArrayList<Object>();
-		roots.add(root);
+	public Collection<IDVValue> getRoots() {
+		List<IDVValue> roots = new ArrayList<IDVValue>();
+		try {
+			for (IVariable v : sf.getVariables()) {
+				roots.add(new DVValueImpl(v.getValue(), this));
+			}
+		} catch (DebugException e) {
+			Activator.getDefault().logError(e, "Can't retrieve root values");
+		}
 		return roots;
 	}
 
-	public Object getEdgeTarget(Object edge) {
-		if (edge instanceof IVariable) {
+	public IDVValue getEdgeTarget(IDVVariable e) {
+		IVariable edge = (IVariable) e.getAdapter(IVariable.class);
 			try {
-				return ((IVariable) edge).getValue();
-			} catch (DebugException e) {
-				Activator.getDefault().logError(e,
+			return new DVValueImpl(edge.getValue(), this);
+			} catch (DebugException e1) {
+				Activator.getDefault().logError(e1,
 						"Can't retrieve value of " + edge);
 			}
-		}
 		return null;
 	}
 
-	public Collection<Object> getEdges(Object node) {
-		List<Object> os = new ArrayList<Object>();
-		if (root.equals(node)) {
-			try {
-				for (IVariable v : sf.getVariables()) {
-					os.add(v);
-				}
-			} catch (DebugException e) {
-				Activator.getDefault().logError(e,
-						"Can't list context variables");
-			}
-		}
+	public Collection<IDVVariable> getEdges(IDVValue n) {
+		List<IDVVariable> os = new ArrayList<IDVVariable>();
+		IValue node = (IValue) n.getAdapter(IValue.class);
 		if (node instanceof IValue) {
 			IValue value = (IValue) node;
 			try {
 				for (IVariable v : value.getVariables()) {
-					os.add(v);
+					os.add(new DVVariablesImpl(v, this));
 				}
 			} catch (DebugException e) {
 				Activator.getDefault().logError(e, "Can't list variables");
