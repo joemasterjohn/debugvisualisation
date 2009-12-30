@@ -8,7 +8,7 @@ import org.eclipse.core.runtime.IAdaptable;
 /**
  * View model interface for a variable
  */
-public interface IDVVariable extends IAdaptable {
+public interface IDVVariable extends IAdaptable, IDVProperties {
 
 	/**
 	 * Retrieve the value of this variable

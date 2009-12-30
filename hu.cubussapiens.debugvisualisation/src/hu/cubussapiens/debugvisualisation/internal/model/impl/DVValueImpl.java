@@ -7,6 +7,8 @@ import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
+import java.util.Hashtable;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IValue;
 
@@ -18,6 +20,8 @@ public class DVValueImpl implements IDVValue {
 	private final IValue value;
 
 	private final IRootedGraphContentProvider graph;
+
+	private Hashtable<String, Object> properties = new Hashtable<String, Object>();
 
 	/**
 	 * 
@@ -64,4 +68,16 @@ public class DVValueImpl implements IDVValue {
 		return super.equals(obj);
 	}
 
+	public Object getProperty(String propertyID) {
+		return properties.get(propertyID);
+
+	}
+
+	public boolean isPropertySet(String propertyID) {
+		return properties.containsKey(propertyID);
+	}
+
+	public void setProperty(String propertyID, Object value) {
+		properties.put(propertyID, value);
+	}
 }
