@@ -22,15 +22,19 @@ public class DVVariablesImpl implements IDVVariable {
 	private final IRootedGraphContentProvider graph;
 	private Hashtable<String, Object> properties = new Hashtable<String, Object>();
 
+	private final IDVValue parent;
+
 	/**
 	 * @param variable
 	 * @param graph
+	 * @param parent
 	 */
 	public DVVariablesImpl(IVariable variable,
-			IRootedGraphContentProvider graph) {
+			IRootedGraphContentProvider graph, IDVValue parent) {
 		super();
 		this.graph = graph;
 		this.variable = variable;
+		this.parent = parent;
 	}
 
 	/* (non-Javadoc)
@@ -67,6 +71,10 @@ public class DVVariablesImpl implements IDVVariable {
 		return super.equals(obj);
 	}
 
+	public IDVValue getParent() {
+		return parent;
+	}
+
 	public Object getProperty(String propertyID) {
 		return properties.get(propertyID);
 
@@ -79,5 +87,4 @@ public class DVVariablesImpl implements IDVVariable {
 	public void setProperty(String propertyID, Object value) {
 		properties.put(propertyID, value);
 	}
-
 }

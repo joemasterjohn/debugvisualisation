@@ -42,7 +42,7 @@ public class StackFrameRootedGraphContentProvider implements
 		List<IDVValue> roots = new ArrayList<IDVValue>();
 		try {
 			for (IVariable v : sf.getVariables()) {
-				roots.add(new DVValueImpl(v.getValue(), this));
+				roots.add(new DVValueImpl(v.getValue(), this, v));
 			}
 		} catch (DebugException e) {
 			Activator.getDefault().logError(e, "Can't retrieve root values");
@@ -53,7 +53,7 @@ public class StackFrameRootedGraphContentProvider implements
 	public IDVValue getEdgeTarget(IDVVariable e) {
 		IVariable edge = (IVariable) e.getAdapter(IVariable.class);
 			try {
-			return new DVValueImpl(edge.getValue(), this);
+			return new DVValueImpl(edge.getValue(), this, e);
 			} catch (DebugException e1) {
 				Activator.getDefault().logError(e1,
 						"Can't retrieve value of " + edge);
@@ -68,7 +68,7 @@ public class StackFrameRootedGraphContentProvider implements
 			IValue value = (IValue) node;
 			try {
 				for (IVariable v : value.getVariables()) {
-					os.add(new DVVariablesImpl(v, this));
+					os.add(new DVVariablesImpl(v, this, n));
 				}
 			} catch (DebugException e) {
 				Activator.getDefault().logError(e, "Can't list variables");

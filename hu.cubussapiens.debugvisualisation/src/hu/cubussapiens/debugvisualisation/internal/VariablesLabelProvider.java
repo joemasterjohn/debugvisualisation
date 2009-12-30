@@ -18,6 +18,8 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.zest.core.viewers.IConnectionStyleProvider;
@@ -34,8 +36,16 @@ public class VariablesLabelProvider extends LabelProvider implements
 
 	StackFrameContextInput input;
 
+	Color rootnode = new Color(Display.getDefault(), new RGB(100f, 0.5f, 0.9f));
+
+	@Override
+	public void dispose() {
+		rootnode.dispose();
+		super.dispose();
+	}
+
 	/**
-	 * Give the currently used input object this this label provider
+	 * Give the currently used input object this label provider
 	 * 
 	 * @param input
 	 */
@@ -114,14 +124,14 @@ public class VariablesLabelProvider extends LabelProvider implements
 
 			IReferenceTracker reftracker = (IReferenceTracker) input
 					.getAdapter(IReferenceTracker.class);
-			Collection<?> refs = reftracker.getReferences((IDVValue) element);
+			Collection<IDVVariable> refs = reftracker
+					.getReferences((IDVValue) element);
+			// refs.add(((IDVValue) element).getParent());
 			
 			String name = "";
-			for(Object ref : refs){
+			for(IDVVariable ref : refs){
 				try {
-					String refname = (ref instanceof IVariable) ? ((IVariable) ref)
-							.getName()
-							: "" + ref;
+					String refname = ((IVariable) ref.getAdapter(IVariable.class)).getName();
 					name = (name.equals("")) ? refname : name + ", " + refname;
 				} catch (DebugException e) {
 					Activator.getDefault().logError(e,
@@ -130,6 +140,15 @@ public class VariablesLabelProvider extends LabelProvider implements
 
 			}
 
+			if (((IDVValue) element).isLocalContext()) {
+				try {
+					name = ((IDVValue) element).getContainer().getName();
+				} catch (DebugException e) {
+					Activator.getDefault().logError(e,
+							"Error getting variable name");
+				}
+			}
+			
 			String type = ValueUtils.getValueString(node);
 			name += ": " + type;
 
@@ -192,6 +211,10 @@ public class VariablesLabelProvider extends LabelProvider implements
 	}
 
 	public Color getBackgroundColour(Object entity) {
+		if (entity instanceof IDVValue) {
+			if (((IDVValue) entity).isLocalContext())
+				return rootnode;
+		}
 		// return ColorConstants.button;
 		return null;
 	}

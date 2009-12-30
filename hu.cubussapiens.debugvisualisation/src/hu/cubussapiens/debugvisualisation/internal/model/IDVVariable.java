@@ -17,4 +17,11 @@ public interface IDVVariable extends IAdaptable, IDVProperties {
 	 */
 	public IDVValue getValue();
 
+	/**
+	 * Retrieve the parent value of this variable
+	 * 
+	 * @return the parent value
+	 */
+	public IDVValue getParent();
+
 }

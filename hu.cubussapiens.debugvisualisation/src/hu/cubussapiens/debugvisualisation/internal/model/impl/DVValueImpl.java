@@ -11,6 +11,7 @@ import java.util.Hashtable;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IValue;
+import org.eclipse.debug.core.model.IVariable;
 
 /**
  * Basic implementation of the view model value
@@ -23,15 +24,46 @@ public class DVValueImpl implements IDVValue {
 
 	private Hashtable<String, Object> properties = new Hashtable<String, Object>();
 
+	private final IDVVariable parent;
+
+	private final IVariable container;
+
 	/**
 	 * 
 	 * @param value
 	 * @param graph
 	 */
-	public DVValueImpl(IValue value, IRootedGraphContentProvider graph) {
+	protected DVValueImpl(IValue value, IRootedGraphContentProvider graph,
+			IDVVariable parent, IVariable container) {
 		super();
 		this.graph = graph;
 		this.value = value;
+		this.parent = parent;
+		this.container = container;
+	}
+
+	/**
+	 * Creates a child value
+	 * 
+	 * @param value
+	 * @param graph
+	 * @param parent
+	 */
+	public DVValueImpl(IValue value, IRootedGraphContentProvider graph,
+			IDVVariable parent) {
+		this(value, graph, parent, null);
+	}
+
+	/**
+	 * Creates a value, which is accessible from the local context
+	 * 
+	 * @param value
+	 * @param graph
+	 * @param container
+	 */
+	public DVValueImpl(IValue value, IRootedGraphContentProvider graph,
+			IVariable container) {
+		this(value, graph, null, container);
 	}
 
 	/* (non-Javadoc)
@@ -80,4 +112,18 @@ public class DVValueImpl implements IDVValue {
 	public void setProperty(String propertyID, Object value) {
 		properties.put(propertyID, value);
 	}
+
+	public boolean isLocalContext() {
+		return parent == null;
+	}
+
+	public IVariable getContainer() {
+		return container == null ? (IVariable) parent
+				.getAdapter(IVariable.class) : container;
+	}
+
+	public IDVVariable getParent() {
+		return parent;
+	}
+
 }
