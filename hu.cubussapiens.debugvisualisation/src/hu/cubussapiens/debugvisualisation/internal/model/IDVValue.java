@@ -4,6 +4,7 @@
 package hu.cubussapiens.debugvisualisation.internal.model;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 
 /**
@@ -39,5 +40,12 @@ public interface IDVValue extends IAdaptable, IDVProperties {
 	 * @return the containing variable
 	 */
 	public IVariable getContainer();
+
+	/**
+	 * Returns the debug model element this element is based on
+	 * 
+	 * @return the debug model value
+	 */
+	public IValue getRelatedValue();
 
 }

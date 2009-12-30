@@ -87,4 +87,8 @@ public class DVVariablesImpl implements IDVVariable {
 	public void setProperty(String propertyID, Object value) {
 		properties.put(propertyID, value);
 	}
+
+	public IVariable getRelatedVariable() {
+		return variable;
+	}
 }

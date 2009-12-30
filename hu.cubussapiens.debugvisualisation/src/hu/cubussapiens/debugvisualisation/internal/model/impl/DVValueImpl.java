@@ -126,4 +126,7 @@ public class DVValueImpl implements IDVValue {
 		return parent;
 	}
 
+	public IValue getRelatedValue() {
+		return value;
+	}
 }
