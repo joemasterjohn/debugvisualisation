@@ -3,7 +3,7 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.step.input;
 
-import hu.cubussapiens.debugvisualisation.Activator;
+import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.debugvisualisation.internal.model.impl.DVValueImpl;
@@ -45,7 +45,7 @@ public class StackFrameRootedGraphContentProvider implements
 				roots.add(new DVValueImpl(v.getValue(), this, v));
 			}
 		} catch (DebugException e) {
-			Activator.getDefault().logError(e, "Can't retrieve root values");
+			DebugVisualisationPlugin.getDefault().logError(e, "Can't retrieve root values");
 		}
 		return roots;
 	}
@@ -55,7 +55,7 @@ public class StackFrameRootedGraphContentProvider implements
 			try {
 			return new DVValueImpl(edge.getValue(), this, e);
 			} catch (DebugException e1) {
-				Activator.getDefault().logError(e1,
+				DebugVisualisationPlugin.getDefault().logError(e1,
 						"Can't retrieve value of " + edge);
 			}
 		return null;
@@ -71,7 +71,7 @@ public class StackFrameRootedGraphContentProvider implements
 					os.add(new DVVariablesImpl(v, this, n));
 				}
 			} catch (DebugException e) {
-				Activator.getDefault().logError(e, "Can't list variables");
+				DebugVisualisationPlugin.getDefault().logError(e, "Can't list variables");
 			}
 		}
 		return os;

@@ -13,22 +13,26 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class DebugVisualisationPlugin extends AbstractUIPlugin {
 
 	/**
 	 * The plug-in ID
 	 */
 	public static final String PLUGIN_ID = "hu.cubussapiens.debugvisualisation";
+	/**
+	 * The view ID
+	 */
+	public static final String VIEW_ID = "hu.cubussapiens.debugvisualisation.views.DebugVisualisationView";
 
 	// The shared instance
-	private static Activator plugin;
+	private static DebugVisualisationPlugin plugin;
 
 	private ILog log;
 
 	/**
 	 * The constructor
 	 */
-	public Activator() {
+	public DebugVisualisationPlugin() {
 	}
 
 	/**
@@ -57,7 +61,7 @@ public class Activator extends AbstractUIPlugin {
 	 * 
 	 * @return the shared instance
 	 */
-	public static Activator getDefault() {
+	public static DebugVisualisationPlugin getDefault() {
 		return plugin;
 	}
 

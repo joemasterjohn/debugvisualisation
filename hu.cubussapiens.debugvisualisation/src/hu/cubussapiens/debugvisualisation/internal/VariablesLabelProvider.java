@@ -1,6 +1,6 @@
 package hu.cubussapiens.debugvisualisation.internal;
 
-import hu.cubussapiens.debugvisualisation.Activator;
+import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
 import hu.cubussapiens.debugvisualisation.internal.api.INodeParameters;
 import hu.cubussapiens.debugvisualisation.internal.api.IOpenCloseNodes;
 import hu.cubussapiens.debugvisualisation.internal.api.IReferenceTracker;
@@ -89,17 +89,17 @@ public class VariablesLabelProvider extends LabelProvider implements
 				return null;
 			switch ((OpenCloseNodeState) o) {
 			case Root:
-				return Activator.getDefault().getImageRegistry().get(
-						Activator.icon_root);
+				return DebugVisualisationPlugin.getDefault().getImageRegistry().get(
+						DebugVisualisationPlugin.icon_root);
 			case ChildLess:
 				return PlatformUI.getWorkbench().getSharedImages().getImage(
 						ISharedImages.IMG_OBJ_ELEMENT);
 			case Open:
-				return Activator.getDefault().getImageRegistry().get(
-						Activator.icon_node_open);
+				return DebugVisualisationPlugin.getDefault().getImageRegistry().get(
+						DebugVisualisationPlugin.icon_node_open);
 			case Close:
-				return Activator.getDefault().getImageRegistry().get(
-						Activator.icon_node_closed);
+				return DebugVisualisationPlugin.getDefault().getImageRegistry().get(
+						DebugVisualisationPlugin.icon_node_closed);
 			}
 		}
 		return null;
@@ -114,7 +114,7 @@ public class VariablesLabelProvider extends LabelProvider implements
 			try {
 				return var.getName();
 			} catch (DebugException e) {
-				Activator.getDefault().logError(e,
+				DebugVisualisationPlugin.getDefault().logError(e,
 						"Error getting variable name");
 			}
 		}
@@ -134,7 +134,7 @@ public class VariablesLabelProvider extends LabelProvider implements
 					String refname = ((IVariable) ref.getAdapter(IVariable.class)).getName();
 					name = (name.equals("")) ? refname : name + ", " + refname;
 				} catch (DebugException e) {
-					Activator.getDefault().logError(e,
+					DebugVisualisationPlugin.getDefault().logError(e,
 							"Error getting variable name");
 				}
 
@@ -144,7 +144,7 @@ public class VariablesLabelProvider extends LabelProvider implements
 				try {
 					name = ((IDVValue) element).getContainer().getName();
 				} catch (DebugException e) {
-					Activator.getDefault().logError(e,
+					DebugVisualisationPlugin.getDefault().logError(e,
 							"Error getting variable name");
 				}
 			}
@@ -163,7 +163,7 @@ public class VariablesLabelProvider extends LabelProvider implements
 							+ getProcessedValue(param.getValue()
 									.getValueString());
 				} catch (DebugException e) {
-					Activator.getDefault().logError(e,
+					DebugVisualisationPlugin.getDefault().logError(e,
 							"Error getting parameter value");
 				}
 			}

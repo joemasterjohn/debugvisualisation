@@ -221,6 +221,9 @@ public class DebugVisualisationView extends ViewPart implements
 		mm.add(new Separator());
 		mm.add(digIn);
 		mm.add(showRoot);
+		getSite()
+				.registerContextMenu(
+						mm, graphViewer);
 
 		IMenuManager imm = getViewSite().getActionBars().getMenuManager();
 		imm.add(refresh);

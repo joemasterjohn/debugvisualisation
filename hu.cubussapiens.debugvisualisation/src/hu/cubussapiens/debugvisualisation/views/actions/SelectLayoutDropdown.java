@@ -1,6 +1,6 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.Activator;
+import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
 
 import java.util.List;
 
@@ -29,8 +29,8 @@ public class SelectLayoutDropdown extends Action implements IMenuCreator {
 	public SelectLayoutDropdown(List<Action> layouts) {
 		this.layouts = layouts;
 		setText("Layout");
-		setImageDescriptor(Activator.getDefault().getImageRegistry()
-				.getDescriptor(Activator.icon_select_layout));
+		setImageDescriptor(DebugVisualisationPlugin.getDefault().getImageRegistry()
+				.getDescriptor(DebugVisualisationPlugin.icon_select_layout));
 		setMenuCreator(this);
 	}
 

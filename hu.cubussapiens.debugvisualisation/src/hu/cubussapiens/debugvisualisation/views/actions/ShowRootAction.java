@@ -3,7 +3,7 @@
  */
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.debugvisualisation.Activator;
+import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
 import hu.cubussapiens.debugvisualisation.internal.api.IDigInNodes;
 
 import org.eclipse.zest.core.viewers.GraphViewer;
@@ -21,8 +21,8 @@ public class ShowRootAction extends GraphAction {
 		if (getInput() != null)
 			setEnabled(true);
 		setText("Show local context node");
-		setImageDescriptor(Activator.getDefault().getImageRegistry()
-				.getDescriptor(Activator.icon_root));
+		setImageDescriptor(DebugVisualisationPlugin.getDefault().getImageRegistry()
+				.getDescriptor(DebugVisualisationPlugin.icon_root));
 	}
 
 	@Override

@@ -26,6 +26,10 @@
             id="hu.cubussapiens.debugvisualisation.category"
             name="Debug Visualisation">
       </category>
+      <command
+            id="hu.cubussapiens.debugvisualisation.availablelogicalstructures"
+            name="&amp;Show Structure As">
+      </command>
       <!--<command
             categoryId="hu.cubussapiens.debugvisualisation.category"
             id="hu.cubussapiens.debugvisualisation.visualisevariable"
@@ -64,6 +68,38 @@
                style="toggle">
          </command>
       </menuContribution>
+      <menuContribution
+            locationURI="popup:hu.cubussapiens.debugvisualisation.views.DebugVisualisationView">
+         <menu
+               label="Show Structure As">
+            <dynamic
+                  class="hu.cubussapiens.debugvisualisation.views.actions.AvailableStructures"
+                  id="hu.cubussapiens.debugvisualisation.dynamic1">
+            </dynamic>
+            <visibleWhen
+                  checkEnabled="false">
+               <and>
+                  <with
+                        variable="selection">
+                     <count
+                           value="1">
+                     </count>
+                  </with>
+                  <with
+                        variable="selection">
+                    <iterate>
+                        <instanceof
+                              value="hu.cubussapiens.debugvisualisation.internal.model.IDVValue">
+                        </instanceof>
+                        <test
+                              property="hu.cubussapiens.debugvisualisation.logicalstructure">
+                        </test>
+                     </iterate>
+                  </with>
+               </and>
+            </visibleWhen>
+         </menu>
+      </menuContribution>
       <!--<menuContribution
             locationURI="popup:org.eclipse.debug.ui.VariableView">
          <command
@@ -72,6 +108,16 @@
                style="push">
          </command>
       </menuContribution>-->
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="hu.cubussapiens.debugvisualisation.internal.model.util.LogicalStructuresTester"
+            id="hu.cubussapiens.debugvisualisation.structureavailable"
+            namespace="hu.cubussapiens.debugvisualisation"
+            properties="logicalstructure"
+            type="hu.cubussapiens.debugvisualisation.internal.model.IDVValue">
+      </propertyTester>
    </extension>
 
 </plugin>
