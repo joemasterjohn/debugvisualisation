@@ -30,11 +30,11 @@
             id="hu.cubussapiens.debugvisualisation.availablelogicalstructures"
             name="&amp;Show Structure As">
       </command>
-      <!--<command
+      <command
             categoryId="hu.cubussapiens.debugvisualisation.category"
             id="hu.cubussapiens.debugvisualisation.visualisevariable"
             name="Add Variable to Visualisaton">
-      </command>-->
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -42,7 +42,7 @@
             class="hu.cubussapiens.debugvisualisation.views.actions.ShowLocalContextHandler"
             commandId="hu.cubussapiens.debugvisualisation.showlocalcontext">
       </handler>
-      <!--<handler
+      <handler
             class="hu.cubussapiens.debugvisualisation.views.actions.VisualiseVariableHandler"
             commandId="hu.cubussapiens.debugvisualisation.visualisevariable">
          <enabledWhen>
@@ -56,7 +56,7 @@
                </iterate>
             </with>
          </enabledWhen>
-      </handler>-->
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -100,14 +100,14 @@
             </visibleWhen>
          </menu>
       </menuContribution>
-      <!--<menuContribution
+      <menuContribution
             locationURI="popup:org.eclipse.debug.ui.VariableView">
          <command
                commandId="hu.cubussapiens.debugvisualisation.visualisevariable"
                label="Add Variable to Visualisation"
                style="push">
          </command>
-      </menuContribution>-->
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
