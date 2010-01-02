@@ -1,6 +1,7 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import org.eclipse.core.commands.AbstractHandler;
+import hu.cubussapiens.debugvisualisation.views.handlers.AbstractGraphCommandHandler;
+
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -13,7 +14,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 /**
  *
  */
-public class VisualiseVariableHandler extends AbstractHandler {
+public class VisualiseVariableHandler extends AbstractGraphCommandHandler {
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
