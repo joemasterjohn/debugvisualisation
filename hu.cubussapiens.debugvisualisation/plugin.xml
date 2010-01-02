@@ -29,19 +29,20 @@
       <command
             id="hu.cubussapiens.debugvisualisation.availablelogicalstructures"
             name="&amp;Show Structure As">
+         <commandParameter
+               id="hu.cubussapiens.debugvisualisation.logicalstructure"
+               name="structureid"
+               optional="true">
+         </commandParameter>
       </command>
       <command
             categoryId="hu.cubussapiens.debugvisualisation.category"
             id="hu.cubussapiens.debugvisualisation.visualisevariable"
-            name="Add Variable to Visualisaton">
+            name="Add Variable to Visualisation">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
-      <handler
-            class="hu.cubussapiens.debugvisualisation.views.actions.ShowLocalContextHandler"
-            commandId="hu.cubussapiens.debugvisualisation.showlocalcontext">
-      </handler>
       <handler
             class="hu.cubussapiens.debugvisualisation.views.actions.VisualiseVariableHandler"
             commandId="hu.cubussapiens.debugvisualisation.visualisevariable">
@@ -57,16 +58,15 @@
             </with>
          </enabledWhen>
       </handler>
+      <handler
+            class="hu.cubussapiens.debugvisualisation.views.handlers.AvailableStructureHandler"
+            commandId="hu.cubussapiens.debugvisualisation.availablelogicalstructures">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             locationURI="menu:hu.cubussapiens.debugvisualisation.views.DebugVisualisationView">
-         <command
-               commandId="hu.cubussapiens.debugvisualisation.showlocalcontext"
-               label="Show Local Context Node"
-               style="toggle">
-         </command>
       </menuContribution>
       <menuContribution
             locationURI="popup:hu.cubussapiens.debugvisualisation.views.DebugVisualisationView">

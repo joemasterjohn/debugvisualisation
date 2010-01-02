@@ -17,9 +17,6 @@ import hu.cubussapiens.debugvisualisation.views.actions.ShowRootAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
 import hu.cubussapiens.zestlayouts.LayoutManager;
 
-import org.eclipse.core.commands.Command;
-import org.eclipse.core.commands.IStateListener;
-import org.eclipse.core.commands.State;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.ui.DebugUITools;
@@ -36,8 +33,6 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
@@ -126,25 +121,34 @@ public class DebugVisualisationView extends ViewPart implements
 	 */
 	SelectLayoutGroup group;
 
-	IStateListener stateListener = new IStateListener() {
-
-		public void handleStateChange(State state, Object oldValue) {
-			graphViewer.refresh();
-		}
-	};
+	/*
+	 * IStateListener stateListener = new IStateListener() {
+	 * 
+	 * public void handleStateChange(State state, Object oldValue) {
+	 * graphViewer.refresh(); } };
+	 */
 
 
 	private ZoomContributionViewItem zoom;
 
-	private String contextCommandID = "hu.cubussapiens.debugvisualisation.showlocalcontext";
-	private String contextStateID = "org.eclipse.ui.commands.toggleState";
+	/*
+	 * private String contextCommandID =
+	 * "hu.cubussapiens.debugvisualisation.showlocalcontext"; private String
+	 * contextStateID = "org.eclipse.ui.commands.toggleState";
+	 * 
+	 * private State getState() { ICommandService commandService =
+	 * (ICommandService) PlatformUI
+	 * .getWorkbench().getActiveWorkbenchWindow().getService(
+	 * ICommandService.class); Command command =
+	 * commandService.getCommand(contextCommandID); return
+	 * command.getState(contextStateID); }
+	 */
 
-	private State getState() {
-		ICommandService commandService = (ICommandService) PlatformUI
-				.getWorkbench().getActiveWorkbenchWindow().getService(
-						ICommandService.class);
-		Command command = commandService.getCommand(contextCommandID);
-		return command.getState(contextStateID);
+	/**
+	 * @return the graphViewer
+	 */
+	public VisualisationGraphViewer getGraphViewer() {
+		return graphViewer;
 	}
 
 	@Override
@@ -260,8 +264,9 @@ public class DebugVisualisationView extends ViewPart implements
 		zoom = new ZoomContributionViewItem(this);
 		saveImage = new SaveImageAction(graphViewer);
 
-		State state = getState();
-		state.addListener(stateListener);
+		/*
+		 * State state = getState(); state.addListener(stateListener);
+		 */
 	}
 
 	/**
@@ -286,7 +291,7 @@ public class DebugVisualisationView extends ViewPart implements
 		if (listener != null)
 			DebugUITools.getDebugContextManager().removeDebugContextListener(
 					listener);
-		getState().removeListener(stateListener);
+		/* getState().removeListener(stateListener); */
 		if (selectionSynchronizer != null) {
 			selectionSynchronizer.dispose();
 		}

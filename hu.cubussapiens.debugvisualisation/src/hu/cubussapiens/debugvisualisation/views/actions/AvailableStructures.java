@@ -6,6 +6,9 @@ package hu.cubussapiens.debugvisualisation.views.actions;
 import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILogicalStructureType;
 import org.eclipse.jface.action.IContributionItem;
@@ -28,6 +31,9 @@ public class AvailableStructures extends CompoundContributionItem implements
 
 	private IServiceLocator locator;
 	private static final String commandID = "hu.cubussapiens.debugvisualisation.availablelogicalstructures";
+	private static final String parameterID = "hu.cubussapiens.debugvisualisation.logicalstructure";
+
+	// private static final String parameterID = "structureid";
 
 	/**
 	 * 
@@ -57,14 +63,24 @@ public class AvailableStructures extends CompoundContributionItem implements
 		CommandContributionItemParameter parameter = new CommandContributionItemParameter(
 				locator, null, commandID, CommandContributionItem.STYLE_RADIO);
 		parameter.label = "Raw structure";
-		list[0] = new CommandContributionItem(parameter);
-		// parameter.parameters
+		Map<String, String> parameters = new Hashtable<String, String>();
+		
+		parameters.put(parameterID,
+				"");
+		parameter.parameters = parameters;
+		CommandContributionItem contribution = new CommandContributionItem(parameter);
+		list[0] = contribution;
 
 		for (int i = 0; i < structures.length; i++) {
+			parameters.put(
+					parameterID,
+					structures[i].getId());
 			parameter = new CommandContributionItemParameter(locator, null,
 					commandID, CommandContributionItem.STYLE_RADIO);
 			parameter.label = structures[i].getDescription();
-			list[i + 1] = new CommandContributionItem(parameter);
+			parameter.parameters = parameters;
+			contribution = new CommandContributionItem(parameter);
+			list[i + 1] = contribution;
 		}
 		return list;
 	}

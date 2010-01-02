@@ -3,13 +3,15 @@ package hu.cubussapiens.debugvisualisation.internal.step;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IAdaptable;
+
 /**
  * An abstract, partial implementation of a transformation step. This class
  * implements the common features like handling listeners and delegating
  * commands.
  */
 public abstract class AbstractGraphTransformationStep implements
-		IGraphTransformationStep, IGraphChangeListener {
+		IGraphTransformationStep, IGraphChangeListener, IAdaptable {
 
 	private final IRootedGraphContentProvider parent;
 

@@ -8,6 +8,9 @@ import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.views.DebugVisualisationView;
 
 import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.State;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -19,6 +22,8 @@ import org.eclipse.zest.core.viewers.GraphViewer;
  * visualisation view.
  */
 public abstract class AbstractGraphCommandHandler extends AbstractHandler {
+
+	final static String STATE_ID = "org.eclipse.ui.commands.toggleState"; //$NON-NLS-1$
 
 	/**
 	 * Returns the debug visualisation view. If it is not open, opens it.
@@ -61,6 +66,35 @@ public abstract class AbstractGraphCommandHandler extends AbstractHandler {
 		if (input != null)
 			return (StackFrameContextInput) input;
 		return null;
+	}
+
+	/**
+	 * <p>
+	 * Returns the State assigned to the command.
+	 * </p>
+	 * 
+	 * <p>
+	 * In case of boolean toggles the value of the state is a {@link Boolean}
+	 * variable. An example code is as follows:<br />
+	 * 
+	 * <code>boolean oldValue = ((Boolean) state.getValue()).booleanValue();</code>
+	 * </p>
+	 * <p>
+	 * TODO HandlerUtil.toggleState() can only be used after Eclipse 3.5
+	 * </p>
+	 * 
+	 * @param command
+	 *            the command to check
+	 * @return the state the state of the command if defined
+	 * @throws ExecutionException
+	 *             is thrown if no toggle state is defined for the command
+	 */
+	protected State getState(Command command) throws ExecutionException {
+		State state = command.getState(STATE_ID);
+		if (state == null)
+			throw new ExecutionException(
+					"The command does not have a toggle state"); //$NON-NLS-1$
+		return state;
 	}
 
 }

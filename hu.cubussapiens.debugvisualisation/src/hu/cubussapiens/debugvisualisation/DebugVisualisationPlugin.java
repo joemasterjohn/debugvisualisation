@@ -23,6 +23,7 @@ public class DebugVisualisationPlugin extends AbstractUIPlugin {
 	 * The view ID
 	 */
 	public static final String VIEW_ID = "hu.cubussapiens.debugvisualisation.views.DebugVisualisationView";
+	public static final String LOGICALSTRUCTURE_RAW_ID = "hu.cubussapiens.debugvisualisation.rawstructure";
 
 	// The shared instance
 	private static DebugVisualisationPlugin plugin;
