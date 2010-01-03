@@ -89,8 +89,7 @@ public class LogicalStructureTransformationStep extends
 			IValue value = node.getRelatedValue();
 			ILogicalStructureType logicalStructureType = getLogicalStructureType(
 					value, filter);
-			if (logicalStructureType == null
-					|| logicalStructureType.providesLogicalStructure(value)) {
+			if (logicalStructureType == null) {
 				return getParent().getEdges(node);
 			}
 			IVariable[] variables = logicalStructureType.getLogicalStructure(
