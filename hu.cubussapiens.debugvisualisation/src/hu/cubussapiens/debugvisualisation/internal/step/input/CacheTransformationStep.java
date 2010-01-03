@@ -5,6 +5,7 @@ package hu.cubussapiens.debugvisualisation.internal.step.input;
 
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
@@ -19,9 +20,11 @@ public class CacheTransformationStep extends AbstractGraphTransformationStep {
 
 	/**
 	 * @param parent
+	 * @param factory
 	 */
-	public CacheTransformationStep(IRootedGraphContentProvider parent) {
-		super(parent);
+	public CacheTransformationStep(IRootedGraphContentProvider parent,
+			ViewModelFactory factory) {
+		super(parent, factory);
 	}
 
 	@Override

@@ -5,6 +5,7 @@ package hu.cubussapiens.debugvisualisation.internal.model.impl;
 
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -39,7 +40,10 @@ public class DVValueImpl extends DVProperties implements IDVValue {
 	}
 
 	/**
-	 * Creates a child value
+	 * Creates a child value. It is not supported to directly initialize values,
+	 * use
+	 * {@link ViewModelFactory#getValue(IValue, IRootedGraphContentProvider, IDVVariable)}
+	 * instead.
 	 * 
 	 * @param value
 	 * @param graph
@@ -51,7 +55,10 @@ public class DVValueImpl extends DVProperties implements IDVValue {
 	}
 
 	/**
-	 * Creates a value, which is accessible from the local context
+	 * Creates a value, which is accessible from the local context. It is not
+	 * supported to directly initialize values, use
+	 * {@link ViewModelFactory#getValue(IValue, IRootedGraphContentProvider, IVariable)}
+	 * instead.
 	 * 
 	 * @param value
 	 * @param graph
@@ -62,14 +69,19 @@ public class DVValueImpl extends DVProperties implements IDVValue {
 		this(value, graph, null, container);
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.model.IDVValue#getVariables()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * hu.cubussapiens.debugvisualisation.internal.model.IDVValue#getVariables()
 	 */
 	public IDVVariable[] getVariables() {
 		return graph.getEdges(this).toArray(new IDVVariable[0]);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
 	@SuppressWarnings("unchecked")

@@ -1,5 +1,7 @@
 package hu.cubussapiens.debugvisualisation.internal.step;
 
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,13 +16,17 @@ public abstract class AbstractGraphTransformationStep implements
 		IGraphTransformationStep, IGraphChangeListener, IAdaptable {
 
 	private final IRootedGraphContentProvider parent;
+	protected final ViewModelFactory factory;
 
 	/**
 	 * 
 	 * @param parent
+	 * @param factory
 	 */
-	public AbstractGraphTransformationStep(IRootedGraphContentProvider parent) {
+	public AbstractGraphTransformationStep(IRootedGraphContentProvider parent,
+			ViewModelFactory factory) {
 		this.parent = parent;
+		this.factory = factory;
 		if (parent instanceof IGraphTransformationStep) {
 			((IGraphTransformationStep) parent).addListener(this);
 		}

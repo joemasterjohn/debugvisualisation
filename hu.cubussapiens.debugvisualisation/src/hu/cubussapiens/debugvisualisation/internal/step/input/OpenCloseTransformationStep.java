@@ -7,6 +7,7 @@ import hu.cubussapiens.debugvisualisation.internal.api.IOpenCloseNodes;
 import hu.cubussapiens.debugvisualisation.internal.api.OpenCloseStateChangedEvent;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
@@ -48,9 +49,11 @@ public class OpenCloseTransformationStep extends
 
 	/**
 	 * @param parent
+	 * @param factory
 	 */
-	public OpenCloseTransformationStep(IRootedGraphContentProvider parent) {
-		super(parent);
+	public OpenCloseTransformationStep(IRootedGraphContentProvider parent,
+			ViewModelFactory factory) {
+		super(parent, factory);
 	}
 
 	final Set<Object> open = new HashSet<Object>();

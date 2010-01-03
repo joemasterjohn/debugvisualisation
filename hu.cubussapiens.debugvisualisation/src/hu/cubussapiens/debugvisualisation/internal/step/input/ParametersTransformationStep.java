@@ -7,6 +7,7 @@ import hu.cubussapiens.debugvisualisation.internal.ValueUtils;
 import hu.cubussapiens.debugvisualisation.internal.api.INodeParameters;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
@@ -25,9 +26,11 @@ public class ParametersTransformationStep extends
 
 	/**
 	 * @param parent
+	 * @param factory
 	 */
-	public ParametersTransformationStep(IRootedGraphContentProvider parent) {
-		super(parent);
+	public ParametersTransformationStep(IRootedGraphContentProvider parent,
+			ViewModelFactory factory) {
+		super(parent, factory);
 	}
 
 	public Collection<IDVVariable> getParameters(IDVValue node) {

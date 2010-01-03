@@ -5,6 +5,7 @@ package hu.cubussapiens.debugvisualisation.internal.model.impl;
 
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -22,6 +23,11 @@ public class DVVariablesImpl extends DVProperties implements IDVVariable {
 	private final IDVValue parent;
 
 	/**
+	 * Creates a view model variable node. It is not supported to create
+	 * variables using this constructor - use
+	 * {@link ViewModelFactory#getVariable(IVariable, IRootedGraphContentProvider, IDVValue)}
+	 * instead.
+	 * 
 	 * @param variable
 	 * @param graph
 	 * @param parent
@@ -34,14 +40,19 @@ public class DVVariablesImpl extends DVProperties implements IDVVariable {
 		this.parent = parent;
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.model.IDVVariable#getValue()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * hu.cubussapiens.debugvisualisation.internal.model.IDVVariable#getValue()
 	 */
 	public IDVValue getValue() {
 		return graph.getEdgeTarget(this);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
 	@SuppressWarnings("unchecked")

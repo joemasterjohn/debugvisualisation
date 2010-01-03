@@ -6,8 +6,7 @@ package hu.cubussapiens.debugvisualisation.internal.step.input;
 import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
-import hu.cubussapiens.debugvisualisation.internal.model.impl.DVValueImpl;
-import hu.cubussapiens.debugvisualisation.internal.model.impl.DVVariablesImpl;
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
 import java.util.ArrayList;
@@ -26,53 +25,60 @@ public class StackFrameRootedGraphContentProvider implements
 		IRootedGraphContentProvider {
 
 	final IStackFrame sf;
+	final ViewModelFactory factory;
 
 	/**
 	 * @param sf
+	 * @param factory
 	 * 
 	 */
-	public StackFrameRootedGraphContentProvider(IStackFrame sf) {
+	public StackFrameRootedGraphContentProvider(IStackFrame sf,
+			ViewModelFactory factory) {
 		this.sf = sf;
+		this.factory = factory;
 	}
 
-	/* (non-Javadoc)
-	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider
+	 * #getRoots()
 	 */
 	public Collection<IDVValue> getRoots() {
 		List<IDVValue> roots = new ArrayList<IDVValue>();
 		try {
 			for (IVariable v : sf.getVariables()) {
-				roots.add(new DVValueImpl(v.getValue(), this, v));
+				roots.add(factory.getValue(v.getValue(), this, v));
 			}
 		} catch (DebugException e) {
-			DebugVisualisationPlugin.getDefault().logError(e, "Can't retrieve root values");
+			DebugVisualisationPlugin.getDefault().logError(e,
+					"Can't retrieve root values");
 		}
 		return roots;
 	}
 
 	public IDVValue getEdgeTarget(IDVVariable e) {
 		IVariable edge = (IVariable) e.getAdapter(IVariable.class);
-			try {
-			return new DVValueImpl(edge.getValue(), this, e);
-			} catch (DebugException e1) {
-				DebugVisualisationPlugin.getDefault().logError(e1,
-						"Can't retrieve value of " + edge);
-			}
+		try {
+			return factory.getValue(edge.getValue(), this, e);
+		} catch (DebugException e1) {
+			DebugVisualisationPlugin.getDefault().logError(e1,
+					"Can't retrieve value of " + edge);
+		}
 		return null;
 	}
 
 	public Collection<IDVVariable> getEdges(IDVValue n) {
 		List<IDVVariable> os = new ArrayList<IDVVariable>();
 		IValue node = (IValue) n.getAdapter(IValue.class);
-		if (node instanceof IValue) {
-			IValue value = (IValue) node;
-			try {
-				for (IVariable v : value.getVariables()) {
-					os.add(new DVVariablesImpl(v, this, n));
-				}
-			} catch (DebugException e) {
-				DebugVisualisationPlugin.getDefault().logError(e, "Can't list variables");
+		try {
+			for (IVariable v : node.getVariables()) {
+				os.add(factory.getVariable(v, this, n));
 			}
+		} catch (DebugException e) {
+			DebugVisualisationPlugin.getDefault().logError(e,
+					"Can't list variables");
 		}
 		return os;
 	}

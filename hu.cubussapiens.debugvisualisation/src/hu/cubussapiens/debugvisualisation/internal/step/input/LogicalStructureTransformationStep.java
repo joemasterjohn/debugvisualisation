@@ -7,8 +7,8 @@ import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
 import hu.cubussapiens.debugvisualisation.internal.api.ILogicalStructureAdapter;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.model.impl.AbstractKey;
-import hu.cubussapiens.debugvisualisation.internal.model.impl.DVVariablesImpl;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
@@ -35,9 +35,11 @@ public class LogicalStructureTransformationStep extends
 
 	/**
 	 * @param parent
+	 * @param factory
 	 */
-	public LogicalStructureTransformationStep(IRootedGraphContentProvider parent) {
-		super(parent);
+	public LogicalStructureTransformationStep(
+			IRootedGraphContentProvider parent, ViewModelFactory factory) {
+		super(parent, factory);
 	}
 
 	/*
@@ -96,7 +98,7 @@ public class LogicalStructureTransformationStep extends
 			List<IDVVariable> result = new ArrayList<IDVVariable>(
 					variables.length);
 			for (IVariable v : variables) {
-				result.add(new DVVariablesImpl(v, this, node));
+				result.add(factory.getVariable(v, this, node));
 			}
 			return result;
 

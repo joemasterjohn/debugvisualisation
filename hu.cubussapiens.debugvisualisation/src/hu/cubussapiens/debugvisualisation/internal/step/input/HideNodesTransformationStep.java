@@ -6,6 +6,7 @@ package hu.cubussapiens.debugvisualisation.internal.step.input;
 import hu.cubussapiens.debugvisualisation.internal.api.IHiddenNodes;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 
@@ -25,9 +26,11 @@ public class HideNodesTransformationStep extends
 
 	/**
 	 * @param parent
+	 * @param factory
 	 */
-	public HideNodesTransformationStep(IRootedGraphContentProvider parent) {
-		super(parent);
+	public HideNodesTransformationStep(IRootedGraphContentProvider parent,
+			ViewModelFactory factory) {
+		super(parent, factory);
 	}
 
 	public void hideNodes(Collection<IDVValue> nodes) {

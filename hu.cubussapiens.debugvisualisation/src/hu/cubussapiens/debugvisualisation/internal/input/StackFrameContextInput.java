@@ -5,12 +5,13 @@ package hu.cubussapiens.debugvisualisation.internal.input;
 
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.CacheTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.DigInTransformationStep;
-import hu.cubussapiens.debugvisualisation.internal.step.input.LogicalStructureTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.HideNodesTransformationStep;
+import hu.cubussapiens.debugvisualisation.internal.step.input.LogicalStructureTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.ParametersTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.ReferenceTrackerTransformationStep;
@@ -38,21 +39,20 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 	final ReferenceTrackerTransformationStep t4;
 
 	final IGraphTransformationStep last;
-
 	/**
 	 * 
 	 * @param sf
 	 */
 	public StackFrameContextInput(IStackFrame sf) {
-		super(null);
-		root = new StackFrameRootedGraphContentProvider(sf);
-		filter = new LogicalStructureTransformationStep(root);
-		rootcache = new CacheTransformationStep(filter);
-		t4 = new ReferenceTrackerTransformationStep(rootcache);
-		t0 = new DigInTransformationStep(t4);
-		t1 = new OpenCloseTransformationStep(t0);
-		t2 = new ParametersTransformationStep(t1);
-		t3 = new HideNodesTransformationStep(t2);
+		super(null, new ViewModelFactory());
+		root = new StackFrameRootedGraphContentProvider(sf, factory);
+		filter = new LogicalStructureTransformationStep(root, factory);
+		rootcache = new CacheTransformationStep(filter, factory);
+		t4 = new ReferenceTrackerTransformationStep(rootcache, factory);
+		t0 = new DigInTransformationStep(t4, factory);
+		t1 = new OpenCloseTransformationStep(t0, factory);
+		t2 = new ParametersTransformationStep(t1, factory);
+		t3 = new HideNodesTransformationStep(t2, factory);
 
 
 		last = t3;
