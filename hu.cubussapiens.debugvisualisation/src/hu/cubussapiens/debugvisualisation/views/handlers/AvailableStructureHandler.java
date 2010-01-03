@@ -23,6 +23,7 @@ public class AvailableStructureHandler extends AbstractGraphCommandHandler {
 				.getParameter("hu.cubussapiens.debugvisualisation.logicalstructure");
 		StructuredSelection selection = (StructuredSelection) HandlerUtil
 				.getCurrentSelection(event);
+		getInput().clearCache();
 		ILogicalStructureAdapter hidden = (ILogicalStructureAdapter) getInput()
 				.getAdapter(ILogicalStructureAdapter.class);
 		hidden.setLogicalStructure(selection.toList(), parameter);

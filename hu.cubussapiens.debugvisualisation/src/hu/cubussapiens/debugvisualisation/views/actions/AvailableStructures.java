@@ -66,7 +66,7 @@ public class AvailableStructures extends CompoundContributionItem implements
 		Map<String, String> parameters = new Hashtable<String, String>();
 		
 		parameters.put(parameterID,
-				"");
+				DebugVisualisationPlugin.LOGICALSTRUCTURE_RAW_ID);
 		parameter.parameters = parameters;
 		CommandContributionItem contribution = new CommandContributionItem(parameter);
 		list[0] = contribution;

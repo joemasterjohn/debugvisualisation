@@ -116,6 +116,7 @@ public class LogicalStructureTransformationStep extends
 		for (IDVValue value : nodes) {
 			value.setProperty(key, logicalStructure);
 		}
+		clearCache();
 		trigger(null);
 	}
 
