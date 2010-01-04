@@ -66,9 +66,6 @@ public class VariableSelectionSynchronizer implements IDisposable {
 			return;
 		try {
 			remoteLock = true;
-			GraphViewer gViewer = (GraphViewer) localSite
-					.getSelectionProvider();
-			Object[] arcs = gViewer.getConnectionElements();
 			Iterator<?> iterator = ((IStructuredSelection) selection)
 					.iterator();
 			IStructuredSelection remoteSelection;
@@ -86,17 +83,6 @@ public class VariableSelectionSynchronizer implements IDisposable {
 						} else if (val.getContainer() != null) {
 							remoteElements.add(val.getContainer());
 						}
-						// TODO this search can be quite slow
-						/*
-						 * for (Object arc : arcs) { try { if (arc instanceof
-						 * IDVVariable && ((IDVVariable) arc)
-						 * .getRelatedVariable() .getValue().equals(_val)) {
-						 * remoteElements.add(((IDVVariable) arc)
-						 * .getRelatedVariable()); break;// only the first
-						 * result will be // considered here } } catch
-						 * (DebugException e) { // TODO Auto-generated catch
-						 * block e.printStackTrace(); } }
-						 */
 					} else if (_val instanceof IDVVariable) {
 						remoteElements.add(((IDVVariable) _val)
 								.getRelatedVariable());
@@ -110,7 +96,7 @@ public class VariableSelectionSynchronizer implements IDisposable {
 						.getSelectionProvider();
 				remoteProvider.setSelection(remoteSelection);
 				oldRemoteSelection = remoteProvider.getSelection();
-
+				System.out.print("");
 			}
 		} finally {
 			remoteLock = false;
@@ -126,6 +112,8 @@ public class VariableSelectionSynchronizer implements IDisposable {
 	 *            the selection to convert
 	 */
 	public void convertSelectionToLocal(ISelection selection) {
+		if (!(selection instanceof IStructuredSelection))
+			return;
 		if (remoteLock || localLock)
 			return;
 		try {
@@ -134,25 +122,23 @@ public class VariableSelectionSynchronizer implements IDisposable {
 			ViewModelFactory factory = ((StackFrameContextInput) graphViewer
 					.getInput()).getFactory();
 			localLock = true;
-			// ArrayList<IValue> variables = new ArrayList<IValue>();
 			ArrayList<IDVValue> variables = new ArrayList<IDVValue>();
 			Iterator<?> iterator = ((IStructuredSelection) selection)
 					.iterator();
 			while (iterator.hasNext()) {
 				Object _var = iterator.next();
 				if (_var instanceof IVariable) {
-					// variables.add(((IVariable) _var).getValue());
 					IVariable var = (IVariable) _var;
 					variables.add(factory.getValue(var.getValue()));
 				}
 			}
 			IStructuredSelection localSelection = new StructuredSelection(
 					variables);
-			if (oldRemoteSelection == null
-					|| !oldRemoteSelection.equals(selection)) {
+			if (oldLocalSelection == null
+					|| !oldLocalSelection.equals(localSelection)) {
 				graphViewer.setSelection(localSelection);
 				graphViewer.refresh();
-				oldLocalSelection = selection;
+				oldLocalSelection = graphViewer.getSelection();
 			}
 		} catch (DebugException e) {
 			// TODO Auto-generated catch block
