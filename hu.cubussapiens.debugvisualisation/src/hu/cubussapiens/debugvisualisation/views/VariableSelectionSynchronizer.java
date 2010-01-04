@@ -3,12 +3,16 @@
  */
 package hu.cubussapiens.debugvisualisation.views;
 
+import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jface.viewers.ISelection;
@@ -74,24 +78,28 @@ public class VariableSelectionSynchronizer implements IDisposable {
 				List<IVariable> remoteElements = new ArrayList<IVariable>();
 				while (iterator.hasNext()) {
 					Object _val = iterator.next();
-					if (_val instanceof IValue) {
-						// TODO this search can be quite slow
-						for (Object arc : arcs) {
-							try {
-								if (arc instanceof IVariable
-										&& ((IVariable) arc).getValue().equals(
-												_val)) {
-									remoteElements.add((IVariable) arc);
-									break; // only the first result will be
-									// considered here
-								}
-							} catch (DebugException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+					if (_val instanceof IDVValue) {
+						IDVValue val = (IDVValue) _val;
+						if (val.getParent() != null) {
+							remoteElements.add(val.getParent()
+									.getRelatedVariable());
+						} else if (val.getContainer() != null) {
+							remoteElements.add(val.getContainer());
 						}
-					} else if (_val instanceof IVariable) {
-						remoteElements.add((IVariable) _val);
+						// TODO this search can be quite slow
+						/*
+						 * for (Object arc : arcs) { try { if (arc instanceof
+						 * IDVVariable && ((IDVVariable) arc)
+						 * .getRelatedVariable() .getValue().equals(_val)) {
+						 * remoteElements.add(((IDVVariable) arc)
+						 * .getRelatedVariable()); break;// only the first
+						 * result will be // considered here } } catch
+						 * (DebugException e) { // TODO Auto-generated catch
+						 * block e.printStackTrace(); } }
+						 */
+					} else if (_val instanceof IDVVariable) {
+						remoteElements.add(((IDVVariable) _val)
+								.getRelatedVariable());
 					}
 				}
 				remoteSelection = new StructuredSelection(remoteElements);
@@ -121,24 +129,29 @@ public class VariableSelectionSynchronizer implements IDisposable {
 		if (remoteLock || localLock)
 			return;
 		try {
+			GraphViewer graphViewer = (GraphViewer) localSite
+					.getSelectionProvider();
+			ViewModelFactory factory = ((StackFrameContextInput) graphViewer
+					.getInput()).getFactory();
 			localLock = true;
-			ArrayList<IValue> variables = new ArrayList<IValue>();
+			// ArrayList<IValue> variables = new ArrayList<IValue>();
+			ArrayList<IDVValue> variables = new ArrayList<IDVValue>();
 			Iterator<?> iterator = ((IStructuredSelection) selection)
 					.iterator();
 			while (iterator.hasNext()) {
 				Object _var = iterator.next();
 				if (_var instanceof IVariable) {
-					variables.add(((IVariable) _var).getValue());
+					// variables.add(((IVariable) _var).getValue());
+					IVariable var = (IVariable) _var;
+					variables.add(factory.getValue(var.getValue()));
 				}
 			}
 			IStructuredSelection localSelection = new StructuredSelection(
 					variables);
 			if (oldRemoteSelection == null
 					|| !oldRemoteSelection.equals(selection)) {
-				ISelectionProvider selectionProvider = localSite
-						.getSelectionProvider();
-				selectionProvider.setSelection(localSelection);
-				((GraphViewer) selectionProvider).refresh();
+				graphViewer.setSelection(localSelection);
+				graphViewer.refresh();
 				oldLocalSelection = selection;
 			}
 		} catch (DebugException e) {
@@ -166,7 +179,6 @@ public class VariableSelectionSynchronizer implements IDisposable {
 		IViewPart remoteView = activePage.findView(remoteID);
 		remoteSite = remoteView.getSite();
 		remoteSite.getPage().addSelectionListener(remoteID, remoteListener);
-
 	}
 
 	/*

@@ -24,6 +24,7 @@ public class ReferenceTrackerTransformationStep extends
 
 	/**
 	 * @param parent
+	 * @param factory
 	 */
 	public ReferenceTrackerTransformationStep(
 			IRootedGraphContentProvider parent, ViewModelFactory factory) {

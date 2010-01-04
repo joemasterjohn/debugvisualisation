@@ -205,6 +205,7 @@ public class DebugVisualisationView extends ViewPart implements
 
 		getSite().setSelectionProvider(graphViewer);
 		selectionSynchronizer = new VariableSelectionSynchronizer(getSite());
+
 	}
 
 	public void selectionChanged(SelectionChangedEvent event) {

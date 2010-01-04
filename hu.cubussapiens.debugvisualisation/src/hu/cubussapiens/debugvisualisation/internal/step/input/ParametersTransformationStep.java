@@ -38,11 +38,10 @@ public class ParametersTransformationStep extends
 		for (IDVVariable u : getParent().getEdges(node)) {
 			IValue o = (IValue) getParent().getEdgeTarget(u).getAdapter(
 					IValue.class);
-			if (o instanceof IValue)
-				if (ValueUtils.getID((IValue) o) == -1) {
-					if (!vars.contains(u))
-						vars.add(u);
-				}
+			if (ValueUtils.getID(o) == -1) {
+				if (!vars.contains(u))
+					vars.add(u);
+			}
 		}
 
 		return vars;
@@ -71,10 +70,8 @@ public class ParametersTransformationStep extends
 		for (IDVVariable u : getParent().getEdges(node)) {
 			IValue o = (IValue) getParent().getEdgeTarget(u).getAdapter(
 					IValue.class);
-			if (o instanceof IValue) {
-				if (ValueUtils.getID((IValue) o) != -1) {
-					result.add(u);
-				}
+			if (ValueUtils.getID(o) != -1) {
+				result.add(u);
 			}
 		}
 		return result;

@@ -86,6 +86,15 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 		return last.getEdges(node);
 	}
 
+	/**
+	 * Returns the view model factory object
+	 * 
+	 * @return the view model factory object
+	 */
+	public ViewModelFactory getFactory() {
+		return factory;
+	}
+
 	@Override
 	public void clearCache() {
 		last.clearCache();
