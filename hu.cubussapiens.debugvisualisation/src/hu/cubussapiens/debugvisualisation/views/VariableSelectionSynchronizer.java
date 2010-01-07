@@ -92,11 +92,14 @@ public class VariableSelectionSynchronizer implements IDisposable {
 			}
 			if (oldRemoteSelection == null
 					|| !oldRemoteSelection.equals(remoteSelection)) {
+				// without activating the remote site the variables view
+				// selection cannot be set
+				remoteSite.getPage().activate(remoteSite.getPart());
 				ISelectionProvider remoteProvider = remoteSite
 						.getSelectionProvider();
 				remoteProvider.setSelection(remoteSelection);
 				oldRemoteSelection = remoteProvider.getSelection();
-				System.out.print("");
+				localSite.getPage().activate(localSite.getPart());
 			}
 		} finally {
 			remoteLock = false;
