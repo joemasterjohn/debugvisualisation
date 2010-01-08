@@ -122,8 +122,11 @@ public class VariableSelectionSynchronizer implements IDisposable {
 		try {
 			GraphViewer graphViewer = (GraphViewer) localSite
 					.getSelectionProvider();
-			ViewModelFactory factory = ((StackFrameContextInput) graphViewer
-					.getInput()).getFactory();
+			Object input = graphViewer
+					.getInput();
+			if (input == null)
+				return;
+			ViewModelFactory factory = ((StackFrameContextInput) input).getFactory();
 			localLock = true;
 			ArrayList<IDVValue> variables = new ArrayList<IDVValue>();
 			Iterator<?> iterator = ((IStructuredSelection) selection)
