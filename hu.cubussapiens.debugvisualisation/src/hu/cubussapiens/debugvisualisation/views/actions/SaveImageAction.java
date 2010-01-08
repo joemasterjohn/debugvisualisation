@@ -35,12 +35,15 @@ public class SaveImageAction extends GraphAction {
 				.getActiveShell(), SWT.SAVE);
 		save.setFilterExtensions(new String[] { "*.png" });
 		save.setFilterNames(new String[] { "PNG File" });
+		save.setOverwrite(true);
 		DateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
 		Date date = new Date();
 
 		save.setFileName("Debug context (" + dateFormat.format(date) + ").png");
 		String filename = save.open();
-		((VisualisationGraphViewer) getViewer()).saveImage(filename,
-				SWT.IMAGE_PNG);
+		if (filename != null) {
+			((VisualisationGraphViewer) getViewer()).saveImage(filename,
+					SWT.IMAGE_PNG);
+		}
 	}
 }
