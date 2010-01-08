@@ -22,6 +22,7 @@ public class VisualisationGraph extends Graph {
 	private class ApplyLayoutJob extends Job {
 
 		Graph graph;
+		boolean cancelled;
 
 		public ApplyLayoutJob(String name) {
 			super(name);
@@ -43,6 +44,7 @@ public class VisualisationGraph extends Graph {
 		@Override
 		protected void canceling() {
 			super.canceling();
+			cancelled = true;
 			((IContinuableLayoutAlgorithm) graph.getLayoutAlgorithm()).cancel();
 		}
 
@@ -50,6 +52,7 @@ public class VisualisationGraph extends Graph {
 		protected IStatus run(IProgressMonitor monitor) {
 			IStatus status;
 			IContinuableLayoutAlgorithm algorithm;
+			cancelled = false;
 			// monitor.setTaskName();
 			int iteration = 0;
 			int maxIteration = 50;
@@ -57,10 +60,14 @@ public class VisualisationGraph extends Graph {
 					.beginTask(
 							"If layouting is cancelled the current state will be preserved.",
 							maxIteration);
-
+			if (!(graph.getLayoutAlgorithm() instanceof IContinuableLayoutAlgorithm)) {
+				applyLayout();
+				return Status.CANCEL_STATUS;
+			}
 			algorithm = (IContinuableLayoutAlgorithm) graph
 					.getLayoutAlgorithm();
-			while (!monitor.isCanceled()
+			while (!cancelled
+					&& !monitor.isCanceled()
 					&& !graph.isDisposed()
 					&& iteration < maxIteration
 					&& algorithm.needsRecall()
