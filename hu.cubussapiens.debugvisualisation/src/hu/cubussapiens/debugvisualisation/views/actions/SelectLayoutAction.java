@@ -1,6 +1,7 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.zestlayouts.LayoutRegistry.LayoutEntry;
 
 import java.util.Comparator;
@@ -68,11 +69,13 @@ public class SelectLayoutAction extends Action {
 			if (element1 instanceof IDVValue && element2 instanceof IDVValue) {
 				IDVValue value1 = (IDVValue) element1, value2 = (IDVValue) element2;
 				try {
-					String name1 = value1.getParent().getRelatedVariable()
-							.getName();
-					String name2 = value2.getParent().getRelatedVariable()
-							.getName();
-					return name1.compareTo(name2);
+					IDVVariable parent1 = value1.getParent();
+					IDVVariable parent2 = value2.getParent();
+					if (parent1 != null && parent2 != null) {
+						String name1 = parent1.getRelatedVariable().getName();
+						String name2 = parent2.getRelatedVariable().getName();
+						return name1.compareTo(name2);
+					}
 				} catch (DebugException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
