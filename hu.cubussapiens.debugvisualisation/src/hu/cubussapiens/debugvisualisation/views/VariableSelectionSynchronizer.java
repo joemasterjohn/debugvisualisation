@@ -62,6 +62,8 @@ public class VariableSelectionSynchronizer implements IDisposable {
 	 *            the selection to convert
 	 */
 	public void convertSelectionToRemote(ISelection selection) {
+		if (!(selection instanceof IStructuredSelection))
+			return;
 		if (remoteLock || localLock)
 			return;
 		try {
@@ -94,12 +96,12 @@ public class VariableSelectionSynchronizer implements IDisposable {
 					|| !oldRemoteSelection.equals(remoteSelection)) {
 				// without activating the remote site the variables view
 				// selection cannot be set
-				remoteSite.getPage().activate(remoteSite.getPart());
+				// remoteSite.getPage().activate(remoteSite.getPart());
 				ISelectionProvider remoteProvider = remoteSite
 						.getSelectionProvider();
 				remoteProvider.setSelection(remoteSelection);
 				oldRemoteSelection = remoteProvider.getSelection();
-				localSite.getPage().activate(localSite.getPart());
+				// localSite.getPage().activate(localSite.getPart());
 			}
 		} finally {
 			remoteLock = false;
@@ -167,7 +169,7 @@ public class VariableSelectionSynchronizer implements IDisposable {
 		remoteID = IDebugUIConstants.ID_VARIABLE_VIEW;
 		IWorkbenchPage activePage = site.getPage();
 		localSite = site;
-		localSite.getPage().addSelectionListener(localID, localListener);
+		localSite.getPage().addSelectionListener(localListener);
 		IViewPart remoteView = activePage.findView(remoteID);
 		remoteSite = remoteView.getSite();
 		remoteSite.getPage().addSelectionListener(remoteID, remoteListener);
