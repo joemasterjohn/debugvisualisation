@@ -14,9 +14,9 @@ import java.util.List;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IVariable;
+import org.eclipse.debug.internal.ui.views.variables.VariablesView;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.ISelectionListener;
@@ -97,10 +97,17 @@ public class VariableSelectionSynchronizer implements IDisposable {
 				// without activating the remote site the variables view
 				// selection cannot be set
 				// remoteSite.getPage().activate(remoteSite.getPart());
-				ISelectionProvider remoteProvider = remoteSite
-						.getSelectionProvider();
-				remoteProvider.setSelection(remoteSelection);
-				oldRemoteSelection = remoteProvider.getSelection();
+				// TODO find a way that does not expose the VariablesView
+				// internal class
+				VariablesView remoteView = (VariablesView) remoteSite.getPart();
+				remoteView.getViewer().setSelection(remoteSelection);
+				oldRemoteSelection = remoteView.getViewer().getSelection();
+				/*
+				 * ISelectionProvider remoteProvider = remoteSite
+				 * .getSelectionProvider();
+				 * remoteProvider.setSelection(remoteSelection);
+				 * oldRemoteSelection = remoteProvider.getSelection();
+				 */
 				// localSite.getPage().activate(localSite.getPart());
 			}
 		} finally {
