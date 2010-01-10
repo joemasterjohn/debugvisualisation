@@ -7,6 +7,8 @@ import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 
 import java.util.Collection;
 
+import org.eclipse.debug.core.model.IVariable;
+
 /**
  * Interface to enable the selection of the root nodes
  */
@@ -18,6 +20,13 @@ public interface IDigInNodes {
 	 * @param nodes
 	 */
 	public void digIn(Collection<IDVValue> nodes);
+
+	/**
+	 * Add the given variables as root to the visualization
+	 * 
+	 * @param variables
+	 */
+	public void addVariables(Collection<IVariable> variables);
 
 	/**
 	 * Show the real root elements

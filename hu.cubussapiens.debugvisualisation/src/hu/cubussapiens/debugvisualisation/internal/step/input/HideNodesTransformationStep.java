@@ -59,8 +59,13 @@ public class HideNodesTransformationStep extends
 	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
 	 */
 	public Collection<IDVValue> getRoots() {
-		// roots can't be hidden
-		return getParent().getRoots();
+		// roots can be hidden
+		Collection<IDVValue> proots = getParent().getRoots();
+		List<IDVValue> roots = new ArrayList<IDVValue>(proots.size());
+		for (IDVValue r : proots)
+			if (!hidden.contains(r))
+				roots.add(r);
+		return roots;
 	}
 
 	public IDVValue getEdgeTarget(IDVVariable edge) {

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.debug.core.model.IVariable;
+
 /**
  *
  */
@@ -64,6 +66,11 @@ public class DigInTransformationStep extends AbstractGraphTransformationStep
 
 	public Collection<IDVVariable> getEdges(IDVValue node) {
 		return getParent().getEdges(node);
+	}
+
+	public void addVariables(Collection<IVariable> variables) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
