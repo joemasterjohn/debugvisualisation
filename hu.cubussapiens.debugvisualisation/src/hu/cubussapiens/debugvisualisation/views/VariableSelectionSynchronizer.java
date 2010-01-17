@@ -7,6 +7,7 @@ import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
 import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
+import hu.cubussapiens.debugvisualisation.internal.model.impl.AbstractKey;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,6 +20,8 @@ import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreePath;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -36,6 +39,9 @@ public class VariableSelectionSynchronizer implements IDisposable {
 	String localID;
 	String remoteID;
 	IWorkbenchPartSite localSite, remoteSite;
+
+	private final String key = "treepathproperty";
+	AbstractKey<TreePath> treePathProperty = new AbstractKey<TreePath>(key);
 
 	private ISelectionListener remoteListener = new ISelectionListener() {
 
@@ -74,23 +80,23 @@ public class VariableSelectionSynchronizer implements IDisposable {
 			if (selection.isEmpty()) {
 				remoteSelection = (IStructuredSelection) selection;
 			} else {
-				List<IVariable> remoteElements = new ArrayList<IVariable>();
+				List<TreePath> treePaths = new ArrayList<TreePath>();
 				while (iterator.hasNext()) {
 					Object _val = iterator.next();
 					if (_val instanceof IDVValue) {
 						IDVValue val = (IDVValue) _val;
 						if (val.getParent() != null) {
-							remoteElements.add(val.getParent()
-									.getRelatedVariable());
+							treePaths.add(val.getParent().getProperty(treePathProperty));
 						} else if (val.getContainer() != null) {
-							remoteElements.add(val.getContainer());
+							treePaths.add(new TreePath(new Object[] { val
+									.getContainer() }));
 						}
 					} else if (_val instanceof IDVVariable) {
-						remoteElements.add(((IDVVariable) _val)
-								.getRelatedVariable());
+
+						treePaths.add(((IDVVariable)_val).getProperty(treePathProperty));
 					}
 				}
-				remoteSelection = new StructuredSelection(remoteElements);
+				remoteSelection = new TreeSelection(treePaths.toArray(new TreePath[treePaths.size()]));
 			}
 			if (oldRemoteSelection == null
 					|| !oldRemoteSelection.equals(remoteSelection)) {
