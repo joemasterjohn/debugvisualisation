@@ -1,12 +1,12 @@
 /**
  * 
  */
-package hu.cubussapiens.debugvisualisation.internal.model.impl;
+package hu.cubussapiens.debugvisualisation.internal.model;
 
-import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
-import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
+import hu.cubussapiens.debugvisualisation.viewmodel.util.ViewModelFactory;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IVariable;

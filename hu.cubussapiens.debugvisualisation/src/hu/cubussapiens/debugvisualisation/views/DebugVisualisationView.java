@@ -7,6 +7,7 @@ import hu.cubussapiens.debugvisualisation.internal.VariablesLabelProvider;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInputFactory;
 import hu.cubussapiens.debugvisualisation.internal.widgets.VisualisationGraphViewer;
+import hu.cubussapiens.debugvisualisation.layouts.LayoutManager;
 import hu.cubussapiens.debugvisualisation.views.actions.DigInAction;
 import hu.cubussapiens.debugvisualisation.views.actions.HideAction;
 import hu.cubussapiens.debugvisualisation.views.actions.RefreshLayoutAction;
@@ -15,7 +16,6 @@ import hu.cubussapiens.debugvisualisation.views.actions.SelectLayoutGroup;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowHiddenChildNodesAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowRootAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
-import hu.cubussapiens.zestlayouts.LayoutManager;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IStackFrame;

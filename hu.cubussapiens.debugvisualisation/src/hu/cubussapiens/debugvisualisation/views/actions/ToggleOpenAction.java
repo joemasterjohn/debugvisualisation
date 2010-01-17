@@ -1,7 +1,7 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
 import hu.cubussapiens.debugvisualisation.internal.api.IOpenCloseNodes;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 
 import org.eclipse.zest.core.viewers.GraphViewer;
 

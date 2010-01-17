@@ -4,10 +4,10 @@
 package hu.cubussapiens.debugvisualisation.views;
 
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
-import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
-import hu.cubussapiens.debugvisualisation.internal.model.impl.AbstractKey;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
+import hu.cubussapiens.debugvisualisation.viewmodel.util.AbstractKey;
+import hu.cubussapiens.debugvisualisation.viewmodel.util.ViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;

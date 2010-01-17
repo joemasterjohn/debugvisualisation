@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hu.cubussapiens.debugvisualisation.internal.model;
+package hu.cubussapiens.debugvisualisation.viewmodel;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IVariable;

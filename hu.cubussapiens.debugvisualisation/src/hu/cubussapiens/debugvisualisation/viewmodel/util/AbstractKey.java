@@ -1,9 +1,9 @@
 /**
  * 
  */
-package hu.cubussapiens.debugvisualisation.internal.model.impl;
+package hu.cubussapiens.debugvisualisation.viewmodel.util;
 
-import hu.cubussapiens.debugvisualisation.internal.model.IPropertyKey;
+import hu.cubussapiens.debugvisualisation.viewmodel.IPropertyKey;
 
 /**
  * @param <T>

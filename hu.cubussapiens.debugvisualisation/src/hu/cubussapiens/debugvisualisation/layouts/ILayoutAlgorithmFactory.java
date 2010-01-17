@@ -1,4 +1,4 @@
-package hu.cubussapiens.zestlayouts;
+package hu.cubussapiens.debugvisualisation.layouts;
 
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 

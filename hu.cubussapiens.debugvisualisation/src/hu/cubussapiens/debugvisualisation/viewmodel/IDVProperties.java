@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hu.cubussapiens.debugvisualisation.internal.model;
+package hu.cubussapiens.debugvisualisation.viewmodel;
 
 /**
  * Interface used for storing properties.

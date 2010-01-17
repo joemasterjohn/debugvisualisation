@@ -1,6 +1,6 @@
 package hu.cubussapiens.zestlayouts.simulatedcooling;
 
-import hu.cubussapiens.zestlayouts.IContinuableLayoutAlgorithm;
+import hu.cubussapiens.debugvisualisation.layouts.IContinuableLayoutAlgorithm;
 
 import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;

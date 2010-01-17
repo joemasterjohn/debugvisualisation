@@ -62,7 +62,7 @@
                   A Layout Factory class. It is used to instantiate a LayoutAlgorithm, and set its default parameters.
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":hu.cubussapiens.zestlayouts.ILayoutAlgorithmFactory"/>
+                  <meta.attribute kind="java" basedOn=":hu.cubussapiens.debugvisualisation.layouts.ILayoutAlgorithmFactory"/>
                </appinfo>
             </annotation>
          </attribute>

@@ -1,4 +1,4 @@
-package hu.cubussapiens.zestlayouts;
+package hu.cubussapiens.debugvisualisation.layouts;
 
 /**
  * This class stores constants about the extension points defined in this plugin

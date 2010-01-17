@@ -5,9 +5,9 @@ import hu.cubussapiens.debugvisualisation.internal.api.INodeParameters;
 import hu.cubussapiens.debugvisualisation.internal.api.IOpenCloseNodes;
 import hu.cubussapiens.debugvisualisation.internal.api.IReferenceTracker;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseNodeState;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
 
 import java.util.Collection;
 

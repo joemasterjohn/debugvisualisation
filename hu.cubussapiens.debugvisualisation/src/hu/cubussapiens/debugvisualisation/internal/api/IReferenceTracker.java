@@ -3,8 +3,8 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.api;
 
-import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
 
 import java.util.Collection;
 

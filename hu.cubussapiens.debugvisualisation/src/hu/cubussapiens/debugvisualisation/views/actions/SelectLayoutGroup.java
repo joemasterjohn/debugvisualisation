@@ -1,9 +1,11 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
-import hu.cubussapiens.zestlayouts.LayoutManager;
-import hu.cubussapiens.zestlayouts.LayoutRegistry.LayoutEntry;
+import hu.cubussapiens.debugvisualisation.layouts.LayoutManager;
+import hu.cubussapiens.debugvisualisation.layouts.LayoutRegistry.LayoutEntry;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;

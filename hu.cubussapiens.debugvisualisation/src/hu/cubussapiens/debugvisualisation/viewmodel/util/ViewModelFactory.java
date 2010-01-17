@@ -1,12 +1,13 @@
 /**
  * 
  */
-package hu.cubussapiens.debugvisualisation.internal.model;
+package hu.cubussapiens.debugvisualisation.viewmodel.util;
 
-import hu.cubussapiens.debugvisualisation.internal.model.impl.AbstractKey;
-import hu.cubussapiens.debugvisualisation.internal.model.impl.DVValueImpl;
-import hu.cubussapiens.debugvisualisation.internal.model.impl.DVVariablesImpl;
+import hu.cubussapiens.debugvisualisation.internal.model.DVValueImpl;
+import hu.cubussapiens.debugvisualisation.internal.model.DVVariablesImpl;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
 
 import java.util.Hashtable;
 

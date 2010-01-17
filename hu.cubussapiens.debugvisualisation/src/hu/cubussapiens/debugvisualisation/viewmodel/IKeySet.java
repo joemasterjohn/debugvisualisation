@@ -1,9 +1,9 @@
 /**
  * 
  */
-package hu.cubussapiens.debugvisualisation.internal.model;
+package hu.cubussapiens.debugvisualisation.viewmodel;
 
-import hu.cubussapiens.debugvisualisation.internal.model.impl.AbstractKey;
+import hu.cubussapiens.debugvisualisation.viewmodel.util.AbstractKey;
 
 /**
  *

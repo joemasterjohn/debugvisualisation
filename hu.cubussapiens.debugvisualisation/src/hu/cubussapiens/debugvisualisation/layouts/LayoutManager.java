@@ -1,6 +1,6 @@
-package hu.cubussapiens.zestlayouts;
+package hu.cubussapiens.debugvisualisation.layouts;
 
-import hu.cubussapiens.zestlayouts.LayoutRegistry.LayoutEntry;
+import hu.cubussapiens.debugvisualisation.layouts.LayoutRegistry.LayoutEntry;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;

@@ -1,6 +1,6 @@
 package hu.cubussapiens.debugvisualisation.internal.step;
 
-import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
+import hu.cubussapiens.debugvisualisation.viewmodel.util.ViewModelFactory;
 
 import java.util.HashSet;
 import java.util.Set;

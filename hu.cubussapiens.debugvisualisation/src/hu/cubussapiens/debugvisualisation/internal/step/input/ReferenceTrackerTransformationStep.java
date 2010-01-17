@@ -4,11 +4,11 @@
 package hu.cubussapiens.debugvisualisation.internal.step.input;
 
 import hu.cubussapiens.debugvisualisation.internal.api.IReferenceTracker;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
-import hu.cubussapiens.debugvisualisation.internal.model.ViewModelFactory;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
+import hu.cubussapiens.debugvisualisation.viewmodel.util.ViewModelFactory;
 
 import java.util.Collection;
 import java.util.HashMap;

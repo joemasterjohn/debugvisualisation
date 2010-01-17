@@ -1,4 +1,4 @@
-package hu.cubussapiens.zestlayouts;
+package hu.cubussapiens.debugvisualisation.layouts;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

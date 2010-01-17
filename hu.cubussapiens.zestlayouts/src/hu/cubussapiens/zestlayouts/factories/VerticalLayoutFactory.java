@@ -1,6 +1,7 @@
 package hu.cubussapiens.zestlayouts.factories;
 
-import hu.cubussapiens.zestlayouts.ILayoutAlgorithmFactory;
+import hu.cubussapiens.debugvisualisation.layouts.ILayoutAlgorithmFactory;
+
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.VerticalLayoutAlgorithm;

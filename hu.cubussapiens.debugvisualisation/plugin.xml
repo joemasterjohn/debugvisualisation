@@ -89,7 +89,7 @@
                         variable="selection">
                     <iterate>
                         <instanceof
-                              value="hu.cubussapiens.debugvisualisation.internal.model.IDVValue">
+                              value="hu.cubussapiens.debugvisualisation.viewmodel.IDVValue">
                         </instanceof>
                         <test
                               property="hu.cubussapiens.debugvisualisation.logicalstructure">
@@ -112,11 +112,11 @@
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="hu.cubussapiens.debugvisualisation.internal.model.util.LogicalStructuresTester"
+            class="hu.cubussapiens.debugvisualisation.viewmodel.util.LogicalStructuresTester"
             id="hu.cubussapiens.debugvisualisation.structureavailable"
             namespace="hu.cubussapiens.debugvisualisation"
             properties="logicalstructure"
-            type="hu.cubussapiens.debugvisualisation.internal.model.IDVValue">
+            type="hu.cubussapiens.debugvisualisation.viewmodel.IDVValue">
       </propertyTester>
    </extension>
 

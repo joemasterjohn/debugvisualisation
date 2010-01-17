@@ -10,9 +10,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.zest.layouts,
  org.eclipse.ui,
  org.eclipse.debug.ui,
- hu.cubussapiens.zestlayouts;bundle-version="0.1.0",
  org.eclipse.core.expressions
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Export-Package: hu.cubussapiens.debugvisualisation,
+ hu.cubussapiens.debugvisualisation.layouts,
+ hu.cubussapiens.debugvisualisation.viewmodel,
+ hu.cubussapiens.debugvisualisation.viewmodel.util,
  hu.cubussapiens.debugvisualisation.views

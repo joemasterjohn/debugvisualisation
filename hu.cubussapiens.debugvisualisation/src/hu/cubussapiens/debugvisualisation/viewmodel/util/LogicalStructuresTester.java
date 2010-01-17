@@ -1,9 +1,9 @@
 /**
  * 
  */
-package hu.cubussapiens.debugvisualisation.internal.model.util;
+package hu.cubussapiens.debugvisualisation.viewmodel.util;
 
-import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.debug.core.DebugPlugin;

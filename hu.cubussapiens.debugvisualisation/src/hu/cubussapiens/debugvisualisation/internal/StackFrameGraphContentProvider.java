@@ -4,10 +4,10 @@
 package hu.cubussapiens.debugvisualisation.internal;
 
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVValue;
-import hu.cubussapiens.debugvisualisation.internal.model.IDVVariable;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphChangeEvent;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphChangeListener;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
 
 import java.util.ArrayList;
 import java.util.Collection;

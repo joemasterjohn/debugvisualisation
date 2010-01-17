@@ -1,10 +1,10 @@
 /**
  * 
  */
-package hu.cubussapiens.debugvisualisation.internal.model.impl;
+package hu.cubussapiens.debugvisualisation.internal.model;
 
-import hu.cubussapiens.debugvisualisation.internal.model.IDVProperties;
-import hu.cubussapiens.debugvisualisation.internal.model.IPropertyKey;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVProperties;
+import hu.cubussapiens.debugvisualisation.viewmodel.IPropertyKey;
 
 import java.util.Hashtable;
 

@@ -3,7 +3,7 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.widgets;
 
-import hu.cubussapiens.zestlayouts.IContinuableLayoutAlgorithm;
+import hu.cubussapiens.debugvisualisation.layouts.IContinuableLayoutAlgorithm;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;

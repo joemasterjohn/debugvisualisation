@@ -1,6 +1,6 @@
 package hu.cubussapiens.zestlayouts.factories;
 
-import hu.cubussapiens.zestlayouts.ILayoutAlgorithmFactory;
+import hu.cubussapiens.debugvisualisation.layouts.ILayoutAlgorithmFactory;
 import hu.cubussapiens.zestlayouts.simulatedcooling.ICriteria;
 import hu.cubussapiens.zestlayouts.simulatedcooling.SimulatedCooling;
 import hu.cubussapiens.zestlayouts.simulatedcooling.criteria.ArcAngleDistribution;
