@@ -9,6 +9,11 @@ import org.eclipse.debug.core.DebugException;
 import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.layouts.LayoutEntity;
 
+/**
+ * A simple comparator for {@link GraphNode}s. If the GraphNodes represent
+ * {@link IDVValues}, it sorts them using the value names, otherwise does not
+ * provide ordering.
+ */
 public class ValueComparator implements Comparator {
 
 	public int compare(Object o1, Object o2) {

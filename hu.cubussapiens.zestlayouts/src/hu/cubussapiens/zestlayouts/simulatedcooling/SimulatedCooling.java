@@ -55,6 +55,7 @@ public class SimulatedCooling extends AbstractLayoutAlgorithm implements
 	 * Creates a simulated cooling algorithm.
 	 * @param styles
 	 * @param criterias
+	 * @param stopDifference 
 	 */
 	public SimulatedCooling(int styles, ICriteria[] criterias, double stopDifference) {
 		super(styles);
