@@ -3,6 +3,7 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.step.input;
 
+import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
 import hu.cubussapiens.debugvisualisation.internal.api.IDigInNodes;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IVariable;
 
 /**
@@ -69,8 +73,17 @@ public class DigInTransformationStep extends AbstractGraphTransformationStep
 	}
 
 	public void addVariables(Collection<IVariable> variables) {
-		// TODO Auto-generated method stub
-
+		for (IVariable v : variables) {
+			try {
+				roots.add(this.factory.getValue(v.getValue(), getParent(), v));
+			} catch (DebugException e) {
+				DebugVisualisationPlugin.getDefault().getLog().log(
+						new Status(IStatus.ERROR,
+								DebugVisualisationPlugin.PLUGIN_ID, e
+										.getMessage(), e));
+			}
+		}
+		trigger(null);
 	}
 
 }

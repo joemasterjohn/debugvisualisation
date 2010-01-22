@@ -20,7 +20,7 @@ public class ShowRootAction extends GraphAction {
 		super(viewer);
 		if (getInput() != null)
 			setEnabled(true);
-		setText("Show local context node");
+		setText("Show local context");
 		setImageDescriptor(DebugVisualisationPlugin.getDefault().getImageRegistry()
 				.getDescriptor(DebugVisualisationPlugin.icon_root));
 	}

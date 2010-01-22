@@ -1,5 +1,6 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
+import hu.cubussapiens.debugvisualisation.internal.api.IDigInNodes;
 import hu.cubussapiens.debugvisualisation.views.handlers.AbstractGraphCommandHandler;
 
 import java.util.ArrayList;
@@ -35,9 +36,9 @@ public class VisualiseVariableHandler extends AbstractGraphCommandHandler {
 			}
 		}
 
-		// TODO:
-		// get editor, transformation chain
-		// call DigIn transformation step .addVariables
+		IDigInNodes o = (IDigInNodes) getInput().getAdapter(IDigInNodes.class);
+
+		o.addVariables(variables);
 
 		return null;
 	}
