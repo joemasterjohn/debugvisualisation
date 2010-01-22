@@ -11,10 +11,10 @@ import org.eclipse.zest.layouts.LayoutEntity;
 
 /**
  * A simple comparator for {@link GraphNode}s. If the GraphNodes represent
- * {@link IDVValues}, it sorts them using the value names, otherwise does not
+ * {@link IDVValue}s, it sorts them using the value names, otherwise does not
  * provide ordering.
  */
-public class ValueComparator implements Comparator {
+public class ValueComparator implements Comparator<Object> {
 
 	public int compare(Object o1, Object o2) {
 		Object element1 = ((GraphNode) ((LayoutEntity) o1).getGraphData())
