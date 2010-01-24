@@ -11,9 +11,7 @@ import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
 import hu.cubussapiens.debugvisualisation.viewmodel.util.ViewModelFactory;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -26,7 +24,7 @@ import org.eclipse.debug.core.model.IVariable;
 public class DigInTransformationStep extends AbstractGraphTransformationStep
 		implements IDigInNodes {
 
-	private final List<IDVValue> roots = new ArrayList<IDVValue>();
+	private final Collection<IDVValue> roots;
 
 	/**
 	 * @param parent
@@ -35,6 +33,7 @@ public class DigInTransformationStep extends AbstractGraphTransformationStep
 	public DigInTransformationStep(IRootedGraphContentProvider parent,
 			ViewModelFactory factory) {
 		super(parent, factory);
+		roots = parent.getRoots();
 	}
 
 	@Override

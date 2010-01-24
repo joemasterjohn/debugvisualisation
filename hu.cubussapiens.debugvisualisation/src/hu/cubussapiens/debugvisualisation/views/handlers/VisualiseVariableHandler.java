@@ -1,7 +1,6 @@
-package hu.cubussapiens.debugvisualisation.views.actions;
+package hu.cubussapiens.debugvisualisation.views.handlers;
 
 import hu.cubussapiens.debugvisualisation.internal.api.IDigInNodes;
-import hu.cubussapiens.debugvisualisation.views.handlers.AbstractGraphCommandHandler;
 
 import java.util.ArrayList;
 import java.util.Iterator;

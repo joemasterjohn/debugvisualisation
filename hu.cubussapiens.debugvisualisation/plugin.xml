@@ -44,7 +44,7 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="hu.cubussapiens.debugvisualisation.views.actions.VisualiseVariableHandler"
+            class="hu.cubussapiens.debugvisualisation.views.handlers.VisualiseVariableHandler"
             commandId="hu.cubussapiens.debugvisualisation.visualisevariable">
          <enabledWhen>
             <with
