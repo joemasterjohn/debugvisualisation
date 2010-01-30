@@ -8,11 +8,10 @@ import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInputFactory;
 import hu.cubussapiens.debugvisualisation.internal.widgets.VisualisationGraphViewer;
 import hu.cubussapiens.debugvisualisation.layouts.LayoutManager;
-import hu.cubussapiens.debugvisualisation.views.actions.SetRootAction;
-import hu.cubussapiens.debugvisualisation.views.actions.HideAction;
 import hu.cubussapiens.debugvisualisation.views.actions.RefreshLayoutAction;
 import hu.cubussapiens.debugvisualisation.views.actions.SaveImageAction;
 import hu.cubussapiens.debugvisualisation.views.actions.SelectLayoutGroup;
+import hu.cubussapiens.debugvisualisation.views.actions.SetRootAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowHiddenChildNodesAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowRootAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
@@ -28,8 +27,6 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
@@ -87,10 +84,10 @@ public class DebugVisualisationView extends ViewPart implements
 	 */
 	IAction toggleOpen;
 
-	/**
+	/*
 	 * Hide selected nodes
 	 */
-	IAction hideNode;
+	// IAction hideNode;
 
 	/**
 	 * Show all hidden child nodes of the selected nodes
@@ -179,17 +176,17 @@ public class DebugVisualisationView extends ViewPart implements
 
 		});
 
-		graphViewer.getGraphControl().addKeyListener(new KeyAdapter() {
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if (e.keyCode == SWT.DEL || e.character == 8) {
-					hideNode.run();
-				}
-
-			}
-
-		});
+		// graphViewer.getGraphControl().addKeyListener(new KeyAdapter() {
+		//
+		// @Override
+		// public void keyReleased(KeyEvent e) {
+		// if (e.keyCode == SWT.DEL || e.character == 8) {
+		// hideNode.run();
+		// }
+		//
+		// }
+		//
+		// });
 
 		// listener for debug context
 		listener = new DebugContextListener(this);
@@ -221,7 +218,7 @@ public class DebugVisualisationView extends ViewPart implements
 				mm.createContextMenu(graphViewer.getGraphControl()));
 
 		mm.add(toggleOpen);
-		mm.add(hideNode);
+		// mm.add(hideNode);
 		mm.add(showChilds);
 		mm.add(new Separator());
 		mm.add(digIn);
@@ -256,7 +253,7 @@ public class DebugVisualisationView extends ViewPart implements
 	 */
 	private void initializeActions() {
 		toggleOpen = new ToggleOpenAction(graphViewer);
-		hideNode = new HideAction(graphViewer);
+		// hideNode = new HideAction(graphViewer);
 		showChilds = new ShowHiddenChildNodesAction(graphViewer);
 		refresh = new RefreshLayoutAction(graphViewer);
 		digIn = new SetRootAction(graphViewer);

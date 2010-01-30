@@ -25,7 +25,7 @@ public class SetRootAction extends GraphAction {
 	public void run() {
 		IRootControl dig = (IRootControl) getInput()
 				.getAdapter(IRootControl.class);
-		dig.digIn(getSelection().toList());
+		dig.setRoots(getSelection().toList());
 	}
 
 }

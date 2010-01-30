@@ -40,6 +40,16 @@
             id="hu.cubussapiens.debugvisualisation.visualisevariable"
             name="Add Variable to Visualisation">
       </command>
+      <command
+            categoryId="hu.cubussapiens.debugvisualisation.category"
+            id="hu.cubussapiens.debugvisualisation.command.hide"
+            name="Hide selection">
+      </command>
+      <command
+            categoryId="hu.cubussapiens.debugvisualisation.category"
+            id="hu.cubussapiens.debugvisualisation.command.clear"
+            name="Clear visualization">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -62,6 +72,14 @@
             class="hu.cubussapiens.debugvisualisation.views.handlers.AvailableStructureHandler"
             commandId="hu.cubussapiens.debugvisualisation.availablelogicalstructures">
       </handler>
+      <handler
+            class="hu.cubussapiens.debugvisualisation.views.handlers.HideNodeHandler"
+            commandId="hu.cubussapiens.debugvisualisation.command.hide">
+      </handler>
+      <handler
+            class="hu.cubussapiens.debugvisualisation.views.handlers.ClearVisualizationHandler"
+            commandId="hu.cubussapiens.debugvisualisation.command.clear">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -70,6 +88,18 @@
       </menuContribution>
       <menuContribution
             locationURI="popup:hu.cubussapiens.debugvisualisation.views.DebugVisualisationView">
+         <command
+               commandId="hu.cubussapiens.debugvisualisation.command.hide"
+               label="Hide selection"
+               style="push"
+               tooltip="Hide selected nodes">
+         </command>
+         <command
+               commandId="hu.cubussapiens.debugvisualisation.command.clear"
+               label="Clear visualization"
+               style="push"
+               tooltip="Remove all nodes from visualization">
+         </command>
          <menu
                label="Show Structure As">
             <dynamic

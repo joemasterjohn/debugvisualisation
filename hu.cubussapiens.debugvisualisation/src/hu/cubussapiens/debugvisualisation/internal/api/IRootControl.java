@@ -19,7 +19,7 @@ public interface IRootControl {
 	 * 
 	 * @param nodes
 	 */
-	public void digIn(Collection<IDVValue> nodes);
+	public void setRoots(Collection<IDVValue> nodes);
 
 	/**
 	 * Add the given variables as root to the visualization
@@ -37,5 +37,12 @@ public interface IRootControl {
 	 * Clear the root list
 	 */
 	public void clearVisualization();
+
+	/**
+	 * Remove the given nodes from the root list
+	 * 
+	 * @param nodes
+	 */
+	public void removeRoots(Collection<IDVValue> nodes);
 
 }

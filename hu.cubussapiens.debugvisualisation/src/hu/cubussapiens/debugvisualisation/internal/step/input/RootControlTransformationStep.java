@@ -43,7 +43,7 @@ public class RootControlTransformationStep extends AbstractGraphTransformationSt
 		return super.tryAdapter(adapter);
 	}
 
-	public void digIn(Collection<IDVValue> nodes) {
+	public void setRoots(Collection<IDVValue> nodes) {
 		roots.clear();
 		roots.addAll(nodes);
 		trigger(null);
@@ -88,7 +88,11 @@ public class RootControlTransformationStep extends AbstractGraphTransformationSt
 
 	public void clearVisualization() {
 		roots.clear();
-		// roots.addAll(getParent().getRoots());
+		trigger(null);
+	}
+
+	public void removeRoots(Collection<IDVValue> nodes) {
+		roots.removeAll(nodes);
 		trigger(null);
 	}
 
