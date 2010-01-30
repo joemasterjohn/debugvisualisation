@@ -4,7 +4,7 @@
 package hu.cubussapiens.debugvisualisation.views.actions;
 
 import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
-import hu.cubussapiens.debugvisualisation.internal.api.IDigInNodes;
+import hu.cubussapiens.debugvisualisation.internal.api.IRootControl;
 
 import org.eclipse.zest.core.viewers.GraphViewer;
 
@@ -27,8 +27,8 @@ public class ShowRootAction extends GraphAction {
 
 	@Override
 	public void run() {
-		IDigInNodes dig = (IDigInNodes) getInput()
-				.getAdapter(IDigInNodes.class);
+		IRootControl dig = (IRootControl) getInput()
+				.getAdapter(IRootControl.class);
 		dig.showRoot();
 	}
 

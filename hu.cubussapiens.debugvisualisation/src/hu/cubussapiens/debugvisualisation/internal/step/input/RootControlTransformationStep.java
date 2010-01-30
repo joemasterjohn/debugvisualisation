@@ -4,7 +4,7 @@
 package hu.cubussapiens.debugvisualisation.internal.step.input;
 
 import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
-import hu.cubussapiens.debugvisualisation.internal.api.IDigInNodes;
+import hu.cubussapiens.debugvisualisation.internal.api.IRootControl;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
@@ -21,8 +21,8 @@ import org.eclipse.debug.core.model.IVariable;
 /**
  *
  */
-public class DigInTransformationStep extends AbstractGraphTransformationStep
-		implements IDigInNodes {
+public class RootControlTransformationStep extends AbstractGraphTransformationStep
+		implements IRootControl {
 
 	private final Collection<IDVValue> roots;
 
@@ -30,7 +30,7 @@ public class DigInTransformationStep extends AbstractGraphTransformationStep
 	 * @param parent
 	 * @param factory
 	 */
-	public DigInTransformationStep(IRootedGraphContentProvider parent,
+	public RootControlTransformationStep(IRootedGraphContentProvider parent,
 			ViewModelFactory factory) {
 		super(parent, factory);
 		roots = parent.getRoots();
@@ -38,7 +38,7 @@ public class DigInTransformationStep extends AbstractGraphTransformationStep
 
 	@Override
 	protected Object tryAdapter(Class<?> adapter) {
-		if (IDigInNodes.class.equals(adapter))
+		if (IRootControl.class.equals(adapter))
 			return this;
 		return super.tryAdapter(adapter);
 	}
@@ -51,6 +51,7 @@ public class DigInTransformationStep extends AbstractGraphTransformationStep
 
 	public void showRoot() {
 		roots.clear();
+		roots.addAll(getParent().getRoots());
 		trigger(null);
 	}
 
@@ -58,8 +59,8 @@ public class DigInTransformationStep extends AbstractGraphTransformationStep
 	 * @see hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider#getRoots()
 	 */
 	public Collection<IDVValue> getRoots() {
-		if (roots.isEmpty())
-			return getParent().getRoots();
+		// if (roots.isEmpty())
+		// return getParent().getRoots();
 		return roots;
 	}
 
@@ -82,6 +83,12 @@ public class DigInTransformationStep extends AbstractGraphTransformationStep
 										.getMessage(), e));
 			}
 		}
+		trigger(null);
+	}
+
+	public void clearVisualization() {
+		roots.clear();
+		// roots.addAll(getParent().getRoots());
 		trigger(null);
 	}
 

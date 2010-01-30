@@ -8,7 +8,7 @@ import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInputFactory;
 import hu.cubussapiens.debugvisualisation.internal.widgets.VisualisationGraphViewer;
 import hu.cubussapiens.debugvisualisation.layouts.LayoutManager;
-import hu.cubussapiens.debugvisualisation.views.actions.DigInAction;
+import hu.cubussapiens.debugvisualisation.views.actions.SetRootAction;
 import hu.cubussapiens.debugvisualisation.views.actions.HideAction;
 import hu.cubussapiens.debugvisualisation.views.actions.RefreshLayoutAction;
 import hu.cubussapiens.debugvisualisation.views.actions.SaveImageAction;
@@ -259,7 +259,7 @@ public class DebugVisualisationView extends ViewPart implements
 		hideNode = new HideAction(graphViewer);
 		showChilds = new ShowHiddenChildNodesAction(graphViewer);
 		refresh = new RefreshLayoutAction(graphViewer);
-		digIn = new DigInAction(graphViewer);
+		digIn = new SetRootAction(graphViewer);
 		showRoot = new ShowRootAction(graphViewer);
 		group = new SelectLayoutGroup(layout, graphViewer);
 		zoom = new ZoomContributionViewItem(this);

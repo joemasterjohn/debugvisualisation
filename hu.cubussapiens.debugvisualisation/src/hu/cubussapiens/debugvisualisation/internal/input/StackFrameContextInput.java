@@ -6,7 +6,7 @@ package hu.cubussapiens.debugvisualisation.internal.input;
 import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.IGraphTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.CacheTransformationStep;
-import hu.cubussapiens.debugvisualisation.internal.step.input.DigInTransformationStep;
+import hu.cubussapiens.debugvisualisation.internal.step.input.RootControlTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.HideNodesTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.LogicalStructureTransformationStep;
 import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseTransformationStep;
@@ -32,7 +32,7 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 
 	final LogicalStructureTransformationStep filter;
 	final CacheTransformationStep rootcache;
-	final DigInTransformationStep t0;
+	final RootControlTransformationStep t0;
 	final OpenCloseTransformationStep t1;
 	final ParametersTransformationStep t2;
 	final HideNodesTransformationStep t3;
@@ -49,7 +49,7 @@ public class StackFrameContextInput extends AbstractGraphTransformationStep {
 		filter = new LogicalStructureTransformationStep(root, factory);
 		rootcache = new CacheTransformationStep(filter, factory);
 		t4 = new ReferenceTrackerTransformationStep(rootcache, factory);
-		t0 = new DigInTransformationStep(t4, factory);
+		t0 = new RootControlTransformationStep(t4, factory);
 		t1 = new OpenCloseTransformationStep(t0, factory);
 		t2 = new ParametersTransformationStep(t1, factory);
 		t3 = new HideNodesTransformationStep(t2, factory);

@@ -1,6 +1,6 @@
 package hu.cubussapiens.debugvisualisation.views.handlers;
 
-import hu.cubussapiens.debugvisualisation.internal.api.IDigInNodes;
+import hu.cubussapiens.debugvisualisation.internal.api.IRootControl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,7 +35,7 @@ public class VisualiseVariableHandler extends AbstractGraphCommandHandler {
 			}
 		}
 
-		IDigInNodes o = (IDigInNodes) getInput().getAdapter(IDigInNodes.class);
+		IRootControl o = (IRootControl) getInput().getAdapter(IRootControl.class);
 
 		o.addVariables(variables);
 

@@ -12,7 +12,7 @@ import org.eclipse.debug.core.model.IVariable;
 /**
  * Interface to enable the selection of the root nodes
  */
-public interface IDigInNodes {
+public interface IRootControl {
 
 	/**
 	 * Set the given collection nodes to be the root nodes of the graph
@@ -32,5 +32,10 @@ public interface IDigInNodes {
 	 * Show the real root elements
 	 */
 	public void showRoot();
+
+	/**
+	 * Clear the root list
+	 */
+	public void clearVisualization();
 
 }
