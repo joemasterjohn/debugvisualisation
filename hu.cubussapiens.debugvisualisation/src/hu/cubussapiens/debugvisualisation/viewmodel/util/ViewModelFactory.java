@@ -9,6 +9,7 @@ import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvi
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
 
+import java.lang.ref.WeakReference;
 import java.util.Hashtable;
 
 import org.eclipse.debug.core.model.IValue;
@@ -20,8 +21,8 @@ import org.eclipse.jface.viewers.TreePath;
  */
 public class ViewModelFactory {
 
-	private Hashtable<IValue, IDVValue> values = new Hashtable<IValue, IDVValue>();
-	private Hashtable<IVariable, IDVVariable> variables = new Hashtable<IVariable, IDVVariable>();
+	private Hashtable<IValue, WeakReference<IDVValue>> values = new Hashtable<IValue, WeakReference<IDVValue>>();
+	private Hashtable<IVariable, WeakReference<IDVVariable>> variables = new Hashtable<IVariable, WeakReference<IDVVariable>>();
 	private final String key = "treepathproperty";
 	AbstractKey<TreePath> treePathProperty = new AbstractKey<TreePath>(key);
 
@@ -39,13 +40,15 @@ public class ViewModelFactory {
 			IDVVariable parent) {
 		IDVValue newValue;
 		if (values.containsKey(value)) {
-			newValue = values.get(value);
-		} else {
-			newValue = new DVValueImpl(value, graph, parent);
-			TreePath path = parent.getProperty(treePathProperty);
-			newValue.setProperty(treePathProperty, path);
-			values.put(value, newValue);
+			newValue = getValue(value);
+			if (newValue != null)
+				return newValue;
 		}
+		newValue = new DVValueImpl(value, graph, parent);
+		TreePath path = parent.getProperty(treePathProperty);
+		newValue.setProperty(treePathProperty, path);
+		values.put(value, new WeakReference<IDVValue>(newValue));
+
 		return newValue;
 	}
 
@@ -63,13 +66,14 @@ public class ViewModelFactory {
 			IVariable container) {
 		IDVValue newValue;
 		if (values.containsKey(value)) {
-			newValue = values.get(value);
-		} else {
-			newValue = new DVValueImpl(value, graph, container);
-			TreePath path = new TreePath(new Object[] { container });
-			newValue.setProperty(treePathProperty, path);
-			values.put(value, newValue);
+			newValue = getValue(value);
+			if (newValue != null)
+				return newValue;
 		}
+		newValue = new DVValueImpl(value, graph, container);
+		TreePath path = new TreePath(new Object[] { container });
+		newValue.setProperty(treePathProperty, path);
+		values.put(value, new WeakReference<IDVValue>(newValue));
 		return newValue;
 	}
 
@@ -82,7 +86,13 @@ public class ViewModelFactory {
 	 *         otherwise
 	 */
 	public IDVValue getValue(IValue value) {
-		return values.get(value);
+		WeakReference<IDVValue> ref = values.get(value);
+		if (ref == null)
+			return null;
+		IDVValue v = ref.get();
+		if (v == null)
+			values.remove(value);
+		return v;
 	}
 
 	/**
@@ -98,10 +108,13 @@ public class ViewModelFactory {
 			IRootedGraphContentProvider graph, IDVValue parent) {
 		IDVVariable newVariable;
 		if (variables.containsKey(variable)) {
-			newVariable = variables.get(variable);
-		} else {
+			newVariable = getVariable(variable);
+			if (newVariable != null)
+				return newVariable;
+		} 
 			newVariable = new DVVariablesImpl(variable, graph, parent);
-			variables.put(variable, newVariable);
+			variables
+					.put(variable, new WeakReference<IDVVariable>(newVariable));
 			TreePath path;
 			if (parent != null) {
 				TreePath parentPath = parent.getProperty(
@@ -111,7 +124,7 @@ public class ViewModelFactory {
 				path = new TreePath(new Object[] { variable });
 			}
 			newVariable.setProperty(treePathProperty, path);
-		}
+		
 		return newVariable;
 	}
 
@@ -124,6 +137,30 @@ public class ViewModelFactory {
 	 *         otherwise.
 	 */
 	public IDVVariable getVariable(IVariable variable) {
-		return variables.get(variable);
+		WeakReference<IDVVariable> ref = variables.get(variable);
+		if (ref == null)
+			return null;
+		IDVVariable v = ref.get();
+		if (v == null)
+			variables.remove(variable);
+		return v;
+	}
+
+	/**
+	 * Tells this factory that an element is finalized (removed by the GC)
+	 * 
+	 * @param value
+	 */
+	public void finalize(IValue value) {
+		values.remove(value);
+	}
+
+	/**
+	 * Tells this factory that an element is finalized (removed by the GC)
+	 * 
+	 * @param variable
+	 */
+	public void finalize(IVariable variable) {
+		variables.remove(variable);
 	}
 }

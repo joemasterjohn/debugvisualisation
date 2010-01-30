@@ -92,4 +92,8 @@ public class StackFrameRootedGraphContentProvider implements
 
 	}
 
+	public ViewModelFactory getViewModelFactory() {
+		return factory;
+	}
+
 }

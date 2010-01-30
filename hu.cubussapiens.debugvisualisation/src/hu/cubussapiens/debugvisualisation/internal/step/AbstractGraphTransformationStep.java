@@ -18,6 +18,10 @@ public abstract class AbstractGraphTransformationStep implements
 	private final IRootedGraphContentProvider parent;
 	protected final ViewModelFactory factory;
 
+	public ViewModelFactory getViewModelFactory() {
+		return factory;
+	}
+
 	/**
 	 * 
 	 * @param parent

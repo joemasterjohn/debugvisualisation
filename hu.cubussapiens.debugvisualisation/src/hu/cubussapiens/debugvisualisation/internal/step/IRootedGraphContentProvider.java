@@ -5,6 +5,7 @@ package hu.cubussapiens.debugvisualisation.internal.step;
 
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
+import hu.cubussapiens.debugvisualisation.viewmodel.util.ViewModelFactory;
 
 import java.util.Collection;
 
@@ -45,4 +46,11 @@ public interface IRootedGraphContentProvider extends IAdaptable {
 	 * Clear all cached data
 	 */
 	public void clearCache();
+
+	/**
+	 * Get the factory which handles view model elements
+	 * 
+	 * @return the view model factory
+	 */
+	public ViewModelFactory getViewModelFactory();
 }

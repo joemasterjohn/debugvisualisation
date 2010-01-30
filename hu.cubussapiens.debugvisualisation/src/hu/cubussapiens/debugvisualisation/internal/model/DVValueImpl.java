@@ -124,4 +124,10 @@ public class DVValueImpl extends DVProperties implements IDVValue {
 	public IValue getRelatedValue() {
 		return value;
 	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		graph.getViewModelFactory().finalize(value);
+		super.finalize();
+	}
 }

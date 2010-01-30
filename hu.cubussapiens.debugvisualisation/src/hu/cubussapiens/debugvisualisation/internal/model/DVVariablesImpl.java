@@ -86,4 +86,10 @@ public class DVVariablesImpl extends DVProperties implements IDVVariable {
 	public IVariable getRelatedVariable() {
 		return variable;
 	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		graph.getViewModelFactory().finalize(variable);
+		super.finalize();
+	}
 }
