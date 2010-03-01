@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<md:billOfMaterials xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:md="http://www.eclipse.org/buckminster/MetaData-1.0" topNodeId="c4c54ef9-f5ec-343c-987c-b931057ae317" componentQueryId="d319826a-e173-3b83-8ef1-4ff9d8a9f263" timestamp="2010-02-28T21:28:00.185+0000">
-    <md:idwrapper id="d319826a-e173-3b83-8ef1-4ff9d8a9f263">
-        <md:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="file:/home/meres/workspace/hu.cubussapiens.debugvisualisation.build/debugvisualisation.rmap" properties="file:/home/meres/workspace/hu.cubussapiens.debugvisualisation.build/buckminster.properties">
+<md:billOfMaterials xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:md="http://www.eclipse.org/buckminster/MetaData-1.0" topNodeId="fdc9b7dc-9106-3c51-bf97-8a15dbe7dde4" componentQueryId="5178098e-b047-34d6-9d1c-74b5395d4de4" timestamp="2010-03-01T13:37:40.787+0000">
+    <md:idwrapper id="5178098e-b047-34d6-9d1c-74b5395d4de4">
+        <md:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="http://debugvisualisation.googlecode.com/svn/trunk/hu.cubussapiens.debugvisualisation.build/debugvisualisation.rmap" properties="http://debugvisualisation.googlecode.com/svn/trunk/hu.cubussapiens.debugvisualisation.build/buckminster.properties">
             <cq:rootRequest name="hu.cubussapiens.debugvisualisation.feature" componentType="eclipse.feature"/>
         </md:componentQuery>
     </md:idwrapper>
-    <md:idwrapper id="751fe628-4656-3aea-bbd3-30dbb06f3452">
-        <md:provider readerType="local" componentTypes="eclipse.feature" mutable="false" source="false">
-            <rm:uri xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0" format="file:/home/meres/workspace/features/{0}/">
+    <md:idwrapper id="aa3a72de-ad16-3c42-8e41-e93e155a8c1d">
+        <md:provider readerType="svn" componentTypes="eclipse.feature,osgi.bundle,buckminster" mutable="true" source="true">
+            <rm:uri xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0" format="http://debugvisualisation.googlecode.com/svn/trunk/{0}">
                 <com:propertyRef xmlns:com="http://www.eclipse.org/buckminster/Common-1.0" key="buckminster.component"/>
             </rm:uri>
         </md:provider>
@@ -209,18 +209,11 @@
             </cs:groups>
         </md:cspec>
     </md:idwrapper>
-    <md:idwrapper id="63837511-5823-33ed-8959-e73bfea365f3">
-        <md:resolution cspecId="51522e82-5ff5-30b9-9065-7201f21e0788" materializable="false" providerId="751fe628-4656-3aea-bbd3-30dbb06f3452" repository="file:/home/meres/workspace/features/hu.cubussapiens.debugvisualisation.feature/" componentType="eclipse.feature">
+    <md:idwrapper id="8ac86771-05f2-3b08-960a-4fbb40abd228">
+        <md:resolution cspecId="51522e82-5ff5-30b9-9065-7201f21e0788" materializable="true" providerId="aa3a72de-ad16-3c42-8e41-e93e155a8c1d" repository="http://debugvisualisation.googlecode.com/svn/trunk/hu.cubussapiens.debugvisualisation.feature" componentType="eclipse.feature">
             <md:request name="hu.cubussapiens.debugvisualisation.feature" componentType="eclipse.feature"/>
             <md:versionMatch version="0.7.2.qualifier"/>
         </md:resolution>
-    </md:idwrapper>
-    <md:idwrapper id="f50fda08-4cd2-385c-a63c-f3bd2366bc83">
-        <md:provider readerType="local" componentTypes="osgi.bundle" mutable="false" source="false">
-            <rm:uri xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0" format="file:/home/meres/workspace/plugins/{0}/">
-                <com:propertyRef xmlns:com="http://www.eclipse.org/buckminster/Common-1.0" key="buckminster.component"/>
-            </rm:uri>
-        </md:provider>
     </md:idwrapper>
     <md:idwrapper id="2a354a83-d617-3328-a13d-1c8f7c6dc133">
         <md:cspec name="hu.cubussapiens.zestlayouts" componentType="osgi.bundle" version="0.7.2.qualifier" shortDesc="Zest Layouts Plug-in">
@@ -375,8 +368,8 @@
             </cs:groups>
         </md:cspec>
     </md:idwrapper>
-    <md:idwrapper id="f23ad365-5d9f-359a-ba9f-062abd63caaa">
-        <md:resolution cspecId="2a354a83-d617-3328-a13d-1c8f7c6dc133" materializable="false" providerId="f50fda08-4cd2-385c-a63c-f3bd2366bc83" repository="file:/home/meres/workspace/plugins/hu.cubussapiens.zestlayouts/" componentType="osgi.bundle">
+    <md:idwrapper id="9e54c02c-06a7-33d0-93df-42ed160056f2">
+        <md:resolution cspecId="2a354a83-d617-3328-a13d-1c8f7c6dc133" materializable="true" providerId="aa3a72de-ad16-3c42-8e41-e93e155a8c1d" repository="http://debugvisualisation.googlecode.com/svn/trunk/hu.cubussapiens.zestlayouts" componentType="osgi.bundle">
             <md:request name="hu.cubussapiens.zestlayouts" componentType="osgi.bundle"/>
             <md:versionMatch version="0.7.2.qualifier"/>
         </md:resolution>
@@ -546,8 +539,8 @@
             </cs:groups>
         </md:cspec>
     </md:idwrapper>
-    <md:idwrapper id="b5bedef2-307b-3e5b-aa22-4802ae3d9fb6">
-        <md:resolution cspecId="a9ae7f2d-3a9c-35a3-8311-b786ea8b2060" materializable="false" providerId="f50fda08-4cd2-385c-a63c-f3bd2366bc83" repository="file:/home/meres/workspace/plugins/hu.cubussapiens.debugvisualisation/" componentType="osgi.bundle">
+    <md:idwrapper id="8f0d5eea-1dbc-311e-a0e7-f9bb87257a7a">
+        <md:resolution cspecId="a9ae7f2d-3a9c-35a3-8311-b786ea8b2060" materializable="true" providerId="aa3a72de-ad16-3c42-8e41-e93e155a8c1d" repository="http://debugvisualisation.googlecode.com/svn/trunk/hu.cubussapiens.debugvisualisation" componentType="osgi.bundle">
             <md:request name="hu.cubussapiens.debugvisualisation" componentType="osgi.bundle"/>
             <md:versionMatch version="0.7.2.qualifier"/>
         </md:resolution>
@@ -959,9 +952,9 @@
             </cs:groups>
         </md:cspec>
     </md:idwrapper>
-    <md:idwrapper id="644bf628-fb4e-331c-b063-33b14e51b2c1">
+    <md:idwrapper id="2212883c-ecfa-3915-af0d-3e1ea47be8cb">
         <md:resolution cspecId="78b237a8-82c7-3b37-acef-b8258a572379" materializable="false" providerId="65c1b268-e321-3b45-b1cc-79f9c8a2a85b" repository="plugin/org.eclipse.zest.layouts" componentType="osgi.bundle">
-            <md:request name="org.eclipse.zest.layouts" componentType="osgi.bundle" versionDesignator="[1.0.0,1.2.0)"/>
+            <md:request name="org.eclipse.zest.layouts" componentType="osgi.bundle"/>
             <md:versionMatch version="1.1.0.v20090504-1850"/>
         </md:resolution>
     </md:idwrapper>
@@ -1038,14 +1031,14 @@
             </cs:groups>
         </md:cspec>
     </md:idwrapper>
-    <md:idwrapper id="c7424490-d3b3-338f-9363-276e084e4768">
+    <md:idwrapper id="8b36c27b-e856-3fee-9d53-e3d8bfe29764">
         <md:resolution cspecId="af02ffec-c5f7-3e3a-8c6e-fe134c151c64" materializable="false" providerId="65c1b268-e321-3b45-b1cc-79f9c8a2a85b" repository="plugin/org.eclipse.swt" componentType="osgi.bundle">
-            <md:request name="org.eclipse.swt" componentType="osgi.bundle"/>
+            <md:request name="org.eclipse.swt" componentType="osgi.bundle" versionDesignator="[3.5.0,4.0.0)"/>
             <md:versionMatch version="3.5.1.v3555a"/>
         </md:resolution>
     </md:idwrapper>
-    <md:idwrapper id="d64a6d76-7707-3e54-91a7-80e896e83bf7">
-        <md:resolvedNode resolutionId="c7424490-d3b3-338f-9363-276e084e4768">
+    <md:idwrapper id="38587409-765e-3e29-a1b1-12114e732c15">
+        <md:resolvedNode resolutionId="8b36c27b-e856-3fee-9d53-e3d8bfe29764">
             <md:child refId="a3bd7d79-4124-376f-946a-16d934e94446"/>
         </md:resolvedNode>
     </md:idwrapper>
@@ -1091,10 +1084,10 @@
             <md:child refId="49bea65e-b0a2-33e9-ae8f-1a6c42101bd2"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="193149cc-8eb6-3a9b-bb52-770d11c20c25">
+    <md:idwrapper id="3bddf3b6-240c-3d28-9042-a9b55a74c7fa">
         <md:resolvedNode resolutionId="ee363a18-4d2a-3ccb-8e5c-70c82474bb7b">
             <md:child refId="49bea65e-b0a2-33e9-ae8f-1a6c42101bd2"/>
-            <md:child refId="d64a6d76-7707-3e54-91a7-80e896e83bf7"/>
+            <md:child refId="38587409-765e-3e29-a1b1-12114e732c15"/>
             <md:child refId="3a95d102-d4fc-3c10-a0a1-c7d9a9bd44d2"/>
         </md:resolvedNode>
     </md:idwrapper>
@@ -1136,17 +1129,17 @@
             <md:versionMatch version="3.5.2.v20091126-1908"/>
         </md:resolution>
     </md:idwrapper>
-    <md:idwrapper id="5cb72865-c59b-31be-a70a-1d2e5dade3d2">
+    <md:idwrapper id="0e403016-7a50-3892-9f7a-ab09d4c008be">
         <md:resolvedNode resolutionId="8fc830cb-b0e2-3986-b31c-3330ecca8162">
-            <md:child refId="d64a6d76-7707-3e54-91a7-80e896e83bf7"/>
+            <md:child refId="38587409-765e-3e29-a1b1-12114e732c15"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="8e2b882e-b722-38ec-bd9a-6386a977da17">
-        <md:resolvedNode resolutionId="644bf628-fb4e-331c-b063-33b14e51b2c1">
+    <md:idwrapper id="dab80996-0f50-3d0f-8fb7-ed60d4fb56dd">
+        <md:resolvedNode resolutionId="2212883c-ecfa-3915-af0d-3e1ea47be8cb">
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
-            <md:child refId="193149cc-8eb6-3a9b-bb52-770d11c20c25"/>
-            <md:child refId="5cb72865-c59b-31be-a70a-1d2e5dade3d2"/>
-            <md:child refId="d64a6d76-7707-3e54-91a7-80e896e83bf7"/>
+            <md:child refId="3bddf3b6-240c-3d28-9042-a9b55a74c7fa"/>
+            <md:child refId="0e403016-7a50-3892-9f7a-ab09d4c008be"/>
+            <md:child refId="38587409-765e-3e29-a1b1-12114e732c15"/>
         </md:resolvedNode>
     </md:idwrapper>
     <md:idwrapper id="22c815da-abe5-321d-bfaf-8036853d4276">
@@ -1185,9 +1178,9 @@
             </cs:groups>
         </md:cspec>
     </md:idwrapper>
-    <md:idwrapper id="6a49c929-9bd5-363b-a8c5-9ea1112745b2">
+    <md:idwrapper id="9b55a848-35af-3542-8e47-ea8e692831f6">
         <md:resolution cspecId="22c815da-abe5-321d-bfaf-8036853d4276" materializable="false" providerId="65c1b268-e321-3b45-b1cc-79f9c8a2a85b" repository="plugin/org.eclipse.zest.core" componentType="osgi.bundle">
-            <md:request name="org.eclipse.zest.core" componentType="osgi.bundle" versionDesignator="[1.0.0,1.2.0)"/>
+            <md:request name="org.eclipse.zest.core" componentType="osgi.bundle"/>
             <md:versionMatch version="1.1.0.v20090504-1850"/>
         </md:resolution>
     </md:idwrapper>
@@ -1473,14 +1466,14 @@
             <md:child refId="f2656ff1-eb61-36ab-b293-12c1fd979ca7"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="c2b857be-1ee9-35ad-b34c-9893891af229">
+    <md:idwrapper id="027af035-bdde-3763-a5a8-4d2bbabc0218">
         <md:resolvedNode resolutionId="a1849f92-3cd5-3f22-91ea-5fabcdb2c4b2">
             <md:child refId="49bea65e-b0a2-33e9-ae8f-1a6c42101bd2"/>
             <md:child refId="908c7bc2-61a2-3ef6-a6e7-0748c5698d76"/>
             <md:child refId="bbf3868e-24f2-3797-9ac2-6e7ed7e31b00"/>
-            <md:child refId="193149cc-8eb6-3a9b-bb52-770d11c20c25"/>
+            <md:child refId="3bddf3b6-240c-3d28-9042-a9b55a74c7fa"/>
             <md:child refId="f2656ff1-eb61-36ab-b293-12c1fd979ca7"/>
-            <md:child refId="d64a6d76-7707-3e54-91a7-80e896e83bf7"/>
+            <md:child refId="38587409-765e-3e29-a1b1-12114e732c15"/>
         </md:resolvedNode>
     </md:idwrapper>
     <md:idwrapper id="6fcc38b0-15bd-3069-bf6f-de86cc66e7df">
@@ -1559,44 +1552,44 @@
             </cs:groups>
         </md:cspec>
     </md:idwrapper>
-    <md:idwrapper id="f1037d93-44b8-3215-a42f-669f2344dc9d">
+    <md:idwrapper id="d112c038-5e3e-35c3-87f1-1a5e4f1104aa">
         <md:resolution cspecId="448f0bbb-7a12-34cc-9d02-3422207bcdc9" materializable="false" providerId="65c1b268-e321-3b45-b1cc-79f9c8a2a85b" repository="plugin/org.eclipse.help" componentType="osgi.bundle">
-            <md:request name="org.eclipse.help" componentType="osgi.bundle" versionDesignator="[3.2.0,4.0.0)"/>
+            <md:request name="org.eclipse.help" componentType="osgi.bundle" versionDesignator="[3.4.0,4.0.0)"/>
             <md:versionMatch version="3.4.1.v20090805_35x"/>
         </md:resolution>
     </md:idwrapper>
-    <md:idwrapper id="d49a82db-c04c-375a-a55d-6fd9cf5e3a2d">
-        <md:resolvedNode resolutionId="f1037d93-44b8-3215-a42f-669f2344dc9d">
+    <md:idwrapper id="92fd30a6-8475-3412-bbd4-9bf4bd40e2a7">
+        <md:resolvedNode resolutionId="d112c038-5e3e-35c3-87f1-1a5e4f1104aa">
             <md:child refId="1ca926a1-12fa-34b5-97a7-00a1e5034c1f"/>
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="65adca79-ba9a-3c8f-aeff-9b224e7f1eda">
+    <md:idwrapper id="d3cea852-8d5a-3742-929d-cd34ee042bd3">
         <md:resolvedNode resolutionId="cb8bc1ce-38f6-33e6-9e36-096e4cf80d50">
-            <md:child refId="d64a6d76-7707-3e54-91a7-80e896e83bf7"/>
+            <md:child refId="38587409-765e-3e29-a1b1-12114e732c15"/>
             <md:child refId="908c7bc2-61a2-3ef6-a6e7-0748c5698d76"/>
-            <md:child refId="c2b857be-1ee9-35ad-b34c-9893891af229"/>
-            <md:child refId="193149cc-8eb6-3a9b-bb52-770d11c20c25"/>
+            <md:child refId="027af035-bdde-3763-a5a8-4d2bbabc0218"/>
+            <md:child refId="3bddf3b6-240c-3d28-9042-a9b55a74c7fa"/>
             <md:child refId="1ca926a1-12fa-34b5-97a7-00a1e5034c1f"/>
             <md:child refId="f2656ff1-eb61-36ab-b293-12c1fd979ca7"/>
-            <md:child refId="d49a82db-c04c-375a-a55d-6fd9cf5e3a2d"/>
+            <md:child refId="92fd30a6-8475-3412-bbd4-9bf4bd40e2a7"/>
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="d72dd700-589e-3385-a508-2bfc2551e956">
+    <md:idwrapper id="682d807c-6551-32ac-88f0-c493597fa96b">
         <md:resolvedNode resolutionId="49247f1a-a262-35db-bfcc-8dcadb81e14a">
-            <md:child refId="65adca79-ba9a-3c8f-aeff-9b224e7f1eda"/>
-            <md:child refId="d64a6d76-7707-3e54-91a7-80e896e83bf7"/>
+            <md:child refId="d3cea852-8d5a-3742-929d-cd34ee042bd3"/>
+            <md:child refId="38587409-765e-3e29-a1b1-12114e732c15"/>
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
-            <md:child refId="193149cc-8eb6-3a9b-bb52-770d11c20c25"/>
+            <md:child refId="3bddf3b6-240c-3d28-9042-a9b55a74c7fa"/>
             <md:child refId="1ca926a1-12fa-34b5-97a7-00a1e5034c1f"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="adabedd5-aac1-331e-8fee-131338e6ebfc">
-        <md:resolvedNode resolutionId="6a49c929-9bd5-363b-a8c5-9ea1112745b2">
-            <md:child refId="8e2b882e-b722-38ec-bd9a-6386a977da17"/>
-            <md:child refId="d72dd700-589e-3385-a508-2bfc2551e956"/>
-            <md:child refId="5cb72865-c59b-31be-a70a-1d2e5dade3d2"/>
+    <md:idwrapper id="7d2197ab-c075-3b03-b7ef-b2f347ffad57">
+        <md:resolvedNode resolutionId="9b55a848-35af-3542-8e47-ea8e692831f6">
+            <md:child refId="dab80996-0f50-3d0f-8fb7-ed60d4fb56dd"/>
+            <md:child refId="682d807c-6551-32ac-88f0-c493597fa96b"/>
+            <md:child refId="0e403016-7a50-3892-9f7a-ab09d4c008be"/>
         </md:resolvedNode>
     </md:idwrapper>
     <md:idwrapper id="0e973cfc-7f7f-3b51-972d-6c824ee9d179">
@@ -1887,9 +1880,9 @@
             <md:child refId="3a95d102-d4fc-3c10-a0a1-c7d9a9bd44d2"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="485400f5-9da1-3b2c-8898-33c98a8e2406">
+    <md:idwrapper id="0f5052c3-ce9b-354e-804f-3a6d6ff18b56">
         <md:resolvedNode resolutionId="29e7c5e1-2f41-3f06-b7f7-3a0368718f7f">
-            <md:child refId="193149cc-8eb6-3a9b-bb52-770d11c20c25"/>
+            <md:child refId="3bddf3b6-240c-3d28-9042-a9b55a74c7fa"/>
             <md:child refId="d9dcce14-de1d-31a4-8133-859cc3d66d1c"/>
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
         </md:resolvedNode>
@@ -2195,15 +2188,15 @@
             <md:child refId="bdb408d4-3eb1-3b99-a250-c3917ce267ca"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="ce2639a3-7097-324f-a225-5144b114c4de">
+    <md:idwrapper id="47a84e0b-75f4-3ba8-8967-0b84dc636902">
         <md:resolvedNode resolutionId="ae125e1c-7016-3f27-816e-8fa16eabc3d5">
             <md:child refId="c27834f3-5a47-35fa-9d84-7f3d5a312612"/>
             <md:child refId="09316a41-246c-394b-b159-68f18d543853"/>
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
-            <md:child refId="485400f5-9da1-3b2c-8898-33c98a8e2406"/>
-            <md:child refId="d72dd700-589e-3385-a508-2bfc2551e956"/>
+            <md:child refId="0f5052c3-ce9b-354e-804f-3a6d6ff18b56"/>
+            <md:child refId="682d807c-6551-32ac-88f0-c493597fa96b"/>
             <md:child refId="8491aff7-1c2c-338b-986a-8c674570797e"/>
-            <md:child refId="d49a82db-c04c-375a-a55d-6fd9cf5e3a2d"/>
+            <md:child refId="92fd30a6-8475-3412-bbd4-9bf4bd40e2a7"/>
             <md:child refId="39704e0d-eed6-33bb-b18c-7df5d540d249"/>
         </md:resolvedNode>
     </md:idwrapper>
@@ -2294,11 +2287,11 @@
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="dd0e097f-75f1-3191-a0de-a01163cdcb8f">
+    <md:idwrapper id="a39f801d-45cf-303f-9d40-fe62965aecba">
         <md:resolvedNode resolutionId="f6892d4c-7760-3bb6-ba81-ee04d4330bf5">
             <md:child refId="1ca926a1-12fa-34b5-97a7-00a1e5034c1f"/>
-            <md:child refId="485400f5-9da1-3b2c-8898-33c98a8e2406"/>
-            <md:child refId="d72dd700-589e-3385-a508-2bfc2551e956"/>
+            <md:child refId="0f5052c3-ce9b-354e-804f-3a6d6ff18b56"/>
+            <md:child refId="682d807c-6551-32ac-88f0-c493597fa96b"/>
             <md:child refId="928243de-f193-3e48-bcb4-1b5ff0c91b6c"/>
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
         </md:resolvedNode>
@@ -2392,11 +2385,11 @@
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="06d3e462-e402-3382-80b6-0df2d2a61a79">
+    <md:idwrapper id="9cc97020-f27a-31f2-8fa9-3cb59dffe541">
         <md:resolvedNode resolutionId="c81fbb69-4b39-3bf3-b0d5-50877cc8dd0f">
-            <md:child refId="dd0e097f-75f1-3191-a0de-a01163cdcb8f"/>
-            <md:child refId="485400f5-9da1-3b2c-8898-33c98a8e2406"/>
-            <md:child refId="d72dd700-589e-3385-a508-2bfc2551e956"/>
+            <md:child refId="a39f801d-45cf-303f-9d40-fe62965aecba"/>
+            <md:child refId="0f5052c3-ce9b-354e-804f-3a6d6ff18b56"/>
+            <md:child refId="682d807c-6551-32ac-88f0-c493597fa96b"/>
             <md:child refId="1ca926a1-12fa-34b5-97a7-00a1e5034c1f"/>
             <md:child refId="faf8bb35-721d-3a1a-8daf-7f0daf66b80b"/>
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
@@ -2605,56 +2598,56 @@
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="7d14c882-9490-3e6f-912d-b3215d5c4e88">
+    <md:idwrapper id="75c606e1-adf2-396d-b487-e3fee5013f9d">
         <md:resolvedNode resolutionId="0a287d23-0f49-3799-96f3-dc7a2b54a85b">
-            <md:child refId="ce2639a3-7097-324f-a225-5144b114c4de"/>
+            <md:child refId="47a84e0b-75f4-3ba8-8967-0b84dc636902"/>
             <md:child refId="095813a5-db11-3207-acb8-ea8f6a5e1724"/>
-            <md:child refId="dd0e097f-75f1-3191-a0de-a01163cdcb8f"/>
+            <md:child refId="a39f801d-45cf-303f-9d40-fe62965aecba"/>
             <md:child refId="ca3124ee-4481-37fb-89f4-1198cfbdb673"/>
-            <md:child refId="485400f5-9da1-3b2c-8898-33c98a8e2406"/>
-            <md:child refId="d72dd700-589e-3385-a508-2bfc2551e956"/>
+            <md:child refId="0f5052c3-ce9b-354e-804f-3a6d6ff18b56"/>
+            <md:child refId="682d807c-6551-32ac-88f0-c493597fa96b"/>
             <md:child refId="8491aff7-1c2c-338b-986a-8c674570797e"/>
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="5a47c537-d7c2-3f28-a90f-dc274b3028d4">
+    <md:idwrapper id="488c94e1-9aed-36ff-886b-6f7f6295b0a4">
         <md:resolvedNode resolutionId="7023ea83-a17c-3e20-b944-ceee9ccba51b">
-            <md:child refId="ce2639a3-7097-324f-a225-5144b114c4de"/>
-            <md:child refId="d49a82db-c04c-375a-a55d-6fd9cf5e3a2d"/>
-            <md:child refId="dd0e097f-75f1-3191-a0de-a01163cdcb8f"/>
-            <md:child refId="485400f5-9da1-3b2c-8898-33c98a8e2406"/>
-            <md:child refId="d72dd700-589e-3385-a508-2bfc2551e956"/>
+            <md:child refId="47a84e0b-75f4-3ba8-8967-0b84dc636902"/>
+            <md:child refId="92fd30a6-8475-3412-bbd4-9bf4bd40e2a7"/>
+            <md:child refId="a39f801d-45cf-303f-9d40-fe62965aecba"/>
+            <md:child refId="0f5052c3-ce9b-354e-804f-3a6d6ff18b56"/>
+            <md:child refId="682d807c-6551-32ac-88f0-c493597fa96b"/>
             <md:child refId="8491aff7-1c2c-338b-986a-8c674570797e"/>
-            <md:child refId="06d3e462-e402-3382-80b6-0df2d2a61a79"/>
+            <md:child refId="9cc97020-f27a-31f2-8fa9-3cb59dffe541"/>
             <md:child refId="c0cb504a-8109-3047-bf85-61c8490a042d"/>
             <md:child refId="1ca926a1-12fa-34b5-97a7-00a1e5034c1f"/>
-            <md:child refId="7d14c882-9490-3e6f-912d-b3215d5c4e88"/>
+            <md:child refId="75c606e1-adf2-396d-b487-e3fee5013f9d"/>
             <md:child refId="faf8bb35-721d-3a1a-8daf-7f0daf66b80b"/>
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="4930937f-e15b-3a7a-91a2-8280370bc29f">
-        <md:resolvedNode resolutionId="b5bedef2-307b-3e5b-aa22-4802ae3d9fb6">
+    <md:idwrapper id="faeef9b5-2052-3d8c-b265-cf1a1d440483">
+        <md:resolvedNode resolutionId="8f0d5eea-1dbc-311e-a0e7-f9bb87257a7a">
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
-            <md:child refId="8e2b882e-b722-38ec-bd9a-6386a977da17"/>
-            <md:child refId="adabedd5-aac1-331e-8fee-131338e6ebfc"/>
-            <md:child refId="d72dd700-589e-3385-a508-2bfc2551e956"/>
+            <md:child refId="dab80996-0f50-3d0f-8fb7-ed60d4fb56dd"/>
+            <md:child refId="7d2197ab-c075-3b03-b7ef-b2f347ffad57"/>
+            <md:child refId="682d807c-6551-32ac-88f0-c493597fa96b"/>
             <md:child refId="1ca926a1-12fa-34b5-97a7-00a1e5034c1f"/>
-            <md:child refId="5a47c537-d7c2-3f28-a90f-dc274b3028d4"/>
+            <md:child refId="488c94e1-9aed-36ff-886b-6f7f6295b0a4"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="5e0abf9d-f68a-3751-91b8-b4dac5641378">
-        <md:resolvedNode resolutionId="f23ad365-5d9f-359a-ba9f-062abd63caaa">
-            <md:child refId="4930937f-e15b-3a7a-91a2-8280370bc29f"/>
+    <md:idwrapper id="868b2d3e-7aee-3927-8a39-afbcf7d3a1e2">
+        <md:resolvedNode resolutionId="9e54c02c-06a7-33d0-93df-42ed160056f2">
+            <md:child refId="faeef9b5-2052-3d8c-b265-cf1a1d440483"/>
             <md:child refId="f1b29778-13f9-3561-b133-bc4b86e45690"/>
-            <md:child refId="8e2b882e-b722-38ec-bd9a-6386a977da17"/>
-            <md:child refId="adabedd5-aac1-331e-8fee-131338e6ebfc"/>
+            <md:child refId="dab80996-0f50-3d0f-8fb7-ed60d4fb56dd"/>
+            <md:child refId="7d2197ab-c075-3b03-b7ef-b2f347ffad57"/>
         </md:resolvedNode>
     </md:idwrapper>
-    <md:idwrapper id="c4c54ef9-f5ec-343c-987c-b931057ae317">
-        <md:resolvedNode resolutionId="63837511-5823-33ed-8959-e73bfea365f3">
-            <md:child refId="5e0abf9d-f68a-3751-91b8-b4dac5641378"/>
-            <md:child refId="4930937f-e15b-3a7a-91a2-8280370bc29f"/>
+    <md:idwrapper id="fdc9b7dc-9106-3c51-bf97-8a15dbe7dde4">
+        <md:resolvedNode resolutionId="8ac86771-05f2-3b08-960a-4fbb40abd228">
+            <md:child refId="868b2d3e-7aee-3927-8a39-afbcf7d3a1e2"/>
+            <md:child refId="faeef9b5-2052-3d8c-b265-cf1a1d440483"/>
         </md:resolvedNode>
     </md:idwrapper>
 </md:billOfMaterials>
