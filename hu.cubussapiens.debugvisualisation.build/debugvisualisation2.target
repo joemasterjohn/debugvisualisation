@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.5"?>
 
-<target name="Restored Target">
+<target name="DV Platform">
 <locations>
-<location id="hu.cubussapiens.debugvisualisation.build" path="${workspace_loc}" type="Feature"/>
+<location includeAllPlatforms="false" includeMode="planner" type="InstallableUnit">
+<unit id="org.eclipse.jdt.feature.group" version="3.5.2.r352_v20100108-7r88FEwFI0WTuoBl0iaG0tyhfZH6"/>
+<repository location="http://download.eclipse.org/releases/galileo"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" type="InstallableUnit">
+<unit id="org.eclipse.draw2d.feature.group" version="3.5.2.v20100111-1352-4417w311A223702A19"/>
+<unit id="org.eclipse.draw2d.sdk.feature.group" version="3.5.2.v20100111-1352-7A7E38yD6E88B9I5AELD4H8D8x42"/>
+<unit id="org.eclipse.zest.feature.group" version="1.1.2.v20100111-1352-6618yD6DH8G6N59OM53B2A"/>
+<unit id="org.eclipse.zest.sdk.feature.group" version="1.1.2.v20100111-1352-6658CNDT4R8WTQUMhLVdgPbPObOX"/>
+<repository location="http://download.eclipse.org/tools/gef/updates/releases/"/>
+</location>
 </locations>
 <environment>
 <os>*</os>
