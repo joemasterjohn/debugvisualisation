@@ -86,6 +86,8 @@ public class ViewModelFactory {
 	 *         otherwise
 	 */
 	public IDVValue getValue(IValue value) {
+		if (!values.contains(value))
+			return null;
 		WeakReference<IDVValue> ref = values.get(value);
 		if (ref == null)
 			return null;
@@ -137,6 +139,8 @@ public class ViewModelFactory {
 	 *         otherwise.
 	 */
 	public IDVVariable getVariable(IVariable variable) {
+		if (!variables.contains(variable))
+			return null;
 		WeakReference<IDVVariable> ref = variables.get(variable);
 		if (ref == null)
 			return null;
