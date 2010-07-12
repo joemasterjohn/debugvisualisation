@@ -6,7 +6,11 @@ package hu.cubussapiens.debugvisualisation.internal.model;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
+import hu.cubussapiens.debugvisualisation.viewmodel.util.DVProperties;
 import hu.cubussapiens.debugvisualisation.viewmodel.util.ViewModelFactory;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.model.IValue;
@@ -21,22 +25,40 @@ public class DVValueImpl extends DVProperties implements IDVValue {
 
 	private final IRootedGraphContentProvider graph;
 
-	private final IDVVariable parent;
+	private final Collection<IDVVariable> parents = new HashSet<IDVVariable>();
+	private IDVVariable firstParent;
+	private boolean localContext = false;
 
 	private final IVariable container;
 
 	/**
+	 * Initializes a DV Value implementation. It is not intended to call
+	 * directly, use
+	 * {@link ViewModelFactory#getValue(IValue, IRootedGraphContentProvider, IVariable, IDVVariable)}
+	 * instead.
 	 * 
 	 * @param value
 	 * @param graph
+	 * @param parent
+	 * @param container
 	 */
-	protected DVValueImpl(IValue value, IRootedGraphContentProvider graph,
+	public DVValueImpl(IValue value, IRootedGraphContentProvider graph,
 			IDVVariable parent, IVariable container) {
 		super();
 		this.graph = graph;
 		this.value = value;
-		this.parent = parent;
+		addParent(parent);
 		this.container = container;
+		firstParent = parent;
+	}
+
+	public void addParent(IDVVariable parent) {
+		if (parent != null && !parents.contains(parent))
+			parents.add(parent);
+	}
+
+	public void removeParent(IDVVariable parent) {
+		parents.remove(parent);
 	}
 
 	/**
@@ -52,12 +74,13 @@ public class DVValueImpl extends DVProperties implements IDVValue {
 	public DVValueImpl(IValue value, IRootedGraphContentProvider graph,
 			IDVVariable parent) {
 		this(value, graph, parent, null);
+
 	}
 
 	/**
 	 * Creates a value, which is accessible from the local context. It is not
 	 * supported to directly initialize values, use
-	 * {@link ViewModelFactory#getValue(IValue, IRootedGraphContentProvider, IVariable)}
+	 * {@link ViewModelFactory#getValue(IValue, IRootedGraphContentProvider, IVariable, IDVVariable)}
 	 * instead.
 	 * 
 	 * @param value
@@ -84,8 +107,7 @@ public class DVValueImpl extends DVProperties implements IDVValue {
 	 * 
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
-	@SuppressWarnings("unchecked")
-	public Object getAdapter(Class adapter) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 		if (IValue.class.equals(adapter))
 			return value;
 		return null;
@@ -108,17 +130,24 @@ public class DVValueImpl extends DVProperties implements IDVValue {
 		return super.equals(obj);
 	}
 
+	public void setLocalContext() {
+		localContext = true;
+	}
+
 	public boolean isLocalContext() {
-		return parent == null;
+		return localContext;
 	}
 
 	public IVariable getContainer() {
-		return container == null ? (IVariable) parent
-				.getAdapter(IVariable.class) : container;
+		return container != null ? container : firstParent.getRelatedVariable();
 	}
 
 	public IDVVariable getParent() {
-		return parent;
+		return firstParent;
+	}
+
+	public Collection<IDVVariable> getAllParents() {
+		return parents;
 	}
 
 	public IValue getRelatedValue() {

@@ -9,6 +9,7 @@ import hu.cubussapiens.debugvisualisation.internal.step.AbstractGraphTransformat
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
+import hu.cubussapiens.debugvisualisation.viewmodel.OpenCloseNodeState;
 import hu.cubussapiens.debugvisualisation.viewmodel.util.ViewModelFactory;
 
 import java.util.ArrayList;

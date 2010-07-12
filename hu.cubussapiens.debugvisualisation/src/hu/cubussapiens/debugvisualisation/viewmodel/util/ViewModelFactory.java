@@ -60,17 +60,18 @@ public class ViewModelFactory {
 	 * @param value
 	 * @param graph
 	 * @param container
+	 * @param parent
 	 * @return the view model representation of the value
 	 */
 	public IDVValue getValue(IValue value, IRootedGraphContentProvider graph,
-			IVariable container) {
+			IVariable container, IDVVariable parent) {
 		IDVValue newValue;
 		if (values.containsKey(value)) {
 			newValue = getValue(value);
 			if (newValue != null)
 				return newValue;
 		}
-		newValue = new DVValueImpl(value, graph, container);
+		newValue = new DVValueImpl(value, graph, parent, container);
 		TreePath path = new TreePath(new Object[] { container });
 		newValue.setProperty(treePathProperty, path);
 		values.put(value, new WeakReference<IDVValue>(newValue));
@@ -86,8 +87,8 @@ public class ViewModelFactory {
 	 *         otherwise
 	 */
 	public IDVValue getValue(IValue value) {
-		if (!values.contains(value))
-			return null;
+		// if (!values.contains(value))
+		// return null;
 		WeakReference<IDVValue> ref = values.get(value);
 		if (ref == null)
 			return null;
@@ -148,6 +149,14 @@ public class ViewModelFactory {
 		if (v == null)
 			variables.remove(variable);
 		return v;
+	}
+
+	/**
+	 * Clears the visualisation, removes all values and variables.
+	 */
+	public void clearModel() {
+		values.clear();
+		variables.clear();
 	}
 
 	/**

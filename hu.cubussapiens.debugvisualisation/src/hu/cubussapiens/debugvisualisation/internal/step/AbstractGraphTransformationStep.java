@@ -5,15 +5,13 @@ import hu.cubussapiens.debugvisualisation.viewmodel.util.ViewModelFactory;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.core.runtime.IAdaptable;
-
 /**
  * An abstract, partial implementation of a transformation step. This class
  * implements the common features like handling listeners and delegating
  * commands.
  */
 public abstract class AbstractGraphTransformationStep implements
-		IGraphTransformationStep, IGraphChangeListener, IAdaptable {
+		IGraphTransformationStep, IGraphChangeListener {
 
 	private final IRootedGraphContentProvider parent;
 	protected final ViewModelFactory factory;
@@ -60,8 +58,7 @@ public abstract class AbstractGraphTransformationStep implements
 			l.graphChanged(event);
 	}
 
-	@SuppressWarnings("unchecked")
-	public Object getAdapter(Class adapter) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 		Object o = tryAdapter(adapter);
 		if (o != null)
 			return o;

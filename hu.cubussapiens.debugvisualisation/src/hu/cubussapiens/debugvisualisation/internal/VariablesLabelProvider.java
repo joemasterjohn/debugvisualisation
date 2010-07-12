@@ -1,19 +1,17 @@
 package hu.cubussapiens.debugvisualisation.internal;
 
 import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
-import hu.cubussapiens.debugvisualisation.internal.api.INodeParameters;
-import hu.cubussapiens.debugvisualisation.internal.api.IOpenCloseNodes;
-import hu.cubussapiens.debugvisualisation.internal.api.IReferenceTracker;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
-import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseNodeState;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
+import hu.cubussapiens.debugvisualisation.viewmodel.util.PropertyKeys;
 
 import java.util.Collection;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Color;
@@ -76,32 +74,24 @@ public class VariablesLabelProvider extends LabelProvider implements
 	 */
 	@Override
 	public Image getImage(Object element) {
-		// if (element instanceof Integer) {
-			// Integer node = (Integer) element;
-		// if (StackFrameRootedGraphContentProvider.root.equals(element))
-		// return Activator.getDefault().getImageRegistry().get(
-		// Activator.icon_root);
 		if (element instanceof IDVValue) {
-			IOpenCloseNodes ocn = (IOpenCloseNodes) input
-					.getAdapter(IOpenCloseNodes.class);
-			Object o = ocn.getNodeState((IDVValue) element);
-			if (o == null)
-				return null;
-			switch ((OpenCloseNodeState) o) {
-			case Root:
-				return DebugVisualisationPlugin.getDefault().getImageRegistry().get(
-						DebugVisualisationPlugin.icon_root);
+			if (((IDVValue) element).isLocalContext()) {
+				return DebugVisualisationPlugin.getDefault().getImageRegistry()
+						.get(DebugVisualisationPlugin.icon_root);
+			}
+			switch (((IDVValue) element).getProperty(PropertyKeys.OPENED)) {
 			case ChildLess:
-				return PlatformUI.getWorkbench().getSharedImages().getImage(
-						ISharedImages.IMG_OBJ_ELEMENT);
+				return PlatformUI.getWorkbench().getSharedImages()
+						.getImage(ISharedImages.IMG_OBJ_ELEMENT);
 			case Open:
-				return DebugVisualisationPlugin.getDefault().getImageRegistry().get(
-						DebugVisualisationPlugin.icon_node_open);
+				return DebugVisualisationPlugin.getDefault().getImageRegistry()
+						.get(DebugVisualisationPlugin.icon_node_open);
 			case Close:
-				return DebugVisualisationPlugin.getDefault().getImageRegistry().get(
-						DebugVisualisationPlugin.icon_node_closed);
+				return DebugVisualisationPlugin.getDefault().getImageRegistry()
+						.get(DebugVisualisationPlugin.icon_node_closed);
 			}
 		}
+
 		return null;
 	}
 
@@ -122,16 +112,12 @@ public class VariablesLabelProvider extends LabelProvider implements
 			IValue node = (IValue) ((IDVValue) element)
 					.getAdapter(IValue.class);
 
-			IReferenceTracker reftracker = (IReferenceTracker) input
-					.getAdapter(IReferenceTracker.class);
-			Collection<IDVVariable> refs = reftracker
-					.getReferences((IDVValue) element);
-			// refs.add(((IDVValue) element).getParent());
-			
+			Collection<IDVVariable> refs = ((IDVValue) element).getAllParents();
 			String name = "";
-			for(IDVVariable ref : refs){
+			for (IDVVariable ref : refs) {
 				try {
-					String refname = ((IVariable) ref.getAdapter(IVariable.class)).getName();
+					String refname = ((IVariable) ref
+							.getAdapter(IVariable.class)).getName();
 					name = (name.equals("")) ? refname : name + ", " + refname;
 				} catch (DebugException e) {
 					DebugVisualisationPlugin.getDefault().logError(e,
@@ -148,26 +134,25 @@ public class VariablesLabelProvider extends LabelProvider implements
 							"Error getting variable name");
 				}
 			}
-			
+
 			String type = ValueUtils.getValueString(node);
 			name += ": " + type;
 
-			INodeParameters nodeparameters = (INodeParameters) input
-					.getAdapter(INodeParameters.class);
-			Collection<IDVVariable> params = nodeparameters
-					.getParameters((IDVValue) element);
-			for (IDVVariable par : params) {
-				IVariable param = (IVariable) par.getAdapter(IVariable.class);
-				try {
-					name += "\n" + param.getName() + "= "
-							+ getProcessedValue(param.getValue()
-									.getValueString());
-				} catch (DebugException e) {
-					DebugVisualisationPlugin.getDefault().logError(e,
-							"Error getting parameter value");
-				}
-			}
-
+			// INodeParameters nodeparameters = (INodeParameters) input
+			// .getAdapter(INodeParameters.class);
+			// Collection<IDVVariable> params = nodeparameters
+			// .getParameters((IDVValue) element);
+			// for (IDVVariable par : params) {
+			// IVariable param = (IVariable) par.getAdapter(IVariable.class);
+			// try {
+			// name += "\n" + param.getName() + "= "
+			// + getProcessedValue(param.getValue()
+			// .getValueString());
+			// } catch (DebugException e) {
+			// DebugVisualisationPlugin.getDefault().logError(e,
+			// "Error getting parameter value");
+			// }
+			// }
 			return name;
 		}
 		return element.toString();
@@ -179,11 +164,14 @@ public class VariablesLabelProvider extends LabelProvider implements
 	@Override
 	public String getText(Object element) {
 		// return getProcessedValue(getRawText(element));
-		return getRawText(element);
+		return getProcessedValue(getRawText(element));
 	}
 
 	public Color getColor(Object rel) {
-		// return ColorConstants.black;
+		if (rel instanceof IDVValue) {
+			if (((IDVValue) rel).isLocalContext())
+				return ColorConstants.black;
+		}
 		return null;
 	}
 

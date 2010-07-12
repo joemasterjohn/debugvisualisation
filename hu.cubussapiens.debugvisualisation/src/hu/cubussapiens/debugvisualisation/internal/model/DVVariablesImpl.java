@@ -6,6 +6,7 @@ package hu.cubussapiens.debugvisualisation.internal.model;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
+import hu.cubussapiens.debugvisualisation.viewmodel.util.DVProperties;
 import hu.cubussapiens.debugvisualisation.viewmodel.util.ViewModelFactory;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -55,8 +56,7 @@ public class DVVariablesImpl extends DVProperties implements IDVVariable {
 	 * 
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
-	@SuppressWarnings("unchecked")
-	public Object getAdapter(Class adapter) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 		if (IVariable.class.equals(adapter))
 			return variable;
 		return null;
@@ -89,7 +89,7 @@ public class DVVariablesImpl extends DVProperties implements IDVVariable {
 
 	@Override
 	protected void finalize() throws Throwable {
-		graph.getViewModelFactory().finalize(variable);
+		// graph.getViewModelFactory().finalize(variable);
 		super.finalize();
 	}
 }

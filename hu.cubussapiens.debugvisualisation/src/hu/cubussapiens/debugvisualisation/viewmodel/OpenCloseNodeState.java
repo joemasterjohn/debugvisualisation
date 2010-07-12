@@ -1,19 +1,13 @@
 /**
  * 
  */
-package hu.cubussapiens.debugvisualisation.internal.step.input;
+package hu.cubussapiens.debugvisualisation.viewmodel;
 
 /**
  * This enum describes the possible node states in the domain of opened-closed
  * meaning.
  */
 public enum OpenCloseNodeState {
-
-	/**
-	 * The state of a root node. This node is always open, and can't be closed.
-	 * (Its child nodes are always shown)
-	 */
-	Root,
 
 	/**
 	 * This state marks a not-root node, which does not have any child nodes,

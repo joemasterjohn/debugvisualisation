@@ -22,10 +22,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.services.IDisposable;
 import org.eclipse.zest.core.viewers.GraphViewer;
@@ -60,6 +62,49 @@ public class VariableSelectionSynchronizer implements IDisposable {
 	ISelection oldRemoteSelection = null;
 	boolean remoteLock = false, localLock = false;
 
+	private class PartListener implements IPartListener2 {
+
+		String id;
+
+		public void setViewID(String id) {
+			this.id = id;
+		}
+
+		public void partVisible(IWorkbenchPartReference partRef) {
+		}
+
+		public void partOpened(IWorkbenchPartReference partRef) {
+			if (partRef.getId().contentEquals(id)) {
+				setRemoteSite(partRef.getPart(false).getSite());
+			}
+		}
+
+		public void partInputChanged(IWorkbenchPartReference partRef) {
+		}
+
+		public void partHidden(IWorkbenchPartReference partRef) {
+		}
+
+		public void partDeactivated(IWorkbenchPartReference partRef) {
+		}
+
+		public void partClosed(IWorkbenchPartReference partRef) {
+		}
+
+		public void partBroughtToTop(IWorkbenchPartReference partRef) {
+		}
+
+		public void partActivated(IWorkbenchPartReference partRef) {
+		}
+	};
+
+	private void setRemoteSite(IWorkbenchPartSite remoteSite) {
+		this.remoteSite = remoteSite;
+		remoteSite.getPage().addSelectionListener(remoteID, remoteListener);
+	}
+
+	private PartListener partListener;
+
 	/**
 	 * Converts the local selection to a remote one and loads it in the remote
 	 * view.
@@ -72,6 +117,10 @@ public class VariableSelectionSynchronizer implements IDisposable {
 			return;
 		if (remoteLock || localLock)
 			return;
+		if (remoteSite == null) {
+			oldLocalSelection = selection;
+			return;
+		}
 		try {
 			remoteLock = true;
 			Iterator<?> iterator = ((IStructuredSelection) selection)
@@ -86,17 +135,20 @@ public class VariableSelectionSynchronizer implements IDisposable {
 					if (_val instanceof IDVValue) {
 						IDVValue val = (IDVValue) _val;
 						if (val.getParent() != null) {
-							treePaths.add(val.getParent().getProperty(treePathProperty));
+							treePaths.add(val.getParent().getProperty(
+									treePathProperty));
 						} else if (val.getContainer() != null) {
 							treePaths.add(new TreePath(new Object[] { val
 									.getContainer() }));
 						}
 					} else if (_val instanceof IDVVariable) {
 
-						treePaths.add(((IDVVariable)_val).getProperty(treePathProperty));
+						treePaths.add(((IDVVariable) _val)
+								.getProperty(treePathProperty));
 					}
 				}
-				remoteSelection = new TreeSelection(treePaths.toArray(new TreePath[treePaths.size()]));
+				remoteSelection = new TreeSelection(
+						treePaths.toArray(new TreePath[treePaths.size()]));
 			}
 			if (oldRemoteSelection == null
 					|| !oldRemoteSelection.equals(remoteSelection)) {
@@ -137,11 +189,11 @@ public class VariableSelectionSynchronizer implements IDisposable {
 		try {
 			GraphViewer graphViewer = (GraphViewer) localSite
 					.getSelectionProvider();
-			Object input = graphViewer
-					.getInput();
+			Object input = graphViewer.getInput();
 			if (input == null)
 				return;
-			ViewModelFactory factory = ((StackFrameContextInput) input).getFactory();
+			ViewModelFactory factory = ((StackFrameContextInput) input)
+					.getFactory();
 			localLock = true;
 			ArrayList<IDVValue> variables = new ArrayList<IDVValue>();
 			Iterator<?> iterator = ((IStructuredSelection) selection)
@@ -184,8 +236,14 @@ public class VariableSelectionSynchronizer implements IDisposable {
 		localSite = site;
 		localSite.getPage().addSelectionListener(localListener);
 		IViewPart remoteView = activePage.findView(remoteID);
-		remoteSite = remoteView.getSite();
-		remoteSite.getPage().addSelectionListener(remoteID, remoteListener);
+		if (remoteView != null) {
+			setRemoteSite(remoteView.getSite());
+		} else {
+			partListener = new PartListener();
+			partListener.setViewID(remoteID);
+			site.getWorkbenchWindow().getPartService()
+					.addPartListener(partListener);
+		}
 	}
 
 	/*
@@ -195,8 +253,13 @@ public class VariableSelectionSynchronizer implements IDisposable {
 	 */
 	public void dispose() {
 		localSite.getPage().removeSelectionListener(localID, localListener);
-		remoteSite.getPage().removeSelectionListener(remoteID, remoteListener);
-
+		if (remoteSite != null) {
+			remoteSite.getPage().removeSelectionListener(remoteID,
+					remoteListener);
+		}
+		if (partListener != null)
+			localSite.getWorkbenchWindow().getPartService()
+					.removePartListener(partListener);
 	}
 
 }

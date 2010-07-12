@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hu.cubussapiens.debugvisualisation.internal.model;
+package hu.cubussapiens.debugvisualisation.viewmodel.util;
 
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVProperties;
 import hu.cubussapiens.debugvisualisation.viewmodel.IPropertyKey;

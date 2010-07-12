@@ -11,8 +11,6 @@ import hu.cubussapiens.debugvisualisation.layouts.LayoutManager;
 import hu.cubussapiens.debugvisualisation.views.actions.RefreshLayoutAction;
 import hu.cubussapiens.debugvisualisation.views.actions.SaveImageAction;
 import hu.cubussapiens.debugvisualisation.views.actions.SelectLayoutGroup;
-import hu.cubussapiens.debugvisualisation.views.actions.SetRootAction;
-import hu.cubussapiens.debugvisualisation.views.actions.ShowHiddenChildNodesAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ShowRootAction;
 import hu.cubussapiens.debugvisualisation.views.actions.ToggleOpenAction;
 
@@ -84,25 +82,11 @@ public class DebugVisualisationView extends ViewPart implements
 	 */
 	IAction toggleOpen;
 
-	/*
-	 * Hide selected nodes
-	 */
-	// IAction hideNode;
-
-	/**
-	 * Show all hidden child nodes of the selected nodes
-	 */
-	IAction showChilds;
-
 	/**
 	 * Refresh layout
 	 */
 	IAction refresh;
 
-	/**
-	 * Dig in graph command
-	 */
-	IAction digIn;
 
 	/**
 	 * Action to show root node
@@ -219,9 +203,8 @@ public class DebugVisualisationView extends ViewPart implements
 
 		mm.add(toggleOpen);
 		// mm.add(hideNode);
-		mm.add(showChilds);
+		// mm.add(showChilds);
 		mm.add(new Separator());
-		mm.add(digIn);
 		mm.add(showRoot);
 		getSite()
 				.registerContextMenu(
@@ -253,10 +236,7 @@ public class DebugVisualisationView extends ViewPart implements
 	 */
 	private void initializeActions() {
 		toggleOpen = new ToggleOpenAction(graphViewer);
-		// hideNode = new HideAction(graphViewer);
-		showChilds = new ShowHiddenChildNodesAction(graphViewer);
 		refresh = new RefreshLayoutAction(graphViewer);
-		digIn = new SetRootAction(graphViewer);
 		showRoot = new ShowRootAction(graphViewer);
 		group = new SelectLayoutGroup(layout, graphViewer);
 		zoom = new ZoomContributionViewItem(this);

@@ -3,8 +3,8 @@
  */
 package hu.cubussapiens.debugvisualisation.internal.api;
 
-import hu.cubussapiens.debugvisualisation.internal.step.input.OpenCloseNodeState;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
+import hu.cubussapiens.debugvisualisation.viewmodel.OpenCloseNodeState;
 
 /**
  * Adapter interface to manage open/closed nodes

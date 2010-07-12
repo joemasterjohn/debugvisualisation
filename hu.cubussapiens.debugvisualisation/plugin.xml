@@ -42,11 +42,6 @@
       </command>
       <command
             categoryId="hu.cubussapiens.debugvisualisation.category"
-            id="hu.cubussapiens.debugvisualisation.command.hide"
-            name="Hide selection">
-      </command>
-      <command
-            categoryId="hu.cubussapiens.debugvisualisation.category"
             id="hu.cubussapiens.debugvisualisation.command.clear"
             name="Clear visualization">
       </command>
@@ -74,7 +69,7 @@
       </handler>
       <handler
             class="hu.cubussapiens.debugvisualisation.views.handlers.HideNodeHandler"
-            commandId="hu.cubussapiens.debugvisualisation.command.hide">
+            commandId="org.eclipse.ui.edit.delete">
       </handler>
       <handler
             class="hu.cubussapiens.debugvisualisation.views.handlers.ClearVisualizationHandler"
@@ -89,7 +84,7 @@
       <menuContribution
             locationURI="popup:hu.cubussapiens.debugvisualisation.views.DebugVisualisationView">
          <command
-               commandId="hu.cubussapiens.debugvisualisation.command.hide"
+               commandId="org.eclipse.ui.edit.delete"
                label="Hide selection"
                style="push"
                tooltip="Hide selected nodes">

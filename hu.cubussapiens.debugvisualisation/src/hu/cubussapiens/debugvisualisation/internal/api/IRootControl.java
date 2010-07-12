@@ -22,6 +22,25 @@ public interface IRootControl {
 	public void setRoots(Collection<IDVValue> nodes);
 
 	/**
+	 * Adds all the child nodes of the selected value. The method should not be
+	 * called if the node is not shown.
+	 * 
+	 * @param node
+	 *            a single node to show all the children of.
+	 */
+	public void addChildren(IDVValue node);
+
+	/**
+	 * Adds all the child nodes of the selected values. It is equivalent of
+	 * calling the {@link #addChildren(IDVValue)} method with every member of
+	 * the list.
+	 * 
+	 * @param nodes
+	 *            a collection of nodes
+	 */
+	public void addChildren(Collection<IDVValue> nodes);
+
+	/**
 	 * Add the given variables as root to the visualization
 	 * 
 	 * @param variables
