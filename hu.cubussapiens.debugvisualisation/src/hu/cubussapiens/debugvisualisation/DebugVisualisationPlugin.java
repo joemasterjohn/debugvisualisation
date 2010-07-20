@@ -1,12 +1,20 @@
 package hu.cubussapiens.debugvisualisation;
 
+import hu.cubussapiens.debugvisualisation.viewmodel.VisualisationSettings;
+
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.State;
 import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.progress.UIJob;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -28,6 +36,7 @@ public class DebugVisualisationPlugin extends AbstractUIPlugin {
 	 * values should be displayed.
 	 */
 	public static final String LOGICALSTRUCTURE_RAW_ID = "hu.cubussapiens.debugvisualisation.rawstructure";
+	final static String STATE_ID = "org.eclipse.ui.commands.toggleState"; //$NON-NLS-1$
 
 	// The shared instance
 	private static DebugVisualisationPlugin plugin;
@@ -49,6 +58,27 @@ public class DebugVisualisationPlugin extends AbstractUIPlugin {
 		Bundle bundle = context.getBundle();
 		plugin = this;
 		log = Platform.getLog(bundle);
+		// Init commands state
+		UIJob job = new UIJob("InitCommandsWorkaround") {
+
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+
+				ICommandService commandService = (ICommandService) PlatformUI
+						.getWorkbench().getActiveWorkbenchWindow()
+						.getService(ICommandService.class);
+				Command command = commandService
+						.getCommand("hu.cubussapiens.debugvisualisation.togglenameprocess");
+				command.isEnabled();
+				State state = command.getState(STATE_ID);
+				VisualisationSettings.trimLongNames = ((Boolean) state
+						.getValue()).booleanValue();
+				return new Status(IStatus.OK,
+						"hu.cubussapiens.debugvisualisation",
+						"Init commands workaround performed succesfully");
+			}
+
+		};
+		job.schedule();
 	}
 
 	/**
@@ -139,14 +169,17 @@ public class DebugVisualisationPlugin extends AbstractUIPlugin {
 		super.initializeImageRegistry(reg);
 		reg.put(icon_refresh, ImageDescriptor.createFromURL(getBundle()
 				.getEntry(icon_refresh)));
-		reg.put(icon_root, ImageDescriptor.createFromURL(getBundle().getEntry(
-				icon_root)));
-		reg.put(icon_node_closed, ImageDescriptor.createFromURL(getBundle()
-				.getEntry(icon_node_closed)));
-		reg.put(icon_node_open, ImageDescriptor.createFromURL(getBundle()
-				.getEntry(icon_node_open)));
-		reg.put(icon_select_layout, ImageDescriptor.createFromURL(getBundle()
-				.getEntry(icon_select_layout)));
+		reg.put(icon_root,
+				ImageDescriptor.createFromURL(getBundle().getEntry(icon_root)));
+		reg.put(icon_node_closed,
+				ImageDescriptor.createFromURL(getBundle().getEntry(
+						icon_node_closed)));
+		reg.put(icon_node_open,
+				ImageDescriptor.createFromURL(getBundle().getEntry(
+						icon_node_open)));
+		reg.put(icon_select_layout,
+				ImageDescriptor.createFromURL(getBundle().getEntry(
+						icon_select_layout)));
 	}
 
 }

@@ -45,6 +45,15 @@
             id="hu.cubussapiens.debugvisualisation.command.clear"
             name="Clear visualization">
       </command>
+      <command
+            categoryId="hu.cubussapiens.debugvisualisation.category"
+            id="hu.cubussapiens.debugvisualisation.togglenameprocess"
+            name="Trim long names">
+         <state
+               class="org.eclipse.ui.handlers.RegistryToggleState"
+               id="org.eclipse.ui.commands.toggleState">
+         </state>
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -75,11 +84,19 @@
             class="hu.cubussapiens.debugvisualisation.views.handlers.ClearVisualizationHandler"
             commandId="hu.cubussapiens.debugvisualisation.command.clear">
       </handler>
+      <handler
+            class="hu.cubussapiens.debugvisualisation.views.handlers.ToggleTrimHandler"
+            commandId="hu.cubussapiens.debugvisualisation.togglenameprocess">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             locationURI="menu:hu.cubussapiens.debugvisualisation.views.DebugVisualisationView">
+         <command
+               commandId="hu.cubussapiens.debugvisualisation.togglenameprocess"
+               style="toggle">
+         </command>
       </menuContribution>
       <menuContribution
             locationURI="popup:hu.cubussapiens.debugvisualisation.views.DebugVisualisationView">

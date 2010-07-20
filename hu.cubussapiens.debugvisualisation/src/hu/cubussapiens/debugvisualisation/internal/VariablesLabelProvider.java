@@ -4,6 +4,7 @@ import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
+import hu.cubussapiens.debugvisualisation.viewmodel.VisualisationSettings;
 import hu.cubussapiens.debugvisualisation.viewmodel.util.PropertyKeys;
 
 import java.util.Collection;
@@ -60,6 +61,9 @@ public class VariablesLabelProvider extends LabelProvider implements
 	 * @return The trimmed and escaped string.
 	 */
 	private String getProcessedValue(String string) {
+		// Check for turned-off trimming
+		if (!VisualisationSettings.trimLongNames)
+			return string;
 		String newString = string;
 		int length = newString.length();
 		if (length > 20) {
