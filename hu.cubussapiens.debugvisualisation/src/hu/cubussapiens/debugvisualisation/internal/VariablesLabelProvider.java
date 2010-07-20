@@ -64,7 +64,7 @@ public class VariablesLabelProvider extends LabelProvider implements
 		int length = newString.length();
 		if (length > 20) {
 			newString = string.substring(0, 8) + "..."
-					+ string.substring(length - 9, length - 1);
+					+ string.substring(length - 9, length);
 		}
 		return newString.replace("\n", "\\n");
 	}
