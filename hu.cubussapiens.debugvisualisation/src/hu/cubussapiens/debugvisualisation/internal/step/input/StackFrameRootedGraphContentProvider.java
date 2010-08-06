@@ -144,9 +144,12 @@ public class StackFrameRootedGraphContentProvider extends
 			IDVValue dvValue = factory.getValue(value, this, v,
 					factory.getVariable(v, this, parent));
 			// dvValue.addParent(factory.getVariable(v));
+			if (roots.contains(dvValue))
+				return;
 			if (parent == null
 					&& (localContext == null || localContext.contains(dvValue))) {
 				dvValue.setLocalContext();
+				localContext.add(dvValue);
 			}
 			roots.add(dvValue);
 			HashSet<IDVVariable> edgeSet = new HashSet<IDVVariable>();
@@ -201,7 +204,7 @@ public class StackFrameRootedGraphContentProvider extends
 	public void showRoot() {
 		try {
 			addVariables(Arrays.asList(sf.getVariables()));
-			localContext = new HashSet<IDVValue>(roots);
+			// localContext = new HashSet<IDVValue>(roots);
 		} catch (DebugException e) {
 			DebugVisualisationPlugin
 					.getDefault()
