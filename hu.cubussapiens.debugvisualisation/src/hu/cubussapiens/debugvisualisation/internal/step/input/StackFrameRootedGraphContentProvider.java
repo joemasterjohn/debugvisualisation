@@ -203,8 +203,8 @@ public class StackFrameRootedGraphContentProvider extends
 
 	public void showRoot() {
 		try {
+			localContext = new HashSet<IDVValue>();
 			addVariables(Arrays.asList(sf.getVariables()));
-			// localContext = new HashSet<IDVValue>(roots);
 		} catch (DebugException e) {
 			DebugVisualisationPlugin
 					.getDefault()
@@ -227,6 +227,8 @@ public class StackFrameRootedGraphContentProvider extends
 	public void removeRoots(Collection<IDVValue> nodes) {
 		roots.removeAll(nodes);
 		for (IDVValue node : nodes) {
+			if (localContext.contains(node))
+				localContext.remove(node);
 			edgeFrom.remove(node);
 			removeChildren(node);
 			factory.finalize(node.getRelatedValue());
