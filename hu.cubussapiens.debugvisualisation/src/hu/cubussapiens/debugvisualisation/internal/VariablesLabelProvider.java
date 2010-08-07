@@ -193,7 +193,9 @@ public class VariablesLabelProvider extends LabelProvider implements
 	}
 
 	public IFigure getTooltip(Object entity) {
-		// TODO Auto-generated method stub
+		if (entity instanceof IDVValue) {
+			return new ValueHover((IDVValue) entity);
+		}
 		return null;
 	}
 
