@@ -13,15 +13,6 @@
    </extension>
    <extension
          point="org.eclipse.ui.commands">
-      <command
-            categoryId="hu.cubussapiens.debugvisualisation.category"
-            id="hu.cubussapiens.debugvisualisation.showlocalcontext"
-            name="Display Local Context">
-         <state
-               class="org.eclipse.ui.handlers.RegistryToggleState"
-               id="org.eclipse.ui.commands.toggleState">
-         </state>
-      </command>
       <category
             id="hu.cubussapiens.debugvisualisation.category"
             name="Debug Visualisation">

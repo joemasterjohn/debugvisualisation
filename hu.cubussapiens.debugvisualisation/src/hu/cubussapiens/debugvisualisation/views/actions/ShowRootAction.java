@@ -27,6 +27,8 @@ public class ShowRootAction extends GraphAction {
 
 	@Override
 	public void run() {
+		if (getInput() == null)
+			return;
 		IRootControl dig = (IRootControl) getInput()
 				.getAdapter(IRootControl.class);
 		dig.showRoot();
