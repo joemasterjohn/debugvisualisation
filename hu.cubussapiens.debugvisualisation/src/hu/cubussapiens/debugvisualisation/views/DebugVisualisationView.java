@@ -8,6 +8,7 @@ import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInputFactory;
 import hu.cubussapiens.debugvisualisation.internal.widgets.VisualisationGraphViewer;
 import hu.cubussapiens.debugvisualisation.layouts.LayoutManager;
+import hu.cubussapiens.debugvisualisation.viewmodel.VisualisationSettings;
 import hu.cubussapiens.debugvisualisation.views.actions.RefreshLayoutAction;
 import hu.cubussapiens.debugvisualisation.views.actions.SaveImageAction;
 import hu.cubussapiens.debugvisualisation.views.actions.SelectLayoutGroup;
@@ -140,7 +141,9 @@ public class DebugVisualisationView extends ViewPart implements
 		graphViewer.setLayoutAlgorithm(layout.getDefault());
 		graphViewer.setLabelProvider(labelprovider);
 		graphViewer.setContentProvider(contentprovider);
-		// graphViewer.addFilter(new LocalContextFilter());
+		if (VisualisationSettings.filterPrimitiveTypes) {
+			graphViewer.addFilter(VisualisationSettings.filter);
+		}
 		graphViewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
 		// TODO why is this needed for selection synchronizing?
 		graphViewer.setUseHashlookup(false);

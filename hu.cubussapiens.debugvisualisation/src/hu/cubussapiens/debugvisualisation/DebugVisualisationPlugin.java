@@ -66,11 +66,17 @@ public class DebugVisualisationPlugin extends AbstractUIPlugin {
 				ICommandService commandService = (ICommandService) PlatformUI
 						.getWorkbench().getActiveWorkbenchWindow()
 						.getService(ICommandService.class);
-				Command command = commandService
+				Command command1 = commandService
 						.getCommand("hu.cubussapiens.debugvisualisation.togglenameprocess");
-				command.isEnabled();
-				State state = command.getState(STATE_ID);
-				VisualisationSettings.trimLongNames = ((Boolean) state
+				command1.isEnabled();
+				State state1 = command1.getState(STATE_ID);
+				VisualisationSettings.trimLongNames = ((Boolean) state1
+						.getValue()).booleanValue();
+				Command command2 = commandService
+						.getCommand("hu.cubussapiens.debugvisualisation.filterprimitivetypes");
+				command2.isEnabled();
+				State state2 = command2.getState(STATE_ID);
+				VisualisationSettings.filterPrimitiveTypes = ((Boolean) state2
 						.getValue()).booleanValue();
 				return new Status(IStatus.OK,
 						"hu.cubussapiens.debugvisualisation",

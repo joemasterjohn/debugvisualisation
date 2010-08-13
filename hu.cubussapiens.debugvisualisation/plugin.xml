@@ -50,6 +50,14 @@
             id="hu.cubussapiens.debugvisualisation.hidenodechildren"
             name="Hide node (with children)">
       </command>
+      <command
+            id="hu.cubussapiens.debugvisualisation.filterprimitivetypes"
+            name="Filter primitive types">
+         <state
+               class="org.eclipse.ui.handlers.RegistryToggleState"
+               id="org.eclipse.ui.commands.toggleState">
+         </state>
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -88,6 +96,10 @@
             class="hu.cubussapiens.debugvisualisation.views.handlers.HideNodeChildrenHandler"
             commandId="hu.cubussapiens.debugvisualisation.hidenodechildren">
       </handler>
+      <handler
+            class="hu.cubussapiens.debugvisualisation.views.handlers.FilterPrimitiveTypesHandler"
+            commandId="hu.cubussapiens.debugvisualisation.filterprimitivetypes">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -95,6 +107,10 @@
             locationURI="menu:hu.cubussapiens.debugvisualisation.views.DebugVisualisationView">
          <command
                commandId="hu.cubussapiens.debugvisualisation.togglenameprocess"
+               style="toggle">
+         </command>
+         <command
+               commandId="hu.cubussapiens.debugvisualisation.filterprimitivetypes"
                style="toggle">
          </command>
       </menuContribution>
