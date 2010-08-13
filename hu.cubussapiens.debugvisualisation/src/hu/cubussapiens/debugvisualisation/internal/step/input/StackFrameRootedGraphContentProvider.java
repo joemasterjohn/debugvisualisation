@@ -216,7 +216,7 @@ public class StackFrameRootedGraphContentProvider extends
 	}
 
 	public void clearVisualization() {
-		removeRoots((Collection<IDVValue>) roots.clone());
+		removeRoots((Collection<IDVValue>) roots.clone(), true);
 		edgeFrom.clear();
 		factory.clearModel();
 		childrenCache.clear();
@@ -225,12 +225,16 @@ public class StackFrameRootedGraphContentProvider extends
 	}
 
 	public void removeRoots(Collection<IDVValue> nodes) {
+		removeRoots(nodes, true);
+	}
+
+	public void removeRoots(Collection<IDVValue> nodes, boolean removeChildren) {
 		roots.removeAll(nodes);
 		for (IDVValue node : nodes) {
 			if (localContext.contains(node))
 				localContext.remove(node);
 			edgeFrom.remove(node);
-			removeChildren(node);
+			if (removeChildren) removeChildren(node);
 			factory.finalize(node.getRelatedValue());
 		}
 		for (IDVValue node : roots) {
@@ -286,7 +290,7 @@ public class StackFrameRootedGraphContentProvider extends
 				}
 			}
 			removeChildren(valuesToRemove);
-			removeRoots(valuesToRemove);
+			removeRoots(valuesToRemove, true);
 			childrenCache.remove(node.getRelatedValue());
 		} catch (DebugException e) {
 			// TODO Auto-generated catch block

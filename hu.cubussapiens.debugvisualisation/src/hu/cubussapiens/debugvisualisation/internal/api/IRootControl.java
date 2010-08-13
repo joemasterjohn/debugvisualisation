@@ -58,10 +58,21 @@ public interface IRootControl {
 	public void clearVisualization();
 
 	/**
-	 * Remove the given nodes from the root list
+	 * Remove the given nodes from the root list together with its children.
 	 * 
 	 * @param nodes
 	 */
 	public void removeRoots(Collection<IDVValue> nodes);
+
+	/**
+	 * Remove the given nodes from the root list.
+	 * 
+	 * @param nodes
+	 *            a collection of nodes to remove
+	 * @param removeChildren
+	 *            if set to true, all child elements of the nodes are also
+	 *            removed
+	 */
+	public void removeRoots(Collection<IDVValue> nodes, boolean removeChildren);
 
 }

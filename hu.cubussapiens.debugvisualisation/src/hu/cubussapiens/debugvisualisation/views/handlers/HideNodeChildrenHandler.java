@@ -19,7 +19,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 /**
  *
  */
-public class HideNodeHandler extends AbstractGraphCommandHandler {
+public class HideNodeChildrenHandler extends AbstractGraphCommandHandler {
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
@@ -44,7 +44,7 @@ public class HideNodeHandler extends AbstractGraphCommandHandler {
 		if (!removeroot.isEmpty()) {
 			IRootControl rootc = (IRootControl) getInput().getAdapter(
 					IRootControl.class);
-			rootc.removeRoots(removeroot, false);
+			rootc.removeRoots(removeroot, true);
 		}
 
 		return null;

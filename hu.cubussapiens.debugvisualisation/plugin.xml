@@ -54,6 +54,11 @@
                id="org.eclipse.ui.commands.toggleState">
          </state>
       </command>
+      <command
+            categoryId="hu.cubussapiens.debugvisualisation.category"
+            id="hu.cubussapiens.debugvisualisation.hidenodechildren"
+            name="Hide node (with children)">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -88,6 +93,10 @@
             class="hu.cubussapiens.debugvisualisation.views.handlers.ToggleTrimHandler"
             commandId="hu.cubussapiens.debugvisualisation.togglenameprocess">
       </handler>
+      <handler
+            class="hu.cubussapiens.debugvisualisation.views.handlers.HideNodeChildrenHandler"
+            commandId="hu.cubussapiens.debugvisualisation.hidenodechildren">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -105,6 +114,11 @@
                label="Hide selection"
                style="push"
                tooltip="Hide selected nodes">
+         </command>
+         <command
+               commandId="hu.cubussapiens.debugvisualisation.hidenodechildren"
+               label="Hide selection (with children)"
+               style="push">
          </command>
          <command
                commandId="hu.cubussapiens.debugvisualisation.command.clear"
