@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Zest Layouts Plug-in
 Bundle-SymbolicName: hu.cubussapiens.zestlayouts;singleton:=true
-Bundle-Version: 0.8.0.qualifier
+Bundle-Version: 0.8.1.qualifier
 Bundle-Activator: hu.cubussapiens.zestlayouts.Activator
 Bundle-Vendor: cubussapiens.hu
 Require-Bundle: org.eclipse.core.runtime,

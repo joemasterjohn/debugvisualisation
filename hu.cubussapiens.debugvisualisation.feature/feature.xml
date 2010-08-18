@@ -2,7 +2,7 @@
 <feature
       id="hu.cubussapiens.debugvisualisation.feature"
       label="Debug Visualisation"
-      version="0.8.0.qualifier">
+      version="0.8.1.qualifier">
 
    <description url="http://code.google.com/p/debugvisualisation">
       A Visualisation project for (Java) debugging in Eclipse. It creates
