@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
@@ -21,32 +22,39 @@ import org.eclipse.ui.handlers.HandlerUtil;
  */
 public class HideNodeChildrenHandler extends AbstractGraphCommandHandler {
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		
-		IStructuredSelection ss = (IStructuredSelection)HandlerUtil.getCurrentSelection(event);
-		
-		// List<IDVValue> hidevalues = new ArrayList<IDVValue>();
-		List<IDVValue> removeroot = new ArrayList<IDVValue>();
-		
-		Iterator<?> i = ss.iterator();
-		while (i.hasNext()) {
-			Object o = i.next();
-			if (o instanceof IDVVariable) {
-				removeroot.add(((IDVVariable) o).getValue());
-			} else if (o instanceof IDVValue) {
-				removeroot.add((IDVValue) o);
+		try {
+			IStructuredSelection ss = (IStructuredSelection) HandlerUtil
+					.getCurrentSelection(event);
+
+			// List<IDVValue> hidevalues = new ArrayList<IDVValue>();
+			List<IDVValue> removeroot = new ArrayList<IDVValue>();
+
+			Iterator<?> i = ss.iterator();
+			while (i.hasNext()) {
+				Object o = i.next();
+				if (o instanceof IDVVariable) {
+					removeroot.add(((IDVVariable) o).getValue());
+				} else if (o instanceof IDVValue) {
+					removeroot.add((IDVValue) o);
+				}
 			}
-		}
 
-		if (!removeroot.isEmpty()) {
-			IRootControl rootc = (IRootControl) getInput().getAdapter(
-					IRootControl.class);
-			rootc.removeRoots(removeroot, true);
+			if (!removeroot.isEmpty()) {
+				IRootControl rootc = (IRootControl) getInput().getAdapter(
+						IRootControl.class);
+				rootc.removeRoots(removeroot, true);
+			}
+		} catch (CoreException e) {
+			throw new ExecutionException("Error during command execution", e);
 		}
-
 		return null;
 	}
 

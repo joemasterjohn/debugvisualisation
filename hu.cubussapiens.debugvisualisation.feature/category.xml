@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/hu.cubussapiens.debugvisualisation.feature_0.8.0.qualifier.jar" id="hu.cubussapiens.debugvisualisation.feature" version="0.8.0.qualifier">
+   <feature url="features/hu.cubussapiens.debugvisualisation.javafilter_0.2.0.qualifier.jar" id="hu.cubussapiens.debugvisualisation.javafilter" version="0.2.0.qualifier">
       <category name="hu.cubussapiens.debugvisualisation"/>
    </feature>
-   <feature url="features/hu.cubussapiens.debugvisualisation.javafilter_0.2.0.qualifier.jar" id="hu.cubussapiens.debugvisualisation.javafilter" version="0.2.0.qualifier">
+   <feature url="features/hu.cubussapiens.debugvisualisation.feature_0.8.1.qualifier.jar" id="hu.cubussapiens.debugvisualisation.feature" version="0.8.1.qualifier">
       <category name="hu.cubussapiens.debugvisualisation"/>
    </feature>
    <category-def name="hu.cubussapiens.debugvisualisation" label="Debug Visualisation">

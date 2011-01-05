@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="hu.cubussapiens.debugvisualisation.feature"
-      label="Debug Visualisation"
-      version="0.8.1.qualifier">
+      label="Debug Visualisation Core"
+      version="0.8.2.qualifier">
 
    <description url="http://code.google.com/p/debugvisualisation">
       A Visualisation project for (Java) debugging in Eclipse. It creates
@@ -135,7 +135,7 @@ than one year after the cause of action arose. Each party waives its rights to a
       <import plugin="org.eclipse.debug.ui"/>
       <import plugin="org.eclipse.debug.core"/>
       <import plugin="org.eclipse.core.expressions"/>
-      <import plugin="hu.cubussapiens.debugvisualisation" version="0.7.2" match="greaterOrEqual"/>
+      <import plugin="hu.cubussapiens.debugvisualisation" version="0.8.1" match="greaterOrEqual"/>
    </requires>
 
    <plugin

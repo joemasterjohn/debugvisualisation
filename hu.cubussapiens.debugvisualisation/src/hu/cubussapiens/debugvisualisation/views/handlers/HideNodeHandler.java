@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
@@ -25,7 +26,7 @@ public class HideNodeHandler extends AbstractGraphCommandHandler {
 	 * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		
+		try {
 		IStructuredSelection ss = (IStructuredSelection)HandlerUtil.getCurrentSelection(event);
 		
 		// List<IDVValue> hidevalues = new ArrayList<IDVValue>();
@@ -46,7 +47,9 @@ public class HideNodeHandler extends AbstractGraphCommandHandler {
 					IRootControl.class);
 			rootc.removeRoots(removeroot, false);
 		}
-
+		} catch (CoreException e) {
+			throw new ExecutionException("Error during command execution", e);
+		}
 		return null;
 	}
 

@@ -11,9 +11,9 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.State;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
@@ -29,17 +29,15 @@ public abstract class AbstractGraphCommandHandler extends AbstractHandler {
 	 * Returns the debug visualisation view. If it is not open, opens it.
 	 * 
 	 * @return the reference to the debug visualisation view
+	 * @throws CoreException
 	 */
-	protected DebugVisualisationView getView() {
+	protected DebugVisualisationView getView() throws CoreException {
 		IWorkbenchPage page = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage();
 		IViewPart view = page.findView(DebugVisualisationPlugin.VIEW_ID);
 
 		if (view == null) {
-			try {
-				page.showView(DebugVisualisationPlugin.VIEW_ID);
-			} catch (PartInitException e) {
-			}
+			page.showView(DebugVisualisationPlugin.VIEW_ID);
 		}
 
 		return (DebugVisualisationView) view;
@@ -50,8 +48,9 @@ public abstract class AbstractGraphCommandHandler extends AbstractHandler {
 	 * Returns the graph viewer component from the debug visualisation view.
 	 * 
 	 * @return the graph viewer component
+	 * @throws CoreException
 	 */
-	protected GraphViewer getGraphViewer() {
+	protected GraphViewer getGraphViewer() throws CoreException {
 		DebugVisualisationView view = getView();
 		return view.getGraphViewer();
 	}
@@ -60,8 +59,9 @@ public abstract class AbstractGraphCommandHandler extends AbstractHandler {
 	 * Get the actual input of the action
 	 * 
 	 * @return the actual input
+	 * @throws CoreException
 	 */
-	protected StackFrameContextInput getInput() {
+	protected StackFrameContextInput getInput() throws CoreException {
 		Object input = getGraphViewer().getInput();
 		if (input != null)
 			return (StackFrameContextInput) input;
