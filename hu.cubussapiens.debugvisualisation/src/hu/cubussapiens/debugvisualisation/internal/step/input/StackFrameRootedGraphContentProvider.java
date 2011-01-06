@@ -234,7 +234,8 @@ public class StackFrameRootedGraphContentProvider extends
 			if (localContext.contains(node))
 				localContext.remove(node);
 			edgeFrom.remove(node);
-			if (removeChildren) removeChildren(node);
+			if (removeChildren)
+				removeChildren(node);
 			factory.finalize(node.getRelatedValue());
 		}
 		for (IDVValue node : roots) {
@@ -322,43 +323,44 @@ public class StackFrameRootedGraphContentProvider extends
 
 	/**
 	 * Returns the child variables of a value element. Filters (such as logical
-	 * structures) are also applied here.
+	 * structures) are also applied here. The method uses the
+	 * {@link #childrenCache} attribute to cache results.
 	 * 
 	 * @param value
 	 * @return the collection of reachable values
 	 */
 	public Collection<IVariable> getChildVariables(IValue value) {
-		Collection<IVariable> children;
 		if (childrenCache.contains(value)) {
-			children = childrenCache.get(value);
-		} else {
-			IDVValue node = factory.getValue(value);
-			if (node == null) {
-				factory.getValue(value);
-				children = Collections.EMPTY_SET;
-			} else {
-				ILogicalStructureType logicalStructureType;
-				IPropertyKey<String> key = PropertyKeys.STRUCTURE_NAME;
-				if (!node.isPropertySet(key)) {
-					logicalStructureType = getLogicalStructureType(value, "");
-				} else if (node.getProperty(key).contentEquals(
-						DebugVisualisationPlugin.LOGICALSTRUCTURE_RAW_ID)) {
-					logicalStructureType = null;
-				} else {
-					logicalStructureType = getLogicalStructureType(value,
-							node.getProperty(key));
-				}
-				children = getChildVariables(value, logicalStructureType);
-			}
-			childrenCache.put(value, children);
+			return childrenCache.get(value);
 		}
+		IDVValue node = factory.getValue(value);
+		Collection<IVariable> children;
+		if (node == null) {
+			factory.getValue(value);
+			children = Collections.EMPTY_SET;
+		} else {
+			ILogicalStructureType logicalStructureType;
+			IPropertyKey<String> key = PropertyKeys.STRUCTURE_NAME;
+			if (!node.isPropertySet(key)) {
+				logicalStructureType = getLogicalStructureType(value, "");
+			} else if (node.getProperty(key).contentEquals(
+					DebugVisualisationPlugin.LOGICALSTRUCTURE_RAW_ID)) {
+				logicalStructureType = null;
+			} else {
+				logicalStructureType = getLogicalStructureType(value,
+						node.getProperty(key));
+			}
+			children = getChildVariables(value, logicalStructureType);
+		}
+		childrenCache.put(value, children);
 		return children;
 
 	}
 
 	/**
 	 * Returns the child variables of a value element. Filters (such as the
-	 * selected logical structure) are also applied here.
+	 * selected logical structure) are also applied here. The method uses the
+	 * {@link #childrenCache} attribute to cache results.
 	 * 
 	 * @param value
 	 * @param logicalStructureType
@@ -366,6 +368,9 @@ public class StackFrameRootedGraphContentProvider extends
 	 */
 	public Collection<IVariable> getChildVariables(IValue value,
 			ILogicalStructureType logicalStructureType) {
+		if (childrenCache.containsKey(value)) {
+			return childrenCache.get(value);
+		}
 		HashSet<IVariable> result = new HashSet<IVariable>();
 		try {
 
@@ -382,6 +387,7 @@ public class StackFrameRootedGraphContentProvider extends
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		childrenCache.put(value, result);
 		return result;
 	}
 
