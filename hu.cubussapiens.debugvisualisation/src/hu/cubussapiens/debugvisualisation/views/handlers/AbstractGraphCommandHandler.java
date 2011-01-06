@@ -37,7 +37,7 @@ public abstract class AbstractGraphCommandHandler extends AbstractHandler {
 		IViewPart view = page.findView(DebugVisualisationPlugin.VIEW_ID);
 
 		if (view == null) {
-			page.showView(DebugVisualisationPlugin.VIEW_ID);
+			view = page.showView(DebugVisualisationPlugin.VIEW_ID);
 		}
 
 		return (DebugVisualisationView) view;
