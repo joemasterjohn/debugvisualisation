@@ -323,8 +323,8 @@ public class StackFrameRootedGraphContentProvider extends
 
 	/**
 	 * Returns the child variables of a value element. Filters (such as logical
-	 * structures) are also applied here. The method uses the
-	 * {@link #childrenCache} attribute to cache results.
+	 * structures) are also applied here. The method uses cache as the debug
+	 * framework responds slowly.
 	 * 
 	 * @param value
 	 * @return the collection of reachable values
@@ -359,8 +359,8 @@ public class StackFrameRootedGraphContentProvider extends
 
 	/**
 	 * Returns the child variables of a value element. Filters (such as the
-	 * selected logical structure) are also applied here. The method uses the
-	 * {@link #childrenCache} attribute to cache results.
+	 * selected logical structure) are also applied here. The method uses cache
+	 * as the debug framework responds slowly.
 	 * 
 	 * @param value
 	 * @param logicalStructureType
