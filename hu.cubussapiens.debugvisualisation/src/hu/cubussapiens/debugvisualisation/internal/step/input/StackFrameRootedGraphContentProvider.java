@@ -44,8 +44,9 @@ public class StackFrameRootedGraphContentProvider extends
 	final IStackFrame sf;
 	private HashSet<IDVValue> roots;
 	private HashSet<IDVValue> localContext;
-	private Hashtable<IDVValue, HashSet<IDVVariable>> edgeFrom;// , edgeTo;
+	private Hashtable<IDVValue, HashSet<IDVVariable>> edgeFrom;
 	private Hashtable<IValue, Collection<IVariable>> childrenCache;
+	private Hashtable<IVariable, IValue> valueCache;
 
 	/**
 	 * @param sf
@@ -58,9 +59,11 @@ public class StackFrameRootedGraphContentProvider extends
 		this.sf = sf;
 		edgeFrom = new Hashtable<IDVValue, HashSet<IDVVariable>>();
 		childrenCache = new Hashtable<IValue, Collection<IVariable>>();
-		// edgeTo = new Hashtable<IDVValue, HashSet<IDVVariable>>();
 	}
 
+	private IValue getValue(IVariable variable) throws DebugException {
+		return variable.getValue();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -79,7 +82,7 @@ public class StackFrameRootedGraphContentProvider extends
 	public IDVValue getEdgeTarget(IDVVariable e) {
 		IVariable edge = (IVariable) e.getAdapter(IVariable.class);
 		try {
-			return factory.getValue(edge.getValue(), this, e);
+			return factory.getValue(getValue(edge), this, e);
 		} catch (DebugException e1) {
 			DebugVisualisationPlugin.getDefault().logError(e1,
 					"Can't retrieve value of " + edge);
@@ -89,17 +92,6 @@ public class StackFrameRootedGraphContentProvider extends
 
 	@SuppressWarnings("unchecked")
 	public Collection<IDVVariable> getEdges(IDVValue n) {
-		// List<IDVVariable> os = new ArrayList<IDVVariable>();
-		// IValue node = (IValue) n.getAdapter(IValue.class);
-		// try {
-		// for (IVariable v : node.getVariables()) {
-		// os.add(factory.getVariable(v, this, n));
-		// }
-		// } catch (DebugException e) {
-		// DebugVisualisationPlugin.getDefault().logError(e,
-		// "Can't list variables");
-		// }
-		// return os;
 		if (roots.contains(n))
 			return edgeFrom.get(n);
 		else
@@ -140,10 +132,9 @@ public class StackFrameRootedGraphContentProvider extends
 	public void addVariable(IVariable v, IDVValue parent) {
 		IPropertyKey<OpenCloseNodeState> key = PropertyKeys.OPENED;
 		try {
-			IValue value = v.getValue();
+			IValue value = getValue(v);
 			IDVValue dvValue = factory.getValue(value, this, v,
 					factory.getVariable(v, this, parent));
-			// dvValue.addParent(factory.getVariable(v));
 			if (roots.contains(dvValue))
 				return;
 			if (parent == null
@@ -162,8 +153,8 @@ public class StackFrameRootedGraphContentProvider extends
 				dvValue.setProperty(key, OpenCloseNodeState.Close);
 			// Adding required edges from new node
 			for (IVariable referredVariable : childVariables) {
-				IDVValue referredDVValue = factory.getValue(referredVariable
-						.getValue());
+				IDVValue referredDVValue = factory
+						.getValue(getValue(referredVariable));
 				if (referredDVValue != null) {
 					IDVVariable variable = factory.getVariable(
 							referredVariable, this, dvValue);
@@ -174,7 +165,7 @@ public class StackFrameRootedGraphContentProvider extends
 			// Adding required edges to new node
 			for (IDVValue existingValue : roots) {
 				for (IVariable variableTarget : getChildVariables(existingValue)) {
-					if (value.equals(variableTarget.getValue())) {
+					if (value.equals(getValue(variableTarget))) {
 						HashSet<IDVVariable> otherSet = edgeFrom
 								.get(existingValue);
 						otherSet.add(factory.getVariable(variableTarget, this,
@@ -229,15 +220,16 @@ public class StackFrameRootedGraphContentProvider extends
 	}
 
 	public void removeRoots(Collection<IDVValue> nodes, boolean removeChildren) {
+		nodes.retainAll(roots);
 		roots.removeAll(nodes);
 		for (IDVValue node : nodes) {
 			if (localContext.contains(node))
 				localContext.remove(node);
 			edgeFrom.remove(node);
-			if (removeChildren)
-				removeChildren(node);
 			factory.finalize(node.getRelatedValue());
 		}
+		if (removeChildren)
+			removeChildren(nodes);
 		for (IDVValue node : roots) {
 			HashSet<IDVVariable> edges = edgeFrom.get(node);
 			Iterator<IDVVariable> edgeIterator = edges.iterator();
@@ -245,7 +237,6 @@ public class StackFrameRootedGraphContentProvider extends
 				IDVVariable variable = edgeIterator.next();
 				IDVValue value = variable.getValue();
 				factory.finalize(variable.getRelatedVariable());
-				factory.finalize(value.getRelatedValue());
 				if (!roots.contains(value)) {
 					edgeIterator.remove();
 				}
@@ -271,36 +262,34 @@ public class StackFrameRootedGraphContentProvider extends
 	}
 
 	/**
-	 * Removes all children nodes from the visualisation.
+	 * Removes the child nodes of the selected node from the visualisation
+	 * recursively, but leaves the node intact.
 	 * 
 	 * @param node
 	 */
 	public void removeChildren(IDVValue node) {
-		try {
-			ArrayList<IDVValue> valuesToRemove = new ArrayList<IDVValue>();
-			for (IVariable variable : getChildVariables(node)) {
-				IDVValue targetValue = factory.getValue(variable.getValue());
-				// Handle non-existing nodes
-				if (targetValue == null)
-					continue;
-				// Remove nodes
-				if (targetValue.getAllParents().size() <= 1) {
-					valuesToRemove.add(targetValue);
-				} else {
-					targetValue.removeParent(factory.getVariable(variable));
-				}
+		ArrayList<IDVValue> valuesToRemove = new ArrayList<IDVValue>();
+		for (IDVVariable variable : node.getVariables()) {
+			IDVValue targetValue = variable.getValue();
+			// Handle non-existing nodes
+			if (targetValue == null)
+				continue;
+			// Remove nodes only if not connected to some other variable
+			if (targetValue.getAllParents().size() <= 1) {
+				valuesToRemove.add(targetValue);
+			} else {
+				targetValue.removeParent(variable);
 			}
-			removeChildren(valuesToRemove);
-			removeRoots(valuesToRemove, true);
-			childrenCache.remove(node.getRelatedValue());
-		} catch (DebugException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		if (valuesToRemove.size() > 0) {
+			removeRoots(valuesToRemove, true);
+		}
+		childrenCache.remove(node.getRelatedValue());
 	}
 
 	/**
-	 * Removes all children nodes from the visualisation.
+	 * Removes the child nodes of the selected nodes from the visualisation
+	 * recursively, but leaves the nodes intact.
 	 * 
 	 * @param nodes
 	 */
@@ -414,8 +403,8 @@ public class StackFrameRootedGraphContentProvider extends
 
 	public void setLogicalStructure(Collection<IDVValue> nodes,
 			String logicalStructure) {
+		removeChildren(nodes);
 		for (IDVValue value : nodes) {
-			removeChildren(value);
 			value.setProperty(PropertyKeys.STRUCTURE_NAME, logicalStructure);
 			addChildren(nodes);
 		}
