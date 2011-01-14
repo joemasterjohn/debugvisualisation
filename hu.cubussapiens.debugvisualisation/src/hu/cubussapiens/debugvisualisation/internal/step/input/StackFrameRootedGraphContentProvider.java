@@ -46,7 +46,6 @@ public class StackFrameRootedGraphContentProvider extends
 	private HashSet<IDVValue> localContext;
 	private Hashtable<IDVValue, HashSet<IDVVariable>> edgeFrom;
 	private Hashtable<IValue, Collection<IVariable>> childrenCache;
-	private Hashtable<IVariable, IValue> valueCache;
 
 	/**
 	 * @param sf
@@ -210,7 +209,6 @@ public class StackFrameRootedGraphContentProvider extends
 		removeRoots((Collection<IDVValue>) roots.clone(), true);
 		edgeFrom.clear();
 		factory.clearModel();
-		childrenCache.clear();
 		trigger(null);
 
 	}
@@ -284,7 +282,6 @@ public class StackFrameRootedGraphContentProvider extends
 		if (valuesToRemove.size() > 0) {
 			removeRoots(valuesToRemove, true);
 		}
-		childrenCache.remove(node.getRelatedValue());
 	}
 
 	/**
@@ -369,6 +366,7 @@ public class StackFrameRootedGraphContentProvider extends
 			IVariable[] variables = logicalStructureType.getLogicalStructure(
 					value).getVariables();
 			result.addAll(Arrays.asList(variables));
+			childrenCache.put(value, result);
 		} catch (DebugException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -376,7 +374,6 @@ public class StackFrameRootedGraphContentProvider extends
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		childrenCache.put(value, result);
 		return result;
 	}
 
@@ -406,6 +403,7 @@ public class StackFrameRootedGraphContentProvider extends
 		removeChildren(nodes);
 		for (IDVValue value : nodes) {
 			value.setProperty(PropertyKeys.STRUCTURE_NAME, logicalStructure);
+			childrenCache.remove(value);
 			addChildren(nodes);
 		}
 		clearCache();
