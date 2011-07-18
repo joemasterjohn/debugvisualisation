@@ -2,6 +2,7 @@ package hu.cubussapiens.debugvisualisation.internal;
 
 import hu.cubussapiens.debugvisualisation.DebugVisualisationPlugin;
 import hu.cubussapiens.debugvisualisation.internal.input.StackFrameContextInput;
+import hu.cubussapiens.debugvisualisation.viewmodel.IDVNullValue;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVValue;
 import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
 import hu.cubussapiens.debugvisualisation.viewmodel.VisualisationSettings;
@@ -36,10 +37,12 @@ public class VariablesLabelProvider extends LabelProvider implements
 	StackFrameContextInput input;
 
 	Color rootnode = new Color(Display.getDefault(), new RGB(100f, 0.5f, 0.9f));
+	Color nullNodeColor = new Color(Display.getDefault(), new RGB(255, 0, 0));
 
 	@Override
 	public void dispose() {
 		rootnode.dispose();
+		nullNodeColor.dispose();
 		super.dispose();
 	}
 
@@ -205,7 +208,9 @@ public class VariablesLabelProvider extends LabelProvider implements
 	}
 
 	public Color getBackgroundColour(Object entity) {
-		if (entity instanceof IDVValue) {
+		if (entity instanceof IDVNullValue) {
+			return nullNodeColor;
+		} else if (entity instanceof IDVValue) {
 			if (((IDVValue) entity).isLocalContext())
 				return rootnode;
 		}

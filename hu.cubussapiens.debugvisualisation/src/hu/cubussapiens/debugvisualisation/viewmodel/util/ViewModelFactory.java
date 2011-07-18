@@ -3,6 +3,7 @@
  */
 package hu.cubussapiens.debugvisualisation.viewmodel.util;
 
+import hu.cubussapiens.debugvisualisation.internal.model.DVNullValue;
 import hu.cubussapiens.debugvisualisation.internal.model.DVValueImpl;
 import hu.cubussapiens.debugvisualisation.internal.model.DVVariablesImpl;
 import hu.cubussapiens.debugvisualisation.internal.step.IRootedGraphContentProvider;
@@ -12,6 +13,7 @@ import hu.cubussapiens.debugvisualisation.viewmodel.IDVVariable;
 import java.lang.ref.WeakReference;
 import java.util.Hashtable;
 
+import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 import org.eclipse.jface.viewers.TreePath;
@@ -65,16 +67,25 @@ public class ViewModelFactory {
 	 */
 	public IDVValue getValue(IValue value, IRootedGraphContentProvider graph,
 			IVariable container, IDVVariable parent) {
-		IDVValue newValue;
+		IDVValue newValue = null;
 		if (values.containsKey(value)) {
 			newValue = getValue(value);
 			if (newValue != null)
 				return newValue;
 		}
-		newValue = new DVValueImpl(value, graph, parent, container);
-		TreePath path = new TreePath(new Object[] { container });
-		newValue.setProperty(treePathProperty, path);
-		values.put(value, new WeakReference<IDVValue>(newValue));
+		try {
+			if (value.getValueString().equals("null")) {
+				newValue = new DVNullValue(value, graph, parent, container);
+			} else {
+				newValue = new DVValueImpl(value, graph, parent, container);
+			}
+			TreePath path = new TreePath(new Object[] { container });
+			newValue.setProperty(treePathProperty, path);
+			values.put(value, new WeakReference<IDVValue>(newValue));
+		} catch (DebugException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return newValue;
 	}
 
