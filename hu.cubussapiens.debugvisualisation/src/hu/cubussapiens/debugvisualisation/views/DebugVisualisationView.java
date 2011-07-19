@@ -142,7 +142,10 @@ public class DebugVisualisationView extends ViewPart implements
 		graphViewer.setLabelProvider(labelprovider);
 		graphViewer.setContentProvider(contentprovider);
 		if (VisualisationSettings.filterPrimitiveTypes) {
-			graphViewer.addFilter(VisualisationSettings.filter);
+			graphViewer.addFilter(VisualisationSettings.primitiveTypeFilter);
+		}
+		if (VisualisationSettings.filterUndefinedValues) {
+			graphViewer.addFilter(VisualisationSettings.undefinedValuesFilter);
 		}
 		graphViewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
 		// TODO why is this needed for selection synchronizing?

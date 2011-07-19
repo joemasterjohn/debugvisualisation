@@ -3,6 +3,7 @@
  */
 package hu.cubussapiens.debugvisualisation.viewmodel;
 
+import hu.cubussapiens.debugvisualisation.viewmodel.filters.NullValuesFilter;
 import hu.cubussapiens.debugvisualisation.viewmodel.filters.PrimitiveTypeFilter;
 
 /**
@@ -11,7 +12,9 @@ import hu.cubussapiens.debugvisualisation.viewmodel.filters.PrimitiveTypeFilter;
 public class VisualisationSettings {
 
 	static public boolean trimLongNames = true;
-	static public boolean filterPrimitiveTypes = true;
+	static public boolean filterPrimitiveTypes = false;
+	static public boolean filterUndefinedValues = false;
 
-	static public PrimitiveTypeFilter filter = new PrimitiveTypeFilter();
+	static public PrimitiveTypeFilter primitiveTypeFilter = new PrimitiveTypeFilter();
+	static public NullValuesFilter undefinedValuesFilter = new NullValuesFilter();
 }

@@ -1,30 +1,23 @@
-package hu.cubussapiens.debugvisualisation.views.handlers;
+/**
+ * 
+ */
+package hu.cubussapiens.debugvisualisation.views.handlers.filters;
 
-import hu.cubussapiens.debugvisualisation.viewmodel.VisualisationSettings;
+import hu.cubussapiens.debugvisualisation.views.handlers.AbstractGraphCommandHandler;
 
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.State;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 /**
- * 
+ * Generic filter command
  */
+public abstract class ToggleFilterCommand extends AbstractGraphCommandHandler {
 
-/**
- *
- */
-public class FilterPrimitiveTypesHandler extends AbstractGraphCommandHandler {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
-	 * ExecutionEvent)
-	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		try {
 			Command command = event.getCommand();
@@ -36,21 +29,24 @@ public class FilterPrimitiveTypesHandler extends AbstractGraphCommandHandler {
 			if (!(state.getValue() instanceof Boolean))
 				throw new ExecutionException(
 						"The command's toggle state doesn't contain a boolean value"); //$NON-NLS-1$
-
+	
 			boolean oldValue = ((Boolean) state.getValue()).booleanValue();
 			state.setValue(new Boolean(!oldValue));
-			VisualisationSettings.filterPrimitiveTypes = !oldValue;
+			setState(!oldValue);
 			GraphViewer gv = getGraphViewer();
 			if (oldValue) {
-				gv.removeFilter(VisualisationSettings.filter);
+				gv.removeFilter(getDefinedFilter());
 			} else {
-				gv.addFilter(VisualisationSettings.filter);
+				gv.addFilter(getDefinedFilter());
 			}
-			gv.refresh();
+			gv.applyLayout();
 		} catch (CoreException e) {
 			throw new ExecutionException("Error during command execution", e);
 		}
 		return null;
 	}
 
+	abstract ViewerFilter getDefinedFilter();
+
+	abstract void setState(boolean newState);
 }

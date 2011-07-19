@@ -23,7 +23,7 @@ import org.eclipse.zest.core.viewers.GraphViewer;
  */
 public abstract class AbstractGraphCommandHandler extends AbstractHandler {
 
-	final static String STATE_ID = "org.eclipse.ui.commands.toggleState"; //$NON-NLS-1$
+	public final static String STATE_ID = "org.eclipse.ui.commands.toggleState"; //$NON-NLS-1$
 
 	/**
 	 * Returns the debug visualisation view. If it is not open, opens it.

@@ -58,6 +58,14 @@
                id="org.eclipse.ui.commands.toggleState">
          </state>
       </command>
+      <command
+            id="hu.cubussapiens.debugvisualisation.filterundefined"
+            name="Filter undefined values">
+         <state
+               class="org.eclipse.ui.handlers.RegistryToggleState"
+               id="org.eclipse.ui.commands.toggleState">
+         </state>
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -97,8 +105,12 @@
             commandId="hu.cubussapiens.debugvisualisation.hidenodechildren">
       </handler>
       <handler
-            class="hu.cubussapiens.debugvisualisation.views.handlers.FilterPrimitiveTypesHandler"
+            class="hu.cubussapiens.debugvisualisation.views.handlers.filters.FilterPrimitiveTypesHandler"
             commandId="hu.cubussapiens.debugvisualisation.filterprimitivetypes">
+      </handler>
+      <handler
+            class="hu.cubussapiens.debugvisualisation.views.handlers.filters.FilterUndefinedValuesHandler"
+            commandId="hu.cubussapiens.debugvisualisation.filterundefined">
       </handler>
    </extension>
    <extension
@@ -111,6 +123,10 @@
          </command>
          <command
                commandId="hu.cubussapiens.debugvisualisation.filterprimitivetypes"
+               style="toggle">
+         </command>
+         <command
+               commandId="hu.cubussapiens.debugvisualisation.filterundefined"
                style="toggle">
          </command>
       </menuContribution>
