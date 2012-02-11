@@ -232,9 +232,7 @@ public class DebugVisualisationView extends ViewPart implements
 		tm.add(refresh);
 		group.fillActionBars(getViewSite().getActionBars());
 		tm.add(showRoot);
-		// FIXME this causes java.lang.IllegalArgumentException: Argument cannot
-		// be null
-		// tm.add(zoom);
+		tm.add(zoom);
 	}
 
 	/**
